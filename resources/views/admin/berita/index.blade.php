@@ -30,9 +30,7 @@
                 </button>
             </div>
         </th>
-    <th width="10%">GAMBAR</th>
     <th width="25%">JUDUL</th>
-    <th width="15%">KATEGORI</th>
     <th width="10%">JENIS</th>
     <th width="10%">STATUS</th>
     <th width="10%">AUTHOR</th>
@@ -51,13 +49,6 @@
       </div>
     </td>
     <td>
-    <?php if($berita->gambar!="") { ?>
-      <img src="{{ asset('public/upload/image/thumbs/'.$berita->gambar) }}" class="img img-thumbnail img-responsive" >
-      <?php }else{ ?>
-      <img src="{{ asset('public/upload/image/thumbs/'.$site->icon) }}" class="img img-thumbnail img-responsive" >
-      <?php } ?>
-    </td>
-    <td>
     <a href="{{ asset('admin/berita/edit/'.$berita->id_berita) }}">
     <?php echo $berita->judul_berita ?> <sup><i class="fa fa-pencil"></i></sup>
     </a>
@@ -71,11 +62,6 @@
         <br>Icon: <i class="<?php echo $berita->icon ?>"></i> <?php echo $berita->icon ?>
         <br>Tgl posting: <?php echo date('d-m-Y',strtotime($berita->tanggal_publish)) ?>
       </small>
-    </td>
-    <td>
-    <a href="{{ asset('admin/berita/kategori/'.$berita->id_kategori) }}">
-    <?php echo $berita->nama_kategori ?><sup><i class="fa fa-link"></i></sup>
-    </a>
     </td>
     <td>
     <a href="{{ asset('admin/berita/jenis_berita/'.$berita->jenis_berita) }}">

@@ -3895,5 +3895,12 @@ html {
   .mx-xl-auto {
     margin-left: auto !important;
   }
+  .cb-row {
+    margin: 10px;
+    clear:both;
+    overflow:hidden;
+  }
+  .cb-row label {float:left; padding: 10px;}
+  .cb-row input {float:right; padding: 10px;}
 }
 /*# sourceMappingURL=bootstrap-grid.css.map */

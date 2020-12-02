@@ -93,6 +93,20 @@ class Konfigurasi extends Controller
         return view('admin/layout/wrapper',$data);
     }
 
+    //pasangbaru
+    public function pasangbaru()
+    {
+        if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
+        $mykonfigurasi  = new Konfigurasi_model();
+        $site           = $mykonfigurasi->listing();
+
+        $data = array(  'title'        => 'Update Panduan Pembayaran',
+                        'site'         => $site,
+                        'content'      => 'admin/konfigurasi/pembayaran'
+                    );
+        return view('admin/layout/wrapper',$data);
+    }
+
     // Proses
     public function proses(Request $request)
     {

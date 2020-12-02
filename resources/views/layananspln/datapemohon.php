@@ -1,3 +1,68 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  
+<script>       
+  $(document).ready(function(){
+    $("#dayalama").removeAttr('required');
+    $("#nomer_djk").removeAttr('required');
+    $('#sifat_instalasi').on('change', function() {
+      if ( this.value == '2')
+        {
+        console.log('run data');
+        $("#lamadaya").show();
+        $("#djknumber").show();
+        $("#dayalama").prop('required',true);
+        $("#nomer_djk").prop('required',true);
+      }
+      else
+      {
+        $("#lamadaya").hide().prop('required',false);
+        $("#djknumber").hide().prop('required',false);
+        $("#dayalama").removeAttr('required');
+        $("#nomer_djk").removeAttr('required');
+      }
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('#provincy').on('change', function() {
+      var provinceID = $(this).val();  
+      if(provinceID){
+        $.ajax({
+          type:"GET",
+          url:"{{url('getCityList')}}?province_id="+provinceID,
+          success:function(res){        
+          if(res){
+            $("#city").empty();
+            $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
+            $.each(res,function(key,value){
+              $("#city").append('<option value="'+key+'">'+value+'</option>');
+            });
+          
+          }else{
+            $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
+          }
+          }
+        });
+      }else{
+        $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
+      }   
+    });
+  })
+</script>
+
+<?php
+  use Illuminate\Support\Facades\DB;
+  use App\Pendaftaranslo_model;
+  use App\resource_model;
+
+  $site = DB::table('konfigurasi')->first();
+  $resource = new resource_model();
+  $daya      = $resource->daya();
+  $instalasi = $resource->sifat_instalasi();
+  $provinces = $resource->provinsi();
+?>
+
 <!-- ======= Hero Section ======= -->
 <section id="hero">
   <div class="container">
@@ -20,18 +85,18 @@
                   </ul>
               </div>
               @endif
-              <form action="{{ asset('pendaftaran_slo') }}" method="post" accept-charset="utf-8">
+              <form action="saveSLO" method="post" accept-charset="utf-8">
                 {{ csrf_field() }}
                 <input type="hidden" name="token_rahasia" value="72827582Uduagd86275gbdahgahgfa">
               
                 <p class="alert alert-info">
-                  Isi data pemesanan Anda dengan lengkap dan benar.
+                  Isi data pendaftaran SLO Anda dengan lengkap dan benar.
                 </p>
 
                 <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Nama Konsumen <span class="text-danger">*</span></label>
                   <div class="col-sm-8">
-                    <input type="text" name="nama_konsumen" class="form-control" placeholder="Isi dengan nama konsumen" value="{{ old('nama_konsumen') }}" required>
+                    <input type="text" name="nama_pemohon" class="form-control" placeholder="Isi dengan nama konsumen" value="{{ old('nama_konsumen') }}" required>
                   </div>
                 </div>
 
@@ -50,6 +115,28 @@
                 </div>
 
                 <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Provinsi</label>
+                  <div class="col-md-8">
+
+                    <select name="provincy" id="provincy" class="form-control select2">
+                      <option value="">--Pilih Provinsi--</option>
+                        @foreach($provinces as $provincy)
+                            <option value="{{$provincy->id}}">{{ $provincy->name }}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Kabupaten/Kota</label>
+                  <div class="col-md-8">
+                    <select name=city id="city" class="form-control select2">
+                      <option>--Pilih Kabupaten/Kota--</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Email</label>
                   <div class="col-sm-8">
                     <input type="email" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}"  placeholder="Isi dengan email Anda" required>
@@ -59,49 +146,46 @@
                 <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Sifat Instalasi</label>
                   <div class="col-md-8">
-                    <select name="id" class="form-control select2">
-                      <?php foreach($instalasi as $instalasi) { ?>
-                        <option value="<?php echo $instalasi->id ?>" <?php if(isset($_POST['id']) && $_POST['id']==$instalasi->id) { echo "selected"; }elseif(isset($_GET['id']) && $_GET['id']==$instalasi->id) { echo 'selected'; } ?>>
-                          <?php echo $instalasi->intalasi ?>
-                        </option>
-                      <?php } ?>
+                    <select id="sifat_instalasi" name="sifat_instalasi" class="form-control select2">
+                     @foreach($instalasi as $instalasi)
+                        <option value="{{ $instalasi->id }}"> {{ $instalasi->instalasi }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
 
-                <div class="form-group row">
+                <div id="lamadaya" name="lamadaya" class="form-group row" style="display:none">
                   <label class="col-sm-4 control-label text-right">Daya Lama</label>
                   <div class="col-md-8">
-                    <select name="id" class="form-control select2">
-                      <?php foreach($dayalama as $dayalama) { ?>
-                        <option value="<?php echo $daya->id ?>" <?php if(isset($_POST['id']) && $_POST['id']==$daya->id) { echo "selected"; }elseif(isset($_GET['id']) && $_GET['id']==$daya->id) { echo 'selected'; } ?>>
-                          <?php echo $daya->dayalama ?>
-                        </option>
-                      <?php } ?>
+                    <select name="dayalama" id="dayalama" class="form-control select2">
+                      <option>--Pilih Daya--</option>
+                      @foreach($daya as $dayalama)
+                        <option value="{{ $dayalama->id }}"> {{ $dayalama->daya }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
 
-                <div class="form-group row">
+                <div id="djknumber" name="djknumber" class="form-group row" style="display:none">
                   <label class="col-sm-4 control-label text-right">Nomer DJK Lama <span class="text-danger">*</span></label>
                   <div class="col-sm-8">
-                    <input type="text" name="nomer_djk" class="form-control" placeholder="Isi nomer DJK lama anda disini" value="{{ old('nomer_djk') }}" required>
+                    <input type="text" name="nomer_djk" id="nomer_djk" class="form-control" placeholder="Isi nomer DJK lama anda disini" value="{{ old('nomer_djk') }}" required>
+                    <a href="{{ url('https://slodjk.esdm.go.id/verifikasi') }}">Cek Verifikasi Noreg DJK Lama</a>
                   </div>
                 </div>
-
+                
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Daya</label>
+                  <label class="col-sm-4 control-label text-right">Daya (Va)</label>
                   <div class="col-md-8">
-                    <select name="id" class="form-control select2">
-                      <?php foreach($daya as $daya) { ?>
-                        <option value="<?php echo $daya->id ?>" <?php if(isset($_POST['id']) && $_POST['id']==$daya->id) { echo "selected"; }elseif(isset($_GET['id']) && $_GET['id']==$daya->id) { echo 'selected'; } ?>>
-                          <?php echo $daya->daya ?>
-                        </option>
-                      <?php } ?>
+                    <select name="dayabaru" class="form-control select2">
+                      <option>--Pilih Daya--</option>
+                      @foreach($daya as $daya)
+                        <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
-    
+
                 <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Nama Badan Usaha <span class="text-danger">*</span></label>
                   <div class="col-sm-8">
@@ -121,7 +205,7 @@
                     <div class="col-sm-8">
                       <div class="btn-group">
                           <button type="submit" name="submit" class="btn btn-primary btn-lg" value="login">
-                            <i class="fa fa-save"></i> Kirim pesanan
+                            <i class="fa fa-save"></i> Daftar SLO
                           </button>
                           <button type="reset" name="submit" class="btn btn-info btn-lg" value="reset">
                             <i class="fa fa-times"></i> Reset
@@ -138,4 +222,3 @@
     </div>
   </div>
 </section><!-- End Hero -->
-

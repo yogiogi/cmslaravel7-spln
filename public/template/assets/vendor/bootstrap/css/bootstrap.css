@@ -10220,5 +10220,14 @@ a.text-dark:hover, a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+
+  .cb-row {
+    margin: 10px;
+    clear:both;
+    overflow:hidden;
+    display: table-cell;
+  }
+  .cb-row label {float:left; padding: 10px;}
+  .cb-row input {float:right;padding: 10px;}
 }
 /*# sourceMappingURL=bootstrap.css.map */

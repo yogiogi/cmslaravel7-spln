@@ -1,0 +1,324 @@
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $('#provincy').on('change', function() {
+      var provinceID = $(this).val();  
+      if(provinceID){
+        $.ajax({
+          type:"GET",
+          url:"{{url('getCityList')}}?province_id="+provinceID,
+          success:function(res){        
+          if(res){
+            $("#city").empty();
+            $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
+            $.each(res,function(key,value){
+              $("#city").append('<option value="'+key+'">'+value+'</option>');
+            });
+          
+          }else{
+            $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
+          }
+          }
+        });
+      }else{
+        $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
+      }   
+    });
+  })
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('#submithitung').on('click', function() {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = today.getFullYear();
+      today = mm + '/' + dd + '/' + yyyy;
+     
+      $.ajax({
+        type:"GET",
+        url:"{{url('/penyambungansementara/perhitungan')}}",
+        data: {
+          jam_nyala: $("#jam_nyala").val(),
+          hari_nyala: $("#hari_nyala").val(),
+        },
+        success:function(data){    
+          var nama = document.getElementsByName("nama_pemohon")[0];
+          var alamat = document.getElementsByName("alamat")[0];
+          var ktp = document.getElementsByName("nomer_ktp")[0];
+          var email = document.getElementsByName("email_konsumen")[0];
+          var jam = document.getElementsByName("jam_nyala")[0];
+          var hari = document.getElementsByName("hari_nyala")[0];
+          
+          if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '' && jam.value != '' && hari.value){   
+            $('div.cloundcontainer').show();
+          } else {
+            alert('Data tidak bisa kosong');
+            $('div.cloundcontainer').hide();
+          }
+        },
+        error: function (errorThrown) {
+          alert('Data tidak bisa kosong');
+        }
+      });
+    });
+
+    $('#SetujuButton').on("click", function (){
+      jQuery("#checkKetentuan"). attr('checked', true);
+      // jQuery("#submit_btn"). attr('disabled', false);
+    });
+
+    $('#submit_btn').on("click", function (){
+  
+          alert('Data tidak bisa kosong');
+    });
+  })
+
+</script>
+
+<?php
+  use Illuminate\Support\Facades\DB;
+  use App\penyambungansementara_model;
+  use App\resource_model;
+  use Carbon\Carbon;
+
+  $site = DB::table('konfigurasi')->first();
+  $resource = new resource_model();
+  $instalasi = $resource->sifat_instalasi();
+  $daya      = $resource->daya();
+  $provinces = $resource->provinsi();
+  $date = Carbon::now()->format('d-M-y', strtotime("01-Sep-2017"));
+?>
+
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
+        <div class="kotak">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h1><?php echo $title ?></h1>
+              <hr>
+            </div>
+            <div class="col-md-10 text-left">
+
+              @if ($errors->any())
+              <div id="alerterror" name="alerterror" class="alert alert-danger">
+                  <ul>
+                      @foreach ($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                      @endforeach
+                  </ul>
+              </div>
+              @endif
+              <form action="" accept-charset="utf-8" method="post">
+                {{ csrf_field() }}
+                <input type="hidden" name="token_rahasia" value="72827582Uduagd86275gbdahgahgfa">
+              
+                <p class="alert alert-info">
+                  Isi data penyambungan sementara Anda dengan lengkap dan benar.
+                </p>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Nama Pemohon</label>
+                  <div class="col-sm-8">
+                    <input type="text" name="nama_pemohon" class="form-control" placeholder="Isi dengan nama pemohon" value="" required>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Alamat</label>
+                  <div class="col-sm-8">
+                    <textarea name="alamat" class="form-control" placeholder="Alamat" required value=""></textarea>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Provinsi</label>
+                  <div class="col-md-8">
+
+                    <select name="provincy" id="provincy" class="form-control select2" required>
+                      <option value="">--Pilih Provinsi--</option>
+                        @foreach($provinces as $provincy)
+                            <option value="{{$provincy->id}}">{{ $provincy->name }}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Kabupaten/Kota</label>
+                  <div class="col-md-8">
+                    <select name="city" id="city" class="form-control select2" required>
+                      <option>--Pilih Kabupaten/Kota--</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Nomer KTP </label>
+                  <div class="col-sm-8">
+                    <input type="number" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Email</label>
+                  <div class="col-sm-8">
+                    <input type="email" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}"  placeholder="Isi dengan email Anda" required>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Sifat Instalasi</label>
+                  <div class="col-md-8">
+                    <select id="sifat_instalasi" name="sifat_instalasi" class="form-control select2">
+                     @foreach($instalasi as $instalasi)
+                        <option value="{{ $instalasi->id }}"> {{ $instalasi->instalasi }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Daya (Va)</label>
+                  <div class="col-md-8">
+                    <select name="dayabaru" class="form-control select2">
+                      <option>--Pilih Daya--</option>
+                      @foreach($daya as $daya)
+                        <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row" id="hitung">
+                    <label class="col-sm-4 control-label"></label>
+                    <div class="col-sm-8">
+                      <div class="btn-group">
+                          <button type="button" id="submithitung" name="submithitung" class="btn btn-primary btn-lg" value="hitung" >
+                            <i class="fa fa-save"></i> Hitung Biaya
+                          </button>
+                      </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="cloundcontainer" 
+                 style= "display:none; 
+                   width: 100%;
+                   border: 2px solid powderblue;   
+                   padding: 50px;
+                   margin: 20px;">
+
+              <h2 style="align:'center';"> Penyambungan Sementara </h2>
+              <table>
+                <tr style="align:'left';">
+                  <th style="align:'left';" width='50%'> Detail Biaya Pasang Baru {{$instalasi}} </th>
+                  <th style="align:'left';" width='50%'></th>
+                </tr>
+                <tr style="align:'left';">
+                  <th style="align:'left';"width='50%'> - Biaya </th>
+                  <th style="align:'left';" width='50%'> : Rp <?php echo $biaya ?></th>
+                </tr>
+                <tr style="align:'left';">
+                  <th style="align:'left';"width='50%'> - SLO </th>
+                  <th style="align:'left';" width='50%'> : Rp <?php echo $slo ?></th>
+                </tr>
+                <tr style="align:'left';">
+                  <th style="align:'left';"width='50%'> - GIL  </th>
+                  <th style="align:'left';" width='50%'> : Rp <?php echo $gil ?></th>
+                </tr>
+
+                @if($instalasi == 2)
+                <tr style="align:'left';">
+                  <th style="align:'left';"width='50%'> - UJL  </th>
+                  <th style="align:'left';" width='50%'> : Rp <?php echo $gil ?></th>
+                </tr>
+                @endif
+                
+                <tr style="align:'left';">
+                  <th style="align:'left';"width='50%'> - PPN (10%*biaya) </th>
+                  <th style="align:'left';" width='50%'> : Rp <?php echo $ppn ?></th>
+                </tr>
+                <tr style="align:'left';">
+                  <th style="align:'left';" width='50%'> - PPJ (5%*biaya) </th>
+                  <th style="align:'left';" width='50%'> : Rp <?php echo $ppj ?></th>
+                </tr>
+                <tr style="align:'left';">
+                  <th style="align:'left';" width='50%'> - Token </th>
+                  <th style="align:'left';" width='50%'> : Rp <?php echo $token ?></th>
+                </tr>
+                <tr style="align:'left';">
+                  <th style="align:'left';" width='50%'> - Materai </th>
+                  <th style="align:'left';" width='50%'> : Rp <?php echo $materai ?></th>
+                </tr>
+              </table>
+              <br>
+              <p style="align:'left';"><b> Estimasi total biaya yang harus dibayar : Rp <?php echo $total ?></b></p>
+              <p style="align:'left';"> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini ( {{$date}})</p>
+              <br>
+              <p>Perhatian :</p>
+              <ul>
+                <li>Pastikan semua data yang Anda isi di atas adalah benar</li>
+                <li>Setelah Anda tekan tombol Simpan Permohonan, maka data-data akan diproses oleh PT PLN(Persero) dan akan dipertanggung jawabkan apabila di kemudian hari ditemukan kesalahan</li>
+              </ul>
+              <table>
+                <tr>
+                  <td><input type='checkbox' id='checkKetentuan' name='checkKetentuan' value='ketentuan' disabled readonly></td>
+                  <td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>
+                </tr>
+              </table>
+              <button type='submit' name='submit' class='button' id='submit_btn' value='Send'>Simpan Permohonan</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section><!-- End Hero -->
+
+<!-- Modal -->
+<div class="modal fade" id="ketentuanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Ketentuan Umum</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="md-form">
+          <p>Dalam Syarat & Ketentuan ini, pernyataan/istilah tertentu ini memiliki makna sebagai berikut:</p>
+          <ol type="i">
+            <li>Listrik Prabayar (LPB) adalah Produk layanan pemakaian tenaga listrik yang menggunakan meter elektronik prabayar dengan cara pembayaran dimuka.</li>
+            <li>Meter Prabayar (MPB) adalah meter energi listrik yang dipergunakan untuk mengukur energi listrik  (kWh) yang dikonsumsi oleh Pelanggan yang berfungsi setelah Pelanggan memasukkan sejumlah stroom tertentu ke dalamnya.</li>
+            <li>Nomor Meter adalah Nomor yang tertera dalam MPB sebagai nomor identitas pada saat transaksi pembelian isi ulang dan pengaduan, yang terdiri dari 11 (sebelas) digit yang bersifat unique dan tidak sama antara meter yang satu dengan meter lainnya.</li>
+            <li>Stroom adalah kode angka yang setara dengan energi listrik tertentu yang dituangkan dalam 20 (duapuluh) angka yang bersifat unique (hanya cocok untuk nomor serial meter prabayar 11 (sebelas) angka tertentu).</li>
+            <li>Stroom Perdana adalah kode angka yang mewakili sejumlah tertentu energi listrik yang harus dibeli oleh Pelanggan pada saat penyambungan baru/perubahan daya dan migrasi ke prabayar.</li>
+            <li>Pembelian Isi Ulang Stroom adalah pembelian kembali Stroom oleh Pelanggan yang dilakukan di tempat-tempat penerimaan pembayaran tagihan listrik.</li>
+            <li>Stroom Darurat adalah Stroom penggantian yang dibeli secara langsung oleh Pelanggan di kantor PLN yang disebabkan seluruh loket penjualan Stroom setempat tidak dapat melayani transaksi pembelian Stroom.</li>
+            <li>Peringatan Awal adalah sinyal yang dipancarkan oleh MPB sebagai pemberitahuan bahwa Stroom tinggal tersisa sejumlah kWh tertentu.</li>
+            <li>Tenaga Listrik adalah satu bentuk energi sekunder yang dibangkitkan, ditransmisikan dan didistribusikan untuk semua keperluan oleh PLN kepada Pelanggan.</li>
+            <li>Alat Pembatas dan Pengukur (APP) adalah alat milik PLN yang dipakai untuk membatasi daya lisrik dan mengukur energi listrik yang dipakai oleh Pelanggan.</li>
+            <li>Instalasi PLN adalah instalasi ketenagalistrikan milik PLN sampai dengan APP.</li>
+            <li>Instalasi Pelanggan adalah instalasi ketenagalistrikan milik Pelanggan sesudah APP milik PLN.</li>
+            <li>Tingkat Mutu Pelayanan (TMP) adalah deskripsi kwantitatif beberapa indikator mutu pelayanan yang dinyatakan oleh PLN  secara berkala.</li>
+            <li>Penertiban Pemakaian Tenaga Listrik (P2TL) adalah pemeriksaan yang dilakukan oleh PLN terhadap Instalasi PLN dan/atau Instalasi Pelanggan.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="SetujuButton" type="button" class="btn btn-primary" data-dismiss="modal">Setuju</button>
+      </div>
+    </div>
+  </div>
+</div>

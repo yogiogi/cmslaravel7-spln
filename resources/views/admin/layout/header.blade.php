@@ -83,6 +83,11 @@ $site                 = DB::table('konfigurasi')->first();
       <hr class="sidebar-divider">
       <div class="sidebar-heading">Konten Website</div>
       <hr class="sidebar-divider">
+      <!-- layanan slo -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{ asset('listdata') }}">
+          <i class="fas fa-fw fa-newspaper"></i> <span>Pendaftaran SLO</span></a>
+      </li>
       <!-- Berita -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#berita" aria-expanded="true" aria-controls="berita') }}">

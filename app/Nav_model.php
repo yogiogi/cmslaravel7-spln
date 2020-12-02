@@ -44,4 +44,17 @@ class Nav_model extends Model
         return $query;
     }
 
+    public function nav_panduan()
+    {
+    	$query = DB::table('berita')
+            // ->join('kategori', 'kategori.id_kategori', '=', 'berita.id_kategori')
+            ->select('berita.*')
+            ->where(array(	'berita.status_berita'	=> 'Publish',
+                            'berita.jenis_berita'  => 'panduan'))
+            // ->groupBy('kategori.id_kategori')
+            ->orderBy('berita.id_berita','ASC')
+            ->get();
+        return $query;
+    }
+
 }

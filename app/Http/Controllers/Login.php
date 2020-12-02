@@ -8,7 +8,7 @@ class Login extends Controller
     // Homepage
     public function index()
     {
-        $data = array(  'title'     => 'Login - Java Web Media');
+        $data = array(  'title'     => 'Login - SPLN');
         return view('login/index',$data);
     }
 
@@ -43,7 +43,7 @@ class Login extends Controller
     // Homepage
     public function lupa()
     {
-        $data = array(  'title'     => 'Login - Java Web Media');
+        $data = array(  'title'     => 'Login - SPLN');
         return view('login/lupa',$data);
     }
 }

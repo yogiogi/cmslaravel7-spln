@@ -85,7 +85,6 @@ $site       = DB::table('konfigurasi')->first();
           </div>
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Pemesanan</h4>
             <p>
               <strong><?php echo strtoupper($site->namaweb) ?></strong>
               <br><?php echo nl2br($site->alamat) ?>

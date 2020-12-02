@@ -8,6 +8,9 @@ use App\Produk_model;
 use App\Rekening_model;
 use App\Berita_model;
 use App\Pemesanan_model;
+use App\Pendaftaranslo_model;
+use App\Penyambungansementara_model;
+use App\resource_model;
 use PDF;
 
 class Home extends Controller
@@ -67,6 +70,57 @@ class Home extends Controller
                     );
         return view('layout/wrapper',$data);
     }
+
+    // pendaftaran SLO
+    public function pendaftaranslo()
+    {
+        $site   = DB::table('konfigurasi')->first();
+        $model  = new Pendaftaranslo_model();
+        $produk = $model->semua();
+        
+        $data = array(  'title'     => 'Formulir Pendaftaran SLO',
+                        'deskripsi' => 'Formulir Pendaftaran SLO',
+                        'keywords'  => 'Formulir Pendaftaran SLO',
+                        'site'      => $site,
+                        'produk'    => $produk,
+                        'content'   => 'home/pendaftaranslo'
+                    );
+        return view('layout/wrapper',$data);
+    }
+
+     // pendaftaran SLO
+     public function penyambungansementara(Request $request)
+     {
+        $site   = DB::table('konfigurasi')->first();
+        $hitung = new resource_model();
+        $resource = $hitung->variablePerhitungan(6);
+        $jam_nyala = $request->jam_nyala;
+        $hari_nyala = $request->hari_nyala;
+        
+        $biaya = $resource->biaya;
+        $ppn = $resource->PPN;
+        $ppj = $resource->PPJ;
+        $materai = $resource->materai;
+
+        $jumlah_biaya = $jam_nyala*$hari_nyala*$biaya;
+        $ppn = $ppn*$jumlah_biaya;
+        $ppj= $ppj*$jumlah_biaya;
+        $total = $jumlah_biaya+$ppn+$ppj+$materai;
+
+        $data = array(  'title'     => 'Penyambungan Sementara',
+                        'deskripsi' => 'Penyambungan Sementara',
+                        'keywords'  => 'Penyambungan Sementara',
+                        'site'      => $site,
+                        'resource'    => $resource,
+                        'biaya' => $jumlah_biaya,
+                        'ppn' => $ppn,
+                        'ppj' => $ppj,
+                        'materai' => $materai,
+                        'total' => $total,
+                        'content'   => 'home/penyambungansementara'
+                    );
+        return view('layout/wrapper',$data);
+     }
 
     // Proses
     public function proses_pemesanan(Request $request)
@@ -203,4 +257,17 @@ class Home extends Controller
                     );
         return view('layout/wrapper',$data);
     }
+
+        // pasangbaru
+        public function pasangbaru()
+        {
+            $site       = DB::table('konfigurasi')->first();
+            $data = array(  'title'     => 'Metode pasangbaru',
+                            'deskripsi' => 'Metode pasangbaru',
+                            'keywords'  => 'Metode pasangbaru',
+                            'site'      => $site,
+                            'content'   => 'home/pasangbaru'
+                        );
+            return view('layout/wrapper',$data);
+        }
 }

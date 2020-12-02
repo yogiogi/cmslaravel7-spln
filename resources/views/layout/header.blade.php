@@ -50,10 +50,10 @@ $nav_panduan           = $mypanduan->nav_panduan();
 
             <li class="drop-down"><a href=#>Produk & Layanan</a>
               <ul>
-                <li><a href="#">SLO</a></li>
-                <li><a href="#">Pasang Baru</a></li>
+                <li><a href="{{ asset('pendaftaranslo') }}">SLO</a></li>
+                <li><a href="{{ asset('pasangbaru') }}">Pasang Baru</a></li>
                 <li><a href="#">Perubahan Daya </a></li>
-                <li><a href="#">Penyambungan Sementara</a></li>
+                <li><a href="{{ asset('penyambungansementara') }}">Penyambungan Sementara</a></li>
                 <li><a href="#">Instalasi</a></li>
                 <li><a href="#">MCB Box</a></li>
                 <li><a href="#">Pengaduan Teknis</a></li>
@@ -62,8 +62,8 @@ $nav_panduan           = $mypanduan->nav_panduan();
 
             <li class="drop-down"><a href=#>Panduan</a>
               <ul>
-                <?php foreach($nav_profil as $nav_profil) { ?>
-                <li><a href="{{ asset('berita/read/'.$nav_profil->slug_berita) }}"><?php echo $nav_profil->judul_berita ?></a></li>
+                <?php foreach($nav_panduan as $nav_panduan) { ?>
+                <li><a href="{{ asset('berita/read/'.$nav_panduan->slug_berita) }}"><?php echo $nav_panduan->judul_berita ?></a></li>
                 <?php } ?>
               </ul>
             </li>

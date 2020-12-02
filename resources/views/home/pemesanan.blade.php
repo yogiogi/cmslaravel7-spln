@@ -29,7 +29,6 @@
                 Isi data pemesanan Anda dengan lengkap dan benar.
               </p>
 
-
               <div class="form-group row">
               <label class="col-sm-4 control-label text-right">Pilih produk pembayaran</label>
               <div class="col-md-8">
@@ -84,8 +83,6 @@
                 <textarea name="alamat" class="form-control" placeholder="Alamat">{{ old('alamat') }}</textarea>
               </div>
             </div>
-
-
 
               <div class="form-group row">
                   <label class="col-sm-4 control-label"></label>

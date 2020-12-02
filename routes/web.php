@@ -20,14 +20,30 @@ use Illuminate\Support\Facades\Route;
 // Home
 Route::get('/', 'Home@index');
 Route::get('home', 'Home@index');
+
 Route::get('profil', 'Home@profil');
 Route::get('kontak', 'Home@kontak');
 Route::get('pemesanan', 'Home@pemesanan');
 Route::get('konfirmasi', 'Home@konfirmasi');
 Route::get('pembayaran', 'Home@pembayaran');
+Route::get('pasangbaru', 'Home@pasangbaru');
 Route::post('proses_pemesanan', 'Home@proses_pemesanan');
 Route::get('berhasil/{par1}', 'Home@berhasil');
 Route::get('cetak/{par1}', 'Home@cetak');
+//pendaftaran slo
+Route::get('pendaftaranslo', 'Home@pendaftaranslo');
+Route::post('tambahslo', 'Pendaftaranslo@tambahslo');
+Route::post('saveSLO', 'Pendaftaranslo@saveSLO');
+Route::get('listdata', 'Pendaftaranslo@index');
+Route::get('updatestatus', 'Pendaftaranslo@statusslo');
+Route::get('pendaftaranslo/delete/{par1}', 'Pendaftaranslo@delete');
+//penyambungan sementara
+Route::get('penyambungansementara', 'Home@penyambungansementara');
+Route::get('/penyambungansementara/perhitungan', "Penyambungansementara@perhitungan");
+Route::post('savePenyambungansementara', 'Penyambungansementara@savePenyambungansementara');
+// Route::get('penyambungansementara/{par1}', 'Penyambungansementara@perhitungan');
+
+
 // Login
 Route::get('login', 'Login@index');
 Route::post('login/cek', 'Login@cek');
@@ -50,6 +66,11 @@ Route::get('produk', 'Produk@index');
 Route::get('produk/kategori/{par1}', 'Produk@kategori');
 Route::get('produk/detail/{par1}', 'Produk@detail');
 Route::get('produk/cetak/{par1}', 'Produk@cetak');
+
+//Location
+// Route::get('dropdownlist','DropdownController@index');
+Route::get('getCityList','DropdownController@getCityList');
+
 /* END FRONT END */
 /* BACK END */
 Route::group(['namespace' => 'Admin'], 
@@ -103,6 +124,7 @@ function()
     Route::post('admin/berita/tambah_proses', 'Berita@tambah_proses');
     Route::post('admin/berita/edit_proses', 'Berita@edit_proses');
     Route::post('admin/berita/proses', 'Berita@proses');
+    
     // rekening
     Route::get('admin/rekening', 'Rekening@index');
     Route::get('admin/rekening/edit/{par1}', 'Rekening@edit');

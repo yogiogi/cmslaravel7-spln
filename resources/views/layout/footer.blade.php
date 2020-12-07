@@ -43,11 +43,9 @@ $site       = DB::table('konfigurasi')->first();
           <div class="col-lg-4 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ asset('/') }}">Beranda</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ asset('produk') }}">Lihat Produk</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ asset('pemesanan') }}">Pemesanan Produk</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ asset('pembayaran') }}">Cara Pembayaran</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ asset('kontak') }}">Kontak</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://web.pln.co.id/pelanggan/layanan-online">Layanan PLN</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="http://slo.intekindo.co.id/cekstatus">Cek SLO Status</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://slodjk.esdm.go.id/verifikasi">Cek DJK Status</a></li>
             </ul>
           </div>
 

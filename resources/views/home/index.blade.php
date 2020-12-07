@@ -4,7 +4,7 @@
         <div class="owl-carousel owl-theme">
           <?php foreach($slider as $slider) { ?>
                 <div class="slideku">
-                  <p class="text-center"><a href="{{ asset('galeri/read/'.$slider->id_galeri) }}"><img src="{{ asset('public/upload/image/'.$slider->gambar) }}" class="img img-fluid" alt="<?php echo $slider->judul_galeri ?>"></a></p>
+                  <p class="text-center"><a href="{{ asset('galeri/detail/'.$slider->id_galeri) }}"><img src="{{ asset('public/upload/image/'.$slider->gambar) }}" class="img img-fluid" alt="<?php echo $slider->judul_galeri ?>"></a></p>
                 </div>
           <?php } ?>
       </div>

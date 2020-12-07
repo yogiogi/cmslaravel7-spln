@@ -14,7 +14,7 @@
 
             <div class="col-lg-12 col-md-12 col-sm-12 mb-4 berita">
               <div class="row">
-                    <?php echo $galeri->isi ?>
+                    <?php echo $galeris->isi ?>
                 </div>
             </div>
           

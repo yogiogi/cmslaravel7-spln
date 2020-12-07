@@ -3,13 +3,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class pasangbaru_model extends Model
+    class pasangbaru_model extends Model
 {
     protected $table = 'pasang_baru';
     public $timestamps = true;
     
     protected $fillable = [
-		'id_pemohon', 'sifat_instalasi','biaya', 'daya','slo','gil','ujl','ppn','ppj','token','materai','total'
+		'nama_konsumen', 'ktp', 'alamat', 'provinsi', 'kabupaten', 'telp', 'email','sifat_instalasi','biaya', 'daya','slo','gil','ujl','ppn','ppj','token','materai','total'
     ];
 
     public static function insertData($data){

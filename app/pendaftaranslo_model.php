@@ -36,7 +36,7 @@ class Pendaftaranslo_model extends Model
         return 1;
     }
 
-    // kode_transaksi
+    // pendaftaranslo
     public function semua()
     {
         $query = DB::table('pendaftaran_slo')
@@ -46,7 +46,7 @@ class Pendaftaranslo_model extends Model
         return $query;
     }
 
-     // kode_transaksi
+     // pendaftaranslo
     public function status_pemesanan($status_pemesanan)
     {
         $query = DB::table('pendaftaran_slo')

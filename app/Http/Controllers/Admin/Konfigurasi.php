@@ -93,6 +93,8 @@ class Konfigurasi extends Controller
         return view('admin/layout/wrapper',$data);
     }
 
+     
+
     //pasangbaru
     public function pasangbaru()
     {

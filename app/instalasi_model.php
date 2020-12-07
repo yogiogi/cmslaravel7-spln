@@ -3,7 +3,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class pasangbaru_model extends Model
+class Instalasi_model extends Model
 {
     protected $table = 'instalasi';
     public $timestamps = true;

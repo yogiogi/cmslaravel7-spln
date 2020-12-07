@@ -13,8 +13,7 @@ class Galeri extends Controller
     public function index()
     {
         $galeri = DB::table('galeri')
-                    ->join('kategori_galeri', 'kategori_galeri.id_kategori_galeri', '=', 'galeri.id_kategori_galeri','LEFT')
-                    ->select('galeri.*', 'kategori_galeri.nama_kategori_galeri')
+                    ->select('galeri.*')
                     ->orderBy('galeri.id_galeri','DESC')
                     ->paginate(10);
        	$site 	= DB::table('konfigurasi')->first();
@@ -33,8 +32,7 @@ class Galeri extends Controller
     public function detail($id_galeri)
     {
         $galeri = DB::table('galeri')
-                    ->join('kategori_galeri', 'kategori_galeri.id_kategori_galeri', '=', 'galeri.id_kategori_galeri','LEFT')
-                    ->select('galeri.*', 'kategori_galeri.nama_kategori_galeri')
+                    ->select('galeri.*')
                     ->where('galeri.id_galeri',$id_galeri)
                     ->orderBy('galeri.id_galeri','DESC')
                     ->first();

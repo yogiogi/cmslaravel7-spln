@@ -2,39 +2,6 @@
 use Illuminate\Support\Facades\DB;
 $site       = DB::table('konfigurasi')->first();
 ?>
-<!-- End #main --><script type="text/javascript">
-  $(document).ready(function(){
-    // Add
-    $('.add_cart').click(function(){
-      var product_id    = $(this).data("productid");
-      var product_name  = $(this).data("productname");
-      var product_price = $(this).data("productprice");
-      var quantity      = $('#' + product_id).val();
-      var pengalihan    = $('#' + product_id).val();
-      $.ajax({
-        url : "{{ asset('/') }}keranjang/tambah",
-        method : "POST",
-        data : {product_id: product_id, product_name: product_name, product_price: product_price, quantity: quantity,pengalihan:pengalihan},
-        success: function(data){
-          window.location.href = "{{ asset('/') }}keranjang";
-        }
-      });
-    });
-    // Remove
-    $(document).on('click','.romove_cart',function(){
-      var row_id=$(this).attr("id"); 
-      $.ajax({
-        url : "{{ asset('/') }}keranjang/hapus",
-        method : "POST",
-        data : {row_id : row_id},
-        success :function(data){
-          window.location.href = "{{ asset('/') }}keranjang";
-        }
-      });
-    });
-    
-  });
-</script>
 <script>
   $(document).ready(function() {
     $('.owl-carousel').owlCarousel({
@@ -105,7 +72,7 @@ $site       = DB::table('konfigurasi')->first();
         &copy; Copyright <strong><span><?php echo $site->namaweb ?></span></strong>. All Rights Reserved
       </div>
       <div class="credits">
-        Developed by <a href="https://javawebmedia.com/">Java Web Media</a>
+        Developed by <a>SPLN</a>
       </div>
     </div>
   </footer><!-- End Footer -->

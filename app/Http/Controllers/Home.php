@@ -94,30 +94,79 @@ class Home extends Controller
         $site   = DB::table('konfigurasi')->first();
         $hitung = new resource_model();
         $resource = $hitung->variablePerhitungan(6);
-        $jam_nyala = $request->jam_nyala;
-        $hari_nyala = $request->hari_nyala;
-        
-        $biaya = $resource->biaya;
-        $ppn = $resource->PPN;
-        $ppj = $resource->PPJ;
-        $materai = $resource->materai;
-
-        $jumlah_biaya = $jam_nyala*$hari_nyala*$biaya;
-        $ppn = $ppn*$jumlah_biaya;
-        $ppj= $ppj*$jumlah_biaya;
-        $total = $jumlah_biaya+$ppn+$ppj+$materai;
 
         $data = array(  'title'     => 'Penyambungan Sementara',
                         'deskripsi' => 'Penyambungan Sementara',
                         'keywords'  => 'Penyambungan Sementara',
                         'site'      => $site,
                         'resource'    => $resource,
-                        'biaya' => $jumlah_biaya,
-                        'ppn' => $ppn,
-                        'ppj' => $ppj,
-                        'materai' => $materai,
-                        'total' => $total,
                         'content'   => 'home/penyambungansementara'
+                    );
+        return view('layout/wrapper',$data);
+     }
+    
+     // Pasang baru
+    public function pasangbaru(Request $request)
+    {
+        $site   = DB::table('konfigurasi')->first();
+      
+        $data = array(  'title'     => 'Pasang Baru',
+                        'deskripsi' => 'Pasang Baru',
+                        'keywords'  => 'Pasang Baru',
+                        'site'      => $site,
+                        'content'   => 'home/Pasangbaru'
+                    );
+        return view('layout/wrapper',$data);
+    }
+
+     // perubahandaya SLO
+     public function perubahandaya(Request $request)
+     {
+        $site   = DB::table('konfigurasi')->first();
+        $data = array(  'title'     => 'Perubahan Daya',
+                        'deskripsi' => 'Perubahan Daya',
+                        'keywords'  => 'Perubahan Daya',
+                        'site'      => $site,
+                        'content'   => 'home/Perubahandaya'
+                    );
+        return view('layout/wrapper',$data);
+     }
+
+    //instalasi
+    public function instalasi(Request $request)
+    {
+       $site   = DB::table('konfigurasi')->first();
+       $data = array(  'title'     => 'Instalasi',
+                       'deskripsi' => 'Instalasi',
+                       'keywords'  => 'Instalasi',
+                       'site'      => $site,
+                       'content'   => 'home/Instalasi'
+                   );
+       return view('layout/wrapper',$data);
+    }
+
+    //mcbbox
+    public function mcbbox(Request $request)
+    {
+       $site   = DB::table('konfigurasi')->first();
+       $data = array(  'title'     => 'Instalasi',
+                       'deskripsi' => 'Instalasi',
+                       'keywords'  => 'Instalasi',
+                       'site'      => $site,
+                       'content'   => 'home/Mcbbox'
+                   );
+       return view('layout/wrapper',$data);
+    }
+
+     //pengaduanteknis
+     public function pengaduanteknis(Request $request)
+     {
+        $site   = DB::table('konfigurasi')->first();
+        $data = array(  'title'     => 'Pengaduan Teknis',
+                        'deskripsi' => 'Pengaduan Teknis',
+                        'keywords'  => 'Pengaduan Teknis',
+                        'site'      => $site,
+                        'content'   => 'home/Pengaduanteknis'
                     );
         return view('layout/wrapper',$data);
      }
@@ -257,17 +306,4 @@ class Home extends Controller
                     );
         return view('layout/wrapper',$data);
     }
-
-        // pasangbaru
-        public function pasangbaru()
-        {
-            $site       = DB::table('konfigurasi')->first();
-            $data = array(  'title'     => 'Metode pasangbaru',
-                            'deskripsi' => 'Metode pasangbaru',
-                            'keywords'  => 'Metode pasangbaru',
-                            'site'      => $site,
-                            'content'   => 'home/pasangbaru'
-                        );
-            return view('layout/wrapper',$data);
-        }
 }

@@ -14,19 +14,7 @@ use App\Pendaftaranslo_model;
 
 class Pendaftaranslo extends Controller
 {
-    // Main page
-    public function index()
-    {
-    	if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
-    	$slodata 			= new Pendaftaranslo_model();
-		$slo 			= $slodata->semua();
-
-		$data = array(  'title'             => 'Daftar SLO',
-						'slo'   => $slo,
-                        'content'           => 'admin/layanan_slo/index'
-                    );
-        return view('admin/layout/wrapper',$data);
-    }
+   
 
     // Tambah
     public function saveSLO(Request $request){
@@ -105,33 +93,7 @@ class Pendaftaranslo extends Controller
         return redirect('admin/kategori_produk')->with(['sukses' => 'Data telah diupdate']);
     }
 
-    // Proses
-    public function proses(Request $request)
-    {
-        $site   = DB::table('konfigurasi')->first();
-        // PROSES HAPUS MULTIPLE
-        if(isset($_POST['hapus'])) {
-            $id_slo       = $request->id;
-            for($i=0; $i < sizeof($id_slo);$i++) {
-                DB::table('pendaftaran_slo')->where('id',$id_slo[$i])->delete();
-            }
-            return redirect('admin/layanan_slo')->with(['sukses' => 'Data telah dihapus']);
-        }elseif(isset($_POST['update'])) {
-            $id_slo       = $request->id;
-            for($i=0; $i < sizeof($id_beritanya);$i++) {
-                DB::table('pendaftaran_slo')->where('id',$id_slo[$i])->update([
-                        'id'    => $request->id
-                    ]);
-            }
-            return redirect('admin/layanan_slo')->with(['sukses' => 'Data kategori telah diubah']);
-        }
-    }
+   
 
-        // Delete
-        public function delete($id_berita)
-        {
-            if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
-            DB::table('pendaftaran_slo')->where('id',$id)->delete();
-            return redirect('admin/layanan_slo')->with(['sukses' => 'Data telah dihapus']);
-        }
+
 }

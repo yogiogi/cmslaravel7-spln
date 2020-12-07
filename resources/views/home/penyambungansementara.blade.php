@@ -1,5 +1,6 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
   $(document).ready(function(){
@@ -31,26 +32,33 @@
 
 <script>
   $(document).ready(function(){
-    $('#submithitung').on('click', function() {
-      var today = new Date();
-      var dd = String(today.getDate()).padStart(2, '0');
-      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-      var yyyy = today.getFullYear();
-      today = mm + '/' + dd + '/' + yyyy;
-      var nama = null;
-      var alamat = null;
-      var provinsi = null;
-      var kabupaten = null;
-      var ktp = null;
-      var email = null;
+    var nama = null;
+    var alamat = null;
+    var provinsi = null;
+    var kabupaten = null;
+    var ktp = null;
+    var email = null;
      
-      var jam = null;
-      var hari = null;
-      var biaya = null;
-      var ppn = null;
-      var ppj = null;
-      var materai = null;
-      var total = null;
+    var jam = null;
+    var hari = null;
+    var biaya = null;
+    var ppn = null;
+    var ppj = null;
+    var materai = null;
+    var total = null;
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    function formatRupiah(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    $('#submithitung').on('click', function() {
+
+      today = mm + '/' + dd + '/' + yyyy;
 
       $.ajax({
         type:"GET",
@@ -69,42 +77,41 @@
      
           jam = document.getElementsByName("jam_nyala")[0];
           hari = document.getElementsByName("hari_nyala")[0];
-          biaya = document.getElementsByName("biaya")[0];
-          ppn = document.getElementsByName("ppn")[0];
-          ppj = document.getElementsByName("ppj")[0];
-          materai = document.getElementsByName("materai")[0];
-          total = document.getElementsByName("total")[0];
+          biaya = data.biaya;
+          ppn = data.ppn;
+          ppj = data.ppj;
+          materai = data.materai;
+          total = data.total;
 
           if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '' && jam.value != '' && hari.value){   
           $('.cloundcontainer').show();
-          $('#submit_btn').show();
           $('.cloundcontainer').empty();
           $('.cloundcontainer').append(
           "<h2 align='center'> Penyambungan Sementara </h2>" +
           "<table>" +
             "<tr align='left'>"+
-              "<th align='left' width='50%'> Detail Biaya </th>" +
-              "<th align='left' width='50%'></th>"+
+              "<th align='left' width='75%'> Detail Biaya </th>" +
+              "<th align='left' width='25%'></th>"+
             "</tr>"+
             "<tr align='left'>"+
-              "<th align='left' width='50%'> a. Rupiah Biaya Penyambungan</th>" +
-              "<th align='left' width='50%'> : Rp "+ data.biaya + "</th>"+
+              "<th align='left' width='75%'> a. Rupiah Biaya Penyambungan</th>" +
+              "<th align='left' width='25%'> : Rp "+ formatRupiah(biaya)  + "</th>"+
             "</tr>"+
             "<tr align='left'>"+
-              "<th align='left' width='50%'> b. PPN (10%*a) </th>" +
-              "<th align='left' width='50%'> : Rp "+ data.ppn + "</th>"+
+              "<th align='left' width='75%'> b. PPN (10%*a) </th>" +
+              "<th align='left' width='25%'> : Rp "+ formatRupiah(ppn)  + "</th>"+
             "</tr>"+
             "<tr align='left'>"+
-              "<th align='left' width='50%'> c. PPJ (5%*a) </th>" +
-              "<th align='left' width='50%'> : Rp "+ data.ppj + "</th>"+
+              "<th align='left' width='75%'> c. PPJ (5%*a) </th>" +
+              "<th align='left' width='25%'> : Rp "+  formatRupiah(ppj)  + "</th>"+
             "</tr>"+
             "<tr align='left'>"+
-              "<th align='left' width='50%'> d. Materai </th>" +
-              "<th align='left' width='50%'> : Rp "+ data.materai + "</th>"+
+              "<th align='left' width='75%'> d. Materai </th>" +
+              "<th align='left' width='25%'> : Rp "+  formatRupiah(materai)  + "</th>"+
             "</tr>"+
           "</table>"+
           "<br>"+
-          "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp "+ data.total +"</b></p>"+
+          "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp "+  formatRupiah(total)  +"</b></p>"+
           "<p align='left'> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini ("+ today +")</p>"+
           "<br>"+
           "<p>Perhatian :</p>"+
@@ -122,13 +129,12 @@
         } else {
           alert('Data tidak bisa kosong');
           $('.cloundcontainer').hide();
-          $('#submit_btn').hide();
         $('.cloundcontainer').empty();
         }
         },
         error: function (errorThrown) {
             console.log("error " +errorThrown);
-          alert('Data tidak bdisa kosong');
+          alert('Data tidak bisa kosong');
         }
       });
     });
@@ -138,6 +144,41 @@
       // jQuery("#submit_btn"). attr('disabled', false);
     });
 
+    $('.cloundcontainer').on('click','button', function(){
+      $.ajax({
+        url: '{{ url("save") }}',
+        type: "POST",
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+          nama_konsumen: $("#nama_pemohon").val(),
+          ktp: $("#nomer_ktp").val(),
+          alamat: $("#alamat").val(),
+          provinsi: $("#provincy").val(),
+          kabupaten: $("#city").val(),
+          telp: $("#telepon_pemohon").val(),
+          email: $("#email_konsumen").val(),
+
+          jam_nyala: $("#jam_nyala").val(),
+          hari_nyala: $("#hari_nyala").val(),
+
+          biaya: biaya,
+          ppn: ppn,
+          ppj: ppj,
+          materai: materai,
+          total: total,
+
+        },
+        dataType: 'text',
+        success:function(data){
+          window.location.href = "http://localhost:8080/cmslaravel7/"
+        },
+        error: function(xhr, status, error) {
+          alert('Sedang gangguan');
+        }
+      });
+    });
 });
 </script>
 
@@ -184,14 +225,14 @@
                 <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Nama Pemohon</label>
                   <div class="col-sm-8">
-                    <input type="text" name="nama_pemohon" class="form-control" placeholder="Isi dengan nama pemohon" value="" required>
+                    <input type="text" id="nama_pemohon" name="nama_pemohon" class="form-control" placeholder="Isi dengan nama pemohon" value="" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Alamat</label>
                   <div class="col-sm-8">
-                    <textarea name="alamat" class="form-control" placeholder="Alamat" required value=""></textarea>
+                    <textarea id="alamat" name="alamat" class="form-control" placeholder="Alamat" required value=""></textarea>
                   </div>
                 </div>
 
@@ -220,14 +261,21 @@
                 <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Nomer KTP </label>
                   <div class="col-sm-8">
-                    <input type="number" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
+                    <input type="number" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Nomor telepon pemohon </label>
+                  <div class="col-sm-8">
+                    <input type="text" id="telepon_pemohon" name="telepon_pemohon" class="form-control" value="{{ old('telepon_pemohon') }}"  placeholder="Isi nomer telepon yang diberi kuasa" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Email</label>
                   <div class="col-sm-8">
-                    <input type="email" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}"  placeholder="Isi dengan email Anda" required>
+                    <input type="email" id="email_konsumen" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}"  placeholder="Isi dengan email Anda" required>
                   </div>
                 </div>
 
@@ -255,19 +303,17 @@
                       </div>
                   </div>
                 </div>
+              </form>
+            </div>
 
-                <div class="cloundcontainer" 
+            <div class="cloundcontainer" 
                  style= "display:none; 
                    width: 100%;
                    border: 2px solid powderblue;   
                    padding: 50px;
                    margin: 20px;">
 
-                </div>
-              </form>
             </div>
-
-           
           </div>
         </div>
         

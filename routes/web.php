@@ -30,6 +30,7 @@ Route::get('pasangbaru', 'Home@pasangbaru');
 Route::post('proses_pemesanan', 'Home@proses_pemesanan');
 Route::get('berhasil/{par1}', 'Home@berhasil');
 Route::get('cetak/{par1}', 'Home@cetak');
+
 //pendaftaran slo
 Route::get('pendaftaranslo', 'Home@pendaftaranslo');
 Route::post('tambahslo', 'Pendaftaranslo@tambahslo');
@@ -37,12 +38,36 @@ Route::post('saveSLO', 'Pendaftaranslo@saveSLO');
 Route::get('listdata', 'Pendaftaranslo@index');
 Route::get('updatestatus', 'Pendaftaranslo@statusslo');
 Route::get('pendaftaranslo/delete/{par1}', 'Pendaftaranslo@delete');
+
 //penyambungan sementara
 Route::get('penyambungansementara', 'Home@penyambungansementara');
 Route::get('/penyambungansementara/perhitungan', "Penyambungansementara@perhitungan");
-Route::post('savePenyambungansementara', 'Penyambungansementara@savePenyambungansementara');
-// Route::get('penyambungansementara/{par1}', 'Penyambungansementara@perhitungan');
+Route::post('save', 'Penyambungansementara@save');
 
+//pasangbaru
+Route::get('pasangbaru', 'Home@Pasangbaru');
+Route::get('/pasangbaru/perhitungan', 'Pasangbaru@perhitungan');
+Route::post('/pasangbaru/save', 'Pasangbaru@save');
+
+//perubahandaya
+Route::get('perubahandaya', 'Home@Perubahandaya');
+Route::get('/perubahandaya/perhitungan', 'Perubahandaya@perhitungan');
+Route::post('/perubahandaya/save', 'Perubahandaya@save');
+
+//instalasi
+Route::get('instalasi', 'Home@instalasi');
+Route::get('/instalasi/perhitungan', 'Instalasi@perhitungan');
+Route::post('/instalasi/save', 'Instalasi@save');
+
+//mcbbox
+Route::get('mcbbox', 'Home@mcbbox');
+Route::get('/mcbbox/perhitungan', 'Mcbbox@perhitungan');
+Route::post('/mcbbox/save', 'Mcbbox@save');
+
+//pengaduanteknis
+Route::get('pengaduanteknis', 'Home@pengaduanteknis');
+Route::get('/pengaduanteknis/perhitungan', 'Pengaduanteknis@perhitungan');
+Route::post('pengaduanteknis/save', 'Pengaduanteknis@save');
 
 // Login
 Route::get('login', 'Login@index');
@@ -77,7 +102,7 @@ Route::group(['namespace' => 'Admin'],
 function()
 {
 	// dasbor
-    Route::get('admin/dasbor', 'Dasbor@index');
+    Route::get('admin', 'Dasbor@index');
     Route::get('admin/dasbor/konfigurasi', 'Dasbor@konfigurasi');
     // pemesanan
     Route::get('admin/pemesanan', 'Pemesanan@index');
@@ -193,8 +218,39 @@ function()
     Route::post('admin/download/tambah_proses', 'Download@tambah_proses');
     Route::post('admin/download/edit_proses', 'Download@edit_proses');
     Route::post('admin/download/proses', 'Download@proses');
+    //pendaftaranslo
+    Route::get('admin/pendaftaranslo', 'Pendaftaranslo@index');
+    Route::get('admin/pendaftaranslo/delete/{par1}', 'Pendaftaranslo@delete');
+    Route::get('admin/pendaftaranslo/update/{par1}', 'Pendaftaranslo@update');
+    //Pasang baru
+    Route::get('admin/pasangbaru', 'Pasangbaru@index');
+    Route::get('admin/pasangbaru/delete/{par1}', 'Pasangbaru@delete');
+    Route::get('admin/pasangbaru/update/{par1}', 'Pasangbaru@update');
+    //Perubahan daya
+    Route::get('admin/perubahandaya', 'Perubahandaya@index');
+    Route::get('admin/perubahandaya/delete/{par1}', 'Perubahandaya@delete');
+    Route::get('admin/perubahandaya/update/{par1}', 'Perubahandaya@update');
+    //Penyambungan sementara
+    Route::get('admin/penyambungansementara', 'Penyambungansementara@index');
+    Route::get('admin/penyambungansementara/delete/{par1}', 'Penyambungansementara@delete');
+    Route::get('admin/penyambungansementara/update/{par1}', 'Penyambungansementara@update'); 
+    //Instalasi
+    Route::get('admin/instalasi', 'Instalasi@index');
+    Route::get('admin/instalasi/delete/{par1}', 'Instalasi@delete');
+    Route::get('admin/instalasi/update/{par1}', 'Instalasi@update'); 
+    //Instalasi
+    Route::get('admin/mcbbox', 'Mcbbox@index');
+    Route::get('admin/mcbbox/delete/{par1}', 'Mcbbox@delete');
+    Route::get('admin/mcbbox/update/{par1}', 'Mcbbox@update'); 
+    //Instalasi
+    Route::get('admin/pengaduanteknis', 'Pengaduanteknis@index');
+    Route::get('admin/pengaduanteknis/delete/{par1}', 'Pengaduanteknis@delete');
+    Route::get('admin/pengaduanteknis/update/{par1}', 'Pengaduanteknis@update');
+    
+    // Variabel
+    Route::get('admin/variable', 'Variable@index');
+    Route::post('updateLayanan', 'Variable@proses');
+    Route::get('admin/variable/edit/{par1}', 'Variable@edit');
+    Route::get('varLayanan','Variable@varLayanan');
 });
 /* END BACK END*/
-
-
-

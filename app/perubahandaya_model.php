@@ -14,14 +14,14 @@ class perubahandaya_model extends Model
     ];
 
     public static function insertData($data){
-        DB::table('pasang_baru')->insert($data);
+        DB::table('perubahan_daya')->insert($data);
         return 1;
     }
 
     public function semua()
     {
-        $query = DB::table('pasang_baru')
-            ->select('pasang_baru.*')
+        $query = DB::table('perubahan_daya')
+            ->select('perubahan_daya.*')
             ->orderBy('id','DESC')
             ->get();
         return $query;

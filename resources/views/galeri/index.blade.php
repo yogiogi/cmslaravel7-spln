@@ -15,10 +15,6 @@
           <div class="col-lg-4 col-md-6 galeri">
             <div class="member" data-aos="zoom-in" data-aos-delay="100">
               <div class="pic"><img src="{{ asset('public/upload/image/'.$galeri->gambar) }}" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4><?php echo strip_tags($galeri->judul_galeri) ?></h4>
-                <span><?php echo $galeri->nama_kategori_galeri ?></span>
-              </div>
             </div>
           </div>
           <?php } ?>

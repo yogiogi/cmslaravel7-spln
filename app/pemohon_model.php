@@ -13,9 +13,7 @@ class pemohon_model extends Model
     ];
     
     public static function insertData($data){
-        $id = DB::table('pemohon_layanan')->insertGetId(array(
-            $data
-        ));
+        $id = DB::table('pemohon_layanan')->insertGetId($data);
         return $id;
     }
 

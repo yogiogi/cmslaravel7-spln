@@ -18,7 +18,7 @@
         <th width="10%">ALAMAT</th>
         <th width="10%">INSTALASI</th>
         <th width="10%">BADAN USAHA</th>
-        <th width="15%">ACTION</th>
+        <th width="15%">STATUS</th>
         <th width="5%"></th>
     </tr>
 </thead>
@@ -38,45 +38,54 @@
             <?php echo $slo->nama_konsumen ?> <sup><i class="fa fa-pencil"></i></sup>
         </a>
         <small>
-            <br>telepon : <?php echo $slo->telp ?>
+            <br>telp : <?php echo $slo->telp ?>
             <br>email : <?php echo $slo->email ?>
-            <br>tanggal daftar : <?php echo $slo->tanggal_daftar ?>
-            <br>tanggal diterima : <?php echo $slo->tanggal_approve ?>
+            <br>tanggal daftar : <?php if($slo->tanggal_daftar != 0) { echo date("d/m/Y", strtotime($slo->tanggal_daftar)); } else {echo "-";} ?>
+            <br>tanggal disetujui : <?php if($slo->tanggal_approve != 0) { echo date("d/m/Y", strtotime($slo->tanggal_approve)); } else {echo "-";} ?>
         </small>
     </td>
     <td>
-        <a><?php echo $slo->ktp ?><sup><i class="fa fa-link"></i></sup></a>
+        <a><?php echo $slo->ktp ?><sup></i></sup></a>
     </td>
     <td>
-      <a><?php echo $slo->alamat ?><sup><i class="fa fa-link"></i></sup></a>
+      <a><?php echo $slo->alamat ?><sup></i></sup></a>
       <small>
         <br><?php echo $slo->kabupaten ?>
         <br><?php echo $slo->provinsi ?>
       </small>
     </td>
     <td>
-        <a><?php echo $slo->instalasi ?><sup><i class="fa fa-link"></i></sup></a>
+        <a><?php if($slo->instalasi==1) { echo"Instalasi Baru ";} else { echo"Perubahan Daya ";} ?><sup></i></sup></a>
         <small>
-            @if($slo->instalasi = 2)
+            @if($slo->instalasi == 2)
             <br>daya baru: <?php echo $slo->daya ?>
             <br>daya lama : <?php echo $slo->dayalama ?>
             <br>nomer djk lama : <?php echo $slo->djklama ?>
-            @elseif($slo->instalasi = 1)
+            @elseif($slo->instalasi == 1)
             <br>daya : <?php echo $slo->daya ?>
             @endif
         </small>
     </td>
     <td>
-        <a><?php echo $slo->badan_usaha ?><sup><i class="fa fa-link"></i></sup></a>
+        <a><?php echo $slo->badan_usaha ?><sup></i></sup></a>
     </td>
-    <td><a>
-      <span class="btn btn-sm <?php if($slo->status=="Publish") { echo 'btn-success'; }else{ echo 'btn-warning'; } ?> btn-block">
-        <i class="fa <?php if($slo->status==1) { echo 'fa-check-circle'; }else{ echo 'fa-times'; } ?>"></i> <?php if($slo->status==1) { echo "approved"; } ?></span>
-    </a>
+    <td>
+      <a><?php if($slo->status==0) { echo"Belum Disetujui ";} else if($slo->status==1){ echo"Disetujui ";} ?><sup></sup></a>
     </td>
     <td>
       <div class="btn-group">
-        <a href="{{ asset('admin/berita/delete/'.$slo->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
+        @if($slo->status==0)
+        <a href="{{ asset('admin/pendaftaranslo/update/'.$slo->id) }}"  class="btn btn-primary btn-sm">
+          <i class="fa fa-circle"></i>
+        </a>
+        @else
+        <a href=""class="btn btn-primary btn-sm">
+          <i class="fas fa-check-circle"></i>
+        </a>
+        @endif
+
+        <a href="{{ asset('admin/pendaftaranslo/delete/'.$slo->id) }}" 
+        class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
       </div>
     </td>
 </tr>

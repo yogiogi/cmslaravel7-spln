@@ -63,19 +63,6 @@ if(isset($error)) {
 	</div>
 </div>
 
-<div class="row form-group">
-	<label class="col-md-3">Kategori Galeri</label>
-	<div class="col-md-9">
-		<select name="id_kategori_galeri" class="form-control">
-			<?php foreach($kategori_galeri as $kategori_galeri) { ?>
-				<option value="<?php echo $kategori_galeri->id_kategori_galeri ?>" 
-					<?php if($galeri->id_kategori_galeri==$kategori_galeri->id_kategori_galeri) { echo "selected"; } ?>
-					><?php echo $kategori_galeri->nama_kategori_galeri ?></option>
-				<?php } ?>
-			</select>
-		</div>
-	</div>
-
 	<div class="row form-group">
 		<label class="col-md-3">Upload gambar</label>
 		<div class="col-md-9">

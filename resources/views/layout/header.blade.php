@@ -50,13 +50,13 @@ $nav_panduan           = $mypanduan->nav_panduan();
 
             <li class="drop-down"><a href=#>Produk & Layanan</a>
               <ul>
-                <li><a href="{{ asset('pendaftaranslo') }}">SLO</a></li>
+                <li><a href="{{ asset('pendaftaranslo') }}">Pendaftaran SLO</a></li>
                 <li><a href="{{ asset('pasangbaru') }}">Pasang Baru</a></li>
-                <li><a href="#">Perubahan Daya </a></li>
+                <li><a href="{{ asset('perubahandaya') }}">Perubahan Daya </a></li>
                 <li><a href="{{ asset('penyambungansementara') }}">Penyambungan Sementara</a></li>
-                <li><a href="#">Instalasi</a></li>
-                <li><a href="#">MCB Box</a></li>
-                <li><a href="#">Pengaduan Teknis</a></li>
+                <li><a href="{{ asset('instalasi') }}">Instalasi</a></li>
+                <li><a href="{{ asset('mcbbox') }}">MCB Box</a></li>
+                <li><a href="{{ asset('pengaduanteknis') }}">Pengaduan Teknis</a></li>
               </ul>
             </li>
 

@@ -37,7 +37,7 @@ $site                 = DB::table('konfigurasi')->first();
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-left" href="{{ asset('admin/dasbor') }}">
+      <a class="sidebar-brand d-flex align-items-center justify-content-left" href="{{ asset('admin/') }}">
         <div class="sidebar-brand-icon">
           <i class="fas fa-home"></i>
         </div>
@@ -49,7 +49,7 @@ $site                 = DB::table('konfigurasi')->first();
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/dasbor') }}">
+        <a class="nav-link" href="{{ asset('admin') }}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -67,27 +67,37 @@ $site                 = DB::table('konfigurasi')->first();
       <div class="sidebar-heading">Produk &amp; Layanan</div>
       <hr class="sidebar-divider">
       <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/produk') }}">
-          <i class="fas fa-fw fa-book"></i> <span>Produk &amp; Layanan</span></a>
+        <a class="nav-link" href="{{ asset('admin/pendaftaranslo') }}">
+        <i class="fa fa-certificate" aria-hidden="true"></i> <span>Pendaftaran SLO</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/produk/tambah') }}">
-          <i class="fas fa-fw fa-plus"></i> <span>Tambah Produk</span></a>
+        <a class="nav-link" href="{{ asset('admin/pasangbaru') }}">
+        <i class="fas fa-fw fa-wrench"></i> <span>Pasang Baru</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/kategori_produk') }}">
-          <i class="fas fa-fw fa-tags"></i> <span>Kategori Produk</span></a>
+        <a class="nav-link" href="{{ asset('admin/perubahandaya') }}">
+        <i class="fas fa-fw fa-toolbox"></i> <span>Perubahan Daya</span></a>
       </li>
-     
+      <li class="nav-item">
+        <a class="nav-link" href="{{ asset('admin/penyambungansementara') }}">
+        <i class="fas fa-fw fa-plug"></i> <span>Penyambungan Sementara</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ asset('admin/instalasi') }}">
+        <i class="fas fa-fw fa-shapes"></i> <span>Instalasi</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ asset('admin/mcbbox') }}">
+        <i class="far fa-fw fa-folder"></i> <span>MCB Box</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ asset('admin/pengaduanteknis') }}">
+        <i class="fas fa-users-cog"></i> <span>Pengaduan Teknis</span></a>
+      </li>
       <!-- Divider -->
       <hr class="sidebar-divider">
       <div class="sidebar-heading">Konten Website</div>
       <hr class="sidebar-divider">
-      <!-- layanan slo -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('listdata') }}">
-          <i class="fas fa-fw fa-newspaper"></i> <span>Pendaftaran SLO</span></a>
-      </li>
       <!-- Berita -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#berita" aria-expanded="true" aria-controls="berita') }}">
@@ -152,8 +162,9 @@ $site                 = DB::table('konfigurasi')->first();
             <a class="collapse-item" href="{{ asset('admin/konfigurasi/icon') }}"><i class="fa fa-tree"></i> Ganti Icon</a>
             <a class="collapse-item" href="{{ asset('admin/konfigurasi/email') }}"><i class="fa fa-envelope"></i> Setting Email</a>
             <a class="collapse-item" href="{{ asset('admin/konfigurasi/gambar') }}"><i class="fa fa-lock"></i> Ganti Gambar Login</a>
-            <a class="collapse-item" href="{{ asset('admin/rekening') }}"><i class="fa fa-money-check"></i> Rekening Pembayaran</a>
-            <a class="collapse-item" href="{{ asset('admin/konfigurasi/pembayaran') }}"><i class="fa fa-comment-dollar"></i> Panduan Pembayaran</a>
+            <a class="collapse-item" href="{{ asset('admin/variable') }}"><i class="fas fa-file-contract"></i> Variabel Perhitungan</a>
+            <!-- <a class="collapse-item" href="{{ asset('admin/rekening') }}"><i class="fa fa-money-check"></i> Rekening Pembayaran</a> -->
+            <!-- <a class="collapse-item" href="{{ asset('admin/konfigurasi/pembayaran') }}"><i class="fa fa-comment-dollar"></i> Panduan Pembayaran</a> -->
           </div>
         </div>
       </li>

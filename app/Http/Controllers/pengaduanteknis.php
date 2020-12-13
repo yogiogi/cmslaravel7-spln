@@ -27,6 +27,7 @@ class Pengaduanteknis extends Controller
       $keterangan = $request->input('keterangan');
       $status = 0;
     
+      //generateid = kodelayanan + wilayah + randomnumber + autoincrement
       $data = array(
         'nama_konsumen'=>$nama_konsumen,
         'ktp'=>$ktp,

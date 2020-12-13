@@ -124,16 +124,16 @@
             "<h2 align='center'> Penyambungan Sementara </h2>" +
             "<table>" +
               "<tr align='left'>"+
-                "<th align='left' width='75%'> Layanan </th>" +
-                "<th align='left' width='25%'> "+ layanan +" </th>"+
+                "<th align='left' width='50%'> Layanan </th>" +
+                "<th align='left' width='50%'> "+ layanan +" </th>"+
               "</tr>"+
               "<tr align='left'>"+
-                "<th align='left' width='75%'> Daya Lama </th>" +
-                "<th align='left' width='25%'> : "+ dayalama +" Watt </th>"+
+                "<th align='left' width='50%'> Daya Lama </th>" +
+                "<th align='left' width='50%'> : "+ dayalama +" Watt </th>"+
               "</tr>"+
               "<tr align='left'>"+
-                "<th align='left' width='75%'> Daya Baru </th>" +
-                "<th align='left' width='25%'> : "+ dayabaru +" Watt</th>"+
+                "<th align='left' width='50%'> Daya Baru </th>" +
+                "<th align='left' width='50%'> : "+ dayabaru +" Watt</th>"+
               "</tr>"+
             "</table>" +
             "<br>" +
@@ -186,14 +186,14 @@
                 "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>"+
               "</tr>"+
             "</table>"+
-            "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send'>Simpan Permohonan</button>"  );
+            "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>"  );
           } else {
             alert('Data tidak bisa kosong');
             $('div.cloundcontainer').hide();
           }
         },
         error: function (errorThrown) {
-          alert('Data tidak bisaxxxkosong');
+          alert('Ada masalah di server');
         }
       });
     });
@@ -237,7 +237,7 @@
           window.location.href = "http://localhost:8080/cmslaravel7/"
         },
         error: function(xhr, status, error) {
-          alert('Sedang gangguan');
+          alert('Ada masalah di server');
         }
       });
     });

@@ -26,7 +26,6 @@ Route::get('kontak', 'Home@kontak');
 Route::get('pemesanan', 'Home@pemesanan');
 Route::get('konfirmasi', 'Home@konfirmasi');
 Route::get('pembayaran', 'Home@pembayaran');
-Route::get('pasangbaru', 'Home@pasangbaru');
 Route::post('proses_pemesanan', 'Home@proses_pemesanan');
 Route::get('berhasil/{par1}', 'Home@berhasil');
 Route::get('cetak/{par1}', 'Home@cetak');
@@ -45,7 +44,7 @@ Route::get('/penyambungansementara/perhitungan', "Penyambungansementara@perhitun
 Route::post('save', 'Penyambungansementara@save');
 
 //pasangbaru
-Route::get('pasangbaru', 'Home@Pasangbaru');
+Route::get('pasangbaru', 'Home@pasangbaru');
 Route::get('/pasangbaru/perhitungan', 'Pasangbaru@perhitungan');
 Route::post('/pasangbaru/save', 'Pasangbaru@save');
 
@@ -93,8 +92,10 @@ Route::get('produk/detail/{par1}', 'Produk@detail');
 Route::get('produk/cetak/{par1}', 'Produk@cetak');
 
 //Location
-// Route::get('dropdownlist','DropdownController@index');
 Route::get('getCityList','DropdownController@getCityList');
+
+//cek status layanan
+Route::get('cekstatus','Home@cekstatus');
 
 /* END FRONT END */
 /* BACK END */

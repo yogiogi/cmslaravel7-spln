@@ -125,7 +125,7 @@
               "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>"+
             "</tr>"+
           "</table>"+
-          "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send'>Simpan Permohonan</button>"  );
+          "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>"  );
         } else {
           alert('Data tidak bisa kosong');
           $('.cloundcontainer').hide();
@@ -141,7 +141,7 @@
 
     $('#SetujuButton').on("click", function (){
       jQuery("#checkKetentuan"). attr('checked', true);
-      // jQuery("#submit_btn"). attr('disabled', false);
+      jQuery("#submit_btn"). attr('disabled', false);
     });
 
     $('.cloundcontainer').on('click','button', function(){

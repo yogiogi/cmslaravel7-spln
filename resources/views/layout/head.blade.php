@@ -56,9 +56,8 @@ $site = DB::table('konfigurasi')->first();
       color: #666 !important;
       background-color: #FFF;
       margin: 2% 0 10% 0;
-      padding: 20px 20px 40px 20px;
+      padding: 20px 40px 40px 40px;
       border-radius: 20px;
-      border: solid 10px #ffcc00;
     }
     .kotak h1 {
       color: #571C5C !important;
@@ -75,7 +74,7 @@ $site = DB::table('konfigurasi')->first();
       background-color: white;
     }
     .produk .harga {
-      color: #d8730e;
+      color: #f2f5f4;
     }
     .produk h3, .produk h1 {
       font-size: 18px;

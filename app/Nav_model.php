@@ -57,4 +57,12 @@ class Nav_model extends Model
         return $query;
     }
 
+    public function cekStatus($cekstatus)
+    {
+        $query = DB::table($cekstatus)
+            ->select('*')
+            ->where('status', '1')
+            ->first();
+        return $query;
+    }
 }

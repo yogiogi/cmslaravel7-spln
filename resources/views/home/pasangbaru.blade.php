@@ -14,6 +14,24 @@
   $token = $resource->token();
 ?>
 
+<script>       
+  $(document).ready(function(){
+    $("#tokenjml").removeAttr('required');
+    $('#layanan').on('change', function() {
+      if ( this.value == '1')
+      {
+        $("#tokenjml").show();
+        $("#token").prop('required',true);
+      }
+      else
+      {
+        $("#tokenjml").hide().prop('required',false);
+        $("#token").removeAttr('required');
+      }
+    });
+  });
+</script>
+
 <script>
   $(document).ready(function(){
     $('#provinsi').on('change', function() {
@@ -53,15 +71,16 @@
     var email = null;
      
     var layanan = null;
-    var hari = null;
-    var biaya = null;
-    var slo = null;
-    var gil = null;
-    var ppn = null;
-    var ppj = null;
-    var ujl = null;
-    var materai = null;
-    var total = null;
+    var token = 0;
+    var hari = 0;
+    var biaya = 0;
+    var slo = 0;
+    var gil = 0;
+    var ppn = 0;
+    var ppj = 0;
+    var ujl = 0;
+    var materai = 0;
+    var total = 0;
 
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -75,17 +94,21 @@
     $('#submithitung').on('click', function() {
       today = mm + '/' + dd + '/' + yyyy;
       daya = $('#daya').find(":selected").text();
-      console.log("daya " + daya);
-      token = $('#token').find(":selected").text(),
-      console.log("token " + token);
+      tokennya = $('#token').find(":selected").text();
+      layanan = $("#layanan").val();
+
+      if(layanan == "2"){
+        tokennya=0;
+        ujl=0;
+      }
 
       $.ajax({
         type:"GET",
         url:"{{url('/pasangbaru/perhitungan')}}",
         data: {
-          layanan: $("#layanan").val(),
+          layanan: layanan,
           daya : $('#daya').find(":selected").text(),
-          token : $('#token').find(":selected").text(),
+          token: tokennya,
         },
         success:function(data){    
           nama = document.getElementsByName("nama_pemohon")[0];
@@ -98,22 +121,20 @@
      
           layanan = $('#layanan').find(":selected").text();
           daya = $('#daya').find(":selected").text();
-          token = $('#token').find(":selected").text();
-
+          
           biaya = data.biaya;
           slo = data.slo;
           gil = data.gil;
+          ujl = data.ujl;
 
           ppn = data.ppn;
           ppj = data.ppj;
             
-          ujl = data.ujl;
-          
           materai = data.materai;
           total = data.total;
 
           if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '' 
-          && daya != '' && token != ''){   
+          && daya != ''){   
           $('.cloundcontainer').show();
           $('.cloundcontainer').empty();
           $('.cloundcontainer').append(
@@ -129,7 +150,7 @@
             "</tr>"+
             "<tr align='left'>"+
               "<th align='left' width='50%'> Token </th>" +
-              "<th align='left' width='50%'> : Rp "+ formatRupiah(token) +" </th>"+
+              "<th align='left' width='50%'> : Rp "+ formatRupiah(tokennya) +" </th>"+
             "</tr>"+
           "</table>" +
           "<br>" +
@@ -182,7 +203,7 @@
               "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>"+
             "</tr>"+
           "</table>"+
-          "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send'>Simpan Permohonan</button>"  );
+          "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>"  );
         } else {
           alert('Data tidak bisa kosong');
           $('.cloundcontainer').hide();
@@ -191,7 +212,7 @@
         },
         error: function (errorThrown) {
             console.log("error " +errorThrown);
-          alert('Ada masalah dalam server');
+          alert('Ada masalah di server');
         }
       });
     });
@@ -235,7 +256,7 @@
           window.location.href = "http://localhost:8080/cmslaravel7/"
         },
         error: function(xhr, status, error) {
-          alert('Sedang gangguan');
+          alert('Ada masalah di server');
         }
       });
     });
@@ -247,10 +268,10 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
+        <h1><?php echo $title ?></h1>
         <div class="kotak">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h1><?php echo $title ?></h1>
               <hr>
             </div>
             <div class="col-md-10 text-left">
@@ -352,11 +373,11 @@
                   </div>
                 </div>
 
-                <div class="form-group row">
+                <div id="tokenjml" name="tokenjml" class="form-group row">
                   <label class="col-sm-4 control-label text-right">token</label>
                   <div class="col-md-8">
                     <select id="token" name="token" class="form-control select2">
-                      <option>--Pilih Token--</option>
+                      <option value="0">--Pilih Token--</option>
                       @foreach($token as $token)
                         <option value="{{ $token->id }}"> {{ $token->token }}</option>
                       @endforeach

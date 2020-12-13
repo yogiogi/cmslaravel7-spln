@@ -80,7 +80,7 @@ class Pendaftaranslo extends Controller
                 }
              }
           }
-        return redirect()->action('Home@index',['id'=>0]);
+        return redirect()->action('Home@index');
       }
 
     public function statusslo(Request $request)

@@ -60,6 +60,8 @@ $nav_panduan           = $mypanduan->nav_panduan();
               </ul>
             </li>
 
+            <li><a href="{{ asset('cekstatus') }}">Cek Status Layanan</a></li>
+
             <li class="drop-down"><a href=#>Panduan</a>
               <ul>
                 <?php foreach($nav_panduan as $nav_panduan) { ?>

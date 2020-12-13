@@ -102,7 +102,7 @@ $site                 = DB::table('konfigurasi')->first();
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#berita" aria-expanded="true" aria-controls="berita') }}">
           <i class="fas fa-fw fa-newspaper"></i>
-          <span>Berita &amp; Profil</span>
+          <span>Navigasi Profil</span>
         </a>
         <div id="berita" class="collapse" aria-labelledby="berita" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">

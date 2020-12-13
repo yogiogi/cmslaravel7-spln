@@ -118,13 +118,13 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.5s;
   z-index: 997;
   transition: all 0.5s;
-  background-color: #d8730e;
+  /* background-color: #f2f5f4; */
 }
 
 #header.header-scrolled {
   /* background: rgba(1, 4, 136, 0.9); */
   /* background: #4a184e; */
-  background-color: #a8590b;
+  background-color: #0205A1;
   height: 90px;
 }
 
@@ -404,9 +404,9 @@ h1, h2, h3, h4, h5, h6 {
 
 #hero:before {
   content: "";
-  /* background: rgba(2, 5, 161, 0.91); */
+  background-color: rgba(2, 5, 161);
   /* background: #571C5C; */
-  background-color: #d8730e;
+  /* background-color: #f2f5f4; */
   position: absolute;
   bottom: 0;
   top: 0;

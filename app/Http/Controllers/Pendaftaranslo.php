@@ -11,15 +11,16 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
 use App\Pendaftaranslo_model;
+use App\Helper\Helper;
 
 class Pendaftaranslo extends Controller
 {
-   
-
     // Tambah
     public function saveSLO(Request $request){
- 
-        if ($request->input('submit') != null ){
+        
+        $myRandomString = generateRandomString(5);
+      //generateid = kodelayanan + wilayah + randomnumber + autoincrement
+      if ($request->input('submit') != null ){
             $nama_konsumen = $request->input('nama_konsumen');
             $ktp = $request->input('nomer_ktp');
             $alamat = $request->input('alamat');

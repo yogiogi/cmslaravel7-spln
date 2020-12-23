@@ -247,6 +247,7 @@ function()
     Route::get('admin/pengaduanteknis', 'Pengaduanteknis@index');
     Route::get('admin/pengaduanteknis/delete/{par1}', 'Pengaduanteknis@delete');
     Route::get('admin/pengaduanteknis/update/{par1}', 'Pengaduanteknis@update');
+    Route::get('admin/pengaduanteknis/edit/{par1}', 'Pengaduanteknis@edit');
     
     // Variabel
     Route::get('admin/variable', 'Variable@index');

@@ -25,10 +25,12 @@ $site = DB::table('konfigurasi')->first();
   <style type="text/css" media="screen">
     .bg-login-image, .bg-register-image, .bg-password-image {
       background: url("{{ asset('public/upload/image/'.$site->gambar) }}");
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
+      -webkit-background-size: contain;
+      -moz-background-size: contain;
+      -o-background-size: contain;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
     }
   </style>
 </head>
@@ -45,9 +47,7 @@ $site = DB::table('konfigurasi')->first();
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-md-12 text-center">
-                
-              </div>
+              <div class="col-md-12 text-center"> </div>
               <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
               <div class="col-lg-6">
                 <div class="p-5">

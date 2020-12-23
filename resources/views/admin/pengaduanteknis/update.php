@@ -16,7 +16,7 @@
 <div class="modal-footer">
     <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
     
-    <a href="<?php echo base_url('admin/pengaduanteknis/update/'.$pasang->id) ?>" class="btn btn-danger">
+    <a href="<?php echo base_url('admin/pengaduanteknis/update/'.$slo->id) ?>" class="btn btn-danger">
     <i class="fas fa-trash-alt"></i> Ya, Update data</a>
 
 </div>

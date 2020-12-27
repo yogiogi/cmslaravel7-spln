@@ -33,10 +33,11 @@ class Pasangbaru extends Controller{
      // Update
      public function update($id_pasang)
      {
-         if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
+        date_default_timezone_set('Asia/Jakarta');
+        if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
          DB::table('pasang_baru')->where('id',$id_pasang)->update([
             'status'      => '1',
-            'tgl_approve' => date("d/m/Y")
+            'tgl_approve' => now()
         ]);
          return redirect('admin/pasangbaru')->with(['sukses' => 'Data berhasil di update']);
      }

@@ -114,7 +114,7 @@ class Home extends Controller
                         'deskripsi' => 'Pasang Baru',
                         'keywords'  => 'Pasang Baru',
                         'site'      => $site,
-                        'content'   => 'home/Pasangbaru'
+                        'content'   => 'home/pasangbaru'
                     );
         return view('layout/wrapper',$data);
     }
@@ -127,7 +127,7 @@ class Home extends Controller
                         'deskripsi' => 'Perubahan Daya',
                         'keywords'  => 'Perubahan Daya',
                         'site'      => $site,
-                        'content'   => 'home/Perubahandaya'
+                        'content'   => 'home/perubahandaya'
                     );
         return view('layout/wrapper',$data);
      }
@@ -140,7 +140,7 @@ class Home extends Controller
                        'deskripsi' => 'Instalasi',
                        'keywords'  => 'Instalasi',
                        'site'      => $site,
-                       'content'   => 'home/Instalasi'
+                       'content'   => 'home/instalasi'
                    );
        return view('layout/wrapper',$data);
     }
@@ -153,7 +153,7 @@ class Home extends Controller
                        'deskripsi' => 'Instalasi',
                        'keywords'  => 'Instalasi',
                        'site'      => $site,
-                       'content'   => 'home/Mcbbox'
+                       'content'   => 'home/mcbbox'
                    );
        return view('layout/wrapper',$data);
     }
@@ -166,10 +166,23 @@ class Home extends Controller
                         'deskripsi' => 'Pengaduan Teknis',
                         'keywords'  => 'Pengaduan Teknis',
                         'site'      => $site,
-                        'content'   => 'home/Pengaduanteknis'
+                        'content'   => 'home/pengaduanteknis'
                     );
         return view('layout/wrapper',$data);
      }
+
+    //pengaduanteknis
+    public function cekstatus(Request $request)
+    {
+       $site   = DB::table('konfigurasi')->first();
+       $data = array(   'title'     => 'Cek Status Layanan',
+                        'deskripsi' => 'Cek Status Layanan',
+                        'keywords'  => 'Cek Status Layanan',
+                        'site'      => $site,
+                        'content'   => 'home/cekstatus'
+                     );
+         return view('layout/wrapper',$data);
+    }
 
     // Proses
     public function proses_pemesanan(Request $request)

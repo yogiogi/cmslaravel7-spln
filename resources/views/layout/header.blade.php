@@ -48,7 +48,7 @@ $nav_panduan           = $mypanduan->nav_panduan();
               </ul>
             </li> -->
 
-            <li class="drop-down"><a href=#>Produk & Layanan</a>
+            <li class="drop-down"><a href=#>Layanan</a>
               <ul>
                 <li><a href="{{ asset('pendaftaranslo') }}">Pendaftaran SLO</a></li>
                 <li><a href="{{ asset('pasangbaru') }}">Pasang Baru</a></li>
@@ -60,7 +60,7 @@ $nav_panduan           = $mypanduan->nav_panduan();
               </ul>
             </li>
 
-            <li><a href="{{ asset('cekstatus') }}">Cek Status Layanan</a></li>
+            <!-- <li><a href="{{ asset('cekstatus') }}">Cek Status Layanan</a></li> -->
 
             <li class="drop-down"><a href=#>Panduan</a>
               <ul>

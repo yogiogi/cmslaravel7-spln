@@ -30,6 +30,9 @@ Route::post('proses_pemesanan', 'Home@proses_pemesanan');
 Route::get('berhasil/{par1}', 'Home@berhasil');
 Route::get('cetak/{par1}', 'Home@cetak');
 
+//cek status layanan
+// Route::get('cekstatus','Home@cekstatus');
+
 //pendaftaran slo
 Route::get('pendaftaranslo', 'Home@pendaftaranslo');
 Route::post('tambahslo', 'Pendaftaranslo@tambahslo');
@@ -94,8 +97,6 @@ Route::get('produk/cetak/{par1}', 'Produk@cetak');
 //Location
 Route::get('getCityList','DropdownController@getCityList');
 
-//cek status layanan
-Route::get('cekstatus','Home@cekstatus');
 
 /* END FRONT END */
 /* BACK END */
@@ -247,7 +248,7 @@ function()
     Route::get('admin/pengaduanteknis', 'Pengaduanteknis@index');
     Route::get('admin/pengaduanteknis/delete/{par1}', 'Pengaduanteknis@delete');
     Route::get('admin/pengaduanteknis/update/{par1}', 'Pengaduanteknis@update');
-    Route::get('admin/pengaduanteknis/edit/{par1}', 'Pengaduanteknis@edit');
+    Route::post('admin/pengaduanteknis/edit/', 'Pengaduanteknis@edit');
     
     // Variabel
     Route::get('admin/variable', 'Variable@index');

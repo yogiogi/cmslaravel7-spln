@@ -33,10 +33,11 @@ class Mcbbox extends Controller{
      // Update
      public function update($id_mcb)
      {
-         if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
-         DB::table('mcb_box')->where('id',$id_mcb)->update([
+        date_default_timezone_set('Asia/Jakarta');
+        if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
+        DB::table('mcb_box')->where('id',$id_mcb)->update([
             'status'      => '1',
-            'tgl_approve' => date("d/m/Y")
+            'tgl_approve' => now(),
         ]);
          return redirect('admin/mcbbox')->with(['sukses' => 'Data berhasil di update']);
      }

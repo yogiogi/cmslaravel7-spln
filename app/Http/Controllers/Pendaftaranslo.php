@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use \Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
 use App\Pendaftaranslo_model;
-use App\Helper\Helper;
+use Illuminate\Support\Str;
 
 class Pendaftaranslo extends Controller
 {
     // Tambah
     public function saveSLO(Request $request){
-        
-        $myRandomString = generateRandomString(5);
-      //generateid = kodelayanan + wilayah + randomnumber + autoincrement
+      $kodelayanan = DB::table('variabel_perhitungan')
+            ->select('variabel_perhitungan.*')
+            ->where('variabel_perhitungan.id', '1')
+            ->first()->{'unique_id'};
+
+      // $id_unique = unique_code(4);
+      $uniqid = Str::random(5);
+
+      $id_layanan = $kodelayanan.''. $uniqid.''.$request->input('city');
+      //kodekuhusus+idkabupaten+uniquecode
       if ($request->input('submit') != null ){
             $nama_konsumen = $request->input('nama_konsumen');
             $ktp = $request->input('nomer_ktp');
@@ -40,6 +42,7 @@ class Pendaftaranslo extends Controller
             if($nama_konsumen !='' && $ktp !='' && $alamat != ''){
             if($instalasi == 2){
                 $data = array(
+                    'id_layanan'=>$id_layanan,
                     'nama_konsumen'=>$nama_konsumen,
                     'ktp'=>$ktp,
                     'alamat'=>$alamat,
@@ -56,6 +59,7 @@ class Pendaftaranslo extends Controller
                 );
             } else {
                 $data = array(
+                    'id_layanan'=>$id_layanan,
                     'nama_konsumen'=>$nama_konsumen,
                     'ktp'=>$ktp,
                     'alamat'=>$alamat,

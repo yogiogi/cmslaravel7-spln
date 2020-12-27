@@ -60,7 +60,6 @@ $awal = $sek - 100;
   });
 
   // Popup approval
-  // Popup Update
   $(document).on("click", ".approval-link", function(e) {
     e.preventDefault();
     url = $(this).attr("href");
@@ -89,12 +88,14 @@ $awal = $sek - 100;
       });
   });
 
-  // Popup Update
+  // Popup Edit
   $(document).on("click", ".edit-link", function(e) {
+    var myBookId = $(this).data('id');
+     $(".modal-body #bookId").val( myBookId );
     e.preventDefault();
     url = $(this).attr("href");
     swal({
-        title: "Anda yakin ingin menyetujui data ini?",
+        title: "Anda yakin ingin merubah data ini?",
         type: "info",
         showCancelButton: true,
         confirmButtonClass: 'btn btn-danger',

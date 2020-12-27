@@ -1,24 +1,16 @@
 <form action="{{ asset('Pasangbaru/proses') }}" method="post" accept-charset="utf-8">
-<?php $site   = DB::table('konfigurasi')->first(); ?>
 {{ csrf_field() }}
 
 <div class="table-responsive mailbox-messages">
 <table id="example1" class="display table table-bordered" cellspacing="0" width="100%">
 <thead>
     <tr class="bg-dark">
-        <th width="5%">
-            <div class="mailbox-controls">
-                <!-- Check all button -->
-                <button type="button" class="btn btn-info btn-sm checkbox-toggle"><i class="far fa-square"></i>
-                </button>
-            </div>
-        </th>
-        <th width="15%">KONSUMEN</th>
-        <th width="10%">INSTALASI</th>
-        <th width="15%">BIAYA</th>
-        <th width="15%">STATUS</th>
-        <th width="5%">TOTAL</th>
-        <th width="5%"></th>
+        <th width="15%" class="text-center">KONSUMEN</th>
+        <th width="10%" class="text-center">INSTALASI</th>
+        <th width="15%" class="text-center">BIAYA</th>
+        <th width="15%" class="text-center">STATUS</th>
+        <th width="5%" class="text-center">TOTAL</th>
+        <th width="5%" class="text-center"></th>
     </tr>
 </thead>
 <tbody>
@@ -26,12 +18,6 @@
 <?php $i=1; foreach($pasangbaru as $pasangbaru) { ?>
 
 <tr class="odd gradeX">
-    <td class="text-center">
-      <div class="icheck-primary">
-        <input type="checkbox" class="icheckbox_flat-blue " name="id[]" value="<?php echo $pasangbaru->id ?>">
-        <label for="check<?php echo $i ?>"></label>
-      </div>
-    </td>
     <td>
         <a>
             <?php echo $pasangbaru->nama_konsumen ?> <sup><i class="fa fa-pencil"></i></sup>
@@ -63,7 +49,7 @@
       </small>
     </td>
     <td>
-      <a>Rp <?php echo number_format($perubahandaya->total, 2)?><sup></sup></a>
+      <a>Rp <?php echo number_format($pasangbaru->total, 2)?><sup></sup></a>
     </td>
     <td>
       <a><?php if($pasangbaru->status==0) { echo"Belum Disetujui ";} else if($pasangbaru->status==1){ echo"Disetujui ";} ?><sup></sup></a>
@@ -71,7 +57,7 @@
     <td>
       <div class="btn-group">
         @if($pasangbaru->status==0)
-        <a href="{{ asset('admin/pasangbaru/update/'.$pasangbaru->id) }}"  class="btn btn-primary btn-sm">
+        <a href="{{ asset('admin/pasangbaru/update/'.$pasangbaru->id) }}"  class="btn btn-primary btn-sm approval-link">
           <i class="fa fa-circle"></i>
         </a>
         @else

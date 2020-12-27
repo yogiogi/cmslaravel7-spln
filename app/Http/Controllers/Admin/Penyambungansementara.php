@@ -33,10 +33,11 @@ class Penyambungansementara extends Controller{
      // Update
      public function update($id_sambung)
      {
-         if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
+        date_default_timezone_set('Asia/Jakarta');
+        if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
          DB::table('penyambungan_sementara')->where('id',$id_sambung)->update([
             'status'      => '1',
-            'tgl_approve' => date("d/m/Y")
+            'tgl_approve' => now(),
             ]);
          return redirect('admin/penyambungansementara')->with(['sukses' => 'Data berhasil di update']);
      }

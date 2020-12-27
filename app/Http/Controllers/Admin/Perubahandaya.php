@@ -33,10 +33,11 @@ class Perubahandaya extends Controller{
      // Update
      public function update($id_perubahan)
      {
-         if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
+        date_default_timezone_set('Asia/Jakarta');
+        if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
          DB::table('perubahan_daya')->where('id',$id_perubahan)->update([
             'status'      => '1',
-            'tgl_approve' => date("d/m/Y")
+            'tgl_approve' => now()
         ]);
          return redirect('admin/perubahandaya')->with(['sukses' => 'Data berhasil di update']);
      }

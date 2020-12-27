@@ -1,17 +1,16 @@
 <form action="{{ asset('Perubahandaya/proses') }}" method="post" accept-charset="utf-8">
-<?php $site   = DB::table('konfigurasi')->first(); ?>
 {{ csrf_field() }}
 
 <div class="table-responsive mailbox-messages">
 <table id="example1" class="display table table-bordered" cellspacing="0" width="100%">
 <thead>
     <tr class="bg-dark">
-        <th width="15%">KONSUMEN</th>
-        <th width="10%">INSTALASI</th>
-        <th width="15%">BIAYA</th>
-        <th width="5%">TOTAL</th>
-        <th width="15%">STATUS</th>
-        <th width="5%"></th>
+        <th width="15%" class="text-center">KONSUMEN</th>
+        <th width="10%" class="text-center">INSTALASI</th>
+        <th width="15%" class="text-center">BIAYA</th>
+        <th width="5%" class="text-center">TOTAL</th>
+        <th width="15%" class="text-center">STATUS</th>
+        <th width="5%" class="text-center"></th>
     </tr>
 </thead>
 <tbody>
@@ -57,7 +56,7 @@
     <td>
       <div class="btn-group">
         @if($perubahandaya->status==0)
-        <a href="{{ asset('admin/perubahandaya/update/'.$perubahandaya->id) }}"  class="btn btn-primary btn-sm">
+        <a href="{{ asset('admin/perubahandaya/update/'.$perubahandaya->id) }}"  class="btn btn-primary btn-sm approval-link">
           <i class="fa fa-circle"></i>
         </a>
         @else

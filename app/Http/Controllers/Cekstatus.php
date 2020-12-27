@@ -9,7 +9,7 @@ class cekstatus extends Controller
     public function getCekstatus(Request $request)
     {
         $cekstatus = DB::table($request->layanan)
-        ->where("id",$request->id)
+        ->where("id_layanan",$request->id_layanan)
         ->pluck("name","id");
         return response()->json($cekstatus);
     }

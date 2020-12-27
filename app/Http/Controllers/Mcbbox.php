@@ -13,10 +13,16 @@ use Illuminate\Support\Facades\Session;
 use App\mcbbox_model;
 use App\pemohon_model;
 use App\resource_model;
+use Illuminate\Support\Str;
 
 class Mcbbox extends Controller
 {
   public function save(Request $request){
+    $kodelayanan = DB::table('variabel_perhitungan')
+    ->select('variabel_perhitungan.*')
+    ->where('variabel_perhitungan.id', '8')
+    ->first()->{'unique_id'};
+
     $nama_konsumen = $request->input('nama_konsumen');
     $alamat = $request->input('alamat');
     $provinsi = $request->input('provinsi');
@@ -32,8 +38,11 @@ class Mcbbox extends Controller
     $materai = $request->input('materai');
     $total = $request->input('total');
     $status = 0;
-  
+    $uniqid = Str::random(5);
+    $id_layanan = $kodelayanan.''. $uniqid.''.$request->input('city');
+
     $data = array(
+      'id_layanan'=>$id_layanan,
       'nama_konsumen'=>$nama_konsumen,
       'ktp'=>$ktp,
       'alamat'=>$alamat,

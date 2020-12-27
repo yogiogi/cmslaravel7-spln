@@ -68,7 +68,7 @@ $site                 = DB::table('konfigurasi')->first();
       <hr class="sidebar-divider">
       <li class="nav-item">
         <a class="nav-link" href="{{ asset('admin/pendaftaranslo') }}">
-        <i class="fa fa-certificate" aria-hidden="true"></i> <span>Pendaftaran SLO</span></a>
+        <i class="fa fa-fw fa-certificate"></i> <span>Pendaftaran SLO</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ asset('admin/pasangbaru') }}">

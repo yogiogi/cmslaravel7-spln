@@ -13,10 +13,17 @@ use Illuminate\Support\Facades\Session;
 use App\perubahandaya_model;
 use App\pemohon_model;
 use App\resource_model;
+use Illuminate\Support\Str;
 
 class Perubahandaya extends Controller
 {
   public function save(Request $request){
+    $layanan = $request->input('layanan');
+    $kodelayanan = DB::table('variabel_perhitungan')
+    ->select('variabel_perhitungan.*')
+    ->where('variabel_perhitungan.id', $layanan)
+    ->first()->{'unique_id'};
+
     $nama_konsumen = $request->input('nama_konsumen');
     $ktp = $request->input('ktp');
     $alamat = $request->input('alamat');
@@ -25,7 +32,6 @@ class Perubahandaya extends Controller
     $telp = $request->input('telp');
     $email = $request->input('email');
 
-    $layanan = $request->input('layanan');
     $dayabaru = $request->input('dayabaru');
     $dayalama = $request->input('dayalama');
     $biaya = $request->input('biaya');
@@ -37,8 +43,12 @@ class Perubahandaya extends Controller
     $materai = $request->input('materai');
     $total = $request->input('total');
     $status = 0;
-  
+    
+    $uniqid = Str::random(5);
+    $id_layanan = $kodelayanan.''. $uniqid.''.$request->input('city');
+
       $data = array(
+        'id_layanan'=>$id_layanan,
         'nama_konsumen'=>$nama_konsumen,
         'ktp'=>$ktp,
         'alamat'=>$alamat,

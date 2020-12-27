@@ -13,10 +13,16 @@ use Illuminate\Support\Facades\Session;
 use App\Penyambungansementara_model;
 use App\resource_model;
 use App\pemohon_model;
+use Illuminate\Support\Str;
 
 class Penyambungansementara extends Controller
 {
     public function save(Request $request){
+      $kodelayanan = DB::table('variabel_perhitungan')
+      ->select('variabel_perhitungan.*')
+      ->where('variabel_perhitungan.id', '6')
+      ->first()->{'unique_id'};
+
       $nama_konsumen = $request->input('nama_konsumen');
       $ktp = $request->input('ktp');
       $alamat = $request->input('alamat');
@@ -33,8 +39,11 @@ class Penyambungansementara extends Controller
       $materai = $request->input('materai');
       $total = $request->input('total');
       $status = 0;
+      $uniqid = Str::random(5);
+      $id_layanan = $kodelayanan.''. $uniqid.''.$request->input('city');
 
       $data = array(
+        'id_layanan'=>$id_layanan,
         'nama_konsumen'=> $nama_konsumen,
         'ktp'=>$ktp,
         'alamat'=>$alamat,
@@ -61,11 +70,6 @@ class Penyambungansementara extends Controller
         
       return redirect()->action('Home@index');
     }    
-
-  public function getValue(){
-    $name = Input::get('name_by_user');
-    return $name;
-  }
 
   public function perhitungan(Request $request){
     $model = new resource_model();

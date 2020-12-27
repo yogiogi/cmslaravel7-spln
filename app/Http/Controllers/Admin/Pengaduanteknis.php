@@ -20,7 +20,7 @@ class Pengaduanteknis extends Controller
         $pengaduanteknis       = $pengaduanteknisdata->semua();
 
         $data = array(
-            'title'             => 'Penyambungan Sementara',
+            'title'             => 'Pengaduan Teknis',
             'pengaduanteknis'   => $pengaduanteknis,
             'content'           => 'admin/pengaduanteknis/index'
         );
@@ -38,29 +38,28 @@ class Pengaduanteknis extends Controller
     }
 
     // Update
-    public function update($id_ngadu, $aduan)
+    public function update($id_ngadu)
     {
+        date_default_timezone_set('Asia/Jakarta');
         if (Session()->get('username') == "") {
             return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
         }
         DB::table('pengaduan_teknis')->where('id', $id_ngadu)->update([
             'status'      => '1',
-            'tgl_approve' => date("d/m/Y")
+            'tgl_approve' => now(),
         ]);
         return redirect('admin/pengaduanteknis')->with(['sukses' => 'Data berhasil di update']);
     }
 
     // Update
-    public function edit($id_ngadu, $biaya)
+    public function edit(Request $request)
     {
-        if (Session()->get('username') == "") {
-            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
-        }
-        DB::table('pengaduan_teknis')->where('id', $id_ngadu)->update([
-            'biaya'  => $biaya,
-            'tgl_approve' => date("d/m/Y")
+        if (Session()->get('username') == "") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']); }
+        request()->validate(['biaya' => 'required',]);
+        DB::table('pengaduan_teknis')->where('id', $request->id)->update([
+            'biaya'  => $request->biaya,
         ]);
-        return redirect('admin/pengaduanteknis')->with(['sukses' => 'Data berhasil di update']);
+        return redirect('admin/pengaduanteknis')->with(['sukses' => 'Biaya pengaduan berhasil di update']);
     }
 
     // Proses

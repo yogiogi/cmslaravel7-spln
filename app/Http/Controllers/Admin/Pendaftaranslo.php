@@ -33,10 +33,11 @@ class Pendaftaranslo extends Controller{
      // Update
      public function update($id_slo)
      {
+         date_default_timezone_set('Asia/Jakarta');
          if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
          DB::table('pendaftaran_slo')->where('id',$id_slo)->update([
             'status'      => '1',
-            'tanggall_approve' => date("d/m/Y")
+            'tanggal_approve' => now(),
         ]);
          return redirect('admin/pendaftaranslo')->with(['sukses' => 'Data berhasil di update']);
      }

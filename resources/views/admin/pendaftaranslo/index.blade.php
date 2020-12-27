@@ -6,20 +6,13 @@
 <table id="example1" class="display table table-bordered" cellspacing="0" width="100%">
 <thead>
     <tr class="bg-dark">
-        <th width="5%">
-            <div class="mailbox-controls">
-                <!-- Check all button -->
-                <button type="button" class="btn btn-info btn-sm checkbox-toggle"><i class="far fa-square"></i>
-                </button>
-            </div>
-        </th>
-        <th width="15%">KONSUMEN</th>
-        <th width="10%">KTP</th>
-        <th width="10%">ALAMAT</th>
-        <th width="10%">INSTALASI</th>
-        <th width="10%">BADAN USAHA</th>
-        <th width="15%">STATUS</th>
-        <th width="5%"></th>
+        <th width="15%" class="text-center">KONSUMEN</th>
+        <th width="10%" class="text-center">KTP</th>
+        <th width="10%" class="text-center">ALAMAT</th>
+        <th width="10%" class="text-center">INSTALASI</th>
+        <th width="10%" class="text-center">BADAN USAHA</th>
+        <th width="15%" class="text-center">STATUS</th>
+        <th width="5%" class="text-center"></th>
     </tr>
 </thead>
 <tbody>
@@ -27,12 +20,6 @@
 <?php $i=1; foreach($slo as $slo) { ?>
 
 <tr class="odd gradeX">
-    <td class="text-center">
-      <div class="icheck-primary">
-        <input type="checkbox" class="icheckbox_flat-blue " name="id[]" value="<?php echo $slo->id ?>">
-        <label for="check<?php echo $i ?>"></label>
-      </div>
-    </td>
     <td>
         <a>
             <?php echo $slo->nama_konsumen ?> <sup><i class="fa fa-pencil"></i></sup>
@@ -75,7 +62,7 @@
     <td>
       <div class="btn-group">
         @if($slo->status==0)
-        <a href="{{ asset('admin/pendaftaranslo/update/'.$slo->id) }}"  class="btn btn-primary btn-sm">
+        <a href="{{ asset('admin/pendaftaranslo/update/'.$slo->id) }}"  class="btn btn-primary btn-sm approval-link">
           <i class="fa fa-circle"></i>
         </a>
         @else
@@ -83,7 +70,6 @@
           <i class="fas fa-check-circle"></i>
         </a>
         @endif
-
         <a href="{{ asset('admin/pendaftaranslo/delete/'.$slo->id) }}" 
         class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
       </div>

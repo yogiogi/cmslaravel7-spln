@@ -33,9 +33,11 @@ class Instalasi extends Controller{
      // Update
      public function update($id_instal)
      {
-         if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
+        date_default_timezone_set('Asia/Jakarta');
+        if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
          DB::table('instalasi')->where('id',$id_instal)->update([
-            'status'      => '1'
+            'status'      => '1',
+            'tgl_approve' => now(),
         ]);
          return redirect('admin/instalasi')->with(['sukses' => 'Data berhasil di update']);
      }

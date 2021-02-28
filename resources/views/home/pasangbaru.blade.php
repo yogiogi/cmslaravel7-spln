@@ -3,29 +3,27 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <?php
-  use Illuminate\Support\Facades\DB;
-  use App\resource_model;
 
-  $site = DB::table('konfigurasi')->first();
-  $resource = new resource_model();
-  $layanan = $resource->layanan();
-  $daya      = $resource->daya(); 
-  $provinces = $resource->provinsi();
-  $token = $resource->token();
+use Illuminate\Support\Facades\DB;
+use App\resource_model;
+
+$site = DB::table('konfigurasi')->first();
+$resource = new resource_model();
+$layanan = $resource->layanan();
+$daya      = $resource->daya();
+$provinces = $resource->provinsi();
+$token = $resource->token();
 ?>
 
-<script>       
-  $(document).ready(function(){
+<script>
+  $(document).ready(function() {
     $("#tokenjml").removeAttr('required');
     $('#layanan').on('change', function() {
-      if ( this.value == '1')
-      {
+      if (this.value == '1') {
         $("#tokenjml").show();
-        $("#token").prop('required',true);
-      }
-      else
-      {
-        $("#tokenjml").hide().prop('required',false);
+        $("#token").prop('required', true);
+      } else {
+        $("#tokenjml").hide().prop('required', false);
         $("#token").removeAttr('required');
       }
     });
@@ -33,43 +31,94 @@
 </script>
 
 <script>
-  $(document).ready(function(){
+  $(document).ready(function() {
     $('#provinsi').on('change', function() {
-      var provinceID = $(this).val();  
-      if(provinceID){
+      var provinceID = $(this).val();
+      if (provinceID) {
         $.ajax({
-          type:"GET",
-          url:"{{url('getCityList')}}?province_id="+provinceID,
-          success:function(res){        
-          if(res){
-            $("#city").empty();
-            $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
-            $.each(res,function(key,value){
-              $("#city").append('<option value="'+key+'">'+value+'</option>');
-            });
-          
-          }else{
-            $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
-          }
+          type: "GET",
+          url: "{{url('getCityList')}}?province_id=" + provinceID,
+          success: function(res) {
+            if (res) {
+              $("#city").empty();
+              $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
+              $.each(res, function(key, value) {
+                $("#city").append('<option value="' + key + '">' + value + '</option>');
+              });
+
+            } else {
+              $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
+            }
           }
         });
-      }else{
+      } else {
         $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
-      }   
+      }
+    });
+
+    $('#city').on('change', function() {
+      var cityID = $(this).val();
+      if (cityID) {
+        $.ajax({
+          type: "GET",
+          url: "{{url('getDistrictList')}}?regency_id=" + cityID,
+          success: function(res) {
+            if (res) {
+              $("#district").empty();
+              $("#district").append('<option>--Pilih Kecamatan--</option>');
+              $.each(res, function(key, value) {
+                $("#district").append('<option value="' + key + '">' + value + '</option>');
+              });
+
+            } else {
+              $("#district").append('<option>--Pilih Kecamatan--</option>');
+            }
+          }
+        });
+      } else {
+        $("#district").append('<option>--Pilih Kecamatan--</option>');
+      }
+    });
+
+    $('#district').on('change', function() {
+      var districtID = $(this).val();
+      if (districtID) {
+        $.ajax({
+          type: "GET",
+          url: "{{url('getVillageList')}}?district_id=" + districtID,
+          success: function(res) {
+            if (res) {
+              $("#village").empty();
+              $("#village").append('<option>--Pilih Desa--</option>');
+              $.each(res, function(key, value) {
+                $("#village").append('<option value="' + key + '">' + value + '</option>');
+              });
+
+            } else {
+              $("#village").append('<option>--Pilih Desa--</option>');
+            }
+          }
+        });
+      } else {
+        $("#village").append('<option>--Pilih Desa--</option>');
+      }
     });
   })
 </script>
 
 <script>
-  $(document).ready(function(){
+  $(document).ready(function() {
     var nama = null;
     var alamat = null;
     var provinsi = null;
     var kabupaten = null;
+    var kecamatan = null;
+    var desa = null;
     var telepon_pemohon = null;
+    var whatsapp = null;
     var ktp = null;
     var email = null;
-     
+
     var layanan = null;
     var token = 0;
     var hari = 0;
@@ -97,31 +146,34 @@
       tokennya = $('#token').find(":selected").text();
       layanan = $("#layanan").val();
 
-      if(layanan == "2"){
-        tokennya=0;
-        ujl=0;
+      if (layanan == "2") {
+        tokennya = 0;
+        ujl = 0;
       }
 
       $.ajax({
-        type:"GET",
-        url:"{{url('/pasangbaru/perhitungan')}}",
+        type: "GET",
+        url: "{{url('/pasangbaru/perhitungan')}}",
         data: {
           layanan: layanan,
-          daya : $('#daya').find(":selected").text(),
+          daya: $('#daya').find(":selected").text(),
           token: tokennya,
         },
-        success:function(data){    
+        success: function(data) {
           nama = document.getElementsByName("nama_pemohon")[0];
           ktp = document.getElementsByName("nomer_ktp")[0];
           alamat = document.getElementsByName("alamat")[0];
           provinsi = document.getElementsByName("provinsi")[0];
           kabupaten = document.getElementsByName("city")[0];
+          kecamatan = document.getElementsByName("district")[0];
+          desa = document.getElementsByName("village")[0];
           telepon_pemohon = document.getElementsByName("telepon_pemohon")[0];
+          whatsapp = document.getElementsByName("whatsapp")[0];
           email = document.getElementsByName("email_konsumen")[0];
-     
+
           layanan = $('#layanan').find(":selected").text();
           daya = $('#daya').find(":selected").text();
-          
+
           biaya = data.biaya;
           slo = data.slo;
           gil = data.gil;
@@ -129,100 +181,106 @@
 
           ppn = data.ppn;
           ppj = data.ppj;
-            
+
           materai = data.materai;
           total = data.total;
 
-          if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '' 
-          && daya != ''){   
-          $('.cloundcontainer').show();
-          $('.cloundcontainer').empty();
-          $('.cloundcontainer').append(
-          "<h2 align='center'> Penyambungan Sementara </h2>" +
-          "<table>" +
-            "<tr align='left'>"+
-              "<th align='left' width='50%'> Layanan </th>" +
-              "<th align='left' width='50%'> "+ layanan +" </th>"+
-            "</tr>"+
-            "<tr align='left'>"+
+          if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '' &&
+            daya.value != '') {
+            $('.cloundcontainer').show();
+            $('.cloundcontainer').empty();
+            $('.cloundcontainer').append(
+              "<h2 align='center'> Penyambungan Sementara </h2>" +
+              "<table>" +
+              "<tr align='left'>" +
+              "<th align='left' width='50%'> Layanan " + layanan + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
               "<th align='left' width='50%'> Daya </th>" +
-              "<th align='left' width='50%'> : "+ daya +" Watt </th>"+
-            "</tr>"+
-            "<tr align='left'>"+
+              "<th align='left' width='50%'> : " + daya + " Watt </th>" +
+              "</tr>" +
+              "<tr align='left'>" +
               "<th align='left' width='50%'> Token </th>" +
-              "<th align='left' width='50%'> : Rp "+ formatRupiah(tokennya) +" </th>"+
-            "</tr>"+
-          "</table>" +
-          "<br>" +
-          "<table>" +
-            "<tr align='left'>"+
+              "<th align='left' width='50%'> : Rp " + formatRupiah(tokennya) + " </th>" +
+              "</tr>" +
+              "</table>" +
+              "<br>" +
+              "<table>" +
+              "<tr align='left'>" +
               "<th align='left' width='75%'> Detail Biaya </th>" +
-              "<th align='left' width='25%'></th>"+
-            "</tr>"+
-            "<tr align='left'>"+
+              "<th align='left' width='25%'></th>" +
+              "</tr>" +
+              "<tr align='left'>" +
               "<th align='left' width='75%'> - Rupiah Biaya Pasang Baru </th>" +
-              "<th align='left' width='25%'> : Rp "+  formatRupiah(biaya)  + "</th>"+
-            "</tr>"+
-            "<tr align='left'>"+
+              "<th align='left' width='25%'> : Rp " + formatRupiah(biaya) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
               "<th align='left' width='75%'> - SLO </th>" +
-              "<th align='left' width='25%'> : Rp "+  formatRupiah(slo)  + "</th>"+
-            "</tr>"+
-            "<tr align='left'>"+
+              "<th align='left' width='25%'> : Rp " + formatRupiah(slo) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
               "<th align='left' width='75%'> - GIL </th>" +
-              "<th align='left' width='25%'> : Rp "+  formatRupiah(gil)  + "</th>"+
-            "</tr>"+
-            "<tr align='left'>"+
+              "<th align='left' width='25%'> : Rp " + formatRupiah(gil) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
               "<th align='left' width='75%'> - PPN (10%*a) </th>" +
-              "<th align='left' width='25%'> : Rp "+  formatRupiah(ppn) + "</th>"+
-            "</tr>"+
-            "<tr align='left'>"+
+              "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
               "<th align='left' width='75%'> - PPJ (5%*a) </th>" +
-              "<th align='left' width='25%'> : Rp "+  formatRupiah(ppj)  + "</th>"+
-            "</tr>"+
-            "<tr align='left'>"+
+              "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
               "<th align='left' width='75%'> - UJL </th>" +
-              "<th align='left' width='25%'> : Rp "+  formatRupiah(ujl)  + "</th>"+
-            "</tr>"+
-            "<tr align='left'>"+
+              "<th align='left' width='25%'> : Rp " + formatRupiah(ujl) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
               "<th align='left' width='75%'> - Materai </th>" +
-              "<th align='left' width='25%'> : Rp "+  formatRupiah(materai)  + "</th>"+
-            "</tr>"+
-          "</table>"+
-          "<br>"+
-          "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp "+  formatRupiah(total)  +"</b></p>"+
-          "<p align='left'> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini ("+ today +")</p>"+
-          "<br>"+
-          "<p>Perhatian :</p>"+
-          "<ul>"+
-            "<li>Pastikan semua data yang Anda isi di atas adalah benar</li>"+
-            "<li>Setelah Anda tekan tombol Simpan Permohonan, maka data-data akan diproses oleh PT PLN(Persero) dan akan dipertanggung jawabkan apabila di kemudian hari ditemukan kesalahan</li>"+
-          "</ul>"+
-          "<table>" +
-            "<tr>"+
-              "<td><input type='checkbox' id='checkKetentuan' name='checkKetentuan' value='ketentuan' disabled readonly></td>"+
-              "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>"+
-            "</tr>"+
-          "</table>"+
-          "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>"  );
-        } else {
-          alert('Data tidak bisa kosong');
-          $('.cloundcontainer').hide();
-          $('.cloundcontainer').empty();
-        }
+              "<th align='left' width='25%'> : Rp " + formatRupiah(materai) + "</th>" +
+              "</tr>" +
+              "</table>" +
+              "<br>" +
+              "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp " + formatRupiah(total) + "</b></p>" +
+              "<p align='left'> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini (" + today + ")</p>" +
+              "<br>" +
+              "<p>Perhatian :</p>" +
+              "<ul>" +
+              "<li>Pastikan semua data yang Anda isi di atas adalah benar</li>" +
+              "<li>Setelah Anda tekan tombol Simpan Permohonan, maka data-data akan diproses oleh PT SPLN (Persero) dan akan dipertanggung jawabkan apabila di kemudian hari ditemukan kesalahan</li>" +
+              "</ul>" +
+              "<table>" +
+              "<tr>" +
+              "<td><input type='checkbox' id='checkKetentuan' name='checkKetentuan' value='ketentuan' disabled readonly></td>" +
+              "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
+              "</tr>" +
+              "</table>" +
+              "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>");
+          } else {
+            alert('Data tidak bisa kosong');
+            $('.cloundcontainer').hide();
+            $('.cloundcontainer').empty();
+          }
         },
-        error: function (errorThrown) {
-            console.log("error " +errorThrown);
+        error: function(errorThrown) {
+          console.log("error " + errorThrown);
           alert('Ada masalah di server');
         }
       });
     });
 
-    $('#SetujuButton').on("click", function (){
-      jQuery("#checkKetentuan"). attr('checked', true);
-      jQuery("#submit_btn"). attr('disabled', false);
+    $('#SetujuButton').on("click", function() {
+      jQuery("#checkKetentuan").attr('checked', true);
+      jQuery("#submit_btn").attr('disabled', false);
     });
 
-    $('.cloundcontainer').on('click','button', function(){
+    $('.cloundcontainer').on('click', 'button', function() {
+
+      console.log("desa");
+      console.log($("#city").val());
+      console.log($("#district").val());
+      console.log($("#village").val());
+      console.log($("#layanan").val());
+
       $.ajax({
         url: '{{ url("/pasangbaru/save") }}',
         type: "POST",
@@ -234,8 +292,11 @@
           alamat: $("#alamat").val(),
           provinsi: $("#provinsi").val(),
           kabupaten: $("#city").val(),
+          kecamatan: $("#district").val(),
+          desa: $("#village").val(),
           ktp: $("#nomer_ktp").val(),
           telp: $("#telepon_pemohon").val(),
+          whatsapp: $("#whatsapp").val(),
           email: $("#email_konsumen").val(),
 
           layanan: $("#layanan").val(),
@@ -252,15 +313,15 @@
           total: total,
         },
         dataType: 'text',
-        success:function(data){
-          window.location.href = "http://localhost:8080/cmslaravel7/"
+        success: function(data) {
+          window.location.href = "http://localhost/cmslaravel7-spln/"
         },
         error: function(xhr, status, error) {
           alert('Ada masalah di server');
         }
       });
     });
-});
+  });
 </script>
 
 <!-- ======= Hero Section ======= -->
@@ -268,27 +329,27 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
-        <h1><?php echo $title ?></h1>
         <div class="kotak">
           <div class="row">
             <div class="col-md-12 text-center">
+              <h1><?php echo $title ?></h1>
               <hr>
             </div>
-            <div class="col-md-10 text-left">
+            <div class="col-md-8 text-left">
 
               @if ($errors->any())
               <div id="alerterror" name="alerterror" class="alert alert-danger">
-                  <ul>
-                      @foreach ($errors->all() as $error)
-                          <li>{{ $error }}</li>
-                      @endforeach
-                  </ul>
+                <ul>
+                  @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
               </div>
               @endif
-              <form action="" accept-charset="utf-8" >
+              <form action="" accept-charset="utf-8">
                 {{ csrf_field() }}
                 <input type="hidden" name="token_rahasia" value="72827582Uduagd86275gbdahgahgfa">
-              
+
                 <p class="alert alert-info">
                   Isi data <?php echo $title ?> Anda dengan lengkap dan benar.
                 </p>
@@ -310,12 +371,11 @@
                 <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Provinsi</label>
                   <div class="col-md-8">
-
                     <select name="provinsi" id="provinsi" class="form-control select2" required>
                       <option value="">--Pilih Provinsi--</option>
-                        @foreach($provinces as $provincy)
-                            <option value="{{$provincy->id}}">{{ $provincy->name }}</option>
-                        @endforeach
+                      @foreach($provinces as $provincy)
+                      <option value="{{$provincy->id}}">{{ $provincy->name }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
@@ -330,6 +390,24 @@
                 </div>
 
                 <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Kecamatan</label>
+                  <div class="col-md-8">
+                    <select name="district" id="district" class="form-control select2" required>
+                      <option>--Pilih Kecamatan--</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Desa</label>
+                  <div class="col-md-8">
+                    <select name="village" id="village" class="form-control select2" required>
+                      <option>--Pilih Desa--</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Nomer KTP </label>
                   <div class="col-sm-8">
                     <input type="number" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
@@ -339,14 +417,21 @@
                 <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Nomor telepon pemohon </label>
                   <div class="col-sm-8">
-                    <input type="text" id="telepon_pemohon" name="telepon_pemohon" class="form-control" value="{{ old('telepon_pemohon') }}"  placeholder="Isi nomer telepon yang diberi kuasa" required>
+                    <input type="text" id="telepon_pemohon" name="telepon_pemohon" class="form-control" value="{{ old('telepon_pemohon') }}" placeholder="Isi nomer telepon yang diberi kuasa" required>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Nomor whatsapp pemohon </label>
+                  <div class="col-sm-8">
+                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp yang diberi kuasa" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Email</label>
                   <div class="col-sm-8">
-                    <input type="email" id="email_konsumen" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}"  placeholder="Isi dengan email Anda" required>
+                    <input type="email" id="email_konsumen" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}" placeholder="Isi dengan email Anda" required>
                   </div>
                 </div>
 
@@ -354,8 +439,8 @@
                   <label class="col-sm-4 control-label text-right">Layanan</label>
                   <div class="col-md-8">
                     <select id="layanan" name="layanan" class="form-control select2">
-                     @foreach($layanan as $layanan)
-                        <option value="{{ $layanan->id }}"> {{ $layanan->layanan }}</option>
+                      @foreach($layanan as $layanan)
+                      <option value="{{ $layanan->id }}"> {{ $layanan->layanan }}</option>
                       @endforeach
                     </select>
                   </div>
@@ -367,7 +452,7 @@
                     <select id="daya" name="daya" class="form-control select2">
                       <option>--Pilih Daya--</option>
                       @foreach($daya as $daya)
-                        <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
+                      <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
                       @endforeach
                     </select>
                   </div>
@@ -379,27 +464,26 @@
                     <select id="token" name="token" class="form-control select2">
                       <option value="0">--Pilih Token--</option>
                       @foreach($token as $token)
-                        <option value="{{ $token->id }}"> {{ $token->token }}</option>
+                      <option value="{{ $token->id }}"> {{ $token->token }}</option>
                       @endforeach
                     </select>
                   </div>
                 </div>
 
                 <div class="form-group row" id="hitung">
-                    <label class="col-sm-4 control-label"></label>
-                    <div class="col-sm-8">
-                      <div class="btn-group">
-                          <button type="button" id="submithitung" name="submithitung" class="btn btn-primary btn-lg" value="hitung" >
-                            <i class="fa fa-save"></i> Hitung Biaya
-                          </button>
-                      </div>
+                  <label class="col-sm-4 control-label"></label>
+                  <div class="col-sm-8">
+                    <div class="btn-group">
+                      <button type="button" id="submithitung" name="submithitung" class="btn btn-primary btn-lg" value="hitung">
+                        <i class="fa fa-save"></i> Hitung Biaya
+                      </button>
+                    </div>
                   </div>
                 </div>
               </form>
             </div>
 
-            <div class="cloundcontainer" 
-                 style= "display:none; 
+            <div class="cloundcontainer" style="display:none; 
                    width: 100%;
                    border: 2px solid powderblue;   
                    padding: 50px;
@@ -408,7 +492,7 @@
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -429,7 +513,7 @@
           <p>Dalam Syarat & Ketentuan ini, pernyataan/istilah tertentu ini memiliki makna sebagai berikut:</p>
           <ol type="i">
             <li>Listrik Prabayar (LPB) adalah Produk layanan pemakaian tenaga listrik yang menggunakan meter elektronik prabayar dengan cara pembayaran dimuka.</li>
-            <li>Meter Prabayar (MPB) adalah meter energi listrik yang dipergunakan untuk mengukur energi listrik  (kWh) yang dikonsumsi oleh Pelanggan yang berfungsi setelah Pelanggan memasukkan sejumlah stroom tertentu ke dalamnya.</li>
+            <li>Meter Prabayar (MPB) adalah meter energi listrik yang dipergunakan untuk mengukur energi listrik (kWh) yang dikonsumsi oleh Pelanggan yang berfungsi setelah Pelanggan memasukkan sejumlah stroom tertentu ke dalamnya.</li>
             <li>Nomor Meter adalah Nomor yang tertera dalam MPB sebagai nomor identitas pada saat transaksi pembelian isi ulang dan pengaduan, yang terdiri dari 11 (sebelas) digit yang bersifat unique dan tidak sama antara meter yang satu dengan meter lainnya.</li>
             <li>Stroom adalah kode angka yang setara dengan energi listrik tertentu yang dituangkan dalam 20 (duapuluh) angka yang bersifat unique (hanya cocok untuk nomor serial meter prabayar 11 (sebelas) angka tertentu).</li>
             <li>Stroom Perdana adalah kode angka yang mewakili sejumlah tertentu energi listrik yang harus dibeli oleh Pelanggan pada saat penyambungan baru/perubahan daya dan migrasi ke prabayar.</li>
@@ -440,7 +524,7 @@
             <li>Alat Pembatas dan Pengukur (APP) adalah alat milik PLN yang dipakai untuk membatasi daya lisrik dan mengukur energi listrik yang dipakai oleh Pelanggan.</li>
             <li>Instalasi PLN adalah instalasi ketenagalistrikan milik PLN sampai dengan APP.</li>
             <li>Instalasi Pelanggan adalah instalasi ketenagalistrikan milik Pelanggan sesudah APP milik PLN.</li>
-            <li>Tingkat Mutu Pelayanan (TMP) adalah deskripsi kwantitatif beberapa indikator mutu pelayanan yang dinyatakan oleh PLN  secara berkala.</li>
+            <li>Tingkat Mutu Pelayanan (TMP) adalah deskripsi kwantitatif beberapa indikator mutu pelayanan yang dinyatakan oleh PLN secara berkala.</li>
             <li>Penertiban Pemakaian Tenaga Listrik (P2TL) adalah pemeriksaan yang dilakukan oleh PLN terhadap Instalasi PLN dan/atau Instalasi Pelanggan.</li>
           </ol>
         </div>

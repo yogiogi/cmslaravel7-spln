@@ -19,7 +19,7 @@ $site = DB::table('konfigurasi')->first();
   <link href="{{ asset('public/template/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/template/assets/vendor/icofont/icofont.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/template/assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/assets/vendor/venobox/venobox.css') }}" rel="stylesheet">
+  <link href="{{ asset('public/template/assets/vendor/venobox/venobox.css') }}" rel="stylesheet">
   <link href="{{ asset('public/template/assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
   <link href="{{ asset('public/template/assets/vendor/owl.carousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/template/assets/vendor/aos/aos.css') }}" rel="stylesheet">

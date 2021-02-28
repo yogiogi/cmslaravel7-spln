@@ -9,7 +9,7 @@ class Pendaftaranslo_model extends Model
     public $timestamps = true;
     
     protected $fillable = [
-		'nama_konsumen', 'ktp','alamat', 'provinsi','kabupaten','telp','email','instalasi','daya','dayalama','djklama','badan_usaha','tanggal_daftar','tanggal_approve'
+		'nama_konsumen', 'ktp','alamat', 'provinsi','kabupaten','telp','whatsapp','email','instalasi','daya','dayalama','djklama','badan_usaha','tanggal_daftar','tanggal_approve'
     ];
     
     public static function getkonsumenData($id=0){
@@ -43,6 +43,17 @@ class Pendaftaranslo_model extends Model
             ->select('pendaftaran_slo.*')
             ->orderBy('id','DESC')
             ->get();
+        return $query;
+    }
+
+    //singledata
+    public static function singlelist($idlayanan)
+    {
+        $query = DB::table('pendaftaran_slo')
+            ->select('pendaftaran_slo.*')
+            ->where('pendaftaran_slo.id_layanan',$idlayanan)
+            ->orderBy('id','DESC')
+            ->first();
         return $query;
     }
 

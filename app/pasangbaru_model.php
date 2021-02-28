@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
     public $timestamps = true;
     
     protected $fillable = [
-		'nama_konsumen', 'ktp', 'alamat', 'provinsi', 'kabupaten', 'telp', 'email','sifat_instalasi','biaya', 'daya','slo','gil','ujl','ppn','ppj','token','materai','total'
+		'nama_konsumen', 'ktp', 'alamat', 'provinsi', 'kabupaten', 'telp', 'whatsapp', 'email','sifat_instalasi','biaya', 'daya','slo','gil','ujl','ppn','ppj','token','materai','total'
     ];
 
     public static function insertData($data){

@@ -21,4 +21,20 @@ class DropdownController extends Controller
         ->pluck("name","id");
         return response()->json($cities);
     }
+
+    public function getDistrictList(Request $request)
+    {
+    	$district = DB::table("districts")
+        ->where("regency_id",$request->regency_id)
+        ->pluck("name","id");
+        return response()->json($district);
+    }
+
+    public function getVillageList(Request $request)
+    {
+    	$village = DB::table("villages")
+        ->where("district_id",$request->district_id)
+        ->pluck("name","id");
+        return response()->json($village);
+    }
 }

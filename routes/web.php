@@ -29,14 +29,21 @@ Route::get('pembayaran', 'Home@pembayaran');
 Route::post('proses_pemesanan', 'Home@proses_pemesanan');
 Route::get('berhasil/{par1}', 'Home@berhasil');
 Route::get('cetak/{par1}', 'Home@cetak');
+// Route::get('admin/pemesanan/edit/{par1}', 'Pemesanan@edit');
 
 //cek status layanan
-// Route::get('cekstatus','Home@cekstatus');
+Route::get('cekstatus','Home@cekstatus');
+Route::get('/cekstatus/getCekstatus','Cekstatus@getCekstatus');
+Route::get('/cekstatus/cetak_pdf/', 'Cekstatus@cetak_pdf');
+Route::get('generatePDF', 'Cekstatus@generatePDF');
 
 //pendaftaran slo
 Route::get('pendaftaranslo', 'Home@pendaftaranslo');
+Route::get('/pendaftaranslo/perhitungan', "Pendaftaranslo@perhitungan");
+Route::post('/pendaftaranslo/save', 'Pendaftaranslo@save');
+
 Route::post('tambahslo', 'Pendaftaranslo@tambahslo');
-Route::post('saveSLO', 'Pendaftaranslo@saveSLO');
+
 Route::get('listdata', 'Pendaftaranslo@index');
 Route::get('updatestatus', 'Pendaftaranslo@statusslo');
 Route::get('pendaftaranslo/delete/{par1}', 'Pendaftaranslo@delete');
@@ -44,7 +51,7 @@ Route::get('pendaftaranslo/delete/{par1}', 'Pendaftaranslo@delete');
 //penyambungan sementara
 Route::get('penyambungansementara', 'Home@penyambungansementara');
 Route::get('/penyambungansementara/perhitungan', "Penyambungansementara@perhitungan");
-Route::post('save', 'Penyambungansementara@save');
+Route::post('/penyambungansementara/save', 'Penyambungansementara@save');
 
 //pasangbaru
 Route::get('pasangbaru', 'Home@pasangbaru');
@@ -96,6 +103,8 @@ Route::get('produk/cetak/{par1}', 'Produk@cetak');
 
 //Location
 Route::get('getCityList','DropdownController@getCityList');
+Route::get('getDistrictList','DropdownController@getDistrictList');
+Route::get('getVillageList','DropdownController@getVillageList');
 
 
 /* END FRONT END */

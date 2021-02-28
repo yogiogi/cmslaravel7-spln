@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use \Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -11,24 +12,25 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
 use App\Instalasi_model;
-use App\pemohon_model;
 use App\resource_model;
-use Illuminate\Support\Str;
 
 class Instalasi extends Controller
 {
-  public function save(Request $request){
-    $kodelayanan = DB::table('variabel_perhitungan')
-      ->select('variabel_perhitungan.*')
-      ->where('variabel_perhitungan.id', '7')
-      ->first()->{'unique_id'};
+  public function save(Request $request)
+  {
+    $model = new resource_model();
+    $id_layanan = $model->generateIdLayanan('051', $request->input('kabupaten'));
+    $id_transaksi = $model->generateIdTansaksi('051');
 
     $nama_konsumen = $request->input('nama_konsumen');
     $ktp = $request->input('ktp');
     $alamat = $request->input('alamat');
     $provinsi = $request->input('provinsi');
     $kabupaten = $request->input('kabupaten');
+    $kecamatan = $request->input('kecamatan');
+    $desa = $request->input('desa');
     $telp = $request->input('telp');
+    $whatsapp = $request->input('whatsapp');
     $email = $request->input('email');
 
     $biaya = $request->input('biaya');
@@ -40,40 +42,44 @@ class Instalasi extends Controller
     $materai = $request->input('materai');
     $total = $request->input('total');
     $status = 0;
-    $uniqid = Str::random(5);
-    $id_layanan = $kodelayanan.''. $uniqid.''.$request->input('city');
-    
+
     $data = array(
-      'id_layanan'=>$id_layanan,
-      'nama_konsumen'=>$nama_konsumen,
-      'ktp'=>$ktp,
-      'alamat'=>$alamat,
-      'provinsi'=>$provinsi,
-      'kabupaten'=>$kabupaten,
-      'telp'=>$telp,
-      'email'=>$email,
-      'biaya'=>$biaya,
-      'titik_lampu'=>$titik_lampu,
-      'titik_saklar'=>$titik_saklar,
-      'titik_stop_kontak'=>$titik_stop_kontak,
-      'ppn'=>$ppn,
-      'ppj'=>$ppj,
-      'materai'=>$materai,
-      'total'=>$total,
-      'status'=>$status,
-    );   
+      'id_layanan' => $id_layanan,
+      'id_transaksi' => $id_transaksi,
+      'kode_layanan' => '051',
+      'nama_konsumen' => $nama_konsumen,
+      'ktp' => $ktp,
+      'alamat' => $alamat,
+      'provinsi' => $provinsi,
+      'kabupaten' => $kabupaten,
+      'kecamatan' => $kecamatan,
+      'desa' => $desa,
+      'telp' => $telp,
+      'whatsapp' => $whatsapp,
+      'email' => $email,
+      'biaya' => $biaya,
+      'titik_lampu' => $titik_lampu,
+      'titik_saklar' => $titik_saklar,
+      'titik_stop_kontak' => $titik_stop_kontak,
+      'ppn' => $ppn,
+      'ppj' => $ppj,
+      'materai' => $materai,
+      'total' => $total,
+      'status' => $status,
+    );
 
     // Insert
     $value = Instalasi_model::insertData($data);
-    if($value){
-      Session::flash('message','Insert successfully.');
-    }else{
-      Session::flash('message','Username already exists.');
+    if ($value) {
+      Session::flash('message', 'Insert successfully.');
+    } else {
+      Session::flash('message', 'Username already exists.');
     }
     return redirect()->action('Home@index');
   }
 
-  public function perhitungan(Request $request){
+  public function perhitungan(Request $request)
+  {
     $model = new resource_model();
 
     $titik_lampu = $request->lampu;
@@ -87,18 +93,18 @@ class Instalasi extends Controller
     $materai = $produk->materai;
 
     $jumlah_titik = $titik_lampu + $titik_saklar + $titik_stop;
-    $jumlah_biaya = $jumlah_titik*$biaya;
-    $ppn = $ppn*$jumlah_biaya;
-    $ppj= $ppj*$jumlah_biaya;
-    $total = $jumlah_biaya+$ppn+$ppj+$materai;
+    $jumlah_biaya = $jumlah_titik * $biaya;
+    $ppn = $ppn * $jumlah_biaya;
+    $ppj = $ppj * $jumlah_biaya;
+    $total = $jumlah_biaya + $ppn + $ppj + $materai;
 
-      $data= [
-        'biaya' => $jumlah_biaya,
-        'ppn' => $ppn,
-        'ppj' => $ppj,
-        'materai' => $materai,
-        'total' => $total,
+    $data = [
+      'biaya' => $jumlah_biaya,
+      'ppn' => $ppn,
+      'ppj' => $ppj,
+      'materai' => $materai,
+      'total' => $total,
     ];
-      return response()->json($data);
+    return response()->json($data);
   }
 }

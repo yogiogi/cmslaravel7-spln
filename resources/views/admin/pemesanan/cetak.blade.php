@@ -18,7 +18,6 @@
     <table class="printer">
   <thead>
     <tr class="bg-info">
-      
       <th>PENGIRIM (TOKO)</th>
       <th width="50%">DETAIL CUSTOMER (KEPADA)</th>
     </tr>

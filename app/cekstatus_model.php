@@ -16,4 +16,24 @@ class Cekstatus_model extends Model
             ->get();
         return $query;
     }
+
+    public function getCekstatus($idlayanan, $layanan)
+    {
+        $query = DB::table($layanan)
+            ->select('*')
+            ->where('id_layanan', $idlayanan)
+            ->orderBy('id_layanan','DESC')
+            ->first();
+        return $query;
+    }
+
+    public function singlelist($idlayanan, $layanan)
+    {
+        $query = DB::table($layanan)
+            ->select('*')
+            ->where('id_layanan', $idlayanan)
+            ->orderBy('id','DESC')
+            ->first();
+        return $query;
+    }
 }

@@ -1,12 +1,7 @@
-<?php
-
-use Carbon\Carbon;
-?>
-
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
 
 <script>
   $(document).ready(function() {
@@ -115,7 +110,9 @@ use Carbon\Carbon;
 
     var harimulai = null;
     var hariakhir = null;
-    varihari = null;
+    var hari = null;
+    var days = 1;
+
     var biaya = null;
     var ppn = null;
     var ppj = null;
@@ -135,12 +132,24 @@ use Carbon\Carbon;
 
       today = mm + '/' + dd + '/' + yyyy;
 
+      jammulai = document.getElementsByName("jammulai")[0];
+
+      harimulai = document.getElementsByName("datestart")[0];
+      hariakhir = document.getElementsByName("dateend")[0];
+
+      if (harimulai.value < hariakhir.value) {
+        harimulai = new Date($('#datestart').val());
+        hariakhir = new Date($('#dateend').val());
+
+        days = new Date(hariakhir - harimulai);
+      }
+
       $.ajax({
         type: "GET",
         url: "{{url('/penyambungansementara/perhitungan')}}",
         data: {
-          jam_nyala: $("#jam_nyala").val(),
-          hari_nyala: $('#hari_nyala').find(":selected").text(),
+          jam_mulai: jam,
+          lama_hari: days
         },
         success: function(data) {
           nama = document.getElementsByName("nama_pemohon")[0];
@@ -150,101 +159,22 @@ use Carbon\Carbon;
           kabupaten = document.getElementsByName("city")[0];
           email = document.getElementsByName("email_konsumen")[0];
 
-          jammulai = document.getElementsByName("jammulai")[0];
-          jamakhir = document.getElementsByName("jamakhir")[0];
-          harimulai = document.getElementsByName("datestart")[0];
-          hariakhir = document.getElementsByName("dateend")[0];
-
-          console.log('harimulai');
-          console.log(harimulai.value);
-          console.log('hariakhir');
-          console.log(hariakhir.value);
-
-          console.log("jam mulainya");
-          console.log(jammulai.value);
-
-          console.log("jam akhirnya");
-          console.log(jamakhir.value);
-
-          // var timeArray = jammulai.split(".");
-          // timeArray = parseInt(timeArray[0] * 60) + parseInt(timeArray[1]);
-          // console.log(timeArray);
-
-          if (harimulai.value == hariakhir.value) {
-            console.log('oke');
-            // jam = Math.abs(jamakhir.value - jammulai.value);
-
-
-            // var d1 = new Date();
-            // var d2 = new Date("2011/10/11")
-            // var diff = ;
-            // console.log(jam);
-
-            var hoursmulai = Number(jammulai.value.match(/^(\d+)/)[1]);
-            hoursmulai = hoursmulai * 60;
-            var minmulai = Number(jammulai.value.match(/:(\d+)/)[1]);
-            minmulai = hoursmulai + minmulai;
-
-            console.log(minmulai);
-
-            var hoursakhir = Number(jamakhir.value.match(/^(\d+)/)[1]);
-            hoursakhir = hoursakhir * 60;
-            var minakhir = Number(jamakhir.value.match(/:(\d+)/)[1]);
-            minakhir = hoursakhir + minakhir;
-            console.log(minakhir);
-
-            menit = minakhir - minmulai;
-            console.log("menit");
-            console.log(menit);
-            console.log(menit / 60);
-
-          } else if (harimulai.value < hariakhir.value) {
-            var date1 = new Date(harimulai + "  " + jammulai);
-            var date2 = new Date(hariakhir + " " + jamakhir);
-
-            var second = 1000,
-              minute = second * 60,
-              hour = minute * 60,
-              day = hour * 24,
-              week = day * 7;
-            fromDate = new Date(fromDate);
-            toDate = new Date(toDate);
-            var timediff = toDate - fromDate;
-
-            if (isNaN(timediff)) return NaN;
-            switch (interval) {
-              case "years":
-                return toDate.getFullYear() - fromDate.getFullYear();
-              case "months":
-                return (
-                  (toDate.getFullYear() * 12 + toDate.getMonth()) -
-                  (fromDate.getFullYear() * 12 + fromDate.getMonth())
-                );
-              case "weeks":
-                return Math.floor(timediff / week);
-              case "days":
-                return Math.floor(timediff / day);
-              case "hours":
-                return Math.floor(timediff / hour);
-              case "minutes":
-                return Math.floor(timediff / minute);
-              case "seconds":
-                return Math.floor(timediff / second);
-              default:
-                return undefined;
-            }
-          }
-          // console.log('jammulai');
-          // console.log(jammulai.value);
-          // console.log('jamakhir');
-          // console.log(jamakhir.value);
-          console.log('jam');
-          console.log(jam);
-
           biaya = data.biaya;
+          console.log('biaya');
+          console.log(biaya);
+
           ppn = data.ppn;
+          console.log('ppn');
+          console.log(ppn);
+
           ppj = data.ppj;
+          console.log('ppj');
+          console.log(ppj);
+
           materai = data.materai;
+          console.log('materai');
+          console.log(materai);
+
           total = data.total;
 
           if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '') {
@@ -254,23 +184,34 @@ use Carbon\Carbon;
               "<h2 align='center'> Penyambungan Sementara </h2>" +
               "<table>" +
               "<tr align='left'>" +
-              "<th align='left' width='75%'> Detail Biaya </th>" +
-              "<th align='left' width='25%'></th>" +
+              "<th align='left' width='25%'> Detail Biaya </th>" +
               "</tr>" +
               "<tr align='left'>" +
-              "<th align='left' width='75%'> a. Rupiah Biaya Penyambungan</th>" +
+              "<th align='left' width='25%'> dari tanggal " + document.getElementsByName("datestart")[0].value + " sampai tanggal " + document.getElementsByName("dateend")[0].value + "</th>" +
+              "<th> dari jam " + jammulai.value + " sampai jam " + jamakhir.value + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='25%'> ID Pelanggan</th>" +
+              "<th align='left' width='25%'> : " + document.getElementsByName("id_pelanggan")[0].value + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='25%'> Nomer Meter</th>" +
+              "<th align='left' width='25%'> : " + document.getElementsByName("no_meter")[0].value + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='25%'> a. Rupiah Biaya Penyambungan</th>" +
               "<th align='left' width='25%'> : Rp " + formatRupiah(biaya) + "</th>" +
               "</tr>" +
               "<tr align='left'>" +
-              "<th align='left' width='75%'> b. PPN (10%*a) </th>" +
+              "<th align='left' width='25%'> b. PPN (10%*a) </th>" +
               "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
               "</tr>" +
               "<tr align='left'>" +
-              "<th align='left' width='75%'> c. PPJ (5%*a) </th>" +
+              "<th align='left' width='25%'> c. PPJ (5%*a) </th>" +
               "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
               "</tr>" +
               "<tr align='left'>" +
-              "<th align='left' width='75%'> d. Materai </th>" +
+              "<th align='left' width='25%'> d. Materai </th>" +
               "<th align='left' width='25%'> : Rp " + formatRupiah(materai) + "</th>" +
               "</tr>" +
               "</table>" +
@@ -327,8 +268,10 @@ use Carbon\Carbon;
           whatsapp: $("#whatsapp").val(),
           email: $("#email_konsumen").val(),
 
-          jam_nyala: $("#jam_nyala").val(),
-          hari_nyala: $("#hari_nyala").val(),
+          jam_mulai: $("#jammulai").val(),
+          hari_mulai: $("#datestart").val(),
+          hari_akhir: $("#dateend").val(),
+          hari_nyala: days,
 
           biaya: biaya,
           ppn: ppn,
@@ -485,19 +428,7 @@ $provinces = $resource->provinsi();
                     <input type="text" id="no_meter" name="no_meter" class="form-control" value="{{ old('no_meter') }}" placeholder="Isi nomer Nomer Meter pelanggan" required>
                   </div>
                 </div>
-                <!-- 
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Jam nyala </label>
-                  <div class="col-md-8">
-                    <select name="jam_nyala" id="jam_nyala" class="form-control select2" required>
-                      <option value="">--Pilih jam nyala--</option>
-                      <option value="12">12 jam</option>
-                      <option value="24">24 jam</option>
-                    </select>
-                  </div>
-                </div> -->
-
-                <div class="form-group row">
+                Î <div class="form-group row">
                   <label class="col-sm-4 control-label text-right">Hari mulai nyala </label>
                   <div class="col-sm-2">
                     <input id="datestart" name="datestart" class="dateStart form-control" type="text">
@@ -513,11 +444,6 @@ $provinces = $resource->provinsi();
                   <div class="col-sm-2">
                     <input id="jammulai" name="jammulai" type="time" name="jam_mulai" id="jam_mulai" class="form-control" onkeyup="Waktumasuk();" />
                   </div>
-                  <label class="control-label text-right">jam selesai nyala </label>
-                  <div class="col-sm-2">
-                    <input id="jamakhir" name="jamakhir" type="time" name="jam_selesai" id="jam_selesai" class="form-control" onkeyup="Waktumasuk();" />
-                  </div>
-
                 </div>
 
                 <div class="form-group row" id="hitung">
@@ -549,7 +475,7 @@ $provinces = $resource->provinsi();
 </section><!-- End Hero -->
 
 <!-- Modal -->
-<div class="modal fade" id="ketentuanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<div class="modal fade" id="ketentuanModal" name="ketentuanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">

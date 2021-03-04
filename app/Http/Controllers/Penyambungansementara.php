@@ -35,9 +35,11 @@ class Penyambungansementara extends Controller
     $whatsapp = $request->input('whatsapp');
     $email = $request->input('email');
 
-    $jam_nyala = $request->input('jam_nyala');
+    $jam_mulai = $request->input('jam_mulai');
+    $hari_akhir = $request->input('hari_akhir');
     $hari_nyala = $request->input('hari_nyala');
     $biaya = $request->input('biaya');
+
     $ppn = $request->input('ppn');
     $ppj = $request->input('ppj');
     $materai = $request->input('materai');
@@ -58,7 +60,9 @@ class Penyambungansementara extends Controller
       'telp' => $telp,
       'whatsapp' => $whatsapp,
       'email' => $email,
-      'jam_nyala' => $jam_nyala,
+      'jam_mulai' => $jam_mulai,
+      'hari_mulai' => $hari_mulai,
+      'hari_akhir' => $hari_akhir,
       'hari_nyala' => $hari_nyala,
       'biaya' => $biaya,
       'ppn' => $ppn,
@@ -82,14 +86,15 @@ class Penyambungansementara extends Controller
   {
     $model = new resource_model();
     $produk = $model->variablePerhitungan(6);
-    $jam_nyala = $request->jam_nyala;
-    $hari_nyala = $request->hari_nyala;
+    $jam_mulai = $request->jam_mulai;
+    $lama_hari = $request->lama_hari;
+
     $biaya = $produk->biaya;
     $ppn = $produk->PPN;
     $ppj = $produk->PPJ;
     $materai = $produk->materai;
 
-    $jumlah_biaya = $jam_nyala * $hari_nyala * $biaya;
+    $jumlah_biaya = $jam_nyala * $biaya;
     $ppn = $ppn * $jumlah_biaya;
     $ppj = $ppj * $jumlah_biaya;
     $total = $jumlah_biaya + $ppn + $ppj + $materai;

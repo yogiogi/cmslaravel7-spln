@@ -165,7 +165,7 @@ $token     = $resource->token();
               $('.cloundcontainer').show();
               $('.cloundcontainer').empty();
               $('.cloundcontainer').append(
-                "<h2 align='center'> Data " + <?php echo $title ?> + " </h2>" +
+                "<h2 align='center'> Perhitungan biaya <?php echo $title ?> </h2>" +
                 "<table>" +
                 "<tr align='left'>" +
                 "<th align='left' width='75%'> Titik Lampu </th>" +
@@ -187,9 +187,7 @@ $token     = $resource->token();
                 "<th align='left' width='25%'></th>" +
                 "</tr>" +
                 "<tr align='left'>" +
-                "<th align='left' width='75%'> Kabel Penghantar yang dipilih </th>" +
-                "<th align='left' width='25%'> " + meterkabel + "m </th>" +
-                "<th align='left' > " + jeniskabel + "</th>" +
+                "<th align='left' width='50%'> Kabel Penghantar yang dipilih : " + jeniskabel.value + ", panjang " + meterkabel.value + " meter </th>" +
                 "</tr>" +
                 "<tr align='left'>" +
                 "<th align='left' width='75%'> - Rupiah Biaya </th>" +
@@ -224,6 +222,7 @@ $token     = $resource->token();
                 "</tr>" +
                 "</table>" +
                 "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>");
+
             } else {
               alert('Data tidak bisa kosong');
               $('div.cloundcontainer').hide();
@@ -287,11 +286,11 @@ $token     = $resource->token();
 <!-- ======= Hero Section ======= -->
 <section id="hero">
   <div class="container" style="margin-left: auto; margin-right: auto;">
-    <div class="row" >
-      <div class="col-lg-10 order-1 order-lg-2 hero-img" style="margin-left: auto; margin-right: auto;" data-aos="zoom-out" data-aos-delay="300">
+    <div class="row">
+      <div class="col-lg-14 order-1 order-lg-2 hero-img" style="margin-left: auto; margin-right: auto;" data-aos="zoom-out" data-aos-delay="300">
         <div class="kotak">
           <div class="row">
-            <div class="col-md-10 text-center" style="margin-left: auto; margin-right: auto;">
+            <div class="col-md-12 text-center" style="margin-left: auto; margin-right: auto;">
               <h1><?php echo $title ?></h1>
               <hr>
             </div>
@@ -315,14 +314,14 @@ $token     = $resource->token();
 
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Nama Pemohon</label>
-                  <div class="col-sm-8">
+                  <div class="col-sm-10">
                     <input type="text" id="nama_pemohon" name="nama_pemohon" class="form-control" placeholder="Isi dengan nama pemohon" value="" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Alamat</label>
-                  <div class="col-sm-8">
+                  <div class="col-sm-10">
                     <textarea id="alamat" name="alamat" class="form-control" placeholder="Alamat" required value=""></textarea>
                   </div>
                 </div>
@@ -364,72 +363,61 @@ $token     = $resource->token();
 
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Nomer KTP </label>
-                  <div class="col-sm-8">
+                  <div class="col-sm-10">
                     <input type="number" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Telepon </label>
-                  <div class="col-sm-8">
-                    <input type="number" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
+                  <label class="col-sm-2 control-label text-right">Telepon </label>
+                  <div class="col-sm-4">
+                    <input type="number" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon yang diberi kuasa" value="{{ old('nomer_ktp') }}" required>
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomor whatsapp pemohon </label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Nomor whatsapp </label>
+                  <div class="col-sm-4">
                     <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp yang diberi kuasa" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Email</label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Email</label>
+                  <div class="col-sm-10">
                     <input type="email" id="email_konsumen" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}" placeholder="Isi dengan email Anda" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Titik Lampu</label>
-                  <div class="col-sm-8">
-                    <input type="number" id="titik_lampu" name="titik_lampu" class="form-control" value="{{ old('titik_lampu') }}" placeholder="Isi dengan titik lampu" required>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Titik Saklar</label>
-                  <div class="col-sm-8">
-                    <input type="number" id="titik_saklar" name="titik_saklar" class="form-control" value="{{ old('titik_saklar') }}" placeholder="Isi dengan titik saklar" required>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Titik Stop Kontak</label>
-                  <div class="col-sm-8">
-                    <input type="number" id="titik_stop" name="titik_stop" class="form-control" value="{{ old('titik_stop') }}" placeholder="Isi dengan nilai titik stop kontak" required>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Kabel Penghantar Utama</label>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Panjang Kabel</label>
+                  <label class="col-sm-2 control-label text-right">Jumlah titik Lampu</label>
                   <div class="col-sm-2">
-                    <input type="number" id="meter_kabel" name="meter_kabel" class="form-control" value="{{ old('meter_kabel') }}" placeholder="0" required>
+                    <input type="number" id="titik_lampu" name="titik_lampu" class="form-control" value="{{ old('titik_lampu') }}" placeholder="0" required>
                   </div>
-                  <label class=" control-label text-right">dalam meter</label>
+                  <label class="col-sm-2 control-label text-right">Jumlah titik Saklar</label>
+                  <div class="col-sm-2">
+                    <input type="number" id="titik_saklar" name="titik_saklar" class="form-control" value="{{ old('titik_saklar') }}" placeholder="0" required>
+                  </div>
+                  <label class="col-sm-2 control-label text-right">Jumlah titik Stop Kontak</label>
+                  <div class="col-sm-2">
+                    <input type="number" id="titik_stop" name="titik_stop" class="form-control" value="{{ old('titik_stop') }}" placeholder="0" required>
+                  </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Ukuran Kabel</label>
-                  <div class="col-sm-2">
-                    <input type="text" id="ukuran_kabel" name="ukuran_kabel" class="form-control" value="{{ old('ukuran_kabel') }}" placeholder="jenis" required>
+                  <label class="col-sm-2 control-label text-right">Kabel Penghantar Utama</label>
+
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="form_email">Panjang Kabel</label>
+                      <input type="number" id="meter_kabel" name="meter_kabel" class="form-control" value="{{ old('meter_kabel') }}" placeholder="0" required>
+                      <label class=" control-label text-right">dalam meter</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="form_email">Ukuran Kabel</label>
+                      <input type="text" id="ukuran_kabel" name="ukuran_kabel" class="form-control" value="{{ old('ukuran_kabel') }}" placeholder="jenis ukuran" required>
+                    </div>
                   </div>
                 </div>
-
 
                 <div class="form-group row" id="hitung">
                   <label class="col-sm-4 control-label"></label>

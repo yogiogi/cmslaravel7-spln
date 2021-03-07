@@ -150,7 +150,7 @@ $provinces = $resource->provinsi();
             $('.cloundcontainer').show();
             $('.cloundcontainer').empty();
             $('.cloundcontainer').append(
-              "<h2 align='center'> Penyambungan Sementara </h2>" +
+              "<h2 align='center'> Perhitungan biaya <?php echo $title ?> </h2>" +
               "<table>" +
               "<tr align='left'>" +
               "<th align='left' width='25%'> Detail Biaya </th>" +
@@ -212,9 +212,6 @@ $provinces = $resource->provinsi();
         }
       });
     });
-
-    
-
 
     $('#SetujuButton').on("click", function() {
       jQuery("#checkKetentuan").attr('checked', true);

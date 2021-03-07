@@ -96,7 +96,7 @@ class Instalasi extends Controller
     $ppj = $produk->PPJ;
     $biaya = $produk->biaya;
     $materai = $produk->materai;
-    $hargameter = $produk->harga_meter;
+    $hargameter = $produk->hargameter;
 
     $hargameter = $hargameter * $meter_kabel;
     $jumlah_titik = $titik_lampu + $titik_saklar + $titik_stop;

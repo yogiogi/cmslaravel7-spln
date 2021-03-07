@@ -1,20 +1,25 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
+
+<?php
+
+use Illuminate\Support\Facades\DB;
+use App\penyambungansementara_model;
+use App\resource_model;
+
+$site = DB::table('konfigurasi')->first();
+$resource = new resource_model();
+$provinces = $resource->provinsi();
+?>
 
 <script>
   $(document).ready(function() {
-    $('.dateStart').datepicker({
-      format: 'mm-dd-yyyy'
-    });
-  });
-</script>
-
-<script>
-  $(document).ready(function() {
-    $('.dateEnd').datepicker({
-      format: 'mm-dd-yyyy'
+    $('.dateNyala').datepicker({
+      format: 'dd-mm-yyyy',
+      todayHighlight: 'TRUE',
+      minDate: 0,
+      autoclose: true
     });
   });
 </script>
@@ -34,7 +39,6 @@
               $.each(res, function(key, value) {
                 $("#city").append('<option value="' + key + '">' + value + '</option>');
               });
-
             } else {
               $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
             }
@@ -44,7 +48,6 @@
         $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
       }
     });
-
     $('#city').on('change', function() {
       var cityID = $(this).val();
       if (cityID) {
@@ -58,7 +61,6 @@
               $.each(res, function(key, value) {
                 $("#district").append('<option value="' + key + '">' + value + '</option>');
               });
-
             } else {
               $("#district").append('<option>--Pilih Kecamatan--</option>');
             }
@@ -68,7 +70,6 @@
         $("#district").append('<option>--Pilih Kecamatan--</option>');
       }
     });
-
     $('#district').on('change', function() {
       var districtID = $(this).val();
       if (districtID) {
@@ -82,7 +83,6 @@
               $.each(res, function(key, value) {
                 $("#village").append('<option value="' + key + '">' + value + '</option>');
               });
-
             } else {
               $("#village").append('<option>--Pilih Desa--</option>');
             }
@@ -103,16 +103,6 @@
     var kabupaten = null;
     var ktp = null;
     var email = null;
-
-    var jammulai = null;
-    var jamakhir = null;
-    var jam = null;
-
-    var harimulai = null;
-    var hariakhir = null;
-    var hari = null;
-    var days = 1;
-
     var biaya = null;
     var ppn = null;
     var ppj = null;
@@ -121,35 +111,20 @@
     var menit = null;
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //  January is 0!
     var yyyy = today.getFullYear();
 
     function formatRupiah(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-
     $('#submithitung').on('click', function() {
-
       today = mm + '/' + dd + '/' + yyyy;
-
-      jammulai = document.getElementsByName("jammulai")[0];
-
-      harimulai = document.getElementsByName("datestart")[0];
-      hariakhir = document.getElementsByName("dateend")[0];
-
-      if (harimulai.value < hariakhir.value) {
-        harimulai = new Date($('#datestart').val());
-        hariakhir = new Date($('#dateend').val());
-
-        days = new Date(hariakhir - harimulai);
-      }
 
       $.ajax({
         type: "GET",
         url: "{{url('/penyambungansementara/perhitungan')}}",
         data: {
-          jam_mulai: jam,
-          lama_hari: days
+          durasi: $("#durasi").val(),
         },
         success: function(data) {
           nama = document.getElementsByName("nama_pemohon")[0];
@@ -158,25 +133,19 @@
           provinsi = document.getElementsByName("provinsi")[0];
           kabupaten = document.getElementsByName("city")[0];
           email = document.getElementsByName("email_konsumen")[0];
-
           biaya = data.biaya;
           console.log('biaya');
           console.log(biaya);
-
           ppn = data.ppn;
           console.log('ppn');
           console.log(ppn);
-
           ppj = data.ppj;
           console.log('ppj');
           console.log(ppj);
-
           materai = data.materai;
           console.log('materai');
           console.log(materai);
-
           total = data.total;
-
           if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '') {
             $('.cloundcontainer').show();
             $('.cloundcontainer').empty();
@@ -187,8 +156,8 @@
               "<th align='left' width='25%'> Detail Biaya </th>" +
               "</tr>" +
               "<tr align='left'>" +
-              "<th align='left' width='25%'> dari tanggal " + document.getElementsByName("datestart")[0].value + " sampai tanggal " + document.getElementsByName("dateend")[0].value + "</th>" +
-              "<th> dari jam " + jammulai.value + " sampai jam " + jamakhir.value + "</th>" +
+              "<th align='left'> tanggal layanan " + document.getElementsByName("datenyala")[0].value + ", </th>" +
+              "<th> durasi " + $("#durasi").val() + " jam </th>" +
               "</tr>" +
               "<tr align='left'>" +
               "<th align='left' width='25%'> ID Pelanggan</th>" +
@@ -244,11 +213,13 @@
       });
     });
 
+    
+
+
     $('#SetujuButton').on("click", function() {
       jQuery("#checkKetentuan").attr('checked', true);
       jQuery("#submit_btn").attr('disabled', false);
     });
-
     $('.cloundcontainer').on('click', 'button', function() {
       $.ajax({
         url: '{{ url("/penyambungansementara/save") }}',
@@ -267,18 +238,13 @@
           telp: $("#telepon_pemohon").val(),
           whatsapp: $("#whatsapp").val(),
           email: $("#email_konsumen").val(),
-
-          jam_mulai: $("#jammulai").val(),
-          hari_mulai: $("#datestart").val(),
-          hari_akhir: $("#dateend").val(),
-          hari_nyala: days,
-
           biaya: biaya,
           ppn: ppn,
           ppj: ppj,
           materai: materai,
           total: total,
-
+          durasi: $("#durasi").val(),
+          tanggal_nyala: $("#datenyala").val()
         },
         dataType: 'text',
         success: function(data) {
@@ -291,17 +257,6 @@
     });
   });
 </script>
-
-<?php
-
-use Illuminate\Support\Facades\DB;
-use App\penyambungansementara_model;
-use App\resource_model;
-
-$site = DB::table('konfigurasi')->first();
-$resource = new resource_model();
-$provinces = $resource->provinsi();
-?>
 
 <!-- ======= Hero Section ======= -->
 <section id="hero">
@@ -428,21 +383,22 @@ $provinces = $resource->provinsi();
                     <input type="text" id="no_meter" name="no_meter" class="form-control" value="{{ old('no_meter') }}" placeholder="Isi nomer Nomer Meter pelanggan" required>
                   </div>
                 </div>
-                Î <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Hari mulai nyala </label>
-                  <div class="col-sm-2">
-                    <input id="datestart" name="datestart" class="dateStart form-control" type="text">
-                  </div>
-                  <label class="control-label text-right">Hari akhir nyala </label>
-                  <div class="col-sm-2">
-                    <input id="dateend" name="dateend" class="dateEnd form-control" type="text">
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Tanggal penyambungan </label>
+                  <div class="col-sm-4">
+                    <input id="datenyala" name="datenyala" class="dateNyala form-control" type="text">
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">jam mulai nyala </label>
-                  <div class="col-sm-2">
-                    <input id="jammulai" name="jammulai" type="time" name="jam_mulai" id="jam_mulai" class="form-control" onkeyup="Waktumasuk();" />
+                  <label class="col-sm-4 control-label text-right">Durasi</label>
+                  <div class="col-sm-4">
+                    <select name="durasi" id="durasi" class="form-control select2" required>
+                      <option value="">-- pilih durasi --</option>
+                      <option value="1">12 jam</option>
+                      <option value="2">24 jam</option>
+                    </select>
                   </div>
                 </div>
 

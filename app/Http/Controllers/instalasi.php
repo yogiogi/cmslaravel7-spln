@@ -37,6 +37,8 @@ class Instalasi extends Controller
     $titik_lampu = $request->input('lampu');
     $titik_saklar = $request->input('saklar');
     $titik_stop_kontak = $request->input('stopkontak');
+    $meter_kabel = $request->input('meterkabel');
+    $ukuran_kabel = $request->input('ukurankabel');
     $ppn = $request->input('ppn');
     $ppj = $request->input('ppj');
     $materai = $request->input('materai');
@@ -61,6 +63,8 @@ class Instalasi extends Controller
       'titik_lampu' => $titik_lampu,
       'titik_saklar' => $titik_saklar,
       'titik_stop_kontak' => $titik_stop_kontak,
+      'meter_kabel' => $meter_kabel,
+      'ukuran_kabel' => $ukuran_kabel,
       'ppn' => $ppn,
       'ppj' => $ppj,
       'materai' => $materai,
@@ -85,15 +89,20 @@ class Instalasi extends Controller
     $titik_lampu = $request->lampu;
     $titik_saklar = $request->saklar;
     $titik_stop = $request->stopkontak;
+    $meter_kabel = $request->input('meterkabel');
 
     $produk = $model->variablePerhitungan(7);
     $ppn = $produk->PPN;
     $ppj = $produk->PPJ;
     $biaya = $produk->biaya;
     $materai = $produk->materai;
+    $hargameter = $produk->harga_meter;
 
+    $hargameter = $hargameter * $meter_kabel;
     $jumlah_titik = $titik_lampu + $titik_saklar + $titik_stop;
     $jumlah_biaya = $jumlah_titik * $biaya;
+    $jumlah_biaya = $hargameter + $jumlah_biaya;
+
     $ppn = $ppn * $jumlah_biaya;
     $ppj = $ppj * $jumlah_biaya;
     $total = $jumlah_biaya + $ppn + $ppj + $materai;

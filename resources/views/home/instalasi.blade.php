@@ -104,6 +104,9 @@ $token     = $resource->token();
     var lampu = null;
     var saklar = null;
     var stopkontak = null;
+    var meterkabel = null;
+    var jeniskabel = null;
+
     var biaya = null;
     var ppn = null;
     var ppj = null;
@@ -125,6 +128,8 @@ $token     = $resource->token();
       lampu = $("#titik_lampu").val(),
         saklar = $("#titik_saklar").val(),
         stopkontak = $("#titik_stop").val(),
+        meter_kabel = $("#meter_kabel").val(),
+        jenis_kabel = $("#jenis_kabel").val(),
 
         $.ajax({
           type: "GET",
@@ -133,6 +138,8 @@ $token     = $resource->token();
             lampu: $("#titik_lampu").val(),
             saklar: $("#titik_saklar").val(),
             stopkontak: $("#titik_stop").val(),
+            meterkabel: $("#meter_kabel").val(),
+            jeniskabel: $("#jenis_kabel").val(),
           },
           success: function(data) {
             nama = document.getElementsByName("nama_pemohon")[0];
@@ -146,6 +153,7 @@ $token     = $resource->token();
             lampu = document.getElementsByName("titik_lampu")[0];
             saklar = document.getElementsByName("titik_saklar")[0];
             stopkontak = document.getElementsByName("titik_stop")[0];
+            $meterkabel = document.getElementsByName("meter_kabel")[0];
 
             biaya = data.biaya;
             ppn = data.ppn;
@@ -177,6 +185,11 @@ $token     = $resource->token();
                 "<tr align='left'>" +
                 "<th align='left' width='75%'> Detail Biaya </th>" +
                 "<th align='left' width='25%'></th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> Kabel Penghantar yang dipilih </th>" +
+                "<th align='left' width='25%'> " + meterkabel + "m </th>" +
+                "<th align='left' > " + jeniskabel + "</th>" +
                 "</tr>" +
                 "<tr align='left'>" +
                 "<th align='left' width='75%'> - Rupiah Biaya </th>" +
@@ -251,6 +264,8 @@ $token     = $resource->token();
           lampu: $("#titik_lampu").val(),
           saklar: $("#titik_saklar").val(),
           stopkontak: $("#titik_stop").val(),
+          meterkabel: $("#meter_kabel").val(),
+          jeniskabel: $("#jenis_kabel").val(),
 
           ppn: ppn,
           ppj: ppj,
@@ -271,17 +286,16 @@ $token     = $resource->token();
 
 <!-- ======= Hero Section ======= -->
 <section id="hero">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
+  <div class="container" style="margin-left: auto; margin-right: auto;">
+    <div class="row" >
+      <div class="col-lg-10 order-1 order-lg-2 hero-img" style="margin-left: auto; margin-right: auto;" data-aos="zoom-out" data-aos-delay="300">
         <div class="kotak">
           <div class="row">
-            <div class="col-md-12 text-center">
+            <div class="col-md-10 text-center" style="margin-left: auto; margin-right: auto;">
               <h1><?php echo $title ?></h1>
               <hr>
             </div>
-            <div class="col-md-10 text-left">
-
+            <div class="col-md-12" style="margin-left: auto; margin-right: auto;">
               @if ($errors->any())
               <div id="alerterror" name="alerterror" class="alert alert-danger">
                 <ul>
@@ -300,23 +314,22 @@ $token     = $resource->token();
                 </p>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nama Pemohon</label>
+                  <label class="col-sm-2 control-label text-right">Nama Pemohon</label>
                   <div class="col-sm-8">
                     <input type="text" id="nama_pemohon" name="nama_pemohon" class="form-control" placeholder="Isi dengan nama pemohon" value="" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Alamat</label>
+                  <label class="col-sm-2 control-label text-right">Alamat</label>
                   <div class="col-sm-8">
                     <textarea id="alamat" name="alamat" class="form-control" placeholder="Alamat" required value=""></textarea>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Provinsi</label>
-                  <div class="col-md-8">
-
+                  <label class="col-sm-2 control-label text-right">Provinsi</label>
+                  <div class="col-sm-4">
                     <select name="provinsi" id="provinsi" class="form-control select2" required>
                       <option value="">--Pilih Provinsi--</option>
                       @foreach($provinces as $provincy)
@@ -324,11 +337,9 @@ $token     = $resource->token();
                       @endforeach
                     </select>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Kabupaten/Kota</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Kabupaten/Kota</label>
+                  <div class="col-sm-4">
                     <select name="city" id="city" class="form-control select2" required>
                       <option>--Pilih Kabupaten/Kota--</option>
                     </select>
@@ -336,17 +347,15 @@ $token     = $resource->token();
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Kecamatan</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Kecamatan</label>
+                  <div class="col-sm-4">
                     <select name="district" id="district" class="form-control select2" required>
                       <option>--Pilih Kecamatan--</option>
                     </select>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Desa</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Desa</label>
+                  <div class="col-sm-4">
                     <select name="village" id="village" class="form-control select2" required>
                       <option>--Pilih Desa--</option>
                     </select>
@@ -354,7 +363,7 @@ $token     = $resource->token();
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomer KTP </label>
+                  <label class="col-sm-2 control-label text-right">Nomer KTP </label>
                   <div class="col-sm-8">
                     <input type="number" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
                   </div>
@@ -401,6 +410,26 @@ $token     = $resource->token();
                     <input type="number" id="titik_stop" name="titik_stop" class="form-control" value="{{ old('titik_stop') }}" placeholder="Isi dengan nilai titik stop kontak" required>
                   </div>
                 </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Kabel Penghantar Utama</label>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Panjang Kabel</label>
+                  <div class="col-sm-2">
+                    <input type="number" id="meter_kabel" name="meter_kabel" class="form-control" value="{{ old('meter_kabel') }}" placeholder="0" required>
+                  </div>
+                  <label class=" control-label text-right">dalam meter</label>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 control-label text-right">Ukuran Kabel</label>
+                  <div class="col-sm-2">
+                    <input type="text" id="ukuran_kabel" name="ukuran_kabel" class="form-control" value="{{ old('ukuran_kabel') }}" placeholder="jenis" required>
+                  </div>
+                </div>
+
 
                 <div class="form-group row" id="hitung">
                   <label class="col-sm-4 control-label"></label>

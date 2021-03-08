@@ -102,6 +102,13 @@ class resource_model extends Model
         return $query;
     }
 
+    public function jenisMCB()
+    {
+        $query = DB::table('jenis_box')
+            ->get();
+        return $query;
+    }
+
     public function token()
     {
         $query = DB::table('token')

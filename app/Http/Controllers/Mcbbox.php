@@ -72,17 +72,36 @@ class Mcbbox extends Controller
     $model = new resource_model();
     $produk = $model->variablePerhitungan(6);
     $mcb_box = $request->grup_mcb;
-    $biaya = $produk->biaya;
+    $harga_mcb =  $request->harga_mcb;
+    $lnb_box = $request->grup_lnb;
+    $harga_lnb =  $request->harga_lnb;
+
+    $mccb_box = $request->grup_mccb;
+    $harga_mccb =  $request->harga_mccb;
+
+    $trafo = $request->grup_trafo;
+    $harga_trafo =  $request->harga_trafo;
+
+    $biayainstall = $produk->biaya;
     $ppn = $produk->PPN;
     $ppj = $produk->PPJ;
     $materai = $produk->materai;
 
-    $jumlah_biaya = $mcb_box * $biaya;
+    $harga_mcb = $harga_mcb * $mcb_box;
+    $harga_lnb = $harga_lnb * $lnb_box;
+    $harga_mccb = $harga_mccb * $mccb_box;
+    $harga_trafo = $harga_trafo * $trafo;
+
+    $jumlah_biaya = $harga_mcb + $harga_lnb + $harga_mccb + $harga_trafo + $biayainstall;
     $ppn = $ppn * $jumlah_biaya;
     $ppj = $ppj * $jumlah_biaya;
     $total = $jumlah_biaya + $ppn + $ppj + $materai;
 
     $data = [
+      'biayamcb' => $harga_mcb,
+      'biayalnb' => $harga_lnb,
+      'biayamccb' => $harga_mccb,
+      'biayatrafo' => $harga_trafo,
       'biaya' => $jumlah_biaya,
       'ppn' => $ppn,
       'ppj' => $ppj,

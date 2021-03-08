@@ -128,8 +128,7 @@ $token     = $resource->token();
       lampu = $("#titik_lampu").val(),
         saklar = $("#titik_saklar").val(),
         stopkontak = $("#titik_stop").val(),
-        meter_kabel = $("#meter_kabel").val(),
-        jenis_kabel = $("#jenis_kabel").val(),
+        meterkabel = $("#meter_kabel").val(),
 
         $.ajax({
           type: "GET",
@@ -139,7 +138,6 @@ $token     = $resource->token();
             saklar: $("#titik_saklar").val(),
             stopkontak: $("#titik_stop").val(),
             meterkabel: $("#meter_kabel").val(),
-            jeniskabel: $("#jenis_kabel").val(),
           },
           success: function(data) {
             nama = document.getElementsByName("nama_pemohon")[0];
@@ -153,7 +151,13 @@ $token     = $resource->token();
             lampu = document.getElementsByName("titik_lampu")[0];
             saklar = document.getElementsByName("titik_saklar")[0];
             stopkontak = document.getElementsByName("titik_stop")[0];
-            $meterkabel = document.getElementsByName("meter_kabel")[0];
+            meterkabel = document.getElementsByName("meter_kabel")[0];
+            jeniskabel = document.getElementsByName("ukuran_kabel")[0];
+
+            console.log('meterkabel');
+            console.log(meterkabel.value);
+
+            console.log(jeniskabel);
 
             biaya = data.biaya;
             ppn = data.ppn;
@@ -264,7 +268,7 @@ $token     = $resource->token();
           saklar: $("#titik_saklar").val(),
           stopkontak: $("#titik_stop").val(),
           meterkabel: $("#meter_kabel").val(),
-          jeniskabel: $("#jenis_kabel").val(),
+          jeniskabel: $("#ukuran_kabel").val(),
 
           ppn: ppn,
           ppj: ppj,
@@ -287,7 +291,7 @@ $token     = $resource->token();
 <section id="hero">
   <div class="container" style="margin-left: auto; margin-right: auto;">
     <div class="row">
-      <div class="col-lg-14 order-1 order-lg-2 hero-img" style="margin-left: auto; margin-right: auto;" data-aos="zoom-out" data-aos-delay="300">
+      <div class="col-lg-12 order-1 order-lg-2 hero-img" style="margin-left: auto; margin-right: auto;" data-aos="zoom-out" data-aos-delay="300">
         <div class="kotak">
           <div class="row">
             <div class="col-md-12 text-center" style="margin-left: auto; margin-right: auto;">
@@ -369,13 +373,13 @@ $token     = $resource->token();
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-2 control-label text-right">Telepon </label>
+                  <label class="col-sm-2 control-label text-right">No. Telepon </label>
                   <div class="col-sm-4">
-                    <input type="number" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon yang diberi kuasa" value="{{ old('nomer_ktp') }}" required>
+                    <input type="number" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon pemohon" value="{{ old('nomer_ktp') }}" required>
                   </div>
-                  <label class="col-sm-2 control-label text-right">Nomor whatsapp </label>
+                  <label class="col-sm-2 control-label text-right">No. Whatsapp </label>
                   <div class="col-sm-4">
-                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp yang diberi kuasa" required>
+                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp pemohon" required>
                   </div>
                 </div>
 
@@ -387,17 +391,25 @@ $token     = $resource->token();
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-2 control-label text-right">Jumlah titik Lampu</label>
+                  <label class="col-sm-2 control-label text-right">Jumlah titik</label>
+
                   <div class="col-sm-2">
-                    <input type="number" id="titik_lampu" name="titik_lampu" class="form-control" value="{{ old('titik_lampu') }}" placeholder="0" required>
+                    <div class="form-group">
+                      <label>Lampu</label>
+                      <input type="number" min="0" id="titik_lampu" name="titik_lampu" class="form-control" value="{{ old('titik_lampu') }}" placeholder="0" required>
+                    </div>
                   </div>
-                  <label class="col-sm-2 control-label text-right">Jumlah titik Saklar</label>
                   <div class="col-sm-2">
-                    <input type="number" id="titik_saklar" name="titik_saklar" class="form-control" value="{{ old('titik_saklar') }}" placeholder="0" required>
+                    <div class="form-group">
+                      <label>Saklar</label>
+                      <input type="number" min="0" id="titik_saklar" name="titik_saklar" class="form-control" value="{{ old('titik_saklar') }}" placeholder="0" required>
+                    </div>
                   </div>
-                  <label class="col-sm-2 control-label text-right">Jumlah titik Stop Kontak</label>
                   <div class="col-sm-2">
-                    <input type="number" id="titik_stop" name="titik_stop" class="form-control" value="{{ old('titik_stop') }}" placeholder="0" required>
+                    <div class="form-group">
+                      <label>Stop Kontak</label>
+                      <input type="number" min="0" id="titik_stop" name="titik_stop" class="form-control" value="{{ old('titik_stop') }}" placeholder="0" required>
+                    </div>
                   </div>
                 </div>
 
@@ -407,7 +419,7 @@ $token     = $resource->token();
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="form_email">Panjang Kabel</label>
-                      <input type="number" id="meter_kabel" name="meter_kabel" class="form-control" value="{{ old('meter_kabel') }}" placeholder="0" required>
+                      <input type="number" min="0" id="meter_kabel" name="meter_kabel" class="form-control" value="{{ old('meter_kabel') }}" placeholder="0" required>
                       <label class=" control-label text-right">dalam meter</label>
                     </div>
                   </div>

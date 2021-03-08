@@ -38,7 +38,7 @@ class Instalasi extends Controller
     $titik_saklar = $request->input('saklar');
     $titik_stop_kontak = $request->input('stopkontak');
     $meter_kabel = $request->input('meterkabel');
-    $ukuran_kabel = $request->input('ukurankabel');
+    $jenis_kabel = $request->input('jeniskabel');
     $ppn = $request->input('ppn');
     $ppj = $request->input('ppj');
     $materai = $request->input('materai');
@@ -64,7 +64,7 @@ class Instalasi extends Controller
       'titik_saklar' => $titik_saklar,
       'titik_stop_kontak' => $titik_stop_kontak,
       'meter_kabel' => $meter_kabel,
-      'ukuran_kabel' => $ukuran_kabel,
+      'jenis_kabel' => $jenis_kabel,
       'ppn' => $ppn,
       'ppj' => $ppj,
       'materai' => $materai,

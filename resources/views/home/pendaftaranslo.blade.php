@@ -344,7 +344,7 @@ $provinces = $resource->provinsi();
               <h1><?php echo $title ?></h1>
               <hr>
             </div>
-            <div class="col-md-12 text-left" style="margin-left: auto; margin-right: auto;">
+            <div class="col-md-10" style="margin-left: auto; margin-right: auto;">
               @if ($errors->any())
               <div class="alert alert-danger">
                 <ul>
@@ -359,7 +359,7 @@ $provinces = $resource->provinsi();
                 <input type="hidden" id="token_rahasia" value="72827582Uduagd86275gbdahgahgfa">
 
                 <p class="alert alert-info">
-                  Isi data <?php echo $title ?> Anda dengan lengkap dan benar.
+                  Isi <?php echo $title ?> Anda dengan lengkap dan benar.
                 </p>
 
                 <div class="form-group row">
@@ -421,11 +421,11 @@ $provinces = $resource->provinsi();
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">No. Telepon </label>
                   <div class="col-sm-4">
-                    <input type="number" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon yang diberi kuasa" value="{{ old('nomer_ktp') }}" required>
+                    <input type="number" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon pemohon" value="{{ old('nomer_ktp') }}" required>
                   </div>
                   <label class="col-sm-2 control-label text-right">No. Whatsapp </label>
                   <div class="col-sm-4">
-                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp yang diberi kuasa" required>
+                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp pemohon" required>
                   </div>
                 </div>
 

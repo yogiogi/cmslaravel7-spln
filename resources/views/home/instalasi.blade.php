@@ -298,7 +298,7 @@ $token     = $resource->token();
               <h1><?php echo $title ?></h1>
               <hr>
             </div>
-            <div class="col-md-12" style="margin-left: auto; margin-right: auto;">
+            <div class="col-md-10" style="margin-left: auto; margin-right: auto;">
               @if ($errors->any())
               <div id="alerterror" name="alerterror" class="alert alert-danger">
                 <ul>
@@ -313,7 +313,7 @@ $token     = $resource->token();
                 <input type="hidden" name="token_rahasia" value="72827582Uduagd86275gbdahgahgfa">
 
                 <p class="alert alert-info">
-                  Isi data instalasi Anda dengan lengkap dan benar.
+                  Isi <?php echo $title ?> Anda dengan lengkap dan benar.
                 </p>
 
                 <div class="form-group row">

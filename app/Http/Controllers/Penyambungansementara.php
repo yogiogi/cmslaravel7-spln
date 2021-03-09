@@ -38,6 +38,8 @@ class Penyambungansementara extends Controller
 
     $durasi = $request->input('durasi');
     $tanggal_nyala = Carbon::parse($request->input('tanggal_nyala'))->format('Y-m-d');
+    $jammulai = $request->input('jammulai');
+
     $biaya = $request->input('biaya');
 
     $ppn = $request->input('ppn');
@@ -62,6 +64,7 @@ class Penyambungansementara extends Controller
       'email' => $email,
       'durasi' => $durasi,
       'tanggal_nyala' => $tanggal_nyala,
+      'jammulai' => $jammulai,
       'biaya' => $biaya,
       'ppn' => $ppn,
       'ppj' => $ppj,

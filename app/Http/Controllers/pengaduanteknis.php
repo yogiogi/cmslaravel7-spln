@@ -30,6 +30,8 @@ class Pengaduanteknis extends Controller
     $email = $request->input('email_konsumen');
 
     $keterangan = $request->input('keterangan');
+    $id_pelanggan = $request->input('id_pelanggan');
+    $no_meter = $request->input('no_meter');
     $status = 0;
 
     $data = array(
@@ -47,6 +49,8 @@ class Pengaduanteknis extends Controller
       'whatsapp' => $whatsapp,
       'email' => $email,
       'keterangan' => $keterangan,
+      'id_pelanggan' => $id_pelanggan,
+      'no_meter' => $no_meter,
       'status' => $status,
     );
 

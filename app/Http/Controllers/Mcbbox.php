@@ -27,8 +27,22 @@ class Mcbbox extends Controller
     $whatsapp = $request->input('whatsapp');
     $email = $request->input('email');
 
+    $jenisbox = $request->input('jenisbox');
     $grup_mcb = $request->input('grup_mcb');
+    $grup_lnb = $request->input('grup_lnb');
+    $grup_mccb = $request->input('grup_mccb');
+    $grup_trafo = $request->input('grup_trafo');
+    $mdp = $request->input('mdp');
+    $sdp = $request->input('sdp');
+
+    $biayamcb = $request->input('biayamcb');
+    $biayalnb = $request->input('biayalnb');
+    $biayamccb = $request->input('biayamccb');
+    $biayatrafo = $request->input('biayatrafo');
+    $biayamdp = $request->input('biayamdp');
+    $biayasdp = $request->input('biayasdp');
     $biaya = $request->input('biaya');
+
     $ppn = $request->input('ppn');
     $ppj = $request->input('ppj');
     $materai = $request->input('materai');
@@ -49,8 +63,22 @@ class Mcbbox extends Controller
       'telp' => $telp,
       'whatsapp' => $whatsapp,
       'email' => $email,
-      'biaya' => $biaya,
+      'jenisbox' => $jenisbox,
       'grup_mcb' => $grup_mcb,
+      'grup_lnb' => $grup_lnb,
+      'grup_mccb' => $grup_mccb,
+      'grup_trafo' => $grup_trafo,
+      'mdp' => $mdp,
+      'sdp' => $sdp,
+
+      'biaya_mcb' => $biayamcb,
+      'biaya_lnb' => $biayalnb,
+      'biaya_mccb' => $biayamccb,
+      'biaya_trafo' => $biayatrafo,
+      'biayamdp' => $biayamdp,
+      'biayasdp' => $biayasdp,
+      'biaya' => $biaya,
+
       'ppn' => $ppn,
       'ppj' => $ppj,
       'materai' => $materai,
@@ -70,17 +98,28 @@ class Mcbbox extends Controller
   public function perhitungan(Request $request)
   {
     $model = new resource_model();
-    $produk = $model->variablePerhitungan(6);
+    $produk = $model->variablePerhitungan(7);
+
     $mcb_box = $request->grup_mcb;
-    $harga_mcb =  $request->harga_mcb;
     $lnb_box = $request->grup_lnb;
-    $harga_lnb =  $request->harga_lnb;
-
+    $lnb_box = $request->grup_lnb;
     $mccb_box = $request->grup_mccb;
-    $harga_mccb =  $request->harga_mccb;
-
     $trafo = $request->grup_trafo;
-    $harga_trafo =  $request->harga_trafo;
+
+    $harga_mcb =  $produk->harga_mcb;
+    $harga_lnb =  $produk->harga_lnb;
+    $harga_mccb =  $produk->harga_mccb;
+    $harga_trafo =  $produk->harga_trafo;
+
+    $mdp = $request->mdp;
+    if ($mdp != null) {
+      $harga_mdp =  $produk->mdp;
+    }
+
+    $sdp = $request->sdp;
+    if ($sdp != null) {
+      $harga_sdp =  $produk->sdp;
+    }
 
     $biayainstall = $produk->biaya;
     $ppn = $produk->PPN;
@@ -102,6 +141,10 @@ class Mcbbox extends Controller
       'biayalnb' => $harga_lnb,
       'biayamccb' => $harga_mccb,
       'biayatrafo' => $harga_trafo,
+      'biayamdp' => $harga_mdp,
+      'biayasdp' => $harga_sdp,
+      'mdp' => $mdp,
+      'sdp' => $sdp,
       'biaya' => $jumlah_biaya,
       'ppn' => $ppn,
       'ppj' => $ppj,

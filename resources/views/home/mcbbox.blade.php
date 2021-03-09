@@ -102,6 +102,9 @@ $jenisBox =  $resource->jenisMCB();
     var ktp = null;
     var email = null;
 
+    var jenisbox = null;
+    var ukuranbox = null;
+
     var grup_mcb = null;
     var grup_lnb = null;
     var grup_mccb = null;
@@ -110,7 +113,13 @@ $jenisBox =  $resource->jenisMCB();
     var biayalnb = null;
     var biayamccb = null;
     var biayatrafo = null;
+    var biayamdp = null;
+    var biayasdp = null;
     var biaya = null;
+
+    var mdp = 0;
+    var sdp = 0;
+
     var ppn = null;
     var ppj = null;
     var materai = null;
@@ -128,13 +137,39 @@ $jenisBox =  $resource->jenisMCB();
     $('#submithitung').on('click', function() {
       today = mm + '/' + dd + '/' + yyyy;
       grup_mcb = $("#grup_mcb").val();
+      grup_lnb = $("#grup_lnb").val();
+      grup_mccb = $("#grup_mccb").val();
+      grup_trafo = $("#trafo").val();
+
+      if ($("#mdp").is(':checked')) {
+        mdp = 1;
+      } else {
+        mdp = 0;
+      }
+
+      if ($("#sdp").is(':checked')) {
+        sdp = 1;
+      } else {
+        sdp = 0;
+      }
+
       console.log("grup_mcb " + grup_mcb);
+      console.log("grup_lnb " + grup_lnb);
+      console.log("grup_mccb " + grup_mccb);
+      console.log("grup_trafo " + grup_trafo);
+      console.log("mdp " + mdp);
+      console.log("sdp " + sdp);
 
       $.ajax({
         type: "GET",
         url: "{{url('/mcbbox/perhitungan')}}",
         data: {
-          grup_mcb: $("#grup_mcb").val(),
+          grup_mcb: grup_mcb,
+          grup_lnb: grup_lnb,
+          grup_mccb: grup_mccb,
+          grup_trafo: grup_trafo,
+          mdp: mdp,
+          sdp: sdp,
         },
         success: function(data) {
           nama = document.getElementsByName("nama_pemohon")[0];
@@ -147,7 +182,16 @@ $jenisBox =  $resource->jenisMCB();
           grup_mcb = document.getElementsByName("grup_mcb")[0];
           grup_lnb = document.getElementsByName("grup_lnb")[0];
           grup_mccb = document.getElementsByName("grup_mccb")[0];
-          grup_trafo = document.getElementsByName("grup_trafo")[0];
+          grup_trafo = document.getElementsByName("trafo")[0];
+
+          jenisbox = document.getElementsByName("jenisbox")[0];
+
+          biayamcb = data.biayamcb;
+          biayalnb = data.biayalnb;
+          biayamccb = data.biayamccb;
+          biayatrafo = data.biayatrafo;
+          biayamdp = data.biayamdp;
+          biayasdp = data.biayasdp;
 
           biaya = data.biaya;
           ppn = data.ppn;
@@ -155,17 +199,26 @@ $jenisBox =  $resource->jenisMCB();
           materai = data.materai;
           total = data.total;
 
-          biayamcb = data.biayamcb;
-          biayalnb = data.biayalnb;
-          biayamccb = data.biayamccb;
-          biayatrafo = data.biayatrafo;
-
           if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '') {
             $('.cloundcontainer').show();
             $('.cloundcontainer').empty();
-            $('.cloundcontainer').append(
+            var elements =
               "<h2 align='center'> Pemasangan MCB Box </h2>" +
               "<table>" +
+              "<tr align='left'>";
+            elements += "<th align='left' width='75%'> Jenis box : " + $("#jenisbox option:selected").text();
+
+            if (mdp != 0) {
+              elements += ", MDP ";
+            }
+
+            if (sdp != 0) {
+              elements += ", SDP ";
+            }
+
+            elements += " </th>";
+
+            elements += "</tr>" +
               "<tr align='left'>" +
               "<th align='left' width='75%'> Grup MCB : " + grup_mcb.value + " titik</th>" +
               "</tr>" +
@@ -233,7 +286,9 @@ $jenisBox =  $resource->jenisMCB();
               "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
               "</tr>" +
               "</table>" +
-              "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>");
+              "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>";
+
+            $('.cloundcontainer').append(elements);
           } else {
             alert('Data tidak bisa kosong');
             $('div.cloundcontainer').hide();
@@ -241,7 +296,7 @@ $jenisBox =  $resource->jenisMCB();
           }
         },
         error: function(errorThrown) {
-          alert('Data tidak ssbisa kosong');
+          alert('Data tidak bisa kosong');
         }
       });
     });
@@ -270,7 +325,21 @@ $jenisBox =  $resource->jenisMCB();
           whatsapp: $("#whatsapp").val(),
           email: $("#email_konsumen").val(),
 
+          jenisbox: $("#jenisbox").val(),
           grup_mcb: $("#grup_mcb").val(),
+          grup_lnb: $("#grup_lnb").val(),
+          grup_mccb: $("#grup_mccb").val(),
+          grup_trafo: $("#trafo").val(),
+          mdp: mdp,
+          sdp: sdp,
+
+          biayamcb: biayamcb,
+          biayalnb: biayalnb,
+          biayamccb: biayamccb,
+          biayatrafo: biayatrafo,
+          biayamdp: biayamdp,
+          biayasdp: biayasdp,
+
           biaya: biaya,
           ppn: ppn,
           ppj: ppj,
@@ -301,7 +370,7 @@ $jenisBox =  $resource->jenisMCB();
               <h1><?php echo $title ?></h1>
               <hr>
             </div>
-            <div class="col-md-12" style="margin-left: auto; margin-right: auto;">
+            <div class="col-md-10" style="margin-left: auto; margin-right: auto;">
 
               @if ($errors->any())
               <div id="alerterror" name="alerterror" class="alert alert-danger">
@@ -317,7 +386,7 @@ $jenisBox =  $resource->jenisMCB();
                 <input type="hidden" name="token_rahasia" value="72827582Uduagd86275gbdahgahgfa">
 
                 <p class="alert alert-info">
-                  Isi data instalasi Anda dengan lengkap dan benar.
+                  Isi <?php echo $title ?> Anda dengan lengkap dan benar.
                 </p>
 
                 <div class="form-group row">
@@ -396,21 +465,20 @@ $jenisBox =  $resource->jenisMCB();
 
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Jenis Box</label>
-                  <div class="col-sm-4">
+                  <div class="col-sm-2">
                     <select name="jenisbox" id="jenisbox" class="form-control select2" required>
                       @foreach($jenisBox as $jenis)
                       <option value="{{$jenis->id}}">{{ $jenis->jenis }}</option>
                       @endforeach
                     </select>
                   </div>
-                  <input type="checkbox" name="pilihan[]" value="Mango"> MDP <br />
-                  <input type="checkbox" name="pilihan[]" value="Orange"> SDP <br />
-                  <label class="col-sm-2 control-label text-right">Pilihan</label>
-                  <div class="col-sm-4">
-                    <select name="jenisbox" id="jenisbox" class="form-control select2" required>
-                      <option value="mdp">MDP</option>
-                      <option value="sdp">SDP</option>
-                    </select>
+
+                  <div class="col-sm-2">
+                    <input type="checkbox" id="mdp" name="mdp[]" value="1"> MDP <br />
+                  </div>
+
+                  <div class="col-sm-2">
+                    <input type="checkbox" id="sdp" name="sdp[]" value="1"> SDP <br />
                   </div>
                 </div>
 

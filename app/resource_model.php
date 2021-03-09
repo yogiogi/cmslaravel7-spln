@@ -1,9 +1,12 @@
 <?php
+
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+
 class resource_model extends Model
 {
     public function provinsi()
@@ -18,7 +21,7 @@ class resource_model extends Model
         $query = DB::table('provinces')
             ->select('provinces.*')
             ->where('provinces.id', $id)
-            ->orderBy('id','ASC')
+            ->orderBy('id', 'ASC')
             ->first();
         return $query;
     }
@@ -28,7 +31,7 @@ class resource_model extends Model
         $query = DB::table('regencies')
             ->select('regencies.*')
             ->where('regencies.id', $id)
-            ->orderBy('id','ASC')
+            ->orderBy('id', 'ASC')
             ->first();
         return $query;
     }
@@ -43,7 +46,7 @@ class resource_model extends Model
     public function daya()
     {
         $query = DB::table('list_daya')
-            ->orderBy('daya','ASC')
+            ->orderBy('daya', 'ASC')
             ->get();
         return $query;
     }
@@ -53,7 +56,7 @@ class resource_model extends Model
         $query = DB::table('list_daya')
             ->select('list_daya.*')
             ->where('list_daya.id', $id)
-            ->orderBy('id','ASC')
+            ->orderBy('id', 'ASC')
             ->first();
         return $query;
     }
@@ -70,7 +73,7 @@ class resource_model extends Model
         $query = DB::table('sifat_instalasi')
             ->select('sifat_instalasi.*')
             ->where('sifat_instalasi.id', $id)
-            ->orderBy('id','ASC')
+            ->orderBy('id', 'ASC')
             ->first();
         return $query;
     }
@@ -79,13 +82,12 @@ class resource_model extends Model
     {
         $query = DB::table('variabel_perhitungan')
             ->select('variabel_perhitungan.*')
-            ->where('variabel_perhitungan.id',$id)
-            ->orderBy('id','DESC')
+            ->where('variabel_perhitungan.id', $id)
+            ->orderBy('id', 'DESC')
             ->first();
         return $query;
     }
 
-    
     public function varLayanan()
     {
         $query = DB::table('variabel_perhitungan')
@@ -96,9 +98,9 @@ class resource_model extends Model
     public function pilihLayanan()
     {
         $query = DB::table('variabel_perhitungan')
-                 ->select('variabel_perhitungan.*')
-                 ->whereBetween('id', array(3, 5))
-                 ->get();
+            ->select('variabel_perhitungan.*')
+            ->whereBetween('id', array(3, 5))
+            ->get();
         return $query;
     }
 
@@ -130,20 +132,55 @@ class resource_model extends Model
         return substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $limit);
     }
 
-
     function generateIdLayanan($kodelayanan, $kodeKabupaten)
     {
-      $datetime = Carbon::now()->format('dmyHis');
-      
-      $id_layanan = $datetime . '' . $kodelayanan . '' . $kodeKabupaten;
-      return  $id_layanan;
+        $datetime = Carbon::now()->format('dmyHis');
+
+        $id_layanan = $datetime . '' . $kodelayanan . '' . $kodeKabupaten;
+        return  $id_layanan;
     }
-  
+
     function generateIdTansaksi($kodelayanan)
-    {  
-      $date = Carbon::now()->format('dmy');
-      $uniqid = Str::random(4);
-      $id_transaksi = $uniqid . '' . $kodelayanan . '' . $date;
-      return  $id_transaksi;
+    {
+        $date = Carbon::now()->format('dmy');
+        $uniqid = Str::random(4);
+        $id_transaksi = $uniqid . '' . $kodelayanan . '' . $date;
+        return  $id_transaksi;
+    }
+
+    function getProvName($kodeProv)
+    {
+        $query = DB::table('provinces')
+            ->select('provinces.*')
+            ->where('provinces.id', $kodeProv)
+            ->orderBy('id', 'DESC')
+            ->first();
+        return $query;
+    }
+    function getKabName($kodeKabupaten)
+    {
+        $query = DB::table('regencies')
+            ->select('regencies.*')
+            ->where('id', $kodeKabupaten)
+            ->first();
+        return $query;
+    }
+
+    function getKecName($kodeKecamatan)
+    {
+        $query = DB::table('districts')
+            ->select('districts.*')
+            ->where('districts.id', $kodeKecamatan)
+            ->first();
+        return $query;
+    }
+
+    function getDesaName($kodeDesa)
+    {
+        $query = DB::table('villages')
+            ->select('villages.*')
+            ->where('villages.id', $kodeDesa)
+            ->first();
+        return $query;
     }
 }

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 class perubahandaya_model extends Model
 {
-    protected $table = 'pasang_baru';
+    protected $table = 'perubahan_daya';
     public $timestamps = true;
     
     protected $fillable = [

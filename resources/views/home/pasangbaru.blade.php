@@ -328,14 +328,14 @@ $token = $resource->token();
 <section id="hero">
   <div class="container">
     <div class="row">
-      <div class="col-lg-12 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
+      <div class="col-lg-12 order-1 order-lg-2 hero-img" style="margin-left: auto; margin-right: auto;" data-aos="zoom-out" data-aos-delay="300">
         <div class="kotak">
           <div class="row">
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 text-center" style="margin-left: auto; margin-right: auto;">
               <h1><?php echo $title ?></h1>
               <hr>
             </div>
-            <div class="col-md-8 text-left">
+            <div class="col-md-10" style="margin-left: auto; margin-right: auto;">
 
               @if ($errors->any())
               <div id="alerterror" name="alerterror" class="alert alert-danger">
@@ -351,26 +351,26 @@ $token = $resource->token();
                 <input type="hidden" name="token_rahasia" value="72827582Uduagd86275gbdahgahgfa">
 
                 <p class="alert alert-info">
-                  Isi data <?php echo $title ?> Anda dengan lengkap dan benar.
+                  Isi <?php echo $title ?> Anda dengan lengkap dan benar.
                 </p>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nama Pemohon</label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Nama Pemohon</label>
+                  <div class="col-sm-10">
                     <input type="text" id="nama_pemohon" name="nama_pemohon" class="form-control" placeholder="Isi dengan nama pemohon" value="" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Alamat</label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Alamat</label>
+                  <div class="col-sm-10">
                     <textarea id="alamat" name="alamat" class="form-control" placeholder="Alamat" required value=""></textarea>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Provinsi</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Provinsi</label>
+                  <div class="col-sm-4">
                     <select name="provinsi" id="provinsi" class="form-control select2" required>
                       <option value="">--Pilih Provinsi--</option>
                       @foreach($provinces as $provincy)
@@ -378,11 +378,9 @@ $token = $resource->token();
                       @endforeach
                     </select>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Kabupaten/Kota</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Kabupaten/Kota</label>
+                  <div class="col-sm-4">
                     <select name="city" id="city" class="form-control select2" required>
                       <option>--Pilih Kabupaten/Kota--</option>
                     </select>
@@ -390,17 +388,15 @@ $token = $resource->token();
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Kecamatan</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Kecamatan</label>
+                  <div class="col-sm-4">
                     <select name="district" id="district" class="form-control select2" required>
                       <option>--Pilih Kecamatan--</option>
                     </select>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Desa</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Desa</label>
+                  <div class="col-sm-4">
                     <select name="village" id="village" class="form-control select2" required>
                       <option>--Pilih Desa--</option>
                     </select>
@@ -408,36 +404,33 @@ $token = $resource->token();
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomer KTP </label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Nomer KTP </label>
+                  <div class="col-sm-10">
                     <input type="number" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomor telepon pemohon </label>
-                  <div class="col-sm-8">
-                    <input type="text" id="telepon_pemohon" name="telepon_pemohon" class="form-control" value="{{ old('telepon_pemohon') }}" placeholder="Isi nomer telepon yang diberi kuasa" required>
+                  <label class="col-sm-2 control-label text-right">No. Telepon </label>
+                  <div class="col-sm-4">
+                    <input type="number" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon pemohon" value="{{ old('nomer_ktp') }}" required>
+                  </div>
+                  <label class="col-sm-2 control-label text-right">No. Whatsapp </label>
+                  <div class="col-sm-4">
+                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp pemohon" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomor whatsapp pemohon </label>
-                  <div class="col-sm-8">
-                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp yang diberi kuasa" required>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Email</label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Email</label>
+                  <div class="col-sm-10">
                     <input type="email" id="email_konsumen" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}" placeholder="Isi dengan email Anda" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Layanan</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Layanan</label>
+                  <div class="col-md-10">
                     <select id="layanan" name="layanan" class="form-control select2">
                       @foreach($layanan as $layanan)
                       <option value="{{ $layanan->id }}"> {{ $layanan->layanan }}</option>
@@ -446,9 +439,10 @@ $token = $resource->token();
                   </div>
                 </div>
 
+
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Daya (Va)</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Daya (Va)</label>
+                  <div class="col-sm-4">
                     <select id="daya" name="daya" class="form-control select2">
                       <option>--Pilih Daya--</option>
                       @foreach($daya as $daya)
@@ -456,11 +450,8 @@ $token = $resource->token();
                       @endforeach
                     </select>
                   </div>
-                </div>
-
-                <div id="tokenjml" name="tokenjml" class="form-group row">
-                  <label class="col-sm-4 control-label text-right">token</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">token </label>
+                  <div class="col-sm-4">
                     <select id="token" name="token" class="form-control select2">
                       <option value="0">--Pilih Token--</option>
                       @foreach($token as $token)

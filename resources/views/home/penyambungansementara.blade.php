@@ -1,5 +1,8 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <?php
@@ -113,6 +116,7 @@ $provinces = $resource->provinsi();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //  January is 0!
     var yyyy = today.getFullYear();
+    var jammulai = null;
 
     function formatRupiah(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -158,6 +162,7 @@ $provinces = $resource->provinsi();
               "<tr align='left'>" +
               "<th align='left'> tanggal layanan " + document.getElementsByName("datenyala")[0].value + ", </th>" +
               "<th> durasi " + $("#durasi").val() + " jam </th>" +
+              "<th> jam mulai " + $("#jammulai").val() + " jam </th>" +
               "</tr>" +
               "<tr align='left'>" +
               "<th align='left' width='25%'> ID Pelanggan</th>" +
@@ -241,6 +246,7 @@ $provinces = $resource->provinsi();
           materai: materai,
           total: total,
           durasi: $("#durasi").val(),
+          jammulai: $("#jammulai").val(),
           tanggal_nyala: $("#datenyala").val()
         },
         dataType: 'text',
@@ -259,14 +265,14 @@ $provinces = $resource->provinsi();
 <section id="hero">
   <div class="container">
     <div class="row">
-      <div class="col-lg-12 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
+      <div class="col-lg-12 order-1 order-lg-2 hero-img" style="margin-left: auto; margin-right: auto;" data-aos="zoom-out" data-aos-delay="300">
         <div class="kotak">
           <div class="row">
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 text-center" style="margin-left: auto; margin-right: auto;">
               <h1><?php echo $title ?></h1>
               <hr>
             </div>
-            <div class="col-md-10 text-left">
+            <div class="col-md-10" style="margin-left: auto; margin-right: auto;">
 
               @if ($errors->any())
               <div id="alerterror" name="alerterror" class="alert alert-danger">
@@ -282,48 +288,26 @@ $provinces = $resource->provinsi();
                 <input type="hidden" name="token_rahasia" value="72827582Uduagd86275gbdahgahgfa">
 
                 <p class="alert alert-info">
-                  Isi data penyambungan sementara Anda dengan lengkap dan benar.
+                  Isi <?php echo $title ?> Anda dengan lengkap dan benar.
                 </p>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nama Pemohon</label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Nama Pemohon</label>
+                  <div class="col-sm-10">
                     <input type="text" id="nama_pemohon" name="nama_pemohon" class="form-control" placeholder="Isi dengan nama pemohon" value="" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomer KTP </label>
-                  <div class="col-sm-8">
-                    <input type="number" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomor telepon pemohon </label>
-                  <div class="col-sm-8">
-                    <input type="number" id="telepon_pemohon" name="telepon_pemohon" class="form-control" value="{{ old('telepon_pemohon') }}" placeholder="Isi nomer telepon yang diberi kuasa" required>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomor whatsapp pemohon </label>
-                  <div class="col-sm-8">
-                    <input type="number" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp yang diberi kuasa" required>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Alamat</label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Alamat</label>
+                  <div class="col-sm-10">
                     <textarea id="alamat" name="alamat" class="form-control" placeholder="Alamat" required value=""></textarea>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Provinsi</label>
-                  <div class="col-md-8">
-
+                  <label class="col-sm-2 control-label text-right">Provinsi</label>
+                  <div class="col-sm-4">
                     <select name="provincy" id="provincy" class="form-control select2" required>
                       <option value="">--Pilih Provinsi--</option>
                       @foreach($provinces as $provincy)
@@ -331,11 +315,9 @@ $provinces = $resource->provinsi();
                       @endforeach
                     </select>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Kabupaten/Kota</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Kabupaten/Kota</label>
+                  <div class="col-sm-4">
                     <select name="city" id="city" class="form-control select2" required>
                       <option>--Pilih Kabupaten/Kota--</option>
                     </select>
@@ -343,17 +325,15 @@ $provinces = $resource->provinsi();
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Kecamatan</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Kecamatan</label>
+                  <div class="col-sm-4">
                     <select name="district" id="district" class="form-control select2" required>
                       <option>--Pilih Kecamatan--</option>
                     </select>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Desa</label>
-                  <div class="col-md-8">
+                  <label class="col-sm-2 control-label text-right">Desa</label>
+                  <div class="col-sm-4">
                     <select name="village" id="village" class="form-control select2" required>
                       <option>--Pilih Desa--</option>
                     </select>
@@ -361,41 +341,57 @@ $provinces = $resource->provinsi();
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Email</label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Nomer KTP </label>
+                  <div class="col-sm-10">
+                    <input type="number" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 control-label text-right">No. Telepon </label>
+                  <div class="col-sm-4">
+                    <input type="number" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon pemohon" value="{{ old('nomer_ktp') }}" required>
+                  </div>
+                  <label class="col-sm-2 control-label text-right">No. Whatsapp </label>
+                  <div class="col-sm-4">
+                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp pemohon" required>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 control-label text-right">Email</label>
+                  <div class="col-sm-10">
                     <input type="email" id="email_konsumen" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}" placeholder="Isi dengan email Anda" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">ID Pelanggan</label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">ID Pelanggan</label>
+                  <div class="col-sm-4">
                     <input type="text" id="id_pelanggan" name="id_pelanggan" class="form-control" value="{{ old('id_pelanggan') }}" placeholder="Isi nomer id_pelanggan PLN" required>
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomer Meter</label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Nomer Meter</label>
+                  <div class="col-sm-4">
                     <input type="text" id="no_meter" name="no_meter" class="form-control" value="{{ old('no_meter') }}" placeholder="Isi nomer Nomer Meter pelanggan" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Tanggal penyambungan </label>
+                  <label class="col-sm-2 control-label text-right">Tanggal penyambungan </label>
                   <div class="col-sm-4">
                     <input id="datenyala" name="datenyala" class="dateNyala form-control" type="text">
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Durasi</label>
+                  <label class="col-sm-2 control-label text-right">Durasi</label>
                   <div class="col-sm-4">
                     <select name="durasi" id="durasi" class="form-control select2" required>
                       <option value="">-- pilih durasi --</option>
                       <option value="1">12 jam</option>
                       <option value="2">24 jam</option>
                     </select>
+                  </div>
+                  <label class="col-sm-2 control-label text-right">Jam Mulai</label>
+                  <div class="col-sm-4">
+                    <input id="jammulai" type="time" class="form-control select2" required />
                   </div>
                 </div>
 

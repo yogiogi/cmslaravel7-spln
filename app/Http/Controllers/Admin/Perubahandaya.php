@@ -15,9 +15,9 @@ class Perubahandaya extends Controller{
         $perubahandayadata = new perubahandaya_model();
         $perubahandaya 	  = $perubahandayadata->semua();
 
-        $data = array(  'title'             => 'Perubahan Daya',
+        $data = array(  'title'           => 'Perubahan Daya',
                         'perubahandaya'   => $perubahandaya,
-                        'content'           => 'admin/perubahandaya/index'
+                        'content'         => 'admin/perubahandaya/index'
                     );
         return view('admin/layout/wrapper',$data);
     }

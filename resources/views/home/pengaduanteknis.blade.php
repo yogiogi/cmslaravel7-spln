@@ -1,82 +1,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<script>
-  $(document).ready(function() {
-    $('#provinsi').on('change', function() {
-      var provinceID = $(this).val();
-      if (provinceID) {
-        $.ajax({
-          type: "GET",
-          url: "{{url('getCityList')}}?province_id=" + provinceID,
-          success: function(res) {
-            if (res) {
-              $("#city").empty();
-              $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
-              $.each(res, function(key, value) {
-                $("#city").append('<option value="' + key + '">' + value + '</option>');
-              });
-
-            } else {
-              $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
-            }
-          }
-        });
-      } else {
-        $("#city").append('<option>--Pilih Kabupaten/Kota--</option>');
-      }
-    });
-
-    $('#city').on('change', function() {
-      var cityID = $(this).val();
-      if (cityID) {
-        $.ajax({
-          type: "GET",
-          url: "{{url('getDistrictList')}}?regency_id=" + cityID,
-          success: function(res) {
-            if (res) {
-              $("#district").empty();
-              $("#district").append('<option>--Pilih Kecamatan--</option>');
-              $.each(res, function(key, value) {
-                $("#district").append('<option value="' + key + '">' + value + '</option>');
-              });
-
-            } else {
-              $("#district").append('<option>--Pilih Kecamatan--</option>');
-            }
-          }
-        });
-      } else {
-        $("#district").append('<option>--Pilih Kecamatan--</option>');
-      }
-    });
-
-    $('#district').on('change', function() {
-      var districtID = $(this).val();
-      if (districtID) {
-        $.ajax({
-          type: "GET",
-          url: "{{url('getVillageList')}}?district_id=" + districtID,
-          success: function(res) {
-            if (res) {
-              $("#village").empty();
-              $("#village").append('<option>--Pilih Desa--</option>');
-              $.each(res, function(key, value) {
-                $("#village").append('<option value="' + key + '">' + value + '</option>');
-              });
-
-            } else {
-              $("#village").append('<option>--Pilih Desa--</option>');
-            }
-          }
-        });
-      } else {
-        $("#village").append('<option>--Pilih Desa--</option>');
-      }
-    });
-  })
-</script>
-
 <?php
 
 use Illuminate\Support\Facades\DB;
@@ -87,18 +11,94 @@ $resource  = new resource_model();
 $provinces = $resource->provinsi();
 ?>
 
+<script>
+  $(document).ready(function() {
+    $('#provinsi').on('change', function() {
+      var provinceID = $(this).val();
+      if (provinceID) {
+        $.ajax({
+          type: "GET",
+          url: "{{url('getCityList')}}?province_id=" + provinceID,
+          success: function(res) {
+            if (res) {
+              $("#kabupaten").empty();
+              $("#kabupaten").append('<option>--Pilih Kabupaten/Kota--</option>');
+              $.each(res, function(key, value) {
+                $("#kabupaten").append('<option value="' + key + '">' + value + '</option>');
+              });
+
+            } else {
+              $("#kabupaten").append('<option>--Pilih Kabupaten/Kota--</option>');
+            }
+          }
+        });
+      } else {
+        $("#kabupaten").append('<option>--Pilih Kabupaten/Kota--</option>');
+      }
+    });
+
+    $('#kabupaten').on('change', function() {
+      var cityID = $(this).val();
+      if (cityID) {
+        $.ajax({
+          type: "GET",
+          url: "{{url('getDistrictList')}}?regency_id=" + cityID,
+          success: function(res) {
+            if (res) {
+              $("#kecamatan").empty();
+              $("#kecamatan").append('<option>--Pilih Kecamatan--</option>');
+              $.each(res, function(key, value) {
+                $("#kecamatan").append('<option value="' + key + '">' + value + '</option>');
+              });
+
+            } else {
+              $("#kecamatan").append('<option>--Pilih Kecamatan--</option>');
+            }
+          }
+        });
+      } else {
+        $("#kecamatan").append('<option>--Pilih Kecamatan--</option>');
+      }
+    });
+
+    $('#kecamatan').on('change', function() {
+      var districtID = $(this).val();
+      if (districtID) {
+        $.ajax({
+          type: "GET",
+          url: "{{url('getVillageList')}}?district_id=" + districtID,
+          success: function(res) {
+            if (res) {
+              $("#desa").empty();
+              $("#desa").append('<option>--Pilih Desa--</option>');
+              $.each(res, function(key, value) {
+                $("#desa").append('<option value="' + key + '">' + value + '</option>');
+              });
+
+            } else {
+              $("#desa").append('<option>--Pilih Desa--</option>');
+            }
+          }
+        });
+      } else {
+        $("#desa").append('<option>--Pilih Desa--</option>');
+      }
+    });
+  })
+</script>
+
 <!-- ======= Hero Section ======= -->
 <section id="hero">
   <div class="container">
     <div class="row">
-      <div class="col-lg-12 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
+      <div class="col-lg-12 order-1 order-lg-2 hero-img" style="margin-left: auto; margin-right: auto;" data-aos="zoom-out" data-aos-delay="300">
         <div class="kotak">
           <div class="row">
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 text-center" style="margin-left: auto; margin-right: auto;">
               <h1><?php echo $title ?></h1>
               <hr>
             </div>
-            <div class="col-md-8 text-left">
+            <div class="col-md-10" style="margin-left: auto; margin-right: auto;">
 
               @if ($errors->any())
               <div class="alert alert-danger">
@@ -114,94 +114,97 @@ $provinces = $resource->provinsi();
                 <input type="hidden" name="token_rahasia" value="72827582Uduagd86275gbdahgahgfa">
 
                 <p class="alert alert-info">
-                  Isi data pengaduan teknis Anda dengan lengkap dan benar.
+                  Isi <?php echo $title ?> Anda dengan lengkap dan benar.
                 </p>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nama Pemohon <span class="text-danger">*</span></label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Nama Pemohon </label>
+                  <div class="col-sm-10">
                     <input type="text" name="nama_pemohon" class="form-control" placeholder="Isi dengan nama pemohon" value="{{ old('nama_pemohon') }}" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomer KTP <span class="text-danger">*</span></label>
-                  <div class="col-sm-8">
-                    <input type="number" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomor telepon pemohon <span class="text-danger">*</span></label>
-                  <div class="col-sm-8">
-                    <input type="text" name="telepon" class="form-control" placeholder="Isi dengan nomer telepon" value="{{ old('nomer_ktp') }}" required>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Nomor whatsapp pemohon </label>
-                  <div class="col-sm-8">
-                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp yang diberi kuasa" required>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Alamat</label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">Alamat</label>
+                  <div class="col-sm-10">
                     <textarea name="alamat" class="form-control" placeholder="Alamat">{{ old('alamat') }}</textarea>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Provinsi</label>
-                  <div class="col-md-8">
-
-                    <select name="provinsi" id="provinsi" class="form-control select2">
+                  <label class="col-sm-2 control-label text-right">Provinsi</label>
+                  <div class="col-sm-4">
+                    <select name="provinsi" id="provinsi" class="form-control select2" required>
                       <option value="">--Pilih Provinsi--</option>
                       @foreach($provinces as $provincy)
                       <option value="{{$provincy->id}}">{{ $provincy->name }}</option>
                       @endforeach
                     </select>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Kabupaten/Kota</label>
-                  <div class="col-md-8">
-                    <select name=city id="city" class="form-control select2">
+                  <label class="col-sm-2 control-label text-right">Kabupaten/Kota</label>
+                  <div class="col-sm-4">
+                    <select name="kabupaten" id="kabupaten" class="form-control select2" required>
                       <option>--Pilih Kabupaten/Kota--</option>
                     </select>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Kecamatan</label>
-                  <div class="col-md-8">
-                    <select name="district" id="district" class="form-control select2" required>
+                  <label class="col-sm-2 control-label text-right">Kecamatan</label>
+                  <div class="col-sm-4">
+                    <select name="kecamatan" id="kecamatan" class="form-control select2" required>
                       <option>--Pilih Kecamatan--</option>
                     </select>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Desa</label>
-                  <div class="col-md-8">
-                    <select name="village" id="village" class="form-control select2" required>
+                  <label class="col-sm-2 control-label text-right">Desa</label>
+                  <div class="col-sm-4">
+                    <select name="desa" id="desa" class="form-control select2" required>
                       <option>--Pilih Desa--</option>
                     </select>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Email</label>
-                  <div class="col-sm-8">
-                    <input type="email" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}" placeholder="Isi dengan email Anda" required>
+                  <label class="col-sm-2 control-label text-right">Nomer KTP </label>
+                  <div class="col-sm-10">
+                    <input type="number" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-4 control-label text-right">Keterangan</label>
-                  <div class="col-sm-8">
+                  <label class="col-sm-2 control-label text-right">No. Telepon </label>
+                  <div class="col-sm-4">
+                    <input type="number" id="telepon" name="telepon" class="form-control" placeholder="Isi nomer telepon pemohon" value="{{ old('nomer_ktp') }}" required>
+                  </div>
+                  <label class="col-sm-2 control-label text-right">No. Whatsapp </label>
+                  <div class="col-sm-4">
+                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}" placeholder="Isi nomer whatsapp pemohon" required>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 control-label text-right">Email</label>
+                  <div class="col-sm-10">
+                    <input type="email" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}" placeholder="Isi email Anda" required>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 control-label text-right">ID Pelanggan</label>
+                  <div class="col-sm-4">
+                    <input type="number" id="id_pelanggan" name="id_pelanggan" class="form-control" placeholder="Isi ID pelanggan PLN" value="{{ old('id_pelanggan') }}" required>
+                  </div>
+                  <label class="col-sm-2 control-label text-right">Nomer Meter</label>
+                  <div class="col-sm-4">
+                    <input type="text" id="no_meter" name="no_meter" class="form-control" value="{{ old('no_meter') }}" placeholder="Isi nomer meter PLN" required>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 control-label text-right">Keterangan</label>
+                  <div class="col-sm-10">
                     <textarea name="keterangan" class="form-control" placeholder="isi dengan keterangan pengaduan" value="{{ old('keterangan') }}"></textarea>
                   </div>
                 </div>

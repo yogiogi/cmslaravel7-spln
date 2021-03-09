@@ -7,6 +7,7 @@
         <tr class="bg-dark">
           <th width="15%" class="text-center">NAMA PEMOHON</th>
           <th width="10%" class="text-center">KTP</th>
+          <th width="10%" class="text-center">ID PELANGGAN</th>
           <th width="10%" class="text-center">INSTALASI</th>
           <th width="15%" class="text-center">BIAYA</th>
           <th width="5%" class="text-center">TOTAL</th>
@@ -15,10 +16,8 @@
         </tr>
       </thead>
       <tbody>
-
         <?php $i = 1;
         foreach ($perubahandaya as $perubahandaya) { ?>
-
           <tr class="odd gradeX">
             <td>
               <a>
@@ -45,6 +44,10 @@
               <br><a>Daya baru : <?php echo $perubahandaya->daya_baru ?> Watt</a>
             </td>
             <td>
+              <a>ID Pelanggan <?php echo $perubahandaya->id_pelanggan ?> </a>
+              <br><a>Nomer Meter : <?php echo $perubahandaya->no_meter ?> </a>
+            </td>
+            <td>
               <a><?php
                   if ($perubahandaya->kode_layanan == '031') {
                     echo "Perubahan Daya Prabayar ke Prabayar";
@@ -55,6 +58,7 @@
                     echo "Perubahan Daya Pascabayar ke Pascabayar";
                   }
                   ?></a>
+              <br><a>Peruntukan : <?php echo $perubahandaya->peruntukan ?> </a>
             </td>
             <td>
               <a>
@@ -90,7 +94,6 @@
                   <i class="fas fa-check-circle"></i>
                 </a>
                 @endif
-
                 <a href="{{ asset('admin/perubahandaya/delete/'.$perubahandaya->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
               </div>
             </td>

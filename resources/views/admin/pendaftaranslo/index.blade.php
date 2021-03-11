@@ -15,7 +15,6 @@
       <thead>
         <tr class="bg-dark">
           <th width="15%" class="text-center">NAMA PEMOHON</th>
-          <th width="10%" class="text-center">KTP</th>
           <th width="10%" class="text-center">INSTALASI</th>
           <th width="10%" class="text-center">BADAN USAHA</th>
           <th width="15%" class="text-center">BIAYA</th>
@@ -34,13 +33,12 @@
                 <?php echo $slo->nama_konsumen ?> <sup><i class="fa fa-pencil"></i></sup>
               </a>
               <small>
-                <br>alamat : <?php echo $slo->alamat ?>,
-                Desa <?php echo ucfirst(strtolower($slo->desa)) ?>,
-                Kecamatan <?php echo ucfirst(strtolower($slo->kec)) ?>,
-                <?php echo ucfirst(strtolower($slo->kab)) ?>,
-                <?php echo ucfirst(strtolower($slo->prov)) ?>
-                <br>telp : <?php echo $slo->telp ?>
-                <br>email : <?php echo $slo->email ?>
+                <br>ID Layanan : <a><?php echo $slo->id_layanan ?></a>
+                <br>ID transaksi : <a><?php echo $slo->id_transaksi ?></a>
+                <br>
+                <br>
+                <a href="#modalDetailID" data-toggle="modal" data-target="#modalDetailID<?php echo $slo->id ?>">Detail</a>
+
                 <br>tanggal daftar : <?php if ($slo->tanggal_daftar != 0) {
                                         echo date("d/m/Y", strtotime($slo->tanggal_daftar));
                                       } else {
@@ -52,9 +50,6 @@
                                           echo "-";
                                         } ?>
               </small>
-            </td>
-            <td>
-              <a><?php echo $slo->ktp ?><sup></i></sup></a>
             </td>
             <td>
               <a><?php if ($slo->instalasi == 1) {
@@ -113,6 +108,35 @@
             </td>
           </tr>
 
+          <div class="modal fade" id="modalDetailID<?php echo $slo->id ?>" tabindex="-1" aria-labelledby="modalDetailID" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Data Pemohon </h5>
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form action="{{ asset('admin/slo/detail') }}" method="post" accept-charset="utf-8">
+                    <input type="hidden" name="id" value="{{ $slo->id }}">
+                    {{ csrf_field() }}
+                    <div class="column">
+                      <label id="edKonsumen" name="konsumen">Nama : <?php echo $slo->nama_konsumen ?></label>
+                      <br><label id="edKonsumen" name="ktp"> KTP : <?php echo $slo->ktp ?></label>
+                      <br><label id="edKonsumen" name="alamat"> Alamat : <?php echo $slo->alamat ?></label>
+                      <br><label id="edKonsumen" name="geolocation"> Desa <?php echo ucfirst(strtolower($slo->desa)) ?>,
+                        Kecamatan <?php echo ucfirst(strtolower($slo->kec)) ?>,
+                        <?php echo ucfirst(strtolower($slo->kab)) ?>,
+                        <?php echo ucfirst(strtolower($slo->prov)) ?></label>
+                      <br><label id="edKonsumen" name="telp"> Telepon : <?php echo $slo->telp ?></label>
+                      <br><label id="edKonsumen" name="email"> Email : <?php echo $slo->email ?></label>
+                    </div>
+                  </form>
+                  <!--Modal update data-->
+                </div>
+              </div>
+            </div>
+          </div>
         <?php $i++;
         } ?>
 

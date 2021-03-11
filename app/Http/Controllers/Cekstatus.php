@@ -83,3 +83,4 @@ class cekstatus extends Controller
         $pdf->save($pdf_path);
         return asset($pdf_path);
     }
+}

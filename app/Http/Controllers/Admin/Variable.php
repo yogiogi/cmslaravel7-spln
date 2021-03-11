@@ -27,17 +27,11 @@ class Variable extends Controller
     public function proses(Request $request)
     {
         if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
-        // request()->validate([
-        //     'slo'          => 'required',
-        //     'gil'          => 'required',
-        //     'ujl'          => 'required',
-        //     'slo'          => 'required',
-        //     'materai'          => 'required',
-        //     'biaya'          => 'required',
-        //     'ppn'          => 'required',
-        //     'ppj'          => 'required',
-        //     ]);
         DB::table('variabel_perhitungan')->where('id',$request->id_variable)->update([
+            'slo'       => $request->slo,
+            'slo'       => $request->slo,
+            'slo'       => $request->slo,
+            'slo'       => $request->slo,
             'slo'       => $request->slo,
             'gil'       => $request->gil,
             'ujl'       => $request->ujl,
@@ -45,7 +39,7 @@ class Variable extends Controller
             'biaya'     => $request->biaya,
             'ppn'       => $request->ppn,
             'ppj'       => $request->ppj,
-            'id_user'   => Session()->get('id_user'),
+            'update_by'   => Session()->get('id_user'),
         ]);
         return redirect('admin/variable')->with(['sukses' => 'Data telah diupdate']);
     }

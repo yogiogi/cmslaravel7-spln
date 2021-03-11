@@ -6,8 +6,8 @@
       <thead>
         <tr class="bg-dark">
           <th width="15%" class="text-center">NAMA PEMOHON</th>
-          <th width="10%" class="text-center">KTP</th>
-          <th width="10%" class="text-center">ID PELANGGAN</th>
+          <th width="10%" class="text-left">ID PELANGGAN</th>
+          <th width="10%" class="text-left">PERUBAHAN DAYA</th>
           <th width="10%" class="text-center">INSTALASI</th>
           <th width="15%" class="text-center">BIAYA</th>
           <th width="5%" class="text-center">TOTAL</th>
@@ -24,9 +24,11 @@
                 <?php echo $perubahandaya->nama_konsumen ?> <sup><i class="fa fa-pencil"></i></sup>
               </a>
               <small>
-                <br>alamat : <?php echo $perubahandaya->alamat ?>, <?php echo $perubahandaya->kabupaten ?>, <?php echo $perubahandaya->provinsi ?>
-                <br>telp : <?php echo $perubahandaya->telp ?>
-                <br>email : <?php echo $perubahandaya->email ?>
+                <br>ID Layanan : <a><?php echo $perubahandaya->id_layanan ?></a>
+                <br>ID transaksi : <a><?php echo $perubahandaya->id_transaksi ?></a>
+                <br>
+                <br>
+                <a href="#modalDetailID" data-toggle="modal" data-target="#modalDetailID<?php echo $perubahandaya->id ?>">Detail</a>
                 <br>tanggal daftar : <?php if ($perubahandaya->tgl_permohonan != 0) {
                                         echo date("d/m/Y", strtotime($perubahandaya->tgl_permohonan));
                                       } else {
@@ -40,12 +42,12 @@
               </small>
             </td>
             <td>
-              <a>Daya lama : <?php echo $perubahandaya->daya_lama ?> Watt</a>
-              <br><a>Daya baru : <?php echo $perubahandaya->daya_baru ?> Watt</a>
-            </td>
-            <td>
               <a>ID Pelanggan <?php echo $perubahandaya->id_pelanggan ?> </a>
               <br><a>Nomer Meter : <?php echo $perubahandaya->no_meter ?> </a>
+            </td>
+            <td>
+              <a>Daya lama : <?php echo $perubahandaya->daya_lama ?> Watt</a>
+              <br><a>Daya baru : <?php echo $perubahandaya->daya_baru ?> Watt</a>
             </td>
             <td>
               <a><?php
@@ -99,6 +101,35 @@
             </td>
           </tr>
 
+          <div class="modal fade" id="modalDetailID<?php echo $perubahandaya->id ?>" tabindex="-1" aria-labelledby="modalDetailID" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Data Pemohon </h5>
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form action="{{ asset('admin/perubahandaya/detail') }}" method="post" accept-charset="utf-8">
+                    <input type="hidden" name="id" value="{{ $perubahandaya->id }}">
+                    {{ csrf_field() }}
+                    <div class="column">
+                      <label id="edKonsumen" name="konsumen">Nama : <?php echo $perubahandaya->nama_konsumen ?></label>
+                      <br><label id="edKonsumen" name="ktp"> KTP : <?php echo $perubahandaya->ktp ?></label>
+                      <br><label id="edKonsumen" name="alamat"> Alamat : <?php echo $perubahandaya->alamat ?></label>
+                      <br><label id="edKonsumen" name="geolocation"> Desa <?php echo ucfirst(strtolower($perubahandaya->desa)) ?>,
+                        Kecamatan <?php echo ucfirst(strtolower($perubahandaya->kec)) ?>,
+                        <?php echo ucfirst(strtolower($perubahandaya->kab)) ?>,
+                        <?php echo ucfirst(strtolower($perubahandaya->prov)) ?></label>
+                      <br><label id="edKonsumen" name="telp"> Telepon : <?php echo $perubahandaya->telp ?></label>
+                      <br><label id="edKonsumen" name="email"> Email : <?php echo $perubahandaya->email ?></label>
+                    </div>
+                  </form>
+                  <!--Modal update data-->
+                </div>
+              </div>
+            </div>
+          </div>
         <?php $i++;
         } ?>
 

@@ -240,6 +240,8 @@ $provinces = $resource->provinsi();
           telp: $("#telepon_pemohon").val(),
           whatsapp: $("#whatsapp").val(),
           email: $("#email_konsumen").val(),
+          id_pelanggan: $("#id_pelanggan").val(),
+          nomer_meter: $("#nomer_meter").val(),
           biaya: biaya,
           ppn: ppn,
           ppj: ppj,

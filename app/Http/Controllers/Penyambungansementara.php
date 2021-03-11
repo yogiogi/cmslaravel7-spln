@@ -35,7 +35,8 @@ class Penyambungansementara extends Controller
     $telp = $request->input('telp');
     $whatsapp = $request->input('whatsapp');
     $email = $request->input('email');
-
+    $id_pelanggan = $request->input('id_pelanggan');
+    $no_meter = $request->input('no_meter');
     $durasi = $request->input('durasi');
     $tanggal_nyala = Carbon::parse($request->input('tanggal_nyala'))->format('Y-m-d');
     $jammulai = $request->input('jammulai');
@@ -62,6 +63,8 @@ class Penyambungansementara extends Controller
       'telp' => $telp,
       'whatsapp' => $whatsapp,
       'email' => $email,
+      'id_pelanggan' => $id_pelanggan,
+      'no_meter' => $no_meter,
       'durasi' => $durasi,
       'tanggal_nyala' => $tanggal_nyala,
       'jammulai' => $jammulai,

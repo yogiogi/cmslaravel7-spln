@@ -46,7 +46,7 @@ class Pendaftaranslo extends Controller
     $total = $request->input('total');
     $status = 0;
 
-    $data = array(
+    $data = [
       'id_layanan' => $id_layanan,
       'id_transaksi' => $id_transaksi,
       'kode_layanan' => '011',
@@ -72,11 +72,10 @@ class Pendaftaranslo extends Controller
       'ppj' => $ppj,
       'materai' => $materai,
       'total' => $total,
-
-    );
+    ];
 
     if ($instalasi == 2) {
-      $data = array(
+      $data = [
         'id_layanan' => $id_layanan,
         'id_transaksi' => $id_transaksi,
         'kode_layanan' => '011',
@@ -104,43 +103,18 @@ class Pendaftaranslo extends Controller
         'ppj' => $ppj,
         'materai' => $materai,
         'total' => $total,
-      );
+      ];
     }
 
-    // Insert
     $value = Pendaftaranslo_model::insertData($data);
     if ($value) {
-      Session::flash('message', 'Insert successfully.');
+      error_log($id_layanan);
+      error_log("yeyeye");
+      return response($id_layanan);
     } else {
       Session::flash('message', 'Username already exists.');
     }
-    return redirect()->action('Home@index');
   }
-
-  // // Generate PDF
-  // public function cetak_pdf($idlayanan) {
-  //   // retreive all records from db
-  //   $model  = new Pendaftaranslo_model();
-  //   $data = $model->singlelist($idlayanan);
-
-  //   $data = array(  'title'     => 'Formulir Pendaftaran SLO',
-  //                     'deskripsi' => 'Formulir Pendaftaran SLO',
-  //                     'keywords'  => 'Formulir Pendaftaran SLO',
-  //                     'data'    => $data,
-  //                     'content'   => 'home/pendaftaranslo'
-  //                 );
-
-  //   // share data to view
-  //   // view()->share('employee',$data);
-  //   $pdf = PDFDOM::loadView('home/cetakpendaftaran', $data);
-
-  //   // download PDF file with download method
-  //   return $pdf->download('pdf_file.pdf');
-  //   // Session::flash('download.in.the.next.request', 'filetodownload.pdf');
-
-  //   // return redirect()->action('Home@index');
-
-  // }
 
   public function statusslo(Request $request)
   {
@@ -190,33 +164,33 @@ class Pendaftaranslo extends Controller
     return response()->json($data);
   }
 
-  public function cetak($slug_produk)
-  {
-    $daftarslo          = DB::table('pendaftaran_slo')->first();
-    $model              = new Produk_model();
-    $produk             = $model->read($slug_produk);
-    $gambar             = $model->gambar($produk->id_produk);
-    $produk_all         = $model->kategori_produk($produk->id_kategori_produk);
-    $kategori_produk    = $model->detail_kategori_produk($produk->id_kategori_produk);
+  // public function cetak($slug_produk)
+  // {
+  //   $daftarslo          = DB::table('pendaftaran_slo')->first();
+  //   $model              = new Produk_model();
+  //   $produk             = $model->read($slug_produk);
+  //   $gambar             = $model->gambar($produk->id_produk);
+  //   $produk_all         = $model->kategori_produk($produk->id_kategori_produk);
+  //   $kategori_produk    = $model->detail_kategori_produk($produk->id_kategori_produk);
 
-    $data = array(
-      'title'             => $produk->nama_produk,
-      'deskripsi'         => $produk->nama_produk,
-      'keywords'          => $produk->nama_produk,
-      'site'              => $site,
-      'produk'            => $produk,
-      'gambar'            => $gambar,
-      'gambar2'           => $gambar,
-      'produk_all'        => $produk_all,
-      'kategori_produk'   => $kategori_produk,
-    );
-    $config = [
-      'format' => 'A4-P', // Landscape
-      // 'margin_top' => 0
-    ];
-    $pdf = PDF::loadview('produk/cetak', $data, [], $config);
-    // OR :: $pdf = PDF::loadview('pdf_data_member',$data,[],['format' => 'A4-L']);
-    $nama_file = $produk->nama_produk . '.pdf';
-    return $pdf->stream($nama_file, 'I');
-  }
+  //   $data = array(
+  //     'title'             => $produk->nama_produk,
+  //     'deskripsi'         => $produk->nama_produk,
+  //     'keywords'          => $produk->nama_produk,
+  //     'site'              => $site,
+  //     'produk'            => $produk,
+  //     'gambar'            => $gambar,
+  //     'gambar2'           => $gambar,
+  //     'produk_all'        => $produk_all,
+  //     'kategori_produk'   => $kategori_produk,
+  //   );
+  //   $config = [
+  //     'format' => 'A4-P', // Landscape
+  //     // 'margin_top' => 0
+  //   ];
+  //   $pdf = PDF::loadview('produk/cetak', $data, [], $config);
+  //   // OR :: $pdf = PDF::loadview('pdf_data_member',$data,[],['format' => 'A4-L']);
+  //   $nama_file = $produk->nama_produk . '.pdf';
+  //   return $pdf->stream($nama_file, 'I');
+  // }
 }

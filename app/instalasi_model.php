@@ -1,5 +1,7 @@
 <?php
+
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -7,12 +9,13 @@ class Instalasi_model extends Model
 {
     protected $table = 'instalasi';
     public $timestamps = true;
-    
+
     protected $fillable = [
-		'id_pemohon', 'biaya','titik_lampu', 'titik_saklar','titik_stop_kontak','ppn','ppj','materai','total'
+        'id_pemohon', 'biaya', 'titik_lampu', 'titik_saklar', 'titik_stop_kontak', 'ppn', 'ppj', 'materai', 'total'
     ];
 
-    public static function insertData($data){
+    public static function insertData($data)
+    {
         DB::table('instalasi')->insert($data);
         return 1;
     }
@@ -20,8 +23,12 @@ class Instalasi_model extends Model
     public function semua()
     {
         $query = DB::table('instalasi')
-            ->select('instalasi.*')
-            ->orderBy('id','DESC')
+            ->join('provinces', 'provinces.id', '=', 'instalasi.provinsi', 'LEFT')
+            ->join('regencies', 'regencies.id', '=', 'instalasi.kabupaten', 'LEFT')
+            ->join('districts', 'districts.id', '=', 'instalasi.kecamatan', 'LEFT')
+            ->join('villages', 'villages.id', '=', 'instalasi.desa', 'LEFT')
+            ->select('instalasi.*', 'provinces.name as prov', 'regencies.name as kab', 'districts.name as kec', 'villages.name as desa')
+            ->orderBy('id', 'DESC')
             ->get();
         return $query;
     }

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 use App\Cekstatus_model;
-use App\nav_model;
 use App\resource_model;
+use Carbon\Carbon;
 use PDFDOM;
 
 class cekstatus extends Controller
@@ -22,35 +21,68 @@ class cekstatus extends Controller
         $provinces = $resource->getprovinsi($produk->provinsi);
         $regencies = $resource->getcity($produk->kabupaten);
         $instalasi = $resource->getSifatInstalasi($produk->instalasi);
+        $status_daftar = $produk->status;
+        $status_bayar = $produk->status_bayar;
+        if ($status_daftar == 0) {
+            $data = [
+                'id_layanan' => $produk->id_layanan,
+                'kode_layanan' => $produk->kode_layanan,
+                'nama_konsumen' => $produk->nama_konsumen,
+                'ktp' => $produk->ktp,
+                'alamat' => $produk->alamat,
+                'provinsi' => $provinces->name,
+                'kabupaten' => $regencies->name,
+                'telp' => $produk->telp,
+                'whatsapp' => $produk->whatsapp,
+                'email' => $produk->email,
+                'instalasi' => $instalasi->instalasi,
+                'dayalama' => $produk->dayalama,
+                'daya' => $produk->daya,
+                'djklama' => $produk->djklama,
+                'badan_usaha' => $produk->badan_usaha,
+                'status' => $produk->status,
+                'tgl_permohonan' => $produk->tanggal_daftar,
+                'tgl_approve' => $produk->tanggal_approve,
 
-        $data = [
-            'id_layanan' => $produk->id_layanan,
-            'kode_layanan' => $produk->kode_layanan,
-            'nama_konsumen' => $produk->nama_konsumen,
-            'ktp' => $produk->ktp,
-            'alamat' => $produk->alamat,
-            'provinsi' => $provinces->name,
-            'kabupaten' => $regencies->name,
-            'telp' => $produk->telp,
-            'whatsapp' => $produk->whatsapp,
-            'email' => $produk->email,
-            'instalasi' => $instalasi->instalasi,
-            'dayalama' => $produk->dayalama,
-            'daya' => $produk->daya,
-            'djklama' => $produk->djklama,
-            'badan_usaha' => $produk->badan_usaha,
-            'status' => $produk->status,
-            'tgl_permohonan' => $produk->tanggal_daftar,
-            'tgl_approve' => $produk->tanggal_approve,
+                'biaya' => $produk->biaya,
+                'slo' => $produk->slo,
+                'gil' => $produk->gil,
+                'ppn' => $produk->ppn,
+                'ppj' => $produk->ppj,
+                'materai' => $produk->materai,
+                'total' => $produk->total,
+            ];
+        } else {
+            $data = [
+                'id_layanan' => $produk->id_transaksi,
+                'kode_layanan' => $produk->kode_layanan,
+                'nama_konsumen' => $produk->nama_konsumen,
+                'ktp' => $produk->ktp,
+                'alamat' => $produk->alamat,
+                'provinsi' => $provinces->name,
+                'kabupaten' => $regencies->name,
+                'telp' => $produk->telp,
+                'whatsapp' => $produk->whatsapp,
+                'email' => $produk->email,
+                'instalasi' => $instalasi->instalasi,
+                'dayalama' => $produk->dayalama,
+                'daya' => $produk->daya,
+                'djklama' => $produk->djklama,
+                'badan_usaha' => $produk->badan_usaha,
+                'status' => $produk->status,
+                'tgl_permohonan' => $produk->tanggal_daftar,
+                'tgl_approve' => $produk->tanggal_approve,
 
-            'biaya' => $produk->biaya,
-            'slo' => $produk->slo,
-            'gil' => $produk->gil,
-            'ppn' => $produk->ppn,
-            'ppj' => $produk->ppj,
-            'materai' => $produk->materai,
-            'total' => $produk->total,
-        ];
+                'biaya' => $produk->biaya,
+                'slo' => $produk->slo,
+                'gil' => $produk->gil,
+                'ppn' => $produk->ppn,
+                'ppj' => $produk->ppj,
+                'materai' => $produk->materai,
+                'total' => $produk->total,
+            ];
+        }
+
 
         return response()->json($data);
     }
@@ -59,11 +91,12 @@ class cekstatus extends Controller
     {
         $layanan = $request->layanan;
         $idlayanan = $request->id_layanan;
+
         $model  = new Cekstatus_model();
         $data = $model->singlelist($idlayanan, $layanan);
 
         $date = Carbon::now()->format('dmyHis');
-        $no_registrasi = $data->kodelayanan . '' . $date;
+        // $no_registrasi = $data->kodelayanan . '' . $date;
 
         $data = array(
             'title'     => 'PT SPLN',

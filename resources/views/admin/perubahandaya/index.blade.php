@@ -11,8 +11,8 @@
           <th width="10%" class="text-center">INSTALASI</th>
           <th width="15%" class="text-center">BIAYA</th>
           <th width="5%" class="text-center">TOTAL</th>
-          <th width="15%" class="text-center">STATUS</th>
-          <th width="5%" class="text-center"></th>
+          <th width="5%" class="text-center">STATUS</th>
+          <th class="text-center"></th>
         </tr>
       </thead>
       <tbody>
@@ -42,12 +42,16 @@
               </small>
             </td>
             <td>
-              <a>ID Pelanggan <?php echo $perubahandaya->id_pelanggan ?> </a>
-              <br><a>Nomer Meter : <?php echo $perubahandaya->no_meter ?> </a>
+              <small>
+                <a>ID Pelanggan <?php echo $perubahandaya->id_pelanggan ?> </a>
+                <br><a>Nomer Meter : <?php echo $perubahandaya->no_meter ?> </a>
+              </small>
             </td>
             <td>
-              <a>Daya lama : <?php echo $perubahandaya->daya_lama ?> Watt</a>
-              <br><a>Daya baru : <?php echo $perubahandaya->daya_baru ?> Watt</a>
+              <small>
+                <a>Daya lama : <?php echo $perubahandaya->daya_lama ?> Watt</a>
+                <br><a>Daya baru : <?php echo $perubahandaya->daya_baru ?> Watt</a>
+              </small>
             </td>
             <td>
               <a><?php
@@ -96,6 +100,23 @@
                   <i class="fas fa-check-circle"></i>
                 </a>
                 @endif
+
+                @if($perubahandaya->status==1)
+                @if($perubahandaya->status_bayar==0)
+                <a href="{{ asset('admin/perubahandaya/update_bayar/'.$perubahandaya->id) }}" class="btn btn-warning btn-sm approval-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @else
+                <a href="" class="btn btn-warning btn-sm">
+                  <i class="fa fa-check-circle"></i>
+                </a>
+                @endif
+                @else
+                <a href="" class="btn btn-warning btn-sm warning-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @endif
+
                 <a href="{{ asset('admin/perubahandaya/delete/'.$perubahandaya->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
               </div>
             </td>

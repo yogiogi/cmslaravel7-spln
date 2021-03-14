@@ -51,10 +51,26 @@ class Pengaduanteknis extends Controller
         return redirect('admin/pengaduanteknis')->with(['sukses' => 'Data berhasil di update']);
     }
 
+    // Update bayar
+    public function update_bayar($id_ngadu)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+        DB::table('pengaduan_teknis')->where('id', $id_ngadu)->update([
+            'status_bayar'      => '1',
+            'tgl_approve' => now(),
+        ]);
+        return redirect('admin/pengaduanteknis')->with(['sukses' => 'Data berhasil di update']);
+    }
+
     // Update
     public function edit(Request $request)
     {
-        if (Session()->get('username') == "") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']); }
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
         request()->validate(['biaya' => 'required',]);
         DB::table('pengaduan_teknis')->where('id', $request->id)->update([
             'biaya'  => $request->biaya,

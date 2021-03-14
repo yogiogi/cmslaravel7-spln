@@ -51,6 +51,20 @@ class Penyambungansementara extends Controller
         return redirect('admin/penyambungansementara')->with(['sukses' => 'Data berhasil di update']);
     }
 
+    // Update
+    public function update_bayar($id_sambung)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+        DB::table('penyambungan_sementara')->where('id', $id_sambung)->update([
+            'status_bayar'      => '1',
+            'tgl_approve' => now(),
+        ]);
+        return redirect('admin/penyambungansementara')->with(['sukses' => 'Data berhasil di update']);
+    }
+
     // Proses
     public function proses(Request $request)
     {

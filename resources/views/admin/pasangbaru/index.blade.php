@@ -9,7 +9,7 @@
           <th width="10%" class="text-center">INSTALASI</th>
           <th width="15%" class="text-center">BIAYA</th>
           <th width="5%" class="text-center">TOTAL</th>
-          <th width="15%" class="text-center">STATUS</th>
+          <th width="5%" class="text-center">STATUS</th>
           <th width="5%" class="text-center"></th>
         </tr>
       </thead>
@@ -82,6 +82,22 @@
                 @else
                 <a href="" class="btn btn-primary btn-sm">
                   <i class="fas fa-check-circle"></i>
+                </a>
+                @endif
+
+                @if($pasangbaru->status==1)
+                @if($pasangbaru->status_bayar==0)
+                <a href="{{ asset('admin/pasangbaru/update_bayar/'.$pasangbaru->id) }}" class="btn btn-warning btn-sm approval-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @else
+                <a href="" class="btn btn-warning btn-sm">
+                  <i class="fa fa-check-circle"></i>
+                </a>
+                @endif
+                @else
+                <a href="" class="btn btn-warning btn-sm warning-link">
+                  <i class="fa fa-circle"></i>
                 </a>
                 @endif
 

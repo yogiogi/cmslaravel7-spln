@@ -19,7 +19,7 @@
           <th width="10%" class="text-center">BADAN USAHA</th>
           <th width="15%" class="text-center">BIAYA</th>
           <th width="5%" class="text-center">TOTAL</th>
-          <th width="15%" class="text-center">STATUS</th>
+          <th width="5%" class="text-center">STATUS</th>
           <th width="5%" class="text-center"></th>
         </tr>
       </thead>
@@ -103,6 +103,23 @@
                   <i class="fas fa-check-circle"></i>
                 </a>
                 @endif
+
+                @if($slo->status==1)
+                @if($slo->status_bayar==0)
+                <a href="{{ asset('admin/pendaftaranslo/update_bayar/'.$slo->id) }}" class="btn btn-warning btn-sm approval-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @else
+                <a href="" class="btn btn-warning btn-sm">
+                  <i class="fa fa-check-circle"></i>
+                </a>
+                @endif
+                @else
+                <a href="" class="btn btn-warning btn-sm warning-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @endif
+
                 <a href="{{ asset('admin/pendaftaranslo/delete/'.$slo->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
               </div>
             </td>
@@ -117,7 +134,7 @@
 
                 <div class="modal-body">
                   <!--Modal update data-->
-                  <form action="{{ asset('admin/slo/detail') }}" method="post" accept-charset="utf-8">
+                  <form accept-charset="utf-8">
                     <input type="hidden" name="id" value="{{ $slo->id }}">
                     {{ csrf_field() }}
                     <div class="column">

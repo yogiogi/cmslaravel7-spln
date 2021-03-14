@@ -97,6 +97,22 @@
                 </a>
                 @endif
 
+                @if($mcbbox->status==1)
+                @if($mcbbox->status_bayar==0)
+                <a href="{{ asset('admin/mcbbox/update_bayar/'.$mcbbox->id) }}" class="btn btn-warning btn-sm approval-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @else
+                <a href="" class="btn btn-warning btn-sm">
+                  <i class="fa fa-check-circle"></i>
+                </a>
+                @endif
+                @else
+                <a href="" class="btn btn-warning btn-sm warning-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @endif
+
                 <a href="{{ asset('admin/mcbbox/delete/'.$mcbbox->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
               </div>
             </td>

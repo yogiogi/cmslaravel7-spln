@@ -24,14 +24,9 @@ class Pendaftaranslo_model extends Model
         return $value;
     }
 
-    public static function getdaftarsloData($id = 0)
+    public static function getdaftarsloData($id)
     {
-
-        if ($id == 0) {
-            $value = DB::table('pendaftaran_slo')->orderBy('id', 'asc')->get();
-        } else {
-            $value = DB::table('pendaftaran_slo')->where('id', $id)->first();
-        }
+        $value = DB::table('pendaftaran_slo')->where('id', $id)->first();
         return $value;
     }
 

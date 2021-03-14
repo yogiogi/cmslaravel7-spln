@@ -88,10 +88,25 @@ $awal = $sek - 100;
       });
   });
 
+  // Popup warning
+  $(document).on("click", ".warning-link", function(e) {
+    e.preventDefault();
+    url = $(this).attr("href");
+    swal({
+      title: "Data ini belum valid, mohon setujui terlebih dahulu",
+      type: "info",
+      confirmButtonClass: 'btn btn-danger',
+      buttonsStyling: false,
+      confirmButtonText: "Oke",
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true,
+    }, );
+  });
+
   // Popup Edit
   $(document).on("click", ".edit-link", function(e) {
     var myBookId = $(this).data('id');
-     $(".modal-body #bookId").val( myBookId );
+    $(".modal-body #bookId").val(myBookId);
     e.preventDefault();
     url = $(this).attr("href");
     swal({

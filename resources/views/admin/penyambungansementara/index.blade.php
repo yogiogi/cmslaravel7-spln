@@ -8,7 +8,7 @@
           <th width="15%" class="text-center">NAMA PEMOHON</th>
           <th width="10%" class="text-left">ID PELANGGAN</th>
           <th width="10%" class="text-left">WAKTU PENYAMBUNGAN</th>
-          <th width="15%" class="text-center">BIAYA</th>
+          <th width="15%" class="text-center">BIAYA TOTAL</th>
           <th width="5%" class="text-center">STATUS</th>
           <th width="5%" class="text-center"></th>
         </tr>
@@ -54,15 +54,7 @@
               </small>
             </td>
             <td>
-              <small>
-                biaya pemasangan Rp <?php echo number_format($penyambungansementara->biaya, 2)  ?> <sup><i class="fa fa-pencil"></i></sup>
-                <br>PPN : Rp <?php echo number_format($penyambungansementara->ppn, 2)  ?>
-                <br>PPJ : Rp <?php echo number_format($penyambungansementara->ppj, 2)  ?>
-                <br>Materai : Rp <?php echo number_format($penyambungansementara->materai, 2)  ?>
-              </small>
-              <br>
-              <br>
-              <a>Total Biaya Rp <?php echo number_format($penyambungansementara->total, 2) ?><sup></sup></a>
+              <a href="#modaldetailBiaya" data-toggle="modal" data-target="#modaldetailBiaya<?php echo $penyambungansementara->id ?>">Rp <?php echo number_format($penyambungansementara->total, 0) ?><sup></sup></a>
             </td>
 
             <td>
@@ -130,6 +122,70 @@
                     </div>
                   </form>
                   <!--Modal update data-->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="modaldetailBiaya<?php echo $penyambungansementara->id ?>" tabindex="-1" aria-labelledby="modaldetailBiaya" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Detail Biaya</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria- label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form accept-charset="utf-8">
+
+                    <input type="hidden" name="id" value="{{ $penyambungansementara->id }}">
+                    {{ csrf_field() }}
+
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <b><label id="edKonsumen" name="konsumen"> <?php echo strtoupper($penyambungansementara->nama_konsumen) ?> </label></b>
+                      </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Biaya (biaya per jam * <?php echo round((float)$penyambungansementara->durasi * 100); ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($penyambungansementara->biaya, 0) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">PPN (biaya * <?php echo round((float)$penyambungansementara->ppnc * 100) . '%'; ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($penyambungansementara->ppn, 0) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">PPJ (biaya * <?php echo round((float)$penyambungansementara->ppjc * 100) . '%'; ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($penyambungansementara->ppj, 0) ?></label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Materai </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($penyambungansementara->materai, 0) ?> </label>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                  <label class="col-sm-6 control-label text-right">Total Biaya yang dibayarkan</label>
+                  <div class="col-sm-6">
+                    <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($penyambungansementara->total, 0) ?> </label>
+                  </div>
                 </div>
               </div>
             </div>

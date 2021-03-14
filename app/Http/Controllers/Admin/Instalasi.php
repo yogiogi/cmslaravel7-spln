@@ -60,7 +60,7 @@ class Instalasi extends Controller
         }
         DB::table('instalasi')->where('id', $id_instal)->update([
             'status_bayar'      => '1',
-            'tgl_approve' => now(),
+            'tanggal_bayar' => now(),
         ]);
         return redirect('admin/instalasi')->with(['sukses' => 'Data berhasil di update']);
     }

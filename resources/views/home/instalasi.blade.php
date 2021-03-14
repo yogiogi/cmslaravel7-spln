@@ -107,6 +107,11 @@ $token     = $resource->token();
     var meterkabel = null;
     var jeniskabel = null;
 
+    var hargameter = null;
+    var harga_titiklampu = null;
+    var harga_titiksaklar = null;
+    var harga_titikstopkontak = null;
+
     var biaya = null;
     var ppn = null;
     var ppj = null;
@@ -153,6 +158,11 @@ $token     = $resource->token();
             stopkontak = document.getElementsByName("titik_stop")[0];
             meterkabel = document.getElementsByName("meter_kabel")[0];
             jeniskabel = document.getElementsByName("ukuran_kabel")[0];
+
+            hargameter = data.hargameter;
+            harga_titiklampu = data.harga_titiklampu;
+            harga_titiksaklar = data.harga_titiksaklar;
+            harga_titikstopkontak = data.harga_titikstopkontak;
 
             console.log('meterkabel');
             console.log(meterkabel.value);
@@ -269,6 +279,10 @@ $token     = $resource->token();
           stopkontak: $("#titik_stop").val(),
           meterkabel: $("#meter_kabel").val(),
           jeniskabel: $("#ukuran_kabel").val(),
+          hargameter : data.hargameter,
+          harga_titiklampu: data.harga_titiklampu,
+          harga_titiksaklar: data.harga_titiksaklar,
+          harga_titikstopkontak: data.harga_titikstopkontak,
 
           ppn: ppn,
           ppj: ppj,

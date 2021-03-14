@@ -38,6 +38,12 @@ class Instalasi extends Controller
     $titik_saklar = $request->input('saklar');
     $titik_stop_kontak = $request->input('stopkontak');
     $meter_kabel = $request->input('meterkabel');
+
+    $hargameter = $request->input('hargameter');
+    $harga_titiklampu = $request->input('harga_titiklampu');
+    $harga_titiksaklar = $request->input('harga_titiksaklar');
+    $harga_titikstopkontak = $request->input('harga_titikstopkontak');
+
     $jenis_kabel = $request->input('jeniskabel');
     $ppn = $request->input('ppn');
     $ppj = $request->input('ppj');
@@ -64,6 +70,10 @@ class Instalasi extends Controller
       'titik_saklar' => $titik_saklar,
       'titik_stop_kontak' => $titik_stop_kontak,
       'meter_kabel' => $meter_kabel,
+      'biaya_meter_kabel' => $hargameter,
+      'biaya_titik_lampu' => $harga_titiklampu,
+      'biaya_titik_saklar' => $harga_titiksaklar,
+      'biaya_titik_stop_kontak' => $harga_titikstopkontak,
       'jenis_kabel' => $jenis_kabel,
       'ppn' => $ppn,
       'ppj' => $ppj,
@@ -99,6 +109,10 @@ class Instalasi extends Controller
     $hargameter = $produk->hargameter;
 
     $hargameter = $hargameter * $meter_kabel;
+    $harga_titiklampu = $titik_lampu * $request->lampu;
+    $harga_titiksaklar = $titik_saklar * $request->lampu;
+    $harga_titikstopkontak = $titik_stop * $request->lampu;
+
     $jumlah_titik = $titik_lampu + $titik_saklar + $titik_stop;
     $jumlah_biaya = $jumlah_titik * $biaya;
     $jumlah_biaya = $hargameter + $jumlah_biaya;
@@ -109,6 +123,11 @@ class Instalasi extends Controller
 
     $data = [
       'biaya' => $jumlah_biaya,
+      'hargameter' => $hargameter,
+      'harga_titiklampu' => $harga_titiklampu,
+      'harga_titiksaklar' => $harga_titiksaklar,
+      'harga_titikstopkontak' => $harga_titikstopkontak,
+
       'ppn' => $ppn,
       'ppj' => $ppj,
       'materai' => $materai,

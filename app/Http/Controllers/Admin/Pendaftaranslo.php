@@ -61,7 +61,7 @@ class Pendaftaranslo extends Controller
 
         DB::table('pendaftaran_slo')->where('id', $id_slo)->update([
             'status_bayar'      => '1',
-            'tanggal_approve' => now(),
+            'tanggal_bayar' => now(),
         ]);
         return redirect('admin/pendaftaranslo')->with(['sukses' => 'Data berhasil di update']);
     }

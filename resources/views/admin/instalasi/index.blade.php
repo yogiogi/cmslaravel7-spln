@@ -6,10 +6,9 @@
     <table id="example1" class="display table table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr class="bg-dark">
-          <th width="15%" class="text-center">KONSUMEN</th>
-          <th width="10%" class="text-center">INSTALASI</th>
-          <th width="15%" class="text-center">BIAYA</th>
-          <th width="5%" class="text-center">TOTAL</th>
+          <th width="25%" class="text-center">KONSUMEN</th>
+          <th width="15%" class="text-center">INSTALASI</th>
+          <th width="15%" class="text-center">TOTAL BIAYA</th>
           <th width="5%" class="text-center">STATUS</th>
           <th width="5%" class="text-center"></th>
         </tr>
@@ -53,16 +52,7 @@
               </small>
             </td>
             <td>
-              <small>
-                Biaya Instalasi : Rp <?php echo number_format($instalasi->biaya, 2)  ?> <sup><i class="fa fa-pencil"></i></sup>
-
-                <br>PPN : Rp <?php echo number_format($instalasi->ppn, 2)  ?>
-                <br>PPJ : Rp <?php echo number_format($instalasi->ppj, 2)  ?>
-                <br>Materai : Rp <?php echo number_format($instalasi->materai, 2)  ?>
-              </small>
-            </td>
-            <td>
-              <a>Rp <?php echo number_format($instalasi->total, 2) ?><sup></sup></a>
+              <a href="#modaldetailBiaya" data-toggle="modal" data-target="#modaldetailBiaya<?php echo $instalasi->id ?>">Rp <?php echo number_format($instalasi->total, 0) ?><sup></sup></a>
             </td>
             <td>
               <a><?php if ($instalasi->status == 0) {
@@ -148,15 +138,15 @@
                     <input type="hidden" name="id" value="{{ $instalasi->id }}">
                     {{ csrf_field() }}
                     <div class="column">
-                      <label id="edKonsumen" name="konsumen">Nama : <?php echo $instalasi->nama_konsumen ?></label>
-                      <br><label id="edKonsumen" name="ktp"> KTP : <?php echo $instalasi->ktp ?></label>
-                      <br><label id="edKonsumen" name="alamat"> Alamat : <?php echo $instalasi->alamat ?></label>
-                      <br><label id="edKonsumen" name="geolocation"> Desa <?php echo ucfirst(strtolower($instalasi->desa)) ?>,
+                      <label name="konsumen">Nama : <?php echo $instalasi->nama_konsumen ?></label>
+                      <br><label name="ktp"> KTP : <?php echo $instalasi->ktp ?></label>
+                      <br><label name="alamat"> Alamat : <?php echo $instalasi->alamat ?></label>
+                      <br><label name="geolocation"> Desa <?php echo ucfirst(strtolower($instalasi->desa)) ?>,
                         Kecamatan <?php echo ucfirst(strtolower($instalasi->kec)) ?>,
                         <?php echo ucfirst(strtolower($instalasi->kab)) ?>,
                         <?php echo ucfirst(strtolower($instalasi->prov)) ?></label>
-                      <br><label id="edKonsumen" name="telp"> Telepon : <?php echo $instalasi->telp ?></label>
-                      <br><label id="edKonsumen" name="email"> Email : <?php echo $instalasi->email ?></label>
+                      <br><label name="telp"> Telepon : <?php echo $instalasi->telp ?></label>
+                      <br><label name="email"> Email : <?php echo $instalasi->email ?></label>
                     </div>
                   </form>
                   <!--Modal update data-->
@@ -164,6 +154,91 @@
               </div>
             </div>
           </div>
+
+          <div class="modal fade" id="modaldetailBiaya<?php echo $instalasi->id ?>" tabindex="-1" aria-labelledby="modaldetailBiaya" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Detail Biaya</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria- label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form accept-charset="utf-8">
+
+                    <input type="hidden" name="id" value="{{ $instalasi->id }}">
+                    {{ csrf_field() }}
+
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <b><label id="edKonsumen" name="konsumen"> <?php echo strtoupper($instalasi->nama_konsumen) ?> </label></b>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Biaya titik lampu (<?php echo $instalasi->titik_lampu * $instalasi->lampuc?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($instalasi->titik_lampu * $instalasi->lampuc) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Biaya titik saklar (<?php echo $instalasi->titik_saklar * $instalasi->saklarc ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($instalasi->titik_saklar * $instalasi->saklarc) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Biaya titik stop kontak (<?php echo $instalasi->titik_stop_kontak * $instalasi->stopkontakc ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($instalasi->titik_stop_kontak * $instalasi->stopkontakc) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Harga kabel penghantar (<?php echo $instalasi->meter_kabel * $instalasi->hargameterc ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($instalasi->meter_kabel * $instalasi->hargameterc) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">PPN ((T.Lampu + T.Saklar + T.Stop kontak + Kabel Penghantar) * <?php echo round((float)$instalasi->ppnc * 100) . '%'; ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($instalasi->ppn) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">PPJ ((T.Lampu + T.Saklar + T.Stop kontak + Kabel Penghantar) * <?php echo round((float)$instalasi->ppjc * 100) . '%'; ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($instalasi->ppj, 0) ?></label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Materai </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($instalasi->materai, 0) ?> </label>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                  <label class="col-sm-6 control-label text-right">Total Biaya yang dibayarkan</label>
+                  <div class="col-sm-6">
+                    <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($instalasi->total, 0) ?> </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         <?php $i++;
         } ?>
 

@@ -60,7 +60,7 @@ class Perubahandaya extends Controller
         }
         DB::table('perubahan_daya')->where('id', $id_perubahan)->update([
             'status_bayar'      => '1',
-            'tgl_approve' => now()
+            'tanggal_bayar' => now()
         ]);
         return redirect('admin/perubahandaya')->with(['sukses' => 'Data berhasil di update']);
     }

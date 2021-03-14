@@ -5,12 +5,11 @@
     <table id="example1" class="display table table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr class="bg-dark">
-          <th width="15%" class="text-center">NAMA PEMOHON</th>
-          <th width="10%" class="text-left">ID PELANGGAN</th>
-          <th width="10%" class="text-left">PERUBAHAN DAYA</th>
-          <th width="10%" class="text-center">INSTALASI</th>
-          <th width="15%" class="text-center">BIAYA</th>
-          <th width="5%" class="text-center">TOTAL</th>
+          <th width="25%" class="text-center">NAMA PEMOHON</th>
+          <th width="15%" class="text-left">ID PELANGGAN</th>
+          <th width="15%" class="text-left">PERUBAHAN DAYA</th>
+          <th width="15%" class="text-center">INSTALASI</th>
+          <th width="15%" class="text-center">BIAYA TOTAL</th>
           <th width="5%" class="text-center">STATUS</th>
           <th class="text-center"></th>
         </tr>
@@ -39,6 +38,11 @@
                                         } else {
                                           echo "-";
                                         } ?>
+                <br>tanggal bayar : <?php if ($perubahandaya->tanggal_bayar != 0) {
+                                      echo date("d/m/Y", strtotime($perubahandaya->tanggal_bayar));
+                                    } else {
+                                      echo "-";
+                                    } ?>
               </small>
             </td>
             <td>
@@ -54,33 +58,22 @@
               </small>
             </td>
             <td>
-              <a><?php
-                  if ($perubahandaya->kode_layanan == '031') {
-                    echo "Perubahan Daya Prabayar ke Prabayar";
-                  } else if ($perubahandaya->kode_layanan == '032') {
-                    echo "Perubahan Daya Prabayar ke Pascabayar";
-                  } else 
-                  if ($perubahandaya->kode_layanan == '033') {
-                    echo "Perubahan Daya Pascabayar ke Pascabayar";
-                  }
-                  ?></a>
-              <br><a>Peruntukan : <?php echo $perubahandaya->peruntukan ?> </a>
-            </td>
-            <td>
-              <a>
-                Rp <?php echo number_format($perubahandaya->biaya, 2)  ?> <sup><i class="fa fa-pencil"></i></sup>
-              </a>
               <small>
-                <br>SLO : Rp <?php echo number_format($perubahandaya->slo, 2)  ?>
-                <br>GIL : Rp <?php echo number_format($perubahandaya->gil, 2)  ?>
-                <br>UJL : Rp <?php echo number_format($perubahandaya->ujl, 2)  ?>
-                <br>PPN : Rp <?php echo number_format($perubahandaya->ppn, 2)  ?>
-                <br>PPJ : Rp <?php echo number_format($perubahandaya->ppj, 2)  ?>
-                <br>Materai : Rp <?php echo number_format($perubahandaya->materai, 2)  ?>
+                <a><?php
+                    if ($perubahandaya->kode_layanan == '031') {
+                      echo "Prabayar ke Prabayar";
+                    } else if ($perubahandaya->kode_layanan == '032') {
+                      echo "Prabayar ke Pascabayar";
+                    } else 
+                  if ($perubahandaya->kode_layanan == '033') {
+                      echo "Pascabayar ke Pascabayar";
+                    }
+                    ?>,</a>
+                <br><a>Peruntukan : <?php echo $perubahandaya->peruntukan ?> </a>
               </small>
             </td>
             <td>
-              <a><?php echo number_format($perubahandaya->total, 2) ?><sup></sup></a>
+              <a href="#modaldetailBiaya" data-toggle="modal" data-target="#modaldetailBiaya<?php echo $perubahandaya->id ?>">Rp <?php echo number_format($perubahandaya->total, 0) ?><sup></sup></a>
             </td>
             <td>
               <a><?php if ($perubahandaya->status == 0) {
@@ -147,6 +140,90 @@
                     </div>
                   </form>
                   <!--Modal update data-->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="modaldetailBiaya<?php echo $perubahandaya->id ?>" tabindex="-1" aria-labelledby="modaldetailBiaya" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Detail Biaya</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria- label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form accept-charset="utf-8">
+
+                    <input type="hidden" name="id" value="{{ $perubahandaya->id }}">
+                    {{ csrf_field() }}
+
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <b><label id="edKonsumen" name="konsumen"> <?php echo strtoupper($perubahandaya->nama_konsumen) ?> </label></b>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Biaya Pemasangan </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($perubahandaya->biayac) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">SLO (<?php echo $perubahandaya->daya - $perubahandaya->dayalama ?> * <?php echo $perubahandaya->sloc ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($perubahandaya->slo) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">GIL (<?php echo $perubahandaya->daya - $perubahandaya->dayalama ?> * <?php echo $perubahandaya->gilc ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($perubahandaya->gil) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">UJL (<?php echo $perubahandaya->daya - $perubahandaya->dayalama ?> * <?php echo $perubahandaya->ujlc ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($perubahandaya->ujl) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">PPN ((SLO + GIL + UJL) * <?php echo round((float)$perubahandaya->ppnc * 100) . '%'; ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($perubahandaya->ppn, 0) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">PPJ ((SLO + GIL + UJL) * <?php echo round((float)$perubahandaya->ppjc * 100) . '%'; ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($perubahandaya->ppj, 0) ?></label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Materai </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($perubahandaya->materai, 0) ?> </label>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                  <label class="col-sm-6 control-label text-right">Total Biaya yang dibayarkan</label>
+                  <div class="col-sm-6">
+                    <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($perubahandaya->total, 0) ?> </label>
+                  </div>
                 </div>
               </div>
             </div>

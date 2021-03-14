@@ -233,30 +233,37 @@ function()
     Route::get('admin/pendaftaranslo', 'Pendaftaranslo@index');
     Route::get('admin/pendaftaranslo/delete/{par1}', 'Pendaftaranslo@delete');
     Route::get('admin/pendaftaranslo/update/{par1}', 'Pendaftaranslo@update');
+    Route::get('admin/pendaftaranslo/update_bayar/{par1}', 'Pendaftaranslo@update_bayar');
     //Pasang baru
     Route::get('admin/pasangbaru', 'Pasangbaru@index');
     Route::get('admin/pasangbaru/delete/{par1}', 'Pasangbaru@delete');
     Route::get('admin/pasangbaru/update/{par1}', 'Pasangbaru@update');
+    Route::get('admin/pasangbaru/update_bayar/{par1}', 'Pasangbaru@update_bayar');
     //Perubahan daya
     Route::get('admin/perubahandaya', 'Perubahandaya@index');
     Route::get('admin/perubahandaya/delete/{par1}', 'Perubahandaya@delete');
     Route::get('admin/perubahandaya/update/{par1}', 'Perubahandaya@update');
+    Route::get('admin/perubahandaya/update_bayar/{par1}', 'Perubahandaya@update_bayar');
     //Penyambungan sementara
     Route::get('admin/penyambungansementara', 'Penyambungansementara@index');
     Route::get('admin/penyambungansementara/delete/{par1}', 'Penyambungansementara@delete');
     Route::get('admin/penyambungansementara/update/{par1}', 'Penyambungansementara@update'); 
+    Route::get('admin/penyambungansementara/update_bayar/{par1}', 'Penyambungansementara@update_bayar'); 
     //Instalasi
     Route::get('admin/instalasi', 'Instalasi@index');
     Route::get('admin/instalasi/delete/{par1}', 'Instalasi@delete');
     Route::get('admin/instalasi/update/{par1}', 'Instalasi@update'); 
+    Route::get('admin/instalasi/update_bayar/{par1}', 'Instalasi@update_bayar'); 
     //Instalasi
     Route::get('admin/mcbbox', 'Mcbbox@index');
     Route::get('admin/mcbbox/delete/{par1}', 'Mcbbox@delete');
     Route::get('admin/mcbbox/update/{par1}', 'Mcbbox@update'); 
+    Route::get('admin/mcbbox/update_bayar/{par1}', 'Mcbbox@update_bayar'); 
     //Instalasi
     Route::get('admin/pengaduanteknis', 'Pengaduanteknis@index');
     Route::get('admin/pengaduanteknis/delete/{par1}', 'Pengaduanteknis@delete');
     Route::get('admin/pengaduanteknis/update/{par1}', 'Pengaduanteknis@update');
+    Route::get('admin/pengaduanteknis/update_bayar/{par1}', 'Pengaduanteknis@update_bayar');
     Route::post('admin/pengaduanteknis/edit/', 'Pengaduanteknis@edit');
     
     // Variabel

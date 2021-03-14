@@ -59,24 +59,7 @@
               </small>
             </td>
             <td>
-              <a>
-                Rp <?php echo number_format($mcbbox->biaya, 2)  ?> <sup><i class="fa fa-pencil"></i></sup>
-              </a>
-              <small>
-                <br>Biaya Pembuatan MDP : Rp <?php echo number_format($mcbbox->biayamdp, 2)  ?>
-                <br>Biaya Pembuatan SDP : Rp <?php echo number_format($mcbbox->biayasdp, 2)  ?>
-                <br>Biaya Pembuatan MCB : Rp <?php echo number_format($mcbbox->biaya_mcb, 2)  ?>
-                <br>Biaya Pembuatan LNB : Rp <?php echo number_format($mcbbox->biaya_lnb, 2)  ?>
-                <br>Biaya Pembuatan MCCB : Rp <?php echo number_format($mcbbox->biaya_mccb, 2)  ?>
-                <br>Biaya Pembuatan Trafo : Rp <?php echo number_format($mcbbox->biaya_trafo, 2)  ?>
-
-                <br>PPN : Rp <?php echo number_format($mcbbox->ppn, 2)  ?>
-                <br>PPJ : Rp <?php echo number_format($mcbbox->ppj, 2)  ?>
-                <br>Materai : Rp <?php echo number_format($mcbbox->materai, 2)  ?>
-              </small>
-            </td>
-            <td>
-              <a>Rp <?php echo number_format($mcbbox->total, 2) ?><sup></sup></a>
+              <a href="#modaldetailBiaya" data-toggle="modal" data-target="#modaldetailBiaya<?php echo $mcbbox->id ?>">Rp <?php echo number_format($mcbbox->total, 0) ?><sup></sup></a>
             </td>
             <td>
               <a><?php if ($mcbbox->status == 0) {
@@ -143,6 +126,104 @@
                     </div>
                   </form>
                   <!--Modal update data-->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="modaldetailBiaya<?php echo $mcbbox->id ?>" tabindex="-1" aria-labelledby="modaldetailBiaya" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Detail Biaya</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria- label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form accept-charset="utf-8">
+
+                    <input type="hidden" name="id" value="{{ $mcbbox->id }}">
+                    {{ csrf_field() }}
+
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <b><label id="edKonsumen" name="konsumen"> <?php echo strtoupper($mcbbox->nama_konsumen) ?> </label></b>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">MDP </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($mcbbox->biayamdp) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">SDP </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($mcbbox->biayasdp) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Harga MCB (<?php echo $mcbbox->grup_mcb ?> * <?php echo $mcbbox->biaya_mcb ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($mcbbox->biaya_mcb) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Harga LNB (<?php echo $mcbbox->grup_lnb  ?> * <?php echo $mcbbox->biaya_lnb ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($mcbbox->biaya_lnb) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Harga MCCB (<?php echo $mcbbox->grup_mccb ?> * <?php echo $mcbbox->biaya_lnb ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($mcbbox->biaya_mccb) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Harga Trafo (<?php echo $mcbbox->grup_trafo ?> * <?php echo $mcbbox->biaya_trafo ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($mcbbox->biaya_trafo) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">PPN (SLO + GIL * <?php echo round((float)$mcbbox->ppnc * 100) . '%'; ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($mcbbox->ppn, 0) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">PPJ (SLO + GIL * <?php echo round((float)$mcbbox->ppjc * 100) . '%'; ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($mcbbox->ppj, 0) ?></label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Materai </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($mcbbox->materai, 0) ?> </label>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                  <label class="col-sm-6 control-label text-right">Total Biaya yang dibayarkan</label>
+                  <div class="col-sm-6">
+                    <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($mcbbox->total, 0) ?> </label>
+                  </div>
                 </div>
               </div>
             </div>

@@ -60,7 +60,7 @@ class Penyambungansementara extends Controller
         }
         DB::table('penyambungan_sementara')->where('id', $id_sambung)->update([
             'status_bayar'      => '1',
-            'tgl_approve' => now(),
+            'tanggal_bayar' => now(),
         ]);
         return redirect('admin/penyambungansementara')->with(['sukses' => 'Data berhasil di update']);
     }

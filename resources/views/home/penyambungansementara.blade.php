@@ -387,8 +387,8 @@ $provinces = $resource->provinsi();
                   <div class="col-sm-4">
                     <select name="durasi" id="durasi" class="form-control select2" required>
                       <option value="">-- pilih durasi --</option>
-                      <option value="1">12 jam</option>
-                      <option value="2">24 jam</option>
+                      <option value="12">12 jam</option>
+                      <option value="24">24 jam</option>
                     </select>
                   </div>
                   <label class="col-sm-2 control-label text-right">Jam Mulai</label>

@@ -60,7 +60,7 @@ class Mcbbox extends Controller
         }
         DB::table('mcb_box')->where('id', $id_mcb)->update([
             'status_bayar'      => '1',
-            'tgl_approve' => now(),
+            'tanggal_bayar' => now(),
         ]);
         return redirect('admin/mcbbox')->with(['sukses' => 'Data berhasil di update']);
     }

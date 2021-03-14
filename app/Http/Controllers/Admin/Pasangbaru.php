@@ -37,7 +37,7 @@ class Pasangbaru extends Controller
         return redirect('admin/pasangbaru')->with(['sukses' => 'Data telah dihapus']);
     }
 
-    // Update
+    // Update bayar
     public function update_bayar($id_pasang)
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -46,12 +46,12 @@ class Pasangbaru extends Controller
         }
         DB::table('pasang_baru')->where('id', $id_pasang)->update([
             'status_bayar'      => '1',
-            'tgl_approve' => now()
+            'tanggal_bayar' => now()
         ]);
         return redirect('admin/pasangbaru')->with(['sukses' => 'Data berhasil di update']);
     }
 
-    // Update bayar
+    // Update
     public function update($id_pasang)
     {
         date_default_timezone_set('Asia/Jakarta');

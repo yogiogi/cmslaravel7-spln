@@ -5,10 +5,9 @@
     <table id="example1" class="display table table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr class="bg-dark">
-          <th width="15%" class="text-center">NAMA PEMOHON</th>
-          <th width="10%" class="text-center">INSTALASI</th>
-          <th width="15%" class="text-center">BIAYA</th>
-          <th width="5%" class="text-center">TOTAL</th>
+          <th width="25%" class="text-center">NAMA PEMOHON</th>
+          <th width="15%" class="text-center">INSTALASI</th>
+          <th width="15%" class="text-center">BIAYA TOTAL</th>
           <th width="5%" class="text-center">STATUS</th>
           <th width="5%" class="text-center"></th>
         </tr>
@@ -39,6 +38,11 @@
                                         } else {
                                           echo "-";
                                         } ?>
+                <br>tanggal bayar : <?php if ($pasangbaru->tanggal_bayar != 0) {
+                                      echo date("d/m/Y", strtotime($pasangbaru->tanggal_bayar));
+                                    } else {
+                                      echo "-";
+                                    } ?>
               </small>
             </td>
             <td>
@@ -50,21 +54,7 @@
               <a><?php echo $pasangbaru->daya ?> Watt</a>
             </td>
             <td>
-              <a>
-                Rp <?php echo number_format($pasangbaru->biaya, 2)  ?> <sup><i class="fa fa-pencil"></i></sup>
-              </a>
-              <small>
-                <br>SLO : Rp <?php echo number_format($pasangbaru->slo, 2)  ?>
-                <br>GIL : Rp <?php echo number_format($pasangbaru->gil, 2)  ?>
-                <br>UJL : Rp <?php echo number_format($pasangbaru->ujl, 2)  ?>
-                <br>PPN : Rp <?php echo number_format($pasangbaru->ppn, 2)  ?>
-                <br>PPJ : Rp <?php echo number_format($pasangbaru->ppj, 2)  ?>
-                <br>Token : Rp <?php echo number_format($pasangbaru->token, 2)  ?>
-                <br>Materai : Rp <?php echo number_format($pasangbaru->materai, 2)  ?>
-              </small>
-            </td>
-            <td>
-              <a>Rp <?php echo number_format($pasangbaru->total, 2) ?><sup></sup></a>
+              <a href="#modaldetailBiaya" data-toggle="modal" data-target="#modaldetailBiaya<?php echo $pasangbaru->id ?>">Rp <?php echo number_format($pasangbaru->total, 0) ?><sup></sup></a>
             </td>
             <td>
               <a><?php if ($pasangbaru->status == 0) {
@@ -131,6 +121,97 @@
                     </div>
                   </form>
                   <!--Modal update data-->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="modaldetailBiaya<?php echo $pasangbaru->id ?>" tabindex="-1" aria-labelledby="modaldetailBiaya" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Detail Biaya</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria- label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form accept-charset="utf-8">
+
+                    <input type="hidden" name="id" value="{{ $pasangbaru->id }}">
+                    {{ csrf_field() }}
+
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <b><label id="edKonsumen" name="konsumen"> <?php echo strtoupper($pasangbaru->nama_konsumen) ?> </label></b>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Biaya Pemasangan </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($pasangbaru->biayac) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">SLO </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($pasangbaru->slo) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">GIL </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($pasangbaru->gil) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">UJL </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($pasangbaru->ujl) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">PPN ((SLO + GIL + UJL) * <?php echo round((float)$pasangbaru->ppnc * 100) . '%'; ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($pasangbaru->ppn, 0) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">PPJ ((SLO + GIL + UJL) * <?php echo round((float)$pasangbaru->ppjc * 100) . '%'; ?>)</label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($pasangbaru->ppj, 0) ?></label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Token </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($pasangbaru->token) ?> </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label text-right">Materai </label>
+                      <div class="col-sm-6">
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($pasangbaru->materai, 0) ?> </label>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                  <label class="col-sm-6 control-label text-right">Total Biaya yang dibayarkan</label>
+                  <div class="col-sm-6">
+                    <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($pasangbaru->total, 0) ?> </label>
+                  </div>
                 </div>
               </div>
             </div>

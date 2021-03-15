@@ -36,6 +36,26 @@ class resource_model extends Model
         return $query;
     }
 
+    public function getdistrict($id)
+    {
+        $query = DB::table('districts')
+            ->select('districts.*')
+            ->where('districts.id', $id)
+            ->orderBy('id', 'ASC')
+            ->first();
+        return $query;
+    }
+
+    public function getvillage($id)
+    {
+        $query = DB::table('villages')
+            ->select('villages.*')
+            ->where('villages.id', $id)
+            ->orderBy('id', 'ASC')
+            ->first();
+        return $query;
+    }
+
     public function layanan()
     {
         $query = DB::table('produk_layanan')

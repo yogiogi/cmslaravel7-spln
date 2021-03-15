@@ -21,12 +21,16 @@ class Cekstatus_model extends Model
 
     public function getCekstatus($idlayanan, $layanan)
     {
-        $query = DB::table($layanan)
+        $result = DB::table($layanan)
             ->select('*')
             ->where('id_layanan', $idlayanan)
             ->orderBy('id_layanan', 'DESC')
             ->first();
-        return $query;
+
+        if ($result == null) {
+            $result = "Data tidak ditemukan";
+        }
+        return $result;
     }
 
     public function singlelist($idlayanan, $layanan)

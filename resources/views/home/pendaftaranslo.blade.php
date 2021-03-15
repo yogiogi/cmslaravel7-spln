@@ -233,11 +233,11 @@ $provinces = $resource->provinsi();
               "<th align='left' width='25%'> : Rp " + formatRupiah(gil) + "</th>" +
               "</tr>" +
               "<tr align='left'>" +
-              "<th align='left' width='75%'> - PPN (10%*a) </th>" +
+              "<th align='left' width='75%'> - PPN (10% * (SLO + GIL)) </th>" +
               "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
               "</tr>" +
               "<tr align='left'>" +
-              "<th align='left' width='75%'> - PPJ (5%*a) </th>" +
+              "<th align='left' width='75%'> - PPJ (5% * (SLO + GIL)) </th>" +
               "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
               "</tr>" +
               "<tr align='left'>" +

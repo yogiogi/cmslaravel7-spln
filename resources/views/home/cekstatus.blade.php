@@ -50,6 +50,7 @@ $layanan = $resource->layanan();
             layanan: $("#pilihLayanan").val(),
           },
           success: function(data) {
+            console.log(data);
             var statusText = "Belum disetujui";
             if (data.status == 1) {
               statusText = "Sudah disetujui";
@@ -73,7 +74,10 @@ $layanan = $resource->layanan();
                 "<td>Nama Konsumen : " + data.nama_konsumen + "</td>" +
                 "</tr>" +
                 "<tr align='left'>" +
-                "<td>Alamat : " + data.alamat + ", " + data.kabupaten + ", " + data.provinsi + "</td>" +
+                "<td>Alamat : " + data.alamat + "</td>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<td> Desa " + data.desa + ", Kecamatan " + data.kecamatan + ", " + data.kabupaten + ", " + data.provinsi + "</td>" +
                 "</tr>" +
                 "<tr align='left'>" +
                 "<td>KTP : " + data.ktp + "</td>" +
@@ -107,16 +111,18 @@ $layanan = $resource->layanan();
                 "<br>";
 
               if (data.status == 1) {
-                elements += "<button type='submit' id='cetakPermohonan' name='cetakPermohonan' class='button' value='Send'>Cetak Permohonan</button>";
-              } else {
+                // elements += "<button type='submit' id='cetakPermohonan' name='cetakPermohonan' class='button' value='Send'>Cetak Permohonan</button>";
                 elements += "<button type='submit' id='cetakReg' name='cetakReg' class='button' value='Send'>Cetak Registrasi</button>";
+              } else {
+                elements += "<button type='submit' id='cetakReg' name='cetakReg' class='button' value='Send' disabled readonly>Cetak Registrasi</button>";
+                elements += "<br><small><a>Permohonan Anda belum disetujui, mohon tunggu sampai 2x24 jam atau hubungi Customer Service Kami </a></small>";
               }
 
               $('.cloundcontainer').append(elements);
             }
           },
           error: function(errorThrown) {
-            console.log("error " + errorThrown);
+            console.log("error " + errorThrown.toString);
             alert('Ada masalah di server');
           }
         });

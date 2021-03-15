@@ -8,8 +8,7 @@
         <tr class="bg-dark">
           <th width="15%" class="text-center">KONSUMEN</th>
           <th width="10%" class="text-center">MCB BOX</th>
-          <th width="20%" class="text-center">BIAYA</th>
-          <th width="5%" class="text-center">TOTAL</th>
+          <th width="5%" class="text-center">TOTAL BIAYA</th>
           <th width="5%" class="text-center">STATUS</th>
           <th width="5%" class="text-center"></th>
         </tr>

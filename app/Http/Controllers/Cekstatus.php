@@ -18,6 +18,8 @@ class cekstatus extends Controller
 
         $resource = new resource_model();
 
+        $villages = $resource->getvillage($produk->desa);
+        $districts = $resource->getdistrict($produk->kecamatan);
         $provinces = $resource->getprovinsi($produk->provinsi);
         $regencies = $resource->getcity($produk->kabupaten);
         $instalasi = $resource->getSifatInstalasi($produk->instalasi);
@@ -30,6 +32,8 @@ class cekstatus extends Controller
                 'nama_konsumen' => $produk->nama_konsumen,
                 'ktp' => $produk->ktp,
                 'alamat' => $produk->alamat,
+                'desa' => $villages->name,
+                'kecamatan' => $districts->name,
                 'provinsi' => $provinces->name,
                 'kabupaten' => $regencies->name,
                 'telp' => $produk->telp,

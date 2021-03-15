@@ -194,9 +194,9 @@
                     </div>
 
                     <div class="form-group row">
-                      <label class="col-sm-6 control-label text-right">Biaya titik stop kontak (<?php echo $instalasi->titik_stop_kontak * $instalasi->stopkontakc ?>)</label>
+                      <label class="col-sm-6 control-label text-right">Biaya titik stop kontak (<?php echo $instalasi->titik_stop_kontak * $instalasi->hargatitikstopkontak ?>)</label>
                       <div class="col-sm-6">
-                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($instalasi->titik_stop_kontak * $instalasi->stopkontakc) ?> </label>
+                        <label id="edKonsumen" name="konsumen">Rp <?php echo number_format($instalasi->titik_stop_kontak * $instalasi->hargatitikstopkontak) ?> </label>
                       </div>
                     </div>
 

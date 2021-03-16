@@ -197,7 +197,7 @@ $provinces = $resource->provinsi();
             $('.cloundcontainer').show();
             $('.cloundcontainer').empty();
 
-            var elements = "<h2 align='center'> Pendaftaran SLO </h2>" +
+            var elements = "<h2 align='center'> <?php echo $subtitle ?> </h2>" +
               "<table>" +
               "<tr align='left'>" +
               "<th align='left' width='50%'> Sifat Instalasi : " + instalasi + " </th>" +

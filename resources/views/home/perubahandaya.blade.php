@@ -175,8 +175,8 @@ $provinsi = $resource->provinsi();
             $('div.cloundcontainer').show();
             $('.cloundcontainer').show();
             $('.cloundcontainer').empty();
-            $('.cloundcontainer').append(
-              "<h2 align='center'> <?php echo $subtitle ?> </h2>" +
+
+            var elements = "<h2 align='center'> <?php echo $subtitle ?> </h2>" +
               "<table>" +
               "<tr align='left'>" +
               "<th align='left' width='50%'> Layanan </th>" +
@@ -253,10 +253,13 @@ $provinsi = $resource->provinsi();
               "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
               "</tr>" +
               "</table>" +
-              "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>");
+              "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
+            $('.cloundcontainer').append(elements);
+
           } else {
             alert('Data tidak bisa kosong');
             $('div.cloundcontainer').hide();
+            $('.cloundcontainer').empty();
           }
         },
         error: function(errorThrown) {
@@ -270,7 +273,7 @@ $provinsi = $resource->provinsi();
       jQuery("#submit_btn").attr('disabled', false);
     });
 
-    $('.cloundcontainer').on('click', 'button', function() {
+    $('#saveButton').on('click', function() {
       $.ajax({
         url: '{{ url("/perubahandaya/save") }}',
         type: "POST",
@@ -307,7 +310,10 @@ $provinsi = $resource->provinsi();
         },
         dataType: 'text',
         success: function(data) {
-          window.location.href = "http://localhost/cmslaravel7-spln/"
+          console.log("oke coy");
+          var item = "Id Layanan Anda adalah " + data + ", simpan dan gunakan untuk mengecek status permohonan Anda pada halaman CEK STATUS LAYANAN ";
+          $("#areaValue").html(item);
+          $("#showModal").modal("toggle");
         },
         error: function(xhr, status, error) {
           alert('Terjadi kesalahan server');
@@ -533,6 +539,49 @@ $provinsi = $resource->provinsi();
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button id="SetujuButton" type="button" class="btn btn-primary" data-dismiss="modal">Setuju</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="attentionModal" name="attentionModal" tabindex="-1" role="dialog" aria-labelledby="perhatianModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="perhatianModal">Perhatian</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="md-form">
+          <p>Anda yakin data-data tersebut telah benar?</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Ya, simpan</button> -->
+        <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Ya, Simpan</button>
+        <button class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="showModal" name="showModal" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="areaValue">
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/cekstatus" role="button">Cek Layanan</a>
+        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/" role="button">Home</a>
       </div>
     </div>
   </div>

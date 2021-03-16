@@ -261,9 +261,6 @@ $provinces = $resource->provinsi();
               "</tr>" +
               "</table>" +
               "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
-            // <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal">
-            //   <i class="fa fa-edit"></i>
-            // </button>
             $('.cloundcontainer').append(elements);
           } else {
             alert('Data tidak bisa kosong');
@@ -283,7 +280,6 @@ $provinces = $resource->provinsi();
       jQuery("#checkKetentuan").attr('checked', true);
       jQuery("#submit_btn").attr('disabled', false);
     });
-
 
     $('#saveButton').on('click', function() {
       $.ajax({
@@ -323,10 +319,7 @@ $provinces = $resource->provinsi();
         dataType: 'text',
         success: function(data) {
           console.log("oke coy");
-          // alert("Id Layanan Anda adalah " + data + ", simpan dan gunakan untuk mengecek status permohonan Anda pada halaman CEK STATUS LAYANAN ");
           var item = "Id Layanan Anda adalah " + data + ", simpan dan gunakan untuk mengecek status permohonan Anda pada halaman CEK STATUS LAYANAN ";
-          console.log("oke coy " + item);
-          // var label = "<label>" + item + "</label>"
           $("#areaValue").html(item);
           $("#showModal").modal("toggle");
         },
@@ -581,7 +574,6 @@ $provinces = $resource->provinsi();
     </div>
   </div>
 </div>
-
 
 <div class="modal fade" id="showModal" name="showModal" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">

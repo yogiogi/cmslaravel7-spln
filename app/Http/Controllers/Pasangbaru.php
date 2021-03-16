@@ -77,11 +77,10 @@ class Pasangbaru extends Controller
     // Insert
     $value = pasangbaru_model::insertData($data);
     if ($value) {
-      Session::flash('message', 'Insert successfully.');
+      return response($id_layanan);
     } else {
       Session::flash('message', 'Username already exists.');
     }
-    return redirect()->action('Home@index');
   }
 
   public function perhitungan(Request $request)

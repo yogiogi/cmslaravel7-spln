@@ -11,7 +11,7 @@ class Pendaftaranslo_model extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'nama_konsumen', 'ktp', 'alamat', 'provinsi', 'kabupaten', 'telp', 'whatsapp', 'email', 'instalasi', 'daya', 'dayalama', 'djklama', 'badan_usaha', 'tanggal_daftar', 'tanggal_approve'
+        'nama_konsumen', 'ktp', 'alamat', 'provinsi', 'kabupaten', 'telp', 'whatsapp', 'email', 'instalasi', 'daya', 'dayalama', 'djklama', 'badan_usaha', 'tgl_permohonan', 'tgl_approve'
     ];
 
     public static function getkonsumenData($id = 0)

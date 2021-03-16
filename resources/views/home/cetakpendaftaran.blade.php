@@ -16,7 +16,7 @@
 	<h1>PT. S-PLN</h1>
 	<table>
 		<tr align='left'>
-			<th align='left'> <?php echo $data->tanggal_daftar ?> </th>
+			<th align='left'> <?php echo $data->tgl_permohonan ?> </th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='50%'> No. Pendaftaran </th>
@@ -26,19 +26,19 @@
 		<tr align='left'>
 			<th align='left' width='50%'> Tanggal </th>
 			<th align='left'> : </th>
-			<th align='left'> <?php echo $data->tanggal_daftar ?> </th>
+			<th align='left'> <?php echo $data->tgl_permohonan ?> </th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='50%'> Tanggal </th>
 			<th align='left'> : </th>
-			<th align='left'> <?php echo $data->tanggal_daftar ?> </th>
+			<th align='left'> <?php echo $data->tgl_permohonan ?> </th>
 		</tr>
 	</table>
 	Dengan Hormat,
 	Sehubungan dengan permohonan <?php echo $data->layanan ?> yang Bapak/Ibu/Sdr, dengan permohonan sebagai berikut :
 	<table>
 		<tr align='left'>
-			<th align='left'> <?php echo $data->tanggal_daftar ?> </th>
+			<th align='left'> <?php echo $data->tgl_permohonan ?> </th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='50%'> No. Pendaftaran </th>
@@ -48,12 +48,12 @@
 		<tr align='left'>
 			<th align='left' width='50%'> Tanggal </th>
 			<th align='left'> : </th>
-			<th align='left'> <?php echo $data->tanggal_daftar ?> </th>
+			<th align='left'> <?php echo $data->tgl_permohonan ?> </th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='50%'> Tanggal </th>
 			<th align='left'> : </th>
-			<th align='left'> <?php echo $data->tanggal_daftar ?> </th>
+			<th align='left'> <?php echo $data->tgl_permohonan ?> </th>
 		</tr>
 	</table>
 

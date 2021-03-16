@@ -189,8 +189,7 @@ $token = $resource->token();
             daya.value != '') {
             $('.cloundcontainer').show();
             $('.cloundcontainer').empty();
-            $('.cloundcontainer').append(
-              "<h2 align='center'> Penyambungan Sementara </h2>" +
+            var elements = "<h2 align='center'> Pasang Baru </h2>" +
               "<table>" +
               "<tr align='left'>" +
               "<th align='left' width='50%'> Layanan " + layanan + "</th>" +
@@ -254,7 +253,8 @@ $token = $resource->token();
               "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
               "</tr>" +
               "</table>" +
-              "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>");
+              "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
+            $('.cloundcontainer').append(elements);
           } else {
             alert('Data tidak bisa kosong');
             $('.cloundcontainer').hide();
@@ -273,14 +273,7 @@ $token = $resource->token();
       jQuery("#submit_btn").attr('disabled', false);
     });
 
-    $('.cloundcontainer').on('click', 'button', function() {
-
-      console.log("desa");
-      console.log($("#city").val());
-      console.log($("#district").val());
-      console.log($("#village").val());
-      console.log($("#layanan").val());
-
+    $('#saveButton').on('click', function() {
       $.ajax({
         url: '{{ url("/pasangbaru/save") }}',
         type: "POST",
@@ -314,10 +307,12 @@ $token = $resource->token();
         },
         dataType: 'text',
         success: function(data) {
-          window.location.href = "http://localhost/cmslaravel7-spln/"
+          var item = "Id Layanan Anda adalah " + data + ", simpan dan gunakan untuk mengecek status permohonan Anda pada halaman CEK STATUS LAYANAN ";
+          $("#areaValue").html(item);
+          $("#showModal").modal("toggle");
         },
         error: function(xhr, status, error) {
-          alert('Ada masalah di server');
+          alert('Terjadi kesalahan server');
         }
       });
     });
@@ -468,6 +463,9 @@ $token = $resource->token();
                       <button type="button" id="submithitung" name="submithitung" class="btn btn-primary btn-lg" value="hitung">
                         <i class="fa fa-save"></i> Hitung Biaya
                       </button>
+                      <button type="reset" class="btn btn-info btn-lg" value="reset">
+                        <i class="fa fa-times"></i> Reset
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -523,6 +521,49 @@ $token = $resource->token();
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button id="SetujuButton" type="button" class="btn btn-primary" data-dismiss="modal">Setuju</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="attentionModal" name="attentionModal" tabindex="-1" role="dialog" aria-labelledby="perhatianModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="perhatianModal">Perhatian</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="md-form">
+          <p>Anda yakin data-data tersebut telah benar?</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Ya, simpan</button> -->
+        <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Ya, Simpan</button>
+        <button class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="showModal" name="showModal" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="areaValue">
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/cekstatus" role="button">Cek Layanan</a>
+        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/" role="button">Home</a>
       </div>
     </div>
   </div>

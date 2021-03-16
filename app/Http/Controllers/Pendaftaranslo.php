@@ -108,8 +108,6 @@ class Pendaftaranslo extends Controller
 
     $value = Pendaftaranslo_model::insertData($data);
     if ($value) {
-      error_log($id_layanan);
-      error_log("yeyeye");
       return response($id_layanan);
     } else {
       Session::flash('message', 'Username already exists.');
@@ -122,7 +120,7 @@ class Pendaftaranslo extends Controller
       return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
     }
     DB::table('kategori_produk')->where('id', $request->id_pendaftaran)->update([
-      'tanggal_approve'   => $request->urutan,
+      'tgl_approve'   => $request->urutan,
       'status'            => $request->keterangan
     ]);
     return redirect('admin/kategori_produk')->with(['sukses' => 'Data telah diupdate']);

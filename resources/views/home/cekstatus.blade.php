@@ -28,6 +28,9 @@ $layanan = $resource->layanan();
     }
 
     $('#submitcek').on('click', function() {
+      $('.cloundcontainer').show();
+      $('.cloundcontainer').empty();
+      $('.cloundcontainer').html("data tidak ditemukan");
       console.log("pilihLayanan " + $("#pilihLayanan").val());
       console.log("layanan " + $('#layanan').find(":selected").text());
 
@@ -59,60 +62,105 @@ $layanan = $resource->layanan();
             if ($('#statusid').val() != '' && $('#pilihLayanan').val() != '') {
               $('.cloundcontainer').show();
               $('.cloundcontainer').empty();
-
               var elements =
                 "<p align='left'><b> Konsumen dengan data :</b></p>" +
-                "<table>" +
-                "<thead>" +
-                "<tr align='left'>" +
-                "<td>Tanggal permohonan : " + data.tgl_permohonan + "</td>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<td>ID Transaksi : " + data.id_layanan + "</td>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<td>Nama Konsumen : " + data.nama_konsumen + "</td>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<td>Alamat : " + data.alamat + "</td>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<td> Desa " + data.desa + ", Kecamatan " + data.kecamatan + ", " + data.kabupaten + ", " + data.provinsi + "</td>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<td>KTP : " + data.ktp + "</td>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<td>Telepon : " + data.telp + "</td>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<td>Whatsapp : " + data.whatsapp + "</td>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<td>layanan : " + layanan + "</td>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<td>instalasi : " + data.instalasi + "</td>" +
-                "</tr>" +
-                "<tr align='left'>";
+                "<div class='row'>" +
+                "<label class='col-sm-4'>Tanggal permohonan </label>" +
+                "<label> :  </label>" +
+                "<div class='col-sm-4 text-left'>" +
+                "<label>" + data.tgl_permohonan + " </label>" +
+                "</div>" +
+                "</div>" +
+
+                "<div class='row'>" +
+                "<label class='col-sm-4'>ID Transaksi </label>" +
+                "<label> :  </label>" +
+                "<div class='col-sm-4 text-left'>" +
+                "<label>" + data.id_layanan + " </label>" +
+                "</div>" +
+                "</div>" +
+
+                "<div class='row'>" +
+                "<label class='col-sm-4'>Nama Konsumen </label>" +
+                "<label> :  </label>" +
+                "<div class='col-sm-4 text-left' >" +
+                "<label> " + data.nama_konsumen + " </label>" +
+                "</div>" +
+                "</div>" +
+
+                "<div class='row'>" +
+                "<label class='col-sm-4'>Alamat </label>" +
+                "<label> :  </label>" +
+                "<div class='col-sm-6 text-left'>" +
+                "<label>" + data.alamat + ", Desa " + data.desa + ", " + data.kecamatan + ", " + data.kabupaten + ", " + data.provinsi + " </label>" +
+                "</div>" +
+                "</div>" +
+
+                "<div class='row'>" +
+                "<label class='col-sm-4'>KTP </label>" +
+                "<label> :  </label>" +
+                "<div class='col-sm-4 text-left' >" +
+                "<label> " + data.ktp + " </label>" +
+                "</div>" +
+                "</div>" +
+
+                "<div class='row'>" +
+                "<label class='col-sm-4'>Telepon </label>" +
+                "<label> :  </label>" +
+                "<div class='col-sm-4 text-left' >" +
+                "<label> " + data.telp + " </label>" +
+                "</div>" +
+                "</div>" +
+
+                "<div class='row'>" +
+                "<label class='col-sm-4'>Whatsapp </label>" +
+                "<label> :  </label>" +
+                "<div class='col-sm-4 text-left' >" +
+                "<label> " + data.whatsapp + " </label>" +
+                "</div>" +
+                "</div>" +
+
+                "<div class='row'>" +
+                "<label class='col-sm-4'>Jenis Layanan SPLN  </label>" +
+                "<label> :  </label>" +
+                "<div class='col-sm-4 text-left' >" +
+                "<label> <b>" + layanan + " </b></label>" +
+                "</div>" +
+                "</div>";
 
               if (data.status == 1) {
-                elements += "<td>Tanggal Approve : " + data.tgl_approve + "</td>";
+                elements += "<div class='row'>" +
+                  "<label class='col-sm-4'>Tanggal Approve </ilabel>" +
+                  "<label> :  </label>" +
+                  "<div class='col-sm-4 text-left' >" +
+                  "<label> " + data.tgl_approve + " </label>" +
+                  "</div>" +
+                  "</div>";
               }
 
-              elements += "</tr>" +
-                "</tr>" +
-                "</thead>" +
-                "</table>" +
-                "<br>" +
-                "<p align='left'><b> " +
-                statusText +
-                "</b></p>" +
-                "<br>";
+              if (data.status_bayar == 1) {
+                elements += "<div class='row'>" +
+                  "<label class='col-sm-4'>Tanggal Bayar </ilabel>" +
+                  "<label> :  </label>" +
+                  "<div class='col-sm-4 text-left' >" +
+                  "<label> " + data.tanggal_bayar + " </label>" +
+                  "</div>" +
+                  "</div>";
+              }
 
-              if (data.status == 1) {
-                // elements += "<button type='submit' id='cetakPermohonan' name='cetakPermohonan' class='button' value='Send'>Cetak Permohonan</button>";
+              elements += "<p align='left'><b> " +
+                statusText +
+                "</b></p>";
+
+              if (data.status == 1 && data.status_bayar == 0 && data.status_layanan == 0) {
                 elements += "<button type='submit' id='cetakReg' name='cetakReg' class='button' value='Send'>Cetak Registrasi</button>";
+                elements += "<br><small><a>Permohonan Anda sudah disetujui, Mohon lakukan pembayaran dengan nomer layanan yang tersedia kami akan tunggu sampai 2x24 jam </a></small>";
+              } else if (data.status == 1 && data.status_bayar == 1 && data.status_layanan == 0) {
+                elements += "<br><small><a>Sudah dibayarkan, silahkan menunggu untuk layanan lebih lanjut </a></small>";
+              } else if (data.status == 1 && data.status_bayar == 1 && data.status_layanan == 0) {
+                elements += "<br><small><a>Sudah dibayarkan, silahkan menunggu untuk layanan lebih lanjut </a></small>";
+              } else if (data.status == 1 && data.status_bayar == 1 && data.status_layanan == 1) {
+                elements += "<br><small><a>Terima kasih telah mempercyakan kami, Layanan Anda sudah ditangani dengan baik oleh tim </a></small>";
               } else {
                 elements += "<button type='submit' id='cetakReg' name='cetakReg' class='button' value='Send' disabled readonly>Cetak Registrasi</button>";
                 elements += "<br><small><a>Permohonan Anda belum disetujui, mohon tunggu sampai 2x24 jam atau hubungi Customer Service Kami </a></small>";
@@ -123,7 +171,7 @@ $layanan = $resource->layanan();
           },
           error: function(errorThrown) {
             console.log("error " + errorThrown.toString);
-            alert('Ada masalah di server');
+            alert('Data tidak ditemukan');
           }
         });
       }

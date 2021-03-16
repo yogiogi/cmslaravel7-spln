@@ -22,71 +22,26 @@ class cekstatus extends Controller
         $districts = $resource->getdistrict($produk->kecamatan);
         $provinces = $resource->getprovinsi($produk->provinsi);
         $regencies = $resource->getcity($produk->kabupaten);
-        $instalasi = $resource->getSifatInstalasi($produk->instalasi);
-        $status_daftar = $produk->status;
-        $status_bayar = $produk->status_bayar;
-        if ($status_daftar == 0) {
-            $data = [
-                'id_layanan' => $produk->id_layanan,
-                'kode_layanan' => $produk->kode_layanan,
-                'nama_konsumen' => $produk->nama_konsumen,
-                'ktp' => $produk->ktp,
-                'alamat' => $produk->alamat,
-                'desa' => $villages->name,
-                'kecamatan' => $districts->name,
-                'provinsi' => $provinces->name,
-                'kabupaten' => $regencies->name,
-                'telp' => $produk->telp,
-                'whatsapp' => $produk->whatsapp,
-                'email' => $produk->email,
-                'instalasi' => $instalasi->instalasi,
-                'dayalama' => $produk->dayalama,
-                'daya' => $produk->daya,
-                'djklama' => $produk->djklama,
-                'badan_usaha' => $produk->badan_usaha,
-                'status' => $produk->status,
-                'tgl_permohonan' => $produk->tanggal_daftar,
-                'tgl_approve' => $produk->tanggal_approve,
-
-                'biaya' => $produk->biaya,
-                'slo' => $produk->slo,
-                'gil' => $produk->gil,
-                'ppn' => $produk->ppn,
-                'ppj' => $produk->ppj,
-                'materai' => $produk->materai,
-                'total' => $produk->total,
-            ];
-        } else {
-            $data = [
-                'id_layanan' => $produk->id_transaksi,
-                'kode_layanan' => $produk->kode_layanan,
-                'nama_konsumen' => $produk->nama_konsumen,
-                'ktp' => $produk->ktp,
-                'alamat' => $produk->alamat,
-                'provinsi' => $provinces->name,
-                'kabupaten' => $regencies->name,
-                'telp' => $produk->telp,
-                'whatsapp' => $produk->whatsapp,
-                'email' => $produk->email,
-                'instalasi' => $instalasi->instalasi,
-                'dayalama' => $produk->dayalama,
-                'daya' => $produk->daya,
-                'djklama' => $produk->djklama,
-                'badan_usaha' => $produk->badan_usaha,
-                'status' => $produk->status,
-                'tgl_permohonan' => $produk->tanggal_daftar,
-                'tgl_approve' => $produk->tanggal_approve,
-
-                'biaya' => $produk->biaya,
-                'slo' => $produk->slo,
-                'gil' => $produk->gil,
-                'ppn' => $produk->ppn,
-                'ppj' => $produk->ppj,
-                'materai' => $produk->materai,
-                'total' => $produk->total,
-            ];
-        }
-
+        $data = [
+            'id_layanan' => $produk->id_layanan,
+            'id_transaksi' => $produk->id_transaksi,
+            'kode_layanan' => $produk->kode_layanan,
+            'nama_konsumen' => $produk->nama_konsumen,
+            'ktp' => $produk->ktp,
+            'alamat' => $produk->alamat,
+            'desa' => $villages->name,
+            'kecamatan' => $districts->name,
+            'provinsi' => $provinces->name,
+            'kabupaten' => $regencies->name,
+            'telp' => $produk->telp,
+            'whatsapp' => $produk->whatsapp,
+            'email' => $produk->email,
+            'status' => $produk->status,
+            'status_bayar' => $produk->status_bayar,
+            'status_layanan' => $produk->status_layanan,
+            'tgl_permohonan' => $produk->tgl_permohonan,
+            'tgl_approve' => $produk->tgl_approve,
+        ];
 
         return response()->json($data);
     }

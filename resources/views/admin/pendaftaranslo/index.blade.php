@@ -39,13 +39,13 @@
                 <br>
                 <a href="#modalDetailID" data-toggle="modal" data-target="#modalDetailID<?php echo $slo->id ?>">Detail</a>
 
-                <br>tanggal daftar : <?php if ($slo->tanggal_daftar != 0) {
-                                        echo date("d/m/Y", strtotime($slo->tanggal_daftar));
+                <br>tanggal daftar : <?php if ($slo->tgl_permohonan != 0) {
+                                        echo date("d/m/Y", strtotime($slo->tgl_permohonan));
                                       } else {
                                         echo "-";
                                       } ?>
-                <br>tanggal disetujui : <?php if ($slo->tanggal_approve != 0) {
-                                          echo date("d/m/Y", strtotime($slo->tanggal_approve));
+                <br>tanggal disetujui : <?php if ($slo->tgl_approve != 0) {
+                                          echo date("d/m/Y", strtotime($slo->tgl_approve));
                                         } else {
                                           echo "-";
                                         } ?>

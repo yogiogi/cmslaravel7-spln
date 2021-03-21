@@ -1,4 +1,5 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <?php
@@ -26,7 +27,6 @@ $provinces = $resource->provinsi();
               $.each(res, function(key, value) {
                 $("#kabupaten").append('<option value="' + key + '">' + value + '</option>');
               });
-
             } else {
               $("#kabupaten").append('<option>--Pilih Kabupaten/Kota--</option>');
             }
@@ -36,7 +36,6 @@ $provinces = $resource->provinsi();
         $("#kabupaten").append('<option>--Pilih Kabupaten/Kota--</option>');
       }
     });
-
     $('#kabupaten').on('change', function() {
       var cityID = $(this).val();
       if (cityID) {
@@ -50,7 +49,6 @@ $provinces = $resource->provinsi();
               $.each(res, function(key, value) {
                 $("#kecamatan").append('<option value="' + key + '">' + value + '</option>');
               });
-
             } else {
               $("#kecamatan").append('<option>--Pilih Kecamatan--</option>');
             }
@@ -60,7 +58,6 @@ $provinces = $resource->provinsi();
         $("#kecamatan").append('<option>--Pilih Kecamatan--</option>');
       }
     });
-
     $('#kecamatan').on('change', function() {
       var districtID = $(this).val();
       if (districtID) {
@@ -74,7 +71,6 @@ $provinces = $resource->provinsi();
               $.each(res, function(key, value) {
                 $("#desa").append('<option value="' + key + '">' + value + '</option>');
               });
-
             } else {
               $("#desa").append('<option>--Pilih Desa--</option>');
             }
@@ -85,6 +81,48 @@ $provinces = $resource->provinsi();
       }
     });
   })
+</script>
+
+
+<script>
+  $(document).ready(function() {
+    $('#saveButton').on('click', function() {
+      $.ajax({
+        url: '{{ url("/pengaduanteknis/save") }}',
+        type: "POST",
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+          nama_konsumen: $("#nama_pemohon").val(),
+          alamat: $("#alamat").val(),
+          provinsi: $("#provinsi").val(),
+          kabupaten: $("#kabupaten").val(),
+          kecamatan: $("#kecamatan").val(),
+          desa: $("#desa").val(),
+          nomer_ktp: $("#nomer_ktp").val(),
+          telepon: $("#telepon").val(),
+          whatsapp: $("#whatsapp").val(),
+          email_konsumen: $("#email_konsumen").val(),
+
+          id_pelanggan: $("#id_pelanggan").val(),
+          no_meter: $("#no_meter").val(),
+          keterangan: $("#keterangan").val(),
+        },
+        dataType: 'text',
+        success: function(data) {
+          console.log("oke coy");
+          var item = "Id Layanan Anda adalah " + data + ", simpan dan gunakan untuk mengecek status permohonan Anda pada halaman CEK STATUS LAYANAN ";
+          $("#areaValue").html(item);
+          $("#showModal").modal("toggle");
+          // alert('Terjadi sukses');
+        },
+        error: function(xhr, status, error) {
+          alert('Terjadi kesalahan server');
+        }
+      });
+    });
+  });
 </script>
 
 <!-- ======= Hero Section ======= -->
@@ -109,7 +147,7 @@ $provinces = $resource->provinsi();
                 </ul>
               </div>
               @endif
-              <form action="{{asset('pengaduanteknis/save')}}" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+              <form action="" accept-charset="utf-8">
                 {{ csrf_field() }}
                 <input type="hidden" name="token_rahasia" value="72827582Uduagd86275gbdahgahgfa">
 
@@ -120,14 +158,14 @@ $provinces = $resource->provinsi();
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Nama Pemohon </label>
                   <div class="col-sm-10">
-                    <input type="text" name="nama_pemohon" class="form-control" placeholder="Isi dengan nama pemohon" value="{{ old('nama_pemohon') }}" required>
+                    <input type="text" id="nama_pemohon" name="nama_pemohon" class="form-control" placeholder="Isi dengan nama pemohon" value="" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Alamat</label>
                   <div class="col-sm-10">
-                    <textarea name="alamat" class="form-control" placeholder="Alamat">{{ old('alamat') }}</textarea>
+                    <textarea id="alamat" name="alamat" class="form-control" placeholder="Alamat">{{ old('alamat') }}</textarea>
                   </div>
                 </div>
 
@@ -169,7 +207,7 @@ $provinces = $resource->provinsi();
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Nomer KTP </label>
                   <div class="col-sm-10">
-                    <input type="number" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
+                    <input type="number" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
                   </div>
                 </div>
 
@@ -187,7 +225,7 @@ $provinces = $resource->provinsi();
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Email</label>
                   <div class="col-sm-10">
-                    <input type="email" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}" placeholder="Isi email Anda" required>
+                    <input type="email" id="email_konsumen" name="email_konsumen" class="form-control" value="{{ old('email_konsumen') }}" placeholder="Isi email Anda" required>
                   </div>
                 </div>
 
@@ -205,7 +243,7 @@ $provinces = $resource->provinsi();
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Keterangan</label>
                   <div class="col-sm-10">
-                    <textarea name="keterangan" class="form-control" placeholder="isi dengan keterangan pengaduan" value="{{ old('keterangan') }}"></textarea>
+                    <textarea id="keterangan" name="keterangan" class="form-control" placeholder="isi dengan keterangan pengaduan" value="{{ old('keterangan') }}"></textarea>
                   </div>
                 </div>
 
@@ -213,9 +251,7 @@ $provinces = $resource->provinsi();
                   <label class="col-sm-4 control-label"></label>
                   <div class="col-sm-8">
                     <div class="btn-group">
-                      <button type="submit" name="submit" class="btn btn-primary btn-lg" value="login">
-                        <i class="fa fa-save"></i> Submit Pengaduan
-                      </button>
+                      <button type='button' name='submit_btn' class="btn btn-primary btn-lg" id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal'> <i class="fa fa-save"></i> Submit Pengaduan</button>
                       <button type="reset" name="submit" class="btn btn-info btn-lg" value="reset">
                         <i class="fa fa-times"></i> Reset
                       </button>
@@ -224,24 +260,15 @@ $provinces = $resource->provinsi();
                 </div>
               </form>
             </div>
-
-            <div class="cloundcontainer" style="display:none; 
-                   width: 100%;
-                   border: 2px solid powderblue;   
-                   padding: 50px;
-                   margin: 20px;">
-
-            </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </section><!-- End Hero -->
 
 <!-- Modal -->
-<div class="modal fade" id="ketentuanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<div class="modal fade" id="ketentuanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -274,6 +301,48 @@ $provinces = $resource->provinsi();
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button id="SetujuButton" type="button" class="btn btn-primary" data-dismiss="modal">Setuju</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="attentionModal" name="attentionModal" tabindex="-1" role="dialog" aria-labelledby="perhatianModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="perhatianModal">Perhatian</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="md-form">
+          <p>Anda yakin data-data tersebut telah benar?</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Ya, simpan</button> -->
+        <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Ya, Simpan</button>
+        <button class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="showModal" name="showModal" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="areaValue">
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/cekstatus" role="button">Cek Layanan</a>
+        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/" role="button">Home</a>
       </div>
     </div>
   </div>

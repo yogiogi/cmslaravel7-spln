@@ -13,7 +13,8 @@ class Mcbbox extends Controller
   public function save(Request $request)
   {
     $model = new resource_model();
-    $id_layanan = $model->generateIdLayanan("061", $request->input('desa'));
+    $id_layanan = $model->generateIdLayanan("061", $request->input('kabupaten'));
+
     $id_transaksi = $model->generateIdTansaksi("061");
 
     $nama_konsumen = $request->input('nama_konsumen');
@@ -88,23 +89,22 @@ class Mcbbox extends Controller
 
     $value = mcbbox_model::insertData($data);
     if ($value) {
-      Session::flash('message', 'Insert successfully.');
+      return response($id_layanan);
     } else {
       Session::flash('message', 'Username already exists.');
     }
-    return redirect()->action('Home@index');
   }
 
   public function perhitungan(Request $request)
   {
-    $model = new resource_model();
-    $produk = $model->variablePerhitungan(7);
-
     $mcb_box = $request->grup_mcb;
     $lnb_box = $request->grup_lnb;
     $lnb_box = $request->grup_lnb;
     $mccb_box = $request->grup_mccb;
     $trafo = $request->grup_trafo;
+
+    $model = new resource_model();
+    $produk = $model->variablePerhitungan(8);
 
     $harga_mcb =  $produk->harga_mcb;
     $harga_lnb =  $produk->harga_lnb;
@@ -112,11 +112,13 @@ class Mcbbox extends Controller
     $harga_trafo =  $produk->harga_trafo;
 
     $mdp = $request->mdp;
+    $harga_mdp = 0;
     if ($mdp != null) {
       $harga_mdp =  $produk->mdp;
     }
 
     $sdp = $request->sdp;
+    $harga_sdp = 0;
     if ($sdp != null) {
       $harga_sdp =  $produk->sdp;
     }
@@ -131,21 +133,21 @@ class Mcbbox extends Controller
     $harga_mccb = $harga_mccb * $mccb_box;
     $harga_trafo = $harga_trafo * $trafo;
 
-    $jumlah_biaya = $harga_mcb + $harga_lnb + $harga_mccb + $harga_trafo + $biayainstall;
+    $jumlah_biaya = $harga_mcb + $harga_lnb + $harga_mccb + $harga_mdp + $harga_sdp +  $harga_trafo + $biayainstall;
     $ppn = $ppn * $jumlah_biaya;
     $ppj = $ppj * $jumlah_biaya;
     $total = $jumlah_biaya + $ppn + $ppj + $materai;
 
     $data = [
-      'biayamcb' => $harga_mcb,
-      'biayalnb' => $harga_lnb,
-      'biayamccb' => $harga_mccb,
-      'biayatrafo' => $harga_trafo,
-      'biayamdp' => $harga_mdp,
-      'biayasdp' => $harga_sdp,
+      'harga_mcb' => $harga_mcb,
+      'harga_lnb' => $harga_lnb,
+      'harga_mccb' => $harga_mccb,
+      'harga_trafo' => $harga_trafo,
+      'harga_mdp' => $harga_mdp,
+      'harga_sdp' => $harga_sdp,
       'mdp' => $mdp,
       'sdp' => $sdp,
-      'biaya' => $jumlah_biaya,
+      'biaya' => $biayainstall,
       'ppn' => $ppn,
       'ppj' => $ppj,
       'materai' => $materai,

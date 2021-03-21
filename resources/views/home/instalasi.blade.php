@@ -178,7 +178,7 @@ $token     = $resource->token();
             if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '') {
               $('.cloundcontainer').show();
               $('.cloundcontainer').empty();
-              $('.cloundcontainer').append(
+              var elements =
                 "<h2 align='center'> Perhitungan biaya <?php echo $title ?> </h2>" +
                 "<table>" +
                 "<tr align='left'>" +
@@ -193,19 +193,32 @@ $token     = $resource->token();
                 "<th align='left' width='75%'> Titik Stop Kontak </th>" +
                 "<th align='left' width='25%'> : " + stopkontak.value + " titik</th>" +
                 "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='50%'> Kabel Penghantar yang dipilih : " + jeniskabel.value + ", dengan panjang " + meterkabel.value + " meter </th>" +
+                "</tr>" +
                 "</table>" +
                 "<br>" +
+
                 "<table>" +
                 "<tr align='left'>" +
                 "<th align='left' width='75%'> Detail Biaya </th>" +
                 "<th align='left' width='25%'></th>" +
                 "</tr>" +
                 "<tr align='left'>" +
-                "<th align='left' width='50%'> Kabel Penghantar yang dipilih : " + jeniskabel.value + ", panjang " + meterkabel.value + " meter </th>" +
+                "<th align='left' width='75%'> - Biaya Titik Lampu </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(harga_titiklampu ) + "</th>" +
                 "</tr>" +
                 "<tr align='left'>" +
-                "<th align='left' width='75%'> - Rupiah Biaya </th>" +
-                "<th align='left' width='25%'> : Rp " + formatRupiah(biaya) + "</th>" +
+                "<th align='left' width='75%'> - Biaya Titik Saklar </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(harga_titiksaklar) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - Biaya Titik Stop Kontak </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(harga_titikstopkontak) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - Biaya Kabel </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(hargameter) + "</th>" +
                 "</tr>" +
                 "<tr align='left'>" +
                 "<th align='left' width='75%'> - PPN (10%*a) </th>" +
@@ -235,7 +248,8 @@ $token     = $resource->token();
                 "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
                 "</tr>" +
                 "</table>" +
-                "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>");
+                "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
+              $('.cloundcontainer').append(elements);
 
             } else {
               alert('Data tidak bisa kosong');
@@ -244,7 +258,8 @@ $token     = $resource->token();
             }
           },
           error: function(errorThrown) {
-            alert('Data tidak bisa kosong');
+            console.log("error " + errorThrown);
+            alert('Ada masalah di server');
           }
         });
     });
@@ -254,7 +269,7 @@ $token     = $resource->token();
       jQuery("#submit_btn").attr('disabled', false);
     });
 
-    $('.cloundcontainer').on('click', 'button', function() {
+    $('#saveButton').on('click', function() {
       $.ajax({
         url: '{{ url("/instalasi/save") }}',
         type: "POST",
@@ -279,10 +294,10 @@ $token     = $resource->token();
           stopkontak: $("#titik_stop").val(),
           meterkabel: $("#meter_kabel").val(),
           jeniskabel: $("#ukuran_kabel").val(),
-          hargameter : data.hargameter,
-          harga_titiklampu: data.harga_titiklampu,
-          harga_titiksaklar: data.harga_titiksaklar,
-          harga_titikstopkontak: data.harga_titikstopkontak,
+          hargameter: hargameter,
+          harga_titiklampu: harga_titiklampu,
+          harga_titiksaklar: harga_titiksaklar,
+          harga_titikstopkontak: harga_titikstopkontak,
 
           ppn: ppn,
           ppj: ppj,
@@ -291,7 +306,10 @@ $token     = $resource->token();
         },
         dataType: 'text',
         success: function(data) {
-          window.location.href = "http://localhost/cmslaravel7-spln/"
+          console.log("oke coy");
+          var item = "Id Layanan Anda adalah " + data + ", simpan dan gunakan untuk mengecek status permohonan Anda pada halaman CEK STATUS LAYANAN ";
+          $("#areaValue").html(item);
+          $("#showModal").modal("toggle");
         },
         error: function(xhr, status, error) {
           alert('Terjadi kesalahan server');
@@ -382,14 +400,14 @@ $token     = $resource->token();
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Nomer KTP </label>
                   <div class="col-sm-10">
-                    <input type="number" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
+                    <input type="number" min="0" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">No. Telepon </label>
                   <div class="col-sm-4">
-                    <input type="number" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon pemohon" value="{{ old('nomer_ktp') }}" required>
+                    <input type="number" min="0" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon pemohon" value="{{ old('nomer_ktp') }}" required>
                   </div>
                   <label class="col-sm-2 control-label text-right">No. Whatsapp </label>
                   <div class="col-sm-4">
@@ -452,6 +470,9 @@ $token     = $resource->token();
                       <button type="button" id="submithitung" name="submithitung" class="btn btn-primary btn-lg" value="hitung">
                         <i class="fa fa-save"></i> Hitung Biaya
                       </button>
+                      <button type="reset" class="btn btn-info btn-lg" value="reset">
+                        <i class="fa fa-times"></i> Reset
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -474,7 +495,7 @@ $token     = $resource->token();
 </section><!-- End Hero -->
 
 <!-- Modal -->
-<div class="modal fade" id="ketentuanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<div class="modal fade" id="ketentuanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -507,6 +528,48 @@ $token     = $resource->token();
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button id="SetujuButton" type="button" class="btn btn-primary" data-dismiss="modal">Setuju</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="attentionModal" name="attentionModal" tabindex="-1" role="dialog" aria-labelledby="perhatianModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="perhatianModal">Perhatian</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="md-form">
+          <p>Anda yakin data-data tersebut telah benar?</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Ya, simpan</button> -->
+        <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Ya, Simpan</button>
+        <button class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="showModal" name="showModal" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="areaValue">
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/cekstatus" role="button">Cek Layanan</a>
+        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/" role="button">Home</a>
       </div>
     </div>
   </div>

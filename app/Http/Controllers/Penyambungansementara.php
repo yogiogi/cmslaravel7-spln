@@ -36,17 +36,17 @@ class Penyambungansementara extends Controller
     $whatsapp = $request->input('whatsapp');
     $email = $request->input('email');
     $id_pelanggan = $request->input('id_pelanggan');
-    $no_meter = $request->input('no_meter');
+    $no_meter = $request->input('nomer_meter');
     $durasi = $request->input('durasi');
-    $tanggal_nyala = Carbon::parse($request->input('tanggal_nyala'))->format('Y-m-d');
-    $jammulai = $request->input('jammulai');
-
     $biaya = $request->input('biaya');
 
     $ppn = $request->input('ppn');
     $ppj = $request->input('ppj');
     $materai = $request->input('materai');
     $total = $request->input('total');
+    $jammulai = $request->input('jammulai');
+    $tanggal_nyala = $request->input('tanggal_nyala');
+
     $status = 0;
 
     $data = array(
@@ -78,12 +78,10 @@ class Penyambungansementara extends Controller
 
     $value = Penyambungansementara_model::insertData($data);
     if ($value) {
-      Session::flash('message', 'Insert successfully.');
+      return response($id_layanan);
     } else {
       Session::flash('message', 'Username already exists.');
     }
-
-    return redirect()->action('Home@index');
   }
 
   public function perhitungan(Request $request)

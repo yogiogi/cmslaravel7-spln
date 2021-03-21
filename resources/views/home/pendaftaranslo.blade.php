@@ -271,7 +271,6 @@ $provinces = $resource->provinsi();
         error: function(errorThrown) {
           console.log("error " + errorThrown);
           alert('Ada masalah di server');
-          $("#getCodeModal").modal('show');
         }
       });
     });
@@ -412,14 +411,14 @@ $provinces = $resource->provinsi();
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Nomer KTP </label>
                   <div class="col-sm-10">
-                    <input type="number" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
+                    <input type="number" min="0" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">No. Telepon </label>
                   <div class="col-sm-4">
-                    <input type="number" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon pemohon" value="{{ old('nomer_ktp') }}" required>
+                    <input type="number" min="0" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon pemohon" value="{{ old('nomer_ktp') }}" required>
                   </div>
                   <label class="col-sm-2 control-label text-right">No. Whatsapp </label>
                   <div class="col-sm-4">
@@ -514,7 +513,7 @@ $provinces = $resource->provinsi();
 </section><!-- End Hero -->
 
 <!-- Modal -->
-<div class="modal fade" id="ketentuanModal" name="ketentuanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<div class="modal fade" id="ketentuanModal" name="ketentuanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -552,7 +551,7 @@ $provinces = $resource->provinsi();
   </div>
 </div>
 
-<div class="modal fade" id="attentionModal" name="attentionModal" tabindex="-1" role="dialog" aria-labelledby="perhatianModal" aria-hidden="true">
+<div class="modal fade" id="attentionModal" name="attentionModal" tabindex="-1" role="dialog" aria-labelledby="perhatianModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -575,7 +574,7 @@ $provinces = $resource->provinsi();
   </div>
 </div>
 
-<div class="modal fade" id="showModal" name="showModal" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true">
+<div class="modal fade" id="showModal" name="showModal" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">

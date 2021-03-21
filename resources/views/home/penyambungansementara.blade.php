@@ -151,18 +151,17 @@ $provinces = $resource->provinsi();
           console.log(materai);
           total = data.total;
           if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '') {
+            $('div.cloundcontainer').show();
             $('.cloundcontainer').show();
             $('.cloundcontainer').empty();
-            $('.cloundcontainer').append(
-              "<h2 align='center'> Perhitungan biaya <?php echo $title ?> </h2>" +
+
+            var elements = "<h2 align='center'> Perhitungan biaya <?php echo $subtitle ?> </h2>" +
               "<table>" +
               "<tr align='left'>" +
               "<th align='left' width='25%'> Detail Biaya </th>" +
               "</tr>" +
               "<tr align='left'>" +
-              "<th align='left'> tanggal layanan " + document.getElementsByName("datenyala")[0].value + ", </th>" +
-              "<th> durasi " + $("#durasi").val() + " jam </th>" +
-              "<th> jam mulai " + $("#jammulai").val() + " jam </th>" +
+              "<th align='left'> tanggal layanan " + document.getElementsByName("datenyala")[0].value + ",  jam mulai " + $("#jammulai").val() + ", durasi " + $("#durasi").val() + " jam </th>" +
               "</tr>" +
               "<tr align='left'>" +
               "<th align='left' width='25%'> ID Pelanggan</th>" +
@@ -173,7 +172,10 @@ $provinces = $resource->provinsi();
               "<th align='left' width='25%'> : " + document.getElementsByName("no_meter")[0].value + "</th>" +
               "</tr>" +
               "<tr align='left'>" +
-              "<th align='left' width='25%'> a. Rupiah Biaya Penyambungan</th>" +
+              "<th align='left' width='25%'> Detail Pengguna </th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='25%'> a. Biaya Penyambungan</th>" +
               "<th align='left' width='25%'> : Rp " + formatRupiah(biaya) + "</th>" +
               "</tr>" +
               "<tr align='left'>" +
@@ -204,7 +206,8 @@ $provinces = $resource->provinsi();
               "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
               "</tr>" +
               "</table>" +
-              "<button type='submit' name='submit_btn' class='button' id='submit_btn' value='Send' disabled>Simpan Permohonan</button>");
+              "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
+            $('.cloundcontainer').append(elements);
           } else {
             alert('Data tidak bisa kosong');
             $('.cloundcontainer').hide();
@@ -213,7 +216,7 @@ $provinces = $resource->provinsi();
         },
         error: function(errorThrown) {
           console.log("error " + errorThrown);
-          alert('Data tidak bisa kosong');
+          alert('Ada masalah di server');
         }
       });
     });
@@ -222,7 +225,8 @@ $provinces = $resource->provinsi();
       jQuery("#checkKetentuan").attr('checked', true);
       jQuery("#submit_btn").attr('disabled', false);
     });
-    $('.cloundcontainer').on('click', 'button', function() {
+
+    $('#saveButton').on('click', function() {
       $.ajax({
         url: '{{ url("/penyambungansementara/save") }}',
         type: "POST",
@@ -241,19 +245,23 @@ $provinces = $resource->provinsi();
           whatsapp: $("#whatsapp").val(),
           email: $("#email_konsumen").val(),
           id_pelanggan: $("#id_pelanggan").val(),
-          nomer_meter: $("#nomer_meter").val(),
+          nomer_meter: $("#no_meter").val(),
+          durasi: $("#durasi").val(),
           biaya: biaya,
           ppn: ppn,
           ppj: ppj,
           materai: materai,
           total: total,
-          durasi: $("#durasi").val(),
           jammulai: $("#jammulai").val(),
           tanggal_nyala: $("#datenyala").val()
         },
         dataType: 'text',
         success: function(data) {
-          window.location.href = "http://localhost/cmslaravel7-spln/"
+          console.log("oke coy");
+          var item = "Id Layanan Anda adalah " + data + ", simpan dan gunakan untuk mengecek status permohonan Anda pada halaman CEK STATUS LAYANAN ";
+          $("#areaValue").html(item);
+          $("#showModal").modal("toggle");
+
         },
         error: function(xhr, status, error) {
           alert('Terjadi kesalahan server');
@@ -404,6 +412,9 @@ $provinces = $resource->provinsi();
                       <button type="button" id="submithitung" name="submithitung" class="btn btn-primary btn-lg" value="hitung">
                         <i class="fa fa-save"></i> Hitung Biaya
                       </button>
+                      <button type="reset" class="btn btn-info btn-lg" value="reset">
+                        <i class="fa fa-times"></i> Reset
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -426,7 +437,7 @@ $provinces = $resource->provinsi();
 </section><!-- End Hero -->
 
 <!-- Modal -->
-<div class="modal fade" id="ketentuanModal" name="ketentuanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<div class="modal fade" id="ketentuanModal" name="ketentuanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -459,6 +470,48 @@ $provinces = $resource->provinsi();
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button id="SetujuButton" type="button" class="btn btn-primary" data-dismiss="modal">Setuju</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="attentionModal" name="attentionModal" tabindex="-1" role="dialog" aria-labelledby="perhatianModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="perhatianModal">Perhatian</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="md-form">
+          <p>Anda yakin data-data tersebut telah benar?</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Ya, simpan</button> -->
+        <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Ya, Simpan</button>
+        <button class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="showModal" name="showModal" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="areaValue">
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/cekstatus" role="button">Cek Layanan</a>
+        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/" role="button">Home</a>
       </div>
     </div>
   </div>

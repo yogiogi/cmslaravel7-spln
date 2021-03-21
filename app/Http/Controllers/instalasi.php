@@ -85,11 +85,10 @@ class Instalasi extends Controller
     // Insert
     $value = Instalasi_model::insertData($data);
     if ($value) {
-      Session::flash('message', 'Insert successfully.');
+      return response($id_layanan);
     } else {
       Session::flash('message', 'Username already exists.');
     }
-    return redirect()->action('Home@index');
   }
 
   public function perhitungan(Request $request)
@@ -109,9 +108,9 @@ class Instalasi extends Controller
     $hargameter = $produk->hargameter;
 
     $hargameter = $hargameter * $meter_kabel;
-    $harga_titiklampu = $titik_lampu * $request->lampu;
-    $harga_titiksaklar = $titik_saklar * $request->lampu;
-    $harga_titikstopkontak = $titik_stop * $request->lampu;
+    $harga_titiklampu = $titik_lampu * $produk->lampu;
+    $harga_titiksaklar = $titik_saklar * $produk->saklar;
+    $harga_titikstopkontak = $titik_stop * $produk->stopkontak;
 
     $jumlah_titik = $titik_lampu + $titik_saklar + $titik_stop;
     $jumlah_biaya = $jumlah_titik * $biaya;

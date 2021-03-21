@@ -15,23 +15,23 @@ class Pengaduanteknis extends Controller
   public function save(Request $request)
   {
     $model = new resource_model();
-    $id_layanan = $model->generateIdLayanan("071", $request->input('desa'));
+    $id_layanan = $model->generateIdLayanan("071", $request->input('kabupaten'));
     $id_transaksi = $model->generateIdTansaksi("071");
 
-    $nama_konsumen = $request->input('nama_pemohon');
-    $ktp = $request->input('nomer_ktp');
+    $nama_konsumen = $request->input('nama_konsumen');
     $alamat = $request->input('alamat');
     $provinsi = $request->input('provinsi');
     $kabupaten = $request->input('kabupaten');
     $kecamatan = $request->input('kecamatan');
     $desa = $request->input('desa');
+    $ktp = $request->input('nomer_ktp');
     $telp = $request->input('telepon');
     $whatsapp = $request->input('whatsapp');
     $email = $request->input('email_konsumen');
 
-    $keterangan = $request->input('keterangan');
     $id_pelanggan = $request->input('id_pelanggan');
     $no_meter = $request->input('no_meter');
+    $keterangan = $request->input('keterangan');
     $status = 0;
 
     $data = array(
@@ -57,10 +57,9 @@ class Pengaduanteknis extends Controller
     // Insert
     $value = pengaduanteknis_model::insertData($data);
     if ($value) {
-      Session::flash('message', 'Insert successfully.');
+      return response($id_layanan);
     } else {
       Session::flash('message', 'Username already exists.');
     }
-    return redirect()->action('Home@index');
   }
 }

@@ -1,5 +1,5 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+<link rel="stylesheet" type="text/css" href="style.css">
 <?php
 
 use Illuminate\Support\Facades\DB;
@@ -130,7 +130,7 @@ $layanan = $resource->layanan();
 
               if (data.status == 1) {
                 elements += "<div class='row'>" +
-                  "<label class='col-sm-4'>Tanggal Approve </ilabel>" +
+                  "<label class='col-sm-4'>Tanggal Approve </label>" +
                   "<label> :  </label>" +
                   "<div class='col-sm-4 text-left' >" +
                   "<label> " + data.tgl_approve + " </label>" +
@@ -189,6 +189,9 @@ $layanan = $resource->layanan();
           layanan: $("#pilihLayanan").val(),
         },
         dataType: 'text',
+        beforeSend: function() {
+          $('#loader').addClass('display-none')
+        },
         success: function(data) {
           console.log("data");
           console.log(data);
@@ -196,7 +199,10 @@ $layanan = $resource->layanan();
         },
         error: function(xhr, status, error) {
           alert('Ada masalah di server');
-        }
+        },
+        complete: function() {
+          $('#loader').removeClass('display-none')
+        },
       });
     });
   });
@@ -250,6 +256,7 @@ $layanan = $resource->layanan();
                    margin: 5px;">
 
             </div>
+            <div id="loader" name="loader" class="lds-dual-ring display-none overlay"></div>
           </div>
         </div>
       </div>

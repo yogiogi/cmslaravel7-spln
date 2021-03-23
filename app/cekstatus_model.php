@@ -63,6 +63,9 @@ class Cekstatus_model extends Model
                 ->join('regencies', 'regencies.id', '=', 'pasang_baru.kabupaten', 'LEFT')
                 ->join('districts', 'districts.id', '=', 'pasang_baru.kecamatan', 'LEFT')
                 ->join('villages', 'villages.id', '=', 'pasang_baru.desa', 'LEFT')
+                ->join('list_daya as a', 'a.id', '=', 'pasang_baru.daya', 'LEFT')
+                ->join('sifat_instalasi as b', 'b.id', '=', 'pasang_baru.sifat_instalasi', 'LEFT')
+                ->join('token as c', 'b.id', '=', 'pasang_baru.token', 'LEFT')
                 ->join('variabel_perhitungan', 'variabel_perhitungan.kode_layanan', '=', 'pasang_baru.kode_layanan', 'LEFT')
                 ->select(
                     'pasang_baru.*',
@@ -70,6 +73,9 @@ class Cekstatus_model extends Model
                     'regencies.name as kab',
                     'districts.name as kec',
                     'villages.name as desa',
+                    'a.daya as daya',
+                    'b.instalasi as sifat_instalasi',
+                    'c.token as token',
                     'variabel_perhitungan.layanan as layanan'
                 )
                 ->where('id_layanan', $idlayanan)
@@ -81,6 +87,8 @@ class Cekstatus_model extends Model
                 ->join('regencies', 'regencies.id', '=', 'perubahan_daya.kabupaten', 'LEFT')
                 ->join('districts', 'districts.id', '=', 'perubahan_daya.kecamatan', 'LEFT')
                 ->join('villages', 'villages.id', '=', 'perubahan_daya.desa', 'LEFT')
+                ->join('list_daya as a', 'a.id', '=', 'perubahan_daya.daya_baru', 'LEFT')
+                ->join('list_daya as b', 'b.id', '=', 'perubahan_daya.daya_lama', 'LEFT')
                 ->join('variabel_perhitungan', 'variabel_perhitungan.kode_layanan', '=', 'perubahan_daya.kode_layanan', 'LEFT')
                 ->select(
                     'perubahan_daya.*',
@@ -88,6 +96,8 @@ class Cekstatus_model extends Model
                     'regencies.name as kab',
                     'districts.name as kec',
                     'villages.name as desa',
+                    'a.daya as daya_baru',
+                    'b.daya as daya_lama',
                     'variabel_perhitungan.layanan as layanan'
                 )
                 ->where('id_layanan', $idlayanan)
@@ -135,6 +145,7 @@ class Cekstatus_model extends Model
                 ->join('regencies', 'regencies.id', '=', 'mcb_box.kabupaten', 'LEFT')
                 ->join('districts', 'districts.id', '=', 'mcb_box.kecamatan', 'LEFT')
                 ->join('villages', 'villages.id', '=', 'mcb_box.desa', 'LEFT')
+                ->join('jenis_box as a', 'a.id', '=', 'mcb_box.jenisbox', 'LEFT')
                 ->join('variabel_perhitungan', 'variabel_perhitungan.kode_layanan', '=', 'mcb_box.kode_layanan', 'LEFT')
                 ->select(
                     'mcb_box.*',
@@ -142,6 +153,7 @@ class Cekstatus_model extends Model
                     'regencies.name as kab',
                     'districts.name as kec',
                     'villages.name as desa',
+                    'a.jenis as jenisbox',
                     'variabel_perhitungan.layanan as layanan'
                 )
                 ->where('id_layanan', $idlayanan)

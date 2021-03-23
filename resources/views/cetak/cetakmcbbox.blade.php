@@ -8,7 +8,7 @@ use Carbon\Carbon;
 <html>
 
 <head>
-	<title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
+	<title>Bukti Registrasi <?php echo $data->layanan ?> </title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -39,8 +39,9 @@ use Carbon\Carbon;
 		</tr>
 	</table>
 	<br>
-	Dengan Hormat,
-	Sehubungan dengan permohonan <?php echo $data->layanan ?> yang Bapak/Ibu/Sdr, dengan permohonan sebagai berikut :
+	<p>Dengan Hormat,</p>
+	<p style="  text-align: justify;
+  text-justify: inter-word;">Sehubungan dengan permohonan <?php echo $data->layanan ?> yang Bapak/Ibu/Sdr, dengan permohonan sebagai berikut :</p>
 	<table>
 		<tr align='left'>
 			<th align='left' width='20%'> Nama Pemohon </th>
@@ -75,37 +76,35 @@ use Carbon\Carbon;
 		<tr align='left'>
 			<th align='left' width='20%'> Jenis Box </th>
 			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->jenisbox ?> </th>
-		</tr>
-		<tr align='left'>
-			<th align='left' width='20%'> MDP </th>
-			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->mdp ?>, biaya Rp <?php echo $data->biayamdp ?> </th>
-		</tr>
-		<tr align='left'>
-			<th align='left' width='20%'> SDP </th>
-			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->sdp ?>, biaya Rp <?php echo $data->biayasdp ?> </th>
+			<th align='left' width='40%'> <?php echo $data->jenisbox ?>
+				@if($data->mdp == 1)
+				, MDP
+				@endif
+
+				@if($data->sdp == 1)
+				, SDP
+				@endif
+			</th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='20%'> MCB </th>
 			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->grup_mcb ?>, biaya Rp <?php echo $data->biayamcb ?> </th>
+			<th align='left' width='40%'> <?php echo $data->grup_mcb ?> grup </th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='20%'> LNB </th>
 			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->grup_lnb ?>, biaya Rp <?php echo $data->biayalnb ?> </th>
+			<th align='left' width='40%'> <?php echo $data->grup_lnb ?> grup</th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='20%'> MCCB </th>
 			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->grup_mccb ?>, biaya Rp <?php echo $data->biayamccb ?> </th>
+			<th align='left' width='40%'> <?php echo $data->grup_mccb ?> grup </th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='20%'> Trafo </th>
 			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->grup_trafo ?>, biaya Rp <?php echo $data->biayatrafo ?> </th>
+			<th align='left' width='40%'> <?php echo $data->grup_trafo ?> kV</th>
 		</tr>
 	</table>
 	<br>

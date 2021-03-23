@@ -8,7 +8,7 @@ use Carbon\Carbon;
 <html>
 
 <head>
-	<title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
+	<title>Bukti Registrasi <?php echo $data->layanan ?> </title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -39,8 +39,9 @@ use Carbon\Carbon;
 		</tr>
 	</table>
 	<br>
-	Dengan Hormat,
-	Sehubungan dengan permohonan <?php echo $data->layanan ?> yang Bapak/Ibu/Sdr, dengan permohonan sebagai berikut :
+	<p>Dengan Hormat,</p>
+	<p style="  text-align: justify;
+  text-justify: inter-word;">Sehubungan dengan permohonan <?php echo $data->layanan ?> yang Bapak/Ibu/Sdr, dengan permohonan sebagai berikut :</p>
 	<table>
 		<tr align='left'>
 			<th align='left' width='20%'> Nama Pemohon </th>
@@ -75,22 +76,22 @@ use Carbon\Carbon;
 		<tr align='left'>
 			<th align='left' width='20%'> Jumlah Titik Lampu </th>
 			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->titik_lampu ?>, biaya Rp <?php echo $data->biaya_titik_lampu ?> </th>
+			<th align='left' width='40%'> <?php echo $data->titik_lampu ?> buah, biaya Rp <?php echo $data->biaya_titik_lampu ?> </th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='20%'> Jumlah Titik Saklar </th>
 			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->titik_saklar ?>, biaya Rp <?php echo $data->biaya_titik_saklar ?> </th>
+			<th align='left' width='40%'> <?php echo $data->titik_saklar ?> buah, biaya Rp <?php echo $data->biaya_titik_saklar ?> </th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='20%'> Jumlah Titik Stop Kontak </th>
 			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->titik_stop_kontak ?> , biaya Rp <?php echo $data->biaya_titik_stop_kontak ?> </th>
+			<th align='left' width='40%'> <?php echo $data->titik_stop_kontak ?> buah, biaya Rp <?php echo $data->biaya_titik_stop_kontak ?> </th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='20%'> Panjang Kabel Penghantar </th>
 			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->meter_kabel ?>, jenis kabel <?php echo $data->jenis_kabel ?> </th>
+			<th align='left' width='40%'> <?php echo $data->meter_kabel ?> meter, jenis kabel <?php echo $data->jenis_kabel ?> </th>
 		</tr>
 	</table>
 	<br>

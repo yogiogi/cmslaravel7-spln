@@ -8,7 +8,7 @@ use Carbon\Carbon;
 <html>
 
 <head>
-	<title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
+<title>Bukti Registrasi  <?php echo $data->layanan ?> </title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -85,17 +85,17 @@ use Carbon\Carbon;
 		<tr align='left'>
 			<th align='left' width='20%'> Durasi </th>
 			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->durasi ?> </th>
+			<th align='left' width='40%'> <?php echo $data->durasi ?> Jam</th>
 		</tr>
 		<tr align='left'>
-			<th align='left' width='20%'> Tanggal Nyala </th>
+			<th align='left' width='20%'> Tanggal Nyala Sementara</th>
 			<th align='left' width='2%'> : </th>
 			<th align='left' width='40%'> <?php echo $data->tanggal_nyala ?> </th>
 		</tr>
 		<tr align='left'>
 			<th align='left' width='20%'> Jam Mulai </th>
 			<th align='left' width='2%'> : </th>
-			<th align='left' width='40%'> <?php echo $data->jam_mulai ?> </th>
+			<th align='left' width='40%'> <?php echo $data->jammulai ?> </th>
 		</tr>
 
 	</table>

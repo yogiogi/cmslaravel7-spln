@@ -1,17 +1,23 @@
+<?php
+
+use Carbon\Carbon;
+?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title><?php echo $title ?></title>
-	<link rel="stylesheet" href="{{ asset('public/css/print.css') }}" media="print">
-	<link rel="stylesheet" href="{{ asset('public/css/print.css') }}" media="screen">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><?php echo $title ?></title>
+  <link rel="stylesheet" href="{{ asset('public/css/print.css') }}" media="print">
+  <link rel="stylesheet" href="{{ asset('public/css/print.css') }}" media="screen">
 </head>
+
 <body>
-	<div class="cetak">
-		<h1 style="text-align: center;"><?php echo strtoupper($title) ?>
-    <br>PT SPLN
+  <div class="cetak">
+    <h1 style="text-align: center;"><?php echo strtoupper($title) ?>
+      <br>PT SPLN
     </h1>
 
     <table class="table">
@@ -96,7 +102,7 @@
     </table>
 
     <br>Apabila pada saat penyambungan listrik, PT SPLN menemukan peruntukan penggunaan listrik tidak sesuai yang dimohon, maka PLN secara sepihak akan melakukan perubahan peruntukan ke tarif yang seharusnya atau PLN akan mengembalikan seluruh biaya permohonan kepada pelanggan (kecuali Bea Materai).
-    <br>Selanjutnya silahkan Bapak/Ibu/Sdr melakukan konfirmasi dengan memasukkan kode transaksi <?php echo $pengajuan->id_layanan ?>  pada http://www.pln.co.id/pelanggan/layanan-online/entri-kode-konfirmasi dalam kurun waktu 1x24 jam untuk mendapatkan nomor registrasi pembayaran.
+    <br>Selanjutnya silahkan Bapak/Ibu/Sdr melakukan konfirmasi dengan memasukkan kode transaksi <?php echo $pengajuan->id_layanan ?> pada http://www.pln.co.id/pelanggan/layanan-online/entri-kode-konfirmasi dalam kurun waktu 1x24 jam untuk mendapatkan nomor registrasi pembayaran.
     <br>
     <br>Atas perhatian Bapak/Ibu/Sdr kami ucapkan terima kasih.
     <br>
@@ -105,6 +111,7 @@
     <br>PT SPLN
     <br>
     <small>* Email ini bersifat informasi dan tidak dapat di reply</small>
-	</div>
+  </div>
 </body>
+
 </html>

@@ -66,8 +66,21 @@ class cekstatus extends Controller
         );
 
         // share data to view
-        $pdf = PDFDOM::loadView('home/cetakpendaftaran', $data);
-
+        if ($layanan == "pendaftaran_slo") {
+            $pdf = PDFDOM::loadView('home/cetakpendaftaranslo', $data);
+        } else if ($layanan == "pasang_baru") {
+            $pdf = PDFDOM::loadView('home/cetakpasangbaru', $data);
+        } else if ($layanan == "perubahan_daya") {
+            $pdf = PDFDOM::loadView('home/perubahandaya', $data);
+        } else if ($layanan == "penyambungan_sementara") {
+            $pdf = PDFDOM::loadView('home/penyambungansementara', $data);
+        } else if ($layanan == "instalasi") {
+            $pdf = PDFDOM::loadView('home/instalasi', $data);
+        } else if ($layanan == "mcb_box") {
+            $pdf = PDFDOM::loadView('home/mcbbox', $data);
+        } else if ($layanan == "pengaduan_teknis") {
+            $pdf = PDFDOM::loadView('home/pengaduanteknis', $data);
+        }
         // download PDF file with download method
         // return $pdf->download('pdf_file');
         $pdf_file = 'download.pdf';

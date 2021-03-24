@@ -66,6 +66,21 @@ class Pendaftaranslo extends Controller
         return redirect('admin/pendaftaranslo')->with(['sukses' => 'Data berhasil di update']);
     }
 
+    // Update
+    public function update_selesai($id_slo)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+
+        DB::table('pendaftaran_slo')->where('id', $id_slo)->update([
+            'status_selesai'      => '1',
+            'tanggal_selesai' => now(),
+        ]);
+        return redirect('admin/pendaftaranslo')->with(['sukses' => 'Data berhasil di update']);
+    }
+
     // Proses
     public function proses(Request $request)
     {

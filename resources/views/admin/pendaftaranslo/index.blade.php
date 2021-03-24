@@ -54,6 +54,11 @@
                                     } else {
                                       echo "-";
                                     } ?>
+                <br>tanggal selesai: <?php if ($slo->tanggal_selesai != 0) {
+                                        echo date("d/m/Y", strtotime($slo->tanggal_selesai));
+                                      } else {
+                                        echo "-";
+                                      } ?>
               </small>
             </td>
             <td>
@@ -108,6 +113,25 @@
                 <a href="" class="btn btn-warning btn-sm">
                   <i class="fa fa-check-circle"></i>
                 </a>
+                @endif
+                @else
+                <a href="" class="btn btn-warning btn-sm warning-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @endif
+
+                @if($slo->status==1)
+                @if($slo->status_bayar==1)
+                @if($slo->status_selesai==1)
+
+                <a href="{{ asset('admin/pendaftaranslo/update_selesai/'.$slo->id) }}" class="btn btn-warning btn-sm approval-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @else
+                <a href="" class="btn btn-warning btn-sm">
+                  <i class="fa fa-check-circle"></i>
+                </a>
+                @endif
                 @endif
                 @else
                 <a href="" class="btn btn-warning btn-sm warning-link">

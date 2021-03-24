@@ -68,6 +68,7 @@ class Pengaduanteknis extends Controller
     // Update
     public function edit(Request $request)
     {
+        print("edit");
         if (Session()->get('username') == "") {
             return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
         }

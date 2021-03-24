@@ -122,19 +122,19 @@
 
                 @if($slo->status==1)
                 @if($slo->status_bayar==1)
-                @if($slo->status_selesai==1)
+                @if($slo->status_selesai==0)
 
-                <a href="{{ asset('admin/pendaftaranslo/update_selesai/'.$slo->id) }}" class="btn btn-warning btn-sm approval-link">
+                <a href="{{ asset('admin/pendaftaranslo/update_selesai/'.$slo->id) }}" class="btn btn-success btn-sm approval-link">
                   <i class="fa fa-circle"></i>
                 </a>
                 @else
-                <a href="" class="btn btn-warning btn-sm">
+                <a href="" class="btn btn-success btn-sm">
                   <i class="fa fa-check-circle"></i>
                 </a>
                 @endif
                 @endif
                 @else
-                <a href="" class="btn btn-warning btn-sm warning-link">
+                <a href="" class="btn btn-success btn-sm warning-link">
                   <i class="fa fa-circle"></i>
                 </a>
                 @endif

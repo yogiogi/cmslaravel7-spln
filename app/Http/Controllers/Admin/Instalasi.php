@@ -65,6 +65,22 @@ class Instalasi extends Controller
         return redirect('admin/instalasi')->with(['sukses' => 'Data berhasil di update']);
     }
 
+    // Update
+    public function update_selesai($id_instal)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+
+        DB::table('instalasi')->where('id', $id_instal)->update([
+            'status_selesai'      => '1',
+            'tanggal_selesai' => now(),
+        ]);
+        return redirect('admin/instalasi')->with(['sukses' => 'Data berhasil di update']);
+    }
+
+
     // Proses
     public function proses(Request $request)
     {

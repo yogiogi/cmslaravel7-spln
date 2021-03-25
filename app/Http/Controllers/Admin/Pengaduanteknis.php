@@ -66,6 +66,21 @@ class Pengaduanteknis extends Controller
     }
 
     // Update
+    public function update_selesai($id_ngadu)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+
+        DB::table('pengaduan_teknis')->where('id', $id_ngadu)->update([
+            'status_selesai'      => '1',
+            'tanggal_selesai' => now(),
+        ]);
+        return redirect('admin/pengaduanteknis')->with(['sukses' => 'Data berhasil di update']);
+    }
+
+    // Update
     public function edit(Request $request)
     {
         print("edit");

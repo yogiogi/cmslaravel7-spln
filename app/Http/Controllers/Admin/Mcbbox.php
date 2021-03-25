@@ -65,6 +65,22 @@ class Mcbbox extends Controller
         return redirect('admin/mcbbox')->with(['sukses' => 'Data berhasil di update']);
     }
 
+    // Update
+    public function update_selesai($id_mcb)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+
+        DB::table('mcb_box')->where('id', $id_mcb)->update([
+            'status_selesai'      => '1',
+            'tanggal_selesai' => now(),
+        ]);
+        return redirect('admin/mcbbox')->with(['sukses' => 'Data berhasil di update']);
+    }
+
+
     // Proses
     public function proses(Request $request)
     {

@@ -1,6 +1,7 @@
 <form action="{{ asset('Penyambungansementara/proses') }}" method="post" accept-charset="utf-8">
   {{ csrf_field() }}
 
+  <div> Keterangan : Status Disetujui <a class="btn btn-primary btn-sm approval-link"></a>, Status Pembayaran <a class="btn btn-warning btn-sm approval-link"></a>, Status Selesai <a class="btn btn-success btn-sm approval-link"></a> </a> </div>
   <div class="table-responsive mailbox-messages">
     <table id="example1" class="display table table-bordered" cellspacing="0" width="100%">
       <thead>
@@ -39,6 +40,16 @@
                                         } else {
                                           echo "-";
                                         } ?>
+                <br>tanggal bayar : <?php if ($penyambungansementara->tanggal_bayar != 0) {
+                                      echo date("d/m/Y", strtotime($penyambungansementara->tanggal_bayar));
+                                    } else {
+                                      echo "-";
+                                    } ?>
+                <br>tanggal selesai: <?php if ($penyambungansementara->tanggal_selesai != 0) {
+                                        echo date("d/m/Y", strtotime($penyambungansementara->tanggal_selesai));
+                                      } else {
+                                        echo "-";
+                                      } ?>
               </small>
             </td>
             <td>
@@ -92,6 +103,28 @@
                 </a>
                 @endif
 
+                @if($penyambungansementara->status==1)
+                @if($penyambungansementara->status_bayar==1)
+                @if($penyambungansementara->status_selesai==0)
+
+                <a href="{{ asset('admin/penyambungansementara/update_selesai/'.$penyambungansementara->id) }}" class="btn btn-success btn-sm approval-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @else
+                <a href="" class="btn btn-success btn-sm">
+                  <i class="fa fa-check-circle"></i>
+                </a>
+                @endif
+                @else
+                <a href="" class="btn btn-success btn-sm">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @endif
+                @else
+                <a href="" class="btn btn-success btn-sm warning-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @endif
                 <a href="{{ asset('admin/penyambungansementara/delete/'.$penyambungansementara->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
               </div>
             </td>

@@ -1,6 +1,7 @@
 <form action="{{ asset('Perubahandaya/proses') }}" method="post" accept-charset="utf-8">
   {{ csrf_field() }}
 
+  <div> Keterangan : Status Disetujui <a class="btn btn-primary btn-sm approval-link"></a>, Status Pembayaran <a class="btn btn-warning btn-sm approval-link"></a>, Status Selesai <a class="btn btn-success btn-sm approval-link"></a> </a> </div>
   <div class="table-responsive mailbox-messages">
     <table id="example1" class="display table table-bordered" cellspacing="0" width="100%">
       <thead>
@@ -43,6 +44,11 @@
                                     } else {
                                       echo "-";
                                     } ?>
+                <br>tanggal selesai: <?php if ($perubahandaya->tanggal_selesai != 0) {
+                                        echo date("d/m/Y", strtotime($perubahandaya->tanggal_selesai));
+                                      } else {
+                                        echo "-";
+                                      } ?>
               </small>
             </td>
             <td>
@@ -106,6 +112,29 @@
                 @endif
                 @else
                 <a href="" class="btn btn-warning btn-sm warning-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @endif
+
+                @if($perubahandaya->status==1)
+                @if($perubahandaya->status_bayar==1)
+                @if($perubahandaya->status_selesai==0)
+
+                <a href="{{ asset('admin/perubahandaya/update_selesai/'.$perubahandaya->id) }}" class="btn btn-success btn-sm approval-link">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @else
+                <a href="" class="btn btn-success btn-sm">
+                  <i class="fa fa-check-circle"></i>
+                </a>
+                @endif
+                @else
+                <a href="" class="btn btn-success btn-sm">
+                  <i class="fa fa-circle"></i>
+                </a>
+                @endif
+                @else
+                <a href="" class="btn btn-success btn-sm warning-link">
                   <i class="fa fa-circle"></i>
                 </a>
                 @endif

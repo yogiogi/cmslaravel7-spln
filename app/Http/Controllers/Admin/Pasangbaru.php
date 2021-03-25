@@ -65,6 +65,21 @@ class Pasangbaru extends Controller
         return redirect('admin/pasangbaru')->with(['sukses' => 'Data berhasil di update']);
     }
 
+    // Update
+    public function update_selesai($id_pasang)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+
+        DB::table('pasang_baru')->where('id', $id_pasang)->update([
+            'status_selesai'      => '1',
+            'tanggal_selesai' => now(),
+        ]);
+        return redirect('admin/pasangbaru')->with(['sukses' => 'Data berhasil di update']);
+    }
+
     // Proses
     public function proses(Request $request)
     {

@@ -25,6 +25,7 @@
   });
 </script>
 
+<div> Keterangan : Status Disetujui <a class="btn btn-primary btn-sm approval-link"></a>, Status Pembayaran <a class="btn btn-warning btn-sm approval-link"></a>, Status Selesai <a class="btn btn-success btn-sm approval-link"></a> </a> </div>
 <div class="table-responsive mailbox-messages">
   <table id="example1" class="display table table-bordered" cellspacing="0" width="100%">
     <thead>
@@ -66,6 +67,16 @@
               } else {
                 echo "-";
               } ?>
+              <br>tanggal bayar : <?php if ($pengaduanteknis->tanggal_bayar != 0) {
+                                    echo date("d/m/Y", strtotime($pengaduanteknis->tanggal_bayar));
+                                  } else {
+                                    echo "-";
+                                  } ?>
+              <br>tanggal selesai: <?php if ($pengaduanteknis->tanggal_selesai != 0) {
+                                      echo date("d/m/Y", strtotime($pengaduanteknis->tanggal_selesai));
+                                    } else {
+                                      echo "-";
+                                    } ?>
             </small>
           </td>
           <td>
@@ -119,7 +130,30 @@
               </a>
               @endif
 
-              <a href="#modalPengaduanTeknis" class="btn btn-success btn-sm " data-toggle="modal" data-target="#modalPengaduanTeknis<?php echo $pengaduanteknis->id ?>"><i class="fas fa-edit"></i></a>
+              @if($pengaduanteknis->status==1)
+              @if($pengaduanteknis->status_bayar==1)
+              @if($pengaduanteknis->status_selesai==0)
+
+              <a href="{{ asset('admin/pengaduanteknis/update_selesai/'.$pengaduanteknis->id) }}" class="btn btn-success btn-sm approval-link">
+                <i class="fa fa-circle"></i>
+              </a>
+              @else
+              <a href="" class="btn btn-success btn-sm">
+                <i class="fa fa-check-circle"></i>
+              </a>
+              @endif
+              @else
+              <a href="" class="btn btn-success btn-sm">
+                <i class="fa fa-circle"></i>
+              </a>
+              @endif
+              @else
+              <a href="" class="btn btn-success btn-sm warning-link">
+                <i class="fa fa-circle"></i>
+              </a>
+              @endif
+
+              <a href="#modalPengaduanTeknis" class="btn btn-info btn-sm " data-toggle="modal" data-target="#modalPengaduanTeknis<?php echo $pengaduanteknis->id ?>"><i class="fas fa-edit"></i></a>
               <a href="{{ asset('admin/pengaduanteknis/delete/'.$pengaduanteknis->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
             </div>
           </td>

@@ -255,7 +255,7 @@ Route::group(
         Route::get('admin/penyambungansementara/delete/{par1}', 'Penyambungansementara@delete');
         Route::get('admin/penyambungansementara/update/{par1}', 'Penyambungansementara@update');
         Route::get('admin/penyambungansementara/update_bayar/{par1}', 'Penyambungansementara@update_bayar');
-        Route::get('admin/Penyambungansementara/update_selesai/{par1}', 'Penyambungansementara@update_selesai');
+        Route::get('admin/penyambungansementara/update_selesai/{par1}', 'Penyambungansementara@update_selesai');
 
         //Instalasi
         Route::get('admin/instalasi', 'Instalasi@index');
@@ -269,7 +269,7 @@ Route::group(
         Route::get('admin/mcbbox/delete/{par1}', 'Mcbbox@delete');
         Route::get('admin/mcbbox/update/{par1}', 'Mcbbox@update');
         Route::get('admin/mcbbox/update_bayar/{par1}', 'Mcbbox@update_bayar');
-        Route::get('admin/mcbox/update_selesai/{par1}', 'Mcbbox@update_selesai');
+        Route::get('admin/mcbbox/update_selesai/{par1}', 'Mcbbox@update_selesai');
 
         //PengaduanTeknis
         Route::get('admin/pengaduanteknis', 'Pengaduanteknis@index');

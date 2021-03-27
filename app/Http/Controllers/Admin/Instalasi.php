@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Image;
-use App\Instalasi_model;
+use App\instalasi_model;
 
 class Instalasi extends Controller
 {
@@ -16,7 +15,7 @@ class Instalasi extends Controller
         if (Session()->get('username') == "") {
             return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
         }
-        $instalasidata = new Instalasi_model();
+        $instalasidata = new instalasi_model();
         $instalasi       = $instalasidata->semua();
 
         $data = array(

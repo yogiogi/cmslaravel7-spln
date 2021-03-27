@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
-use App\Pendaftaranslo_model;
+use App\pendaftaranslo_model;
 use App\resource_model;
 
 class Pendaftaranslo extends Controller
@@ -106,7 +106,7 @@ class Pendaftaranslo extends Controller
       ];
     }
 
-    $value = Pendaftaranslo_model::insertData($data);
+    $value = pendaftaranslo_model::insertData($data);
     if ($value) {
       return response($id_layanan);
     } else {

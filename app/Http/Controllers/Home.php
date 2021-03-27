@@ -10,8 +10,7 @@ use App\Produk_model;
 use App\Rekening_model;
 use App\Berita_model;
 use App\Pemesanan_model;
-use App\Pendaftaranslo_model;
-use App\Penyambungansementara_model;
+use App\pendaftaranslo_model;
 use App\resource_model;
 use PDF;
 
@@ -80,7 +79,7 @@ class Home extends Controller
     public function pendaftaranslo()
     {
         $site   = DB::table('konfigurasi')->first();
-        $model  = new Pendaftaranslo_model();
+        $model  = new pendaftaranslo_model();
         $produk = $model->semua();
 
         $data = array(

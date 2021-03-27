@@ -261,7 +261,7 @@
         <p>Data Anda sudah berhasil terupdate</p>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" href="http://localhost/cmslaravel7-spln/admin/pengaduanteknis/" onclick="javascript:window.location.reload()" data-dismiss="modal">Oke</button>
+        <button class="btn btn-primary" href="http://spln.co.id/admin/pengaduanteknis/" onclick="javascript:window.location.reload()" data-dismiss="modal">Oke</button>
       </div>
     </div>
   </div>

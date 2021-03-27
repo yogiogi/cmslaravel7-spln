@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Pendaftaranslo_model extends Model
+class pendaftaranslo_model extends Model
 {
     protected $table = 'pendaftaran_slo';
     public $timestamps = true;

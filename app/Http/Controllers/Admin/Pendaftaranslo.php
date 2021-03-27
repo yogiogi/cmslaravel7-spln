@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Image;
-use App\Pendaftaranslo_model;
+use App\pendaftaranslo_model;
 
 class Pendaftaranslo extends Controller
 {
@@ -16,7 +15,7 @@ class Pendaftaranslo extends Controller
         if (Session()->get('username') == "") {
             return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
         }
-        $slodata = new Pendaftaranslo_model();
+        $slodata = new pendaftaranslo_model();
         $slo       = $slodata->semua();
 
         $data = array(

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Instalasi_model extends Model
+class instalasi_model extends Model
 {
     protected $table = 'instalasi';
     public $timestamps = true;

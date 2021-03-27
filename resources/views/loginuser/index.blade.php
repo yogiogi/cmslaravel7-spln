@@ -1,8 +1,9 @@
-<?php 
+<?php
 $site = DB::table('konfigurasi')->first();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,7 @@ $site = DB::table('konfigurasi')->first();
   <meta name="description" content="{{ $site->deskripsi }}">
   <meta name="keywords" content="{{ $site->keywords }}">
   <meta name="author" content="{{ $site->namaweb }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ $title }}</title>
   <link rel="shortcut icon" href="{{ asset('public/upload/image/'.$site->icon) }}">
   <!-- Custom fonts for this template-->
@@ -23,7 +25,9 @@ $site = DB::table('konfigurasi')->first();
   <script src="{{ asset('public/sweetalert/js/sweetalert.min.js') }}"></script>
   <link rel="stylesheet" type="text/css" href="{{ asset('public/sweetalert/css/sweetalert.css') }}">
   <style type="text/css" media="screen">
-    .bg-login-image, .bg-register-image, .bg-password-image {
+    .bg-login-image,
+    .bg-register-image,
+    .bg-password-image {
       background: url("{{ asset('public/upload/image/'.$site->gambar) }}");
       -webkit-background-size: contain;
       -moz-background-size: contain;
@@ -58,9 +62,9 @@ $site = DB::table('konfigurasi')->first();
                     <hr>
                   </div>
                   <form action="{{ asset('login/cek') }}" method="post" accept-charset="utf-8">
-                  {{ csrf_field() }}
+                    {{ csrf_field() }}
 
-                  <input type="hidden" name="pengalihan" value="">
+                    <input type="hidden" name="pengalihan" value="">
                     <div class="form-group">
                       <input type="text" name="username" class="form-control form-control-user" placeholder="Username...">
                       <small class="text-danger"></small>
@@ -78,8 +82,9 @@ $site = DB::table('konfigurasi')->first();
                     <button class="btn btn-primary btn-block btn-user" type="submit" name="submit">
                       <i class="fa fa-lock"></i> Login
                     </button>
-                                     
-                  </form>                  <hr>
+
+                  </form>
+                  <hr>
                   <div class="text-center">
                     <a class="small" href="{{ asset('login/lupa') }}">Lupa Password?</a> | <a class="small" href="{{ asset('/') }}">Kembali ke Beranda</a>
                   </div>
@@ -93,22 +98,23 @@ $site = DB::table('konfigurasi')->first();
     </div>
   </div>
 
-<script>
-@if ($message = Session::get('warning'))
-// Notifikasi
-swal ( "Mohon maaf" ,  "<?php echo $message ?>" ,  "warning" )
-@endif
+  <script>
+    @if($message = Session::get('warning'))
+    // Notifikasi
+    swal("Mohon maaf", "<?php echo $message ?>", "warning")
+    @endif
 
-@if ($message = Session::get('sukses'))
-// Notifikasi
-swal ( "Berhasil" ,  "<?php echo $message ?>" ,  "success" )
-@endif
-</script>
-  
+    @if($message = Session::get('sukses'))
+    // Notifikasi
+    swal("Berhasil", "<?php echo $message ?>", "success")
+    @endif
+  </script>
+
   <script src="{{ asset('public/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- Core plugin JavaScript-->
   <script src="{{ asset('public/admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
   <!-- Custom scripts for all pages-->
   <script src="{{ asset('public/admin/js/sb-admin-2.min.js') }}"></script>
 </body>
+
 </html>

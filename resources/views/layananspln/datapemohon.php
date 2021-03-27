@@ -53,7 +53,6 @@
 
 <?php
   use Illuminate\Support\Facades\DB;
-  use App\Pendaftaranslo_model;
   use App\resource_model;
 
   $site = DB::table('konfigurasi')->first();

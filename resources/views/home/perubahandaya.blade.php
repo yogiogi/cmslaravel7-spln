@@ -583,8 +583,8 @@ $provinsi = $resource->provinsi();
       <div class="modal-body" id="areaValue">
       </div>
       <div class="modal-footer">
-        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/cekstatus" role="button">Cek Layanan</a>
-        <a class="btn btn-primary" href="http://localhost/cmslaravel7-spln/" role="button">Home</a>
+        <a class="btn btn-primary" href="http://spln.co.id/cekstatus" role="button">Cek Layanan</a>
+        <a class="btn btn-primary" href="http://spln.co.id/" role="button">Home</a>
       </div>
     </div>
   </div>

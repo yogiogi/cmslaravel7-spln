@@ -8,7 +8,7 @@ use Carbon\Carbon;
 <html>
 
 <head>
-<title>Bukti Registrasi  <?php echo $data->layanan ?> </title>
+	<title>Bukti Registrasi <?php echo $data->layanan ?> </title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -103,7 +103,8 @@ use Carbon\Carbon;
 	</b>
 
 	<p style="  text-align: justify;
-  text-justify: inter-word;">Selanjutnya dipersilahkan Bapak/Ibu/Sdr melakukan pembayaran melalui kode bayar <?php echo $data->id_transaksi ?> selambat lambatnya 14 hari sejak diterimanya email konfirmasi ini atau paling lambat tanggal
+  text-justify: inter-word;">Selanjutnya dipersilahkan Bapak/Ibu/Sdr melakukan pembayaran melalui salah satu rekening dibawah ini
+		selambat lambatnya 14 hari sejak diterimanya email konfirmasi ini atau paling lambat tanggal
 		<?php
 
 		function getToday($angka)
@@ -115,10 +116,24 @@ use Carbon\Carbon;
 		}
 
 		echo getToday(14)
-		?>. Untuk informasi status permohonan
+		?>. </p>
+	<table>
+		<?php $i = 1;
+		foreach ($rekening as $rekening) { ?>
+			<tr align='left'>
+				<th align='left' width='10%'><?php echo $rekening->nama_bank ?> </th>
+				<th align='left' width='2%'> <?php echo $rekening->nomor_rekening ?> </th>
+				<th align='left' width='40%'> a.n <?php echo $rekening->atas_nama ?> </th>
+			</tr>
+		<?php $i++;
+		} ?>
+	</table>
+	<br>
+	<p style="  text-align: justify; text-justify: inter-word;">Lalu laporkan bukti pembayaran Anda dengan menggunakan kode bayar berikut <b><?php echo $data->id_transaksi ?></b> pada halaman pembayaran di website SPLN. Untuk informasi status permohonan
 		Anda, bisa dipantau melalui alamat : http://www.spln.co.id/cekstatus</p>
 	<p>Atas perhatian Bapak/Ibu/Sdr kami ucapkan terima kasih.
 	<p>Hormat kami</p>
+
 	<br>
 	<br>
 	<p>PT S-PLN</p>

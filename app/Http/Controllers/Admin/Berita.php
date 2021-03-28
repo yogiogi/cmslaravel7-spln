@@ -17,7 +17,7 @@ class Berita extends Controller
 		$berita 			= $myberita->semua();
 		$kategori 	= DB::table('kategori')->orderBy('urutan','ASC')->get();
 
-		$data = array(  'title'       => 'Data Berita',
+		$data = array(  'title'       => 'Data Konten',
 						'berita'      => $berita,
 						'kategori'    => $kategori,
                         'content'     => 'admin/berita/index'
@@ -34,7 +34,7 @@ class Berita extends Controller
         $berita             = $myberita->cari($keywords);
         $kategori    = DB::table('kategori')->orderBy('urutan','ASC')->get();
 
-        $data = array(  'title'             => 'Data Berita',
+        $data = array(  'title'             => 'Data Konten',
                         'berita'            => $berita,
                         'kategori'   => $kategori,
                         'content'           => 'admin/berita/index'
@@ -126,7 +126,7 @@ class Berita extends Controller
         $kategori    = DB::table('kategori')->orderBy('urutan','ASC')->get();
         $author    = DB::table('users')->where('id_user',$id_user)->orderBy('id_user','ASC')->first();
 
-        $data = array(  'title'             => 'Data Berita dengan Penulis: '.$author->nama,
+        $data = array(  'title'             => 'Data Konten dengan Penulis: '.$author->nama,
                         'berita'            => $berita,
                         'kategori'   => $kategori,
                         'content'           => 'admin/berita/index'

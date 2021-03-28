@@ -106,9 +106,9 @@ $site                 = DB::table('konfigurasi')->first();
         </a>
         <div id="berita" class="collapse" aria-labelledby="berita" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ asset('admin/berita') }}"><i class="fa fa-newspaper"></i> Data Berita</a>
-            <a class="collapse-item" href="{{ asset('admin/berita/tambah') }}"><i class="fa fa-plus"></i> Tambah Berita</a>
-            <a class="collapse-item" href="{{ asset('admin/kategori') }}"><i class="fa fa-tags"></i> Kategori Berita</a>
+            <a class="collapse-item" href="{{ asset('admin/berita') }}"><i class="fa fa-newspaper"></i> List Konten</a>
+            <a class="collapse-item" href="{{ asset('admin/berita/tambah') }}"><i class="fa fa-plus"></i> Tambah Konten</a>
+            <a class="collapse-item" href="{{ asset('admin/kategori') }}"><i class="fa fa-tags"></i> Kategori Konten</a>
           </div>
         </div>
       </li>
@@ -144,6 +144,7 @@ $site                 = DB::table('konfigurasi')->first();
         <a class="nav-link" href="{{ asset('admin/video') }}">
           <i class="fab fa-fw fa-youtube"></i> <span>Video Youtube</span></a>
       </li>
+      
       <?php if(Session()->get('akses_level')=="Admin") { ?>
       <li class="nav-item">
         <a class="nav-link" href="{{ asset('admin/user') }}">
@@ -163,8 +164,8 @@ $site                 = DB::table('konfigurasi')->first();
             <a class="collapse-item" href="{{ asset('admin/konfigurasi/email') }}"><i class="fa fa-envelope"></i> Setting Email</a>
             <a class="collapse-item" href="{{ asset('admin/konfigurasi/gambar') }}"><i class="fa fa-lock"></i> Ganti Gambar Login</a>
             <a class="collapse-item" href="{{ asset('admin/variable') }}"><i class="fas fa-file-contract"></i> Variabel Perhitungan</a>
-            <!-- <a class="collapse-item" href="{{ asset('admin/rekening') }}"><i class="fa fa-money-check"></i> Rekening Pembayaran</a> -->
-            <!-- <a class="collapse-item" href="{{ asset('admin/konfigurasi/pembayaran') }}"><i class="fa fa-comment-dollar"></i> Panduan Pembayaran</a> -->
+            <a class="collapse-item" href="{{ asset('admin/rekening') }}"><i class="fa fa-money-check"></i> Rekening Pembayaran</a>
+            <a class="collapse-item" href="{{ asset('admin/konfigurasi/pembayaran') }}"><i class="fa fa-comment-dollar"></i> Panduan Pembayaran</a>
           </div>
         </div>
       </li>

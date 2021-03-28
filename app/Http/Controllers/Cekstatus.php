@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Cekstatus_model;
+use App\cekstatus_model;
 use App\resource_model;
+use App\Rekening_model;
 use Carbon\Carbon;
 use PDFDOM;
 
@@ -13,7 +14,7 @@ class cekstatus extends Controller
 {
     public function getCekstatus(Request $request)
     {
-        $model = new Cekstatus_model();
+        $model = new cekstatus_model();
         $produk = $model->getCekstatus($request->id_layanan, $request->layanan);
 
         $resource = new resource_model();
@@ -51,17 +52,20 @@ class cekstatus extends Controller
         $layanan = $request->layanan;
         $idlayanan = $request->id_layanan;
 
-        $model  = new Cekstatus_model();
+        $model  = new cekstatus_model();
         $data = $model->singlelist($idlayanan, $layanan);
 
         $date = Carbon::now()->format('dmyHis');
         // $no_registrasi = $data->kodelayanan . '' . $date;
+        $model      = new Rekening_model();
+        $rekening   = $model->listing();
 
         $data = array(
             'title'     => 'PT SPLN',
             'deskripsi' => 'Formulir Pendaftaran SLO',
             'data'    => $data,
             'date'  => $date,
+            'rekening'  => $rekening,
             'content'   => 'home/cekstatus'
         );
 

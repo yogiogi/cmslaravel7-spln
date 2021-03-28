@@ -83,7 +83,7 @@ $( ".datepicker" ).datepicker({
   changeYear: true,
   changeMonth: true,
   dateFormat: "yy-mm-dd",
-  yearRange: "1920:2020"
+  yearRange: "2000:2050"
 });
 
 $( ".tanggal" ).datepicker({
@@ -91,7 +91,7 @@ $( ".tanggal" ).datepicker({
   changeYear: true,
   changeMonth: true,
   dateFormat: "dd-mm-yy",
-  yearRange: "1920:2020"
+  yearRange: "2000:2050"
 });
 </script>
   <script src="{{ asset('public/template/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

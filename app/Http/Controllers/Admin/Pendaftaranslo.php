@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\pendaftaranslo_model;
 
-class Pendaftaranslo extends Controller
+class pendaftaranslo extends Controller
 {
     // Main page
     public function index()

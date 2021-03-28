@@ -384,7 +384,9 @@ class Home extends Controller
         $pdf = PDF::loadview('home/cetak', $data, [], $config);
         // OR :: $pdf = PDF::loadview('pdf_data_member',$data,[],['format' => 'A4-L']);
         $nama_file = 'test.pdf';
-        return $pdf->stream($nama_file, 'I');
+        // $pdf->stream('my.pdf',array('Attachment'=>0));
+
+        return $pdf->stream($nama_file, array('Attachment' => 0));
     }
 
     // Testimoni

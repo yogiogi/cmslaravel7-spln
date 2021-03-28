@@ -24,13 +24,12 @@ Route::get('home', 'Home@index');
 
 Route::get('profil', 'Home@profil');
 Route::get('kontak', 'Home@kontak');
-Route::get('pemesanan', 'Home@pemesanan');
+// Route::get('pemesanan', 'Home@pemesanan');
 Route::get('konfirmasi', 'Home@konfirmasi');
 Route::get('pembayaran', 'Home@pembayaran');
 Route::post('proses_pemesanan', 'Home@proses_pemesanan');
 Route::get('berhasil/{par1}', 'Home@berhasil');
 Route::get('cetak/{par1}', 'Home@cetak');
-// Route::get('admin/pemesanan/edit/{par1}', 'Pemesanan@edit');
 
 //cek status layanan
 Route::get('cekstatus', 'Home@cekstatus');
@@ -77,8 +76,8 @@ Route::post('/mcbbox/save', 'Mcbbox@save');
 //pengaduanteknis
 Route::get('pengaduanteknis', 'Home@pengaduanteknis');
 Route::post('/pengaduanteknis/save', 'Pengaduanteknis@save');
-// Route::post('/pengaduanteknis/simpan', 'Pengaduanteknis@save');
 
+Route::post('/konfirmasi_proses', 'konfirmasi@save');
 // Login
 Route::get('login', 'Login@index');
 Route::post('login/cek', 'Login@cek');
@@ -106,7 +105,7 @@ Route::get('produk/cetak/{par1}', 'Produk@cetak');
 Route::get('getCityList', 'DropdownController@getCityList');
 Route::get('getDistrictList', 'DropdownController@getDistrictList');
 Route::get('getVillageList', 'DropdownController@getVillageList');
-
+Route::get('kirimemail', 'kirimEmail@index');
 
 /* END FRONT END */
 /* BACK END */

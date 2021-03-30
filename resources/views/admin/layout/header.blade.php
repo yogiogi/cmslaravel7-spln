@@ -1,6 +1,8 @@
 <?php
+
 use Illuminate\Support\Facades\DB;
 use App\Nav_model;
+
 $site                 = DB::table('konfigurasi')->first();
 ?>
 <style type="text/css" media="screen">
@@ -8,147 +10,179 @@ $site                 = DB::table('konfigurasi')->first();
     padding-bottom: 2px !important;
     padding-top: 2px !important;
   }
+
   a.nav-link {
     margin-bottom: 0 !important;
     margin-top: 0 !important;
     padding-bottom: 5px !important;
     padding-top: 0px !important;
   }
+
   hr.sidebar-divider {
     margin-bottom: 2px !important;
     margin-top: 2px !important;
     padding-bottom: 5px !important;
     padding-top: 0px !important;
   }
-  .sidebar-brand-text, .mx-1, .sidebar-brand-icon {
+
+  .sidebar-brand-text,
+  .mx-1,
+  .sidebar-brand-icon {
     font-size: 14px !important;
   }
+
   span.notif {
     padding: 5px !important;
     font-size: 0.55rem !important;
     font-weight: bold;
   }
+
   .sidebar .nav-item .nav-link span {
     font-size: 0.75rem !important;
   }
 </style>
 <!--Page Wrapper -->
-  <div id="wrapper">
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-left" href="{{ asset('admin/') }}">
-        <div class="sidebar-brand-icon">
-          <i class="fas fa-home"></i>
-        </div>
-        <div class="sidebar-brand-text mx-1">{{ $site->namaweb }}</div>
-      </a>
+<div id="wrapper">
+  <!-- Sidebar -->
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-left" href="{{ asset('admin/') }}">
+      <div class="sidebar-brand-icon">
+        <i class="fas fa-home"></i>
+      </div>
+      <div class="sidebar-brand-text mx-1">{{ $site->namaweb }}</div>
+    </a>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin') }}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item">
+      <a class="nav-link" href="{{ asset('admin') }}">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+    </li>
 
-      <!-- TRANSAKSI -->
-      <!-- <hr class="sidebar-divider">
+    <!-- TRANSAKSI -->
+    <!-- <hr class="sidebar-divider">
       <div class="sidebar-heading">Order &amp; Pemesanan</div>
       <hr class="sidebar-divider">
       <li class="nav-item">
         <a class="nav-link" href="{{ asset('admin/pemesanan') }}">
           <i class="fas fa-fw fa-money-bill-alt"></i> <span>Pemesanan</span></a>
       </li> -->
-      <!-- PRODUK -->
-      <hr class="sidebar-divider">
-      <div class="sidebar-heading">Produk &amp; Layanan</div>
-      <hr class="sidebar-divider">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/pendaftaranslo') }}">
+    <!-- PRODUK -->
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">Produk &amp; Layanan</div>
+    <hr class="sidebar-divider">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ asset('admin/pendaftaranslo') }}">
         <i class="fa fa-fw fa-certificate"></i> <span>Pendaftaran SLO</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/pasangbaru') }}">
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ asset('admin/pasangbaru') }}">
         <i class="fas fa-fw fa-wrench"></i> <span>Pasang Baru</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/perubahandaya') }}">
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ asset('admin/perubahandaya') }}">
         <i class="fas fa-fw fa-toolbox"></i> <span>Perubahan Daya</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/penyambungansementara') }}">
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ asset('admin/penyambungansementara') }}">
         <i class="fas fa-fw fa-plug"></i> <span>Penyambungan Sementara</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/instalasi') }}">
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ asset('admin/instalasi') }}">
         <i class="fas fa-fw fa-shapes"></i> <span>Instalasi</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/mcbbox') }}">
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ asset('admin/mcbbox') }}">
         <i class="far fa-fw fa-folder"></i> <span>MCB Box</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/pengaduanteknis') }}">
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ asset('admin/pengaduanteknis') }}">
         <i class="fas fa-users-cog"></i> <span>Pengaduan Teknis</span></a>
-      </li>
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-      <div class="sidebar-heading">Konten Website</div>
-      <hr class="sidebar-divider">
-      <!-- Berita -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#berita" aria-expanded="true" aria-controls="berita') }}">
-          <i class="fas fa-fw fa-newspaper"></i>
-          <span>Navigasi Profil</span>
-        </a>
-        <div id="berita" class="collapse" aria-labelledby="berita" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ asset('admin/berita') }}"><i class="fa fa-newspaper"></i> List Konten</a>
-            <a class="collapse-item" href="{{ asset('admin/berita/tambah') }}"><i class="fa fa-plus"></i> Tambah Konten</a>
-            <a class="collapse-item" href="{{ asset('admin/kategori') }}"><i class="fa fa-tags"></i> Kategori Konten</a>
-          </div>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">Konten Website</div>
+    <hr class="sidebar-divider">
+    <!-- Berita -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#berita" aria-expanded="true" aria-controls="berita') }}">
+        <i class="fas fa-fw fa-newspaper"></i>
+        <span>Navigasi Profil</span>
+      </a>
+      <div id="berita" class="collapse" aria-labelledby="berita" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <a class="collapse-item" href="{{ asset('admin/berita') }}"><i class="fa fa-newspaper"></i> List Konten</a>
+          <a class="collapse-item" href="{{ asset('admin/berita/tambah') }}"><i class="fa fa-plus"></i> Tambah Konten</a>
+          <a class="collapse-item" href="{{ asset('admin/kategori') }}"><i class="fa fa-tags"></i> Kategori Konten</a>
         </div>
-      </li>
-      <!-- Download -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#download" aria-expanded="true" aria-controls="collapse') }}">
-          <i class="fas fa-fw fa-download"></i>
-          <span>File Unduhan</span>
-        </a>
-        <div id="download" class="collapse" aria-labelledby="download" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ asset('admin/download') }}"><i class="fa fa-newspaper"></i> Data File</a>
-            <a class="collapse-item" href="{{ asset('admin/download/tambah') }}"><i class="fa fa-plus"></i> Tambah File</a>
-            <a class="collapse-item" href="{{ asset('admin/kategori_download') }}"><i class="fa fa-tags"></i> Kategori File</a>
-          </div>
+      </div>
+    </li>
+    <!-- Download -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#download" aria-expanded="true" aria-controls="collapse') }}">
+        <i class="fas fa-fw fa-download"></i>
+        <span>File Unduhan</span>
+      </a>
+      <div id="download" class="collapse" aria-labelledby="download" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <a class="collapse-item" href="{{ asset('admin/download') }}"><i class="fa fa-newspaper"></i> Data File</a>
+          <a class="collapse-item" href="{{ asset('admin/download/tambah') }}"><i class="fa fa-plus"></i> Tambah File</a>
+          <a class="collapse-item" href="{{ asset('admin/kategori_download') }}"><i class="fa fa-tags"></i> Kategori File</a>
         </div>
-      </li>
-      <!-- Galeri -->
+      </div>
+    </li>
+    <!-- Galeri -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Galeri" aria-expanded="true" aria-controls="collapse') }}">
+        <i class="fas fa-fw fa-image"></i>
+        <span>Banner &amp; Galeri</span>
+      </a>
+      <div id="Galeri" class="collapse" aria-labelledby="Galeri" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <a class="collapse-item" href="{{ asset('admin/galeri') }}"><i class="fa fa-newspaper"></i> Data Galeri</a>
+          <a class="collapse-item" href="{{ asset('admin/galeri/tambah') }}"><i class="fa fa-plus"></i> Tambah Galeri</a>
+          <a class="collapse-item" href="{{ asset('admin/kategori_galeri') }}"><i class="fa fa-tags"></i> Kategori Galeri</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ asset('admin/video') }}">
+        <i class="fab fa-fw fa-youtube"></i> <span>Video Youtube</span></a>
+    </li>
+
+    <?php if (Session()->get('akses_level') == "Admin") { ?>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Galeri" aria-expanded="true" aria-controls="collapse') }}">
+        <a class="nav-link" href="{{ asset('admin/user') }}">
+          <i class="fa fa-fw fa-lock"></i> <span>Pengguna Website</span></a>
+      </li>
+
+      <!-- Ubah Variable-->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#VarItem" aria-expanded="true" aria-controls="collapse') }}">
           <i class="fas fa-fw fa-image"></i>
-          <span>Banner &amp; Galeri</span>
+          <span>Ubah Variable</span>
         </a>
-        <div id="Galeri" class="collapse" aria-labelledby="Galeri" data-parent="#accordionSidebar">
+        <div id="VarItem" class="collapse" aria-labelledby="VarItem" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ asset('admin/galeri') }}"><i class="fa fa-newspaper"></i> Data Galeri</a>
-            <a class="collapse-item" href="{{ asset('admin/galeri/tambah') }}"><i class="fa fa-plus"></i> Tambah Galeri</a>
-            <a class="collapse-item" href="{{ asset('admin/kategori_galeri') }}"><i class="fa fa-tags"></i> Kategori Galeri</a>
+            <a class="collapse-item" href="{{ asset('admin/varpendaftaranslo') }}">Pendaftaran SLO</a>
+            <a class="collapse-item" href="{{ asset('admin/varpasangpasca') }}">Pasang Baru Pascabayar</a>
+            <a class="collapse-item" href="{{ asset('admin/varpasangpra') }}">Pasang Baru Prabayar</a>
+            <a class="collapse-item" href="{{ asset('admin/varpenyambungansementara') }}">Penyambungan Sementara</a>
+            <a class="collapse-item" href="{{ asset('admin/varubahpascapasca') }}">Ubah daya Pasca-Pasca</a>
+            <a class="collapse-item" href="{{ asset('admin/varubahprapasca') }}">Ubah Daya Pra-Pasca</a>
+            <a class="collapse-item" href="{{ asset('admin/varubahprapra') }}">Ubah Daya Pra-Pra</a>
+            <a class="collapse-item" href="{{ asset('admin/varmcbbox') }}">MCB Box</a>
+            <a class="collapse-item" href="{{ asset('admin/varinstalasi') }}">Instalasi</a>
           </div>
         </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ asset('admin/video') }}">
           <i class="fab fa-fw fa-youtube"></i> <span>Video Youtube</span></a>
-      </li>
-      
-      <?php if(Session()->get('akses_level')=="Admin") { ?>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/user') }}">
-          <i class="fa fa-fw fa-lock"></i> <span>Pengguna Website</span></a>
       </li>
       <!-- Konfigurasi -->
       <li class="nav-item">
@@ -170,11 +204,11 @@ $site                 = DB::table('konfigurasi')->first();
         </div>
       </li>
     <?php } ?>
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-    </ul>
-    <!-- End of Sidebar -->
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+  </ul>
+  <!-- End of Sidebar -->

@@ -115,6 +115,13 @@ class resource_model extends Model
         return $query;
     }
 
+    public function getLayanannya($table)
+    {
+        $query = DB::table($table)
+            ->get();
+        return $query;
+    }
+
     public function pilihLayanan()
     {
         $query = DB::table('variabel_perhitungan')

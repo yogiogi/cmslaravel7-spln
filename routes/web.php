@@ -283,6 +283,47 @@ Route::group(
         Route::post('updateLayanan', 'Variable@proses');
         Route::get('admin/variable/edit/{par1}', 'Variable@edit');
         Route::get('varLayanan', 'Variable@varLayanan');
+        Route::get('varLayanan/update', 'Variable@update');
+
+        Route::get('admin/varinstalasi', 'varinstalasi@index');
+        Route::post('admin/varinstalasi/update', 'varinstalasi@update');
+        Route::post('admin/varinstalasi/tambah', 'varinstalasi@tambah');
+
+        Route::get('admin/varmcbbox', 'VarMcbBox@index');
+        Route::post('admin/varmcbbox/update', 'VarMcbBox@update');
+        Route::post('admin/varmcbbox/tambah', 'varmcbbox@tambah');
+
+        Route::get('admin/varpasangpasca', 'varpasangpasca@index');
+        Route::post('admin/varpasangpasca/update', 'varpasangpasca@update');
+        Route::post('admin/varpasangpasca/tambah', 'varpasangpasca@tambah');
+
+        Route::get('admin/varpasangpra', 'varpasangpra@index');
+        Route::post('admin/varpasangpra/update', 'varpasangpra@update');
+        Route::post('admin/varpasangpra/tambah', 'varpasangpra@tambah');
+
+        Route::get('admin/varpendaftaranslo', 'varpendaftaranslo@index');
+        Route::post('admin/varpendaftaranslo/update', 'varpendaftaranslo@update');
+        Route::post('admin/varpendaftaranslo/tambah', 'varpendaftaranslo@tambah');
+
+        Route::get('admin/varpengaduanteknis', 'varpengaduanteknis@index');
+        Route::post('admin/varpengaduanteknis/update', 'varpengaduanteknis@update');
+        Route::post('admin/varpendaftaranslo/tambah', 'varpengaduanteknis@tambah');
+
+        Route::get('admin/varpenyambungansementara', 'varpenyambungansementara@index');
+        Route::post('admin/varpenyambungansementara/update', 'varpenyambungansementara@update');
+        Route::post('admin/varpenyambungansementara/tambah', 'varpenyambungansementara@tambah');
+
+        Route::get('admin/varubahpascapasca', 'varubahpascapasca@index');
+        Route::post('admin/varubahpascapasca/update', 'varubahpascapasca@update');
+        Route::post('admin/varubahpascapasca/tambah', 'varubahpascapasca@tambah');
+
+        Route::get('admin/varubahprapasca', 'varubahprapasca@index');
+        Route::post('admin/varubahprapasca/update', 'varubahprapasca@update');
+        Route::post('admin/varubahprapasca/tambah', 'varubahprapasca@tambah');
+
+        Route::get('admin/varubahprapra', 'varubahprapra@index');
+        Route::post('admin/varubahprapra/update', 'varubahprapra@update');
+        Route::post('admin/varubahprapra/tambah', 'varubahprapra@tambah');
     }
 );
 /* END BACK END*/

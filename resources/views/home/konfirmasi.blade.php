@@ -87,13 +87,6 @@
                   Isi data pembayaran Anda dengan lengkap dan benar.
                 </p>
                 <hr>
-                <!-- 
-                <div class="form-group row">
-                  <label class="col-sm-3 control-label">Nama Pemohon</label>
-                  <div class="col-sm-9">
-                    <input type="text" name="nama_pemohon" class="form-control" placeholder="Nama pemohon">
-                  </div>
-                </div> -->
 
                 <div class="form-group row">
                   <label class="col-sm-3 control-label">ID Transaksi</label>

@@ -70,4 +70,14 @@ class varpengaduanteknis extends Controller
         ]);
         return redirect('admin/varpengaduanteknis')->with(['sukses' => 'Data berhasil di tambah']);
     }
+
+    // Delete
+    public function delete($id_slo)
+    {
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+        DB::table('var_pengaduan_teknis')->where('id', $id_slo)->delete();
+        return redirect('admin/varpengaduanteknis')->with(['sukses' => 'Data telah dihapus']);
+    }
 }

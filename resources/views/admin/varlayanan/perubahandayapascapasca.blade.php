@@ -116,7 +116,7 @@
                     <td>
                         <div class="btn-group">
                             <a href="#modalEditdata" class="btn btn-info btn-sm " data-toggle="modal" data-target="#modalEditdata<?php echo $varpascapasca->id ?>"><i class="fas fa-edit"></i></a>
-                            <a href="{{ asset('admin/varpascapasca/delete/'.$varpascapasca->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
+                            <a href="{{ asset('admin/varubahpascapasca/delete/'.$varpascapasca->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     </td>
                 </tr>

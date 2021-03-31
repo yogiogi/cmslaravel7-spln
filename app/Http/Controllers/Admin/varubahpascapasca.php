@@ -71,4 +71,14 @@ class varubahpascapasca extends Controller
         ]);
         return redirect('admin/varubahpascapasca')->with(['sukses' => 'Data berhasil di tambah']);
     }
+
+    // Delete
+    public function delete($id_slo)
+    {
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+        DB::table('var_perubahan_daya_pasca_pasca')->where('id', $id_slo)->delete();
+        return redirect('admin/varubahpascapasca')->with(['sukses' => 'Data telah dihapus']);
+    }
 }

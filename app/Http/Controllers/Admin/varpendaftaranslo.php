@@ -70,4 +70,14 @@ class varpendaftaranslo extends Controller
         ]);
         return redirect('admin/varpendaftaranslo')->with(['sukses' => 'Data berhasil di tambah']);
     }
+
+    // Delete
+    public function delete($id_slo)
+    {
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+        DB::table('var_pendaftaran_slo')->where('id', $id_slo)->delete();
+        return redirect('admin/varpendaftaranslo')->with(['sukses' => 'Data telah dihapus']);
+    }
 }

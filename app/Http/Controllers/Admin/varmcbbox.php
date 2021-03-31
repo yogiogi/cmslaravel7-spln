@@ -83,4 +83,14 @@ class varmcbbox extends Controller
         ]);
         return redirect('admin/varmcbbox')->with(['sukses' => 'Data berhasil di tambah']);
     }
+
+    // Delete
+    public function delete($id_slo)
+    {
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+        DB::table('var_mcb_box')->where('id', $id_slo)->delete();
+        return redirect('admin/varmcbbox')->with(['sukses' => 'Data telah dihapus']);
+    }
 }

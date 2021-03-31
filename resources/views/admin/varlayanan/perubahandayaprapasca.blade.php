@@ -124,7 +124,7 @@
                     <td>
                         <div class="btn-group">
                             <a href="#modalEditdata" class="btn btn-info btn-sm " data-toggle="modal" data-target="#modalEditdata<?php echo $varprapasca->id ?>"><i class="fas fa-edit"></i></a>
-                            <a href="{{ asset('admin/varprapasca/delete/'.$varprapasca->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
+                            <a href="{{ asset('admin/varubahprapasca/delete/'.$varprapasca->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     </td>
                 </tr>

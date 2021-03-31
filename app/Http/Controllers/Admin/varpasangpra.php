@@ -71,4 +71,14 @@ class varpasangpra extends Controller
         ]);
         return redirect('admin/varpasangpra')->with(['sukses' => 'Data berhasil di tambah']);
     }
+
+    // Delete
+    public function delete($id_slo)
+    {
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+        DB::table('var_pasang_baru_prabayar')->where('id', $id_slo)->delete();
+        return redirect('admin/varpasangpra')->with(['sukses' => 'Data telah dihapus']);
+    }
 }

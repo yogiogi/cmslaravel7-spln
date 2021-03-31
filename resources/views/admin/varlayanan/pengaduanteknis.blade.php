@@ -117,7 +117,7 @@
                     <td>
                         <div class="btn-group">
                             <a href="#modalPengaduanTeknis" class="btn btn-info btn-sm " data-toggle="modal" data-target="#modalPengaduanTeknis<?php echo $varpengaduan->id ?>"><i class="fas fa-edit"></i></a>
-                            <a href="{{ asset('admin/varpengaduan/delete/'.$varpengaduan->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
+                            <a href="{{ asset('admin/varpengaduanteknis/delete/'.$varpengaduan->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     </td>
                 </tr>

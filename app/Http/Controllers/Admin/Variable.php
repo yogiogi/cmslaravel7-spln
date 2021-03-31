@@ -101,9 +101,6 @@ class Variable extends Controller
         return redirect('admin/varLayanan/instalasi')->with(['sukses' => 'Data berhasil di update']);
     }
 
-
-
-
     public function updpasangpasca(Request $request)
     {
         date_default_timezone_set('Asia/Jakarta');

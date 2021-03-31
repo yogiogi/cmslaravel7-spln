@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Image;
 use App\variable_model;
 
-class VarMcbbox extends Controller
+class varmcbbox extends Controller
 {
     // Main page
     public function index()

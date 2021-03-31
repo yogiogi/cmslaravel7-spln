@@ -289,8 +289,8 @@ Route::group(
         Route::post('admin/varinstalasi/update', 'varinstalasi@update');
         Route::post('admin/varinstalasi/tambah', 'varinstalasi@tambah');
 
-        Route::get('admin/varmcbbox', 'VarMcbBox@index');
-        Route::post('admin/varmcbbox/update', 'VarMcbBox@update');
+        Route::get('admin/varmcbbox', 'varmcbbox@index');
+        Route::post('admin/varmcbbox/update', 'varmcbbox@update');
         Route::post('admin/varmcbbox/tambah', 'varmcbbox@tambah');
 
         Route::get('admin/varpasangpasca', 'varpasangpasca@index');
@@ -307,7 +307,7 @@ Route::group(
 
         Route::get('admin/varpengaduanteknis', 'varpengaduanteknis@index');
         Route::post('admin/varpengaduanteknis/update', 'varpengaduanteknis@update');
-        Route::post('admin/varpendaftaranslo/tambah', 'varpengaduanteknis@tambah');
+        Route::post('admin/varpengaduanteknis/tambah', 'varpengaduanteknis@tambah');
 
         Route::get('admin/varpenyambungansementara', 'varpenyambungansementara@index');
         Route::post('admin/varpenyambungansementara/update', 'varpenyambungansementara@update');

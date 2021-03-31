@@ -57,7 +57,7 @@ class varubahprapasca extends Controller
             return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
         }
 
-        DB::table('var_perubahan_daya_pra_pra')->insert([
+        DB::table('var_perubahan_daya_pra_pasca')->insert([
             'daya' => $request->daya,
             'slo' => $request->slo,
             'gil' => $request->gil,

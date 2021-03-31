@@ -57,7 +57,7 @@
                 },
                 dataType: 'text',
                 success: function(data) {
-                    $("#showModal").modal("toggle");
+                    $("#showModalTambah").modal("toggle");
                 },
                 error: function(xhr, status, error) {
                     alert('Terjadi kesalahan server');
@@ -112,24 +112,24 @@
                         <?php echo $varpasangpasca->biaya ?>
                     </td>
                     <td>
-                        <?php echo $varpendaftaranslo->PPN ?>
+                        <?php echo $varpasangpasca->PPN ?>
                     </td>
                     <td>
-                        <?php echo $varpendaftaranslo->PPJ ?>
+                        <?php echo $varpasangpasca->PPJ ?>
                     </td>
                     <td>
                         <div class="btn-group">
-                            <a href="#modalPengaduanTeknis" class="btn btn-info btn-sm " data-toggle="modal" data-target="#modalPengaduanTeknis<?php echo $varpasangpasca->id ?>"><i class="fas fa-edit"></i></a>
+                            <a href="#modalEditdata" class="btn btn-info btn-sm " data-toggle="modal" data-target="#modalEditdata<?php echo $varpasangpasca->id ?>"><i class="fas fa-edit"></i></a>
                             <a href="{{ asset('admin/varpasangpasca/delete/'.$varpasangpasca->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     </td>
                 </tr>
 
-                <div class="modal fade" id="modalPengaduanTeknis<?php echo $varpasangpasca->id ?>" tabindex="-1" aria-labelledby="modalPengaduanTeknis" aria-hidden="true">
+                <div class="modal fade" id="modalEditdata<?php echo $varpasangpasca->id ?>" tabindex="-1" aria-labelledby="modalEditdata" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Edit Pengaduan Teknis </h5>
+                                <h5 class="modal-title"> Edit <?php echo $title ?> </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -138,38 +138,38 @@
                             <div class="modal-body">
                                 <!--Modal update data-->
                                 <form action="" accept-charset="utf-8">
-                                    <input type="hidden" name="id" id="id" value=<?php echo $varpendaftaranslo->id ?>>
+                                    <input type="hidden" name="id" id="id" value=<?php echo $varpasangpasca->id ?>>
                                     {{ csrf_field() }}
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="daya" name="daya" value=<?php echo $varpendaftaranslo->daya ?>>
+                                            <input type="number" class="form-control" id="daya" name="daya" value=<?php echo $varpasangpasca->daya ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="slo" name="slo" value=<?php echo $varpendaftaranslo->slo ?>>
+                                            <input type="number" class="form-control" id="slo" name="slo" value=<?php echo $varpasangpasca->slo ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="gil" name="fil" value=<?php echo $varpendaftaranslo->gil ?>>
+                                            <input type="number" class="form-control" id="gil" name="fil" value=<?php echo $varpasangpasca->gil ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ujl" name="ujl" value=<?php echo $varpendaftaranslo->ujl ?>>
+                                            <input type="number" class="form-control" id="ujl" name="ujl" value=<?php echo $varpasangpasca->ujl ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="materai" name="materai" value=<?php echo $varpendaftaranslo->materai ?>>
+                                            <input type="number" class="form-control" id="materai" name="materai" value=<?php echo $varpasangpasca->materai ?>>
                                         </div>
                                     </div>
 
@@ -177,20 +177,20 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Biaya : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="biaya" name="biaya" value=<?php echo $varpendaftaranslo->biaya ?>>
+                                            <input type="number" class="form-control" id="biaya" name="biaya" value=<?php echo $varpasangpasca->biaya ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ppn" name="ppn" value=<?php echo $varpendaftaranslo->PPN ?>>
+                                            <input type="number" class="form-control" id="ppn" name="ppn" value=<?php echo $varpasangpasca->PPN ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ppj" name="ppj" value=<?php echo $varpendaftaranslo->PPJ ?>>
+                                            <input type="number" class="form-control" id="ppj" name="ppj" value=<?php echo $varpasangpasca->PPJ ?>>
                                         </div>
                                     </div>
 
@@ -212,6 +212,13 @@
 <div class="modal fade" id="modalNewdata" tabindex="-1" aria-labelledby="modalNewdata" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Tambah <?php echo $title ?> </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
             <div class="modal-body">
                 <!--Modal update data-->
                 <form action="" accept-charset="utf-8">
@@ -220,33 +227,33 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbdaya" name="tbdaya" value="">
+                            <input type="number" class="form-control" id="tbdaya" name="tbdaya" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbslo" name="tbslo" value="">
+                            <input type="number" class="form-control" id="tbslo" name="tbslo" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbgil" name="tbgil" value="">
+                            <input type="number" class="form-control" id="tbgil" name="tbgil" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbujl" name="tbujl" value="">
+                            <input type="number" class="form-control" id="tbujl" name="tbujl" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbmaterai" name="tbmaterai" value="">
+                            <input type="number" class="form-control" id="tbmaterai" name="tbmaterai" value="">
                         </div>
                     </div>
 
@@ -254,20 +261,20 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Biaya : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbbiaya" name="tbbiaya" value="">
+                            <input type="number" class="form-control" id="tbbiaya" name="tbbiaya" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbppn" name="tbppn" value="">
+                            <input type="number" class="form-control" id="tbppn" name="tbppn" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbppj" name="tbppj" value="">
+                            <input type="number" class="form-control" id="tbppj" name="tbppj" value="">
                         </div>
                     </div>
 
@@ -294,6 +301,26 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" href="http://spln.co.id/admin/varpasangpasca/" onclick="javascript:window.location.reload()" data-dismiss="modal">Oke</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="showModalTambah" name="showModalTambah" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Berhasil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="areaValue">
+                <p>Data Anda sudah berhasil ditambahkan</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" href="http://spln.co.id/admin/varpasangbarupra/" onclick="javascript:window.location.reload()" data-dismiss="modal">Oke</button>
             </div>
         </div>
     </div>

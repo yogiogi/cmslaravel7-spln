@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Image;
 use App\variable_model;
 
-class VarPengaduanTeknis extends Controller
+class varpengaduanteknis extends Controller
 {
     // Main page
     public function index()
@@ -17,12 +17,12 @@ class VarPengaduanTeknis extends Controller
             return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
         }
         $varmodeldata = new variable_model();
-        $varmodel       = $varmodeldata->semua('var_instalasi');
+        $varmodel       = $varmodeldata->semua('var_pengaduan_teknis');
 
         $data = array(
             'title'           => 'Pengaduan Teknis',
-            'variinstalasi'   => $varmodel,
-            'content'         => 'admin/varpengaduanteknis/index'
+            'varpengaduan'   => $varmodel,
+            'content'         => 'admin/varlayanan/pengaduanteknis'
         );
         return view('admin/layout/wrapper', $data);
     }
@@ -47,5 +47,27 @@ class VarPengaduanTeknis extends Controller
             'update_date' => now(),
         ]);
         return redirect('admin/varpengaduanteknis')->with(['sukses' => 'Data berhasil di update']);
+    }
+
+    public function tambah(Request $request)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+
+        DB::table('var_pengaduan_teknis')->insert([
+            'daya' => $request->daya,
+            'slo' => $request->slo,
+            'gil' => $request->gil,
+            'ujl' => $request->ujl,
+            'materai' => $request->materai,
+            'biaya' => $request->biaya,
+            'ppn' => $request->ppn,
+            'ppj' => $request->ppj,
+            'update_by' => Session()->get('username'),
+            'update_date' => now(),
+        ]);
+        return redirect('admin/varpengaduanteknis')->with(['sukses' => 'Data berhasil di tambah']);
     }
 }

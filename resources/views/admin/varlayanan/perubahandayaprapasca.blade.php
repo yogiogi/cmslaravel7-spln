@@ -3,8 +3,15 @@
 <script>
     $(document).ready(function() {
         $('#saveButton').on('click', function() {
+
+            console.log("id");
+            console.log($('#id').val());
+            console.log($('#daya').val());
+            console.log($('#slo').val(), );
+            console.log($('#gil').val(), );
+
             $.ajax({
-                url: '{{ url("/varprapasca/update") }}',
+                url: '{{ url("/admin/varubahprapasca/update") }}',
                 type: "POST",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -37,7 +44,7 @@
             console.log("id");
 
             $.ajax({
-                url: '{{ url("admin/varprapasca/tambah") }}',
+                url: '{{ url("admin/varubahprapasca/tambah") }}',
                 type: "POST",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -54,7 +61,7 @@
                 },
                 dataType: 'text',
                 success: function(data) {
-                    $("#showModal").modal("toggle");
+                    $("#showModalTambah").modal("toggle");
                 },
                 error: function(xhr, status, error) {
                     alert('Terjadi kesalahan server');
@@ -106,27 +113,27 @@
                         <?php echo $varprapasca->materai ?>
                     </td>
                     <td>
-                        <?php echo $varPasangPasca->biaya ?>
+                        <?php echo $varprapasca->biaya ?>
                     </td>
                     <td>
-                        <?php echo $varprapasca->ppn ?>
+                        <?php echo $varprapasca->PPN ?>
                     </td>
                     <td>
-                        <?php echo $varprapasca->ppj ?>
+                        <?php echo $varprapasca->PPJ ?>
                     </td>
                     <td>
                         <div class="btn-group">
-                            <a href="#modalPengaduanTeknis" class="btn btn-info btn-sm " data-toggle="modal" data-target="#modalPengaduanTeknis<?php echo $varprapasca->id ?>"><i class="fas fa-edit"></i></a>
+                            <a href="#modalEditdata" class="btn btn-info btn-sm " data-toggle="modal" data-target="#modalEditdata<?php echo $varprapasca->id ?>"><i class="fas fa-edit"></i></a>
                             <a href="{{ asset('admin/varprapasca/delete/'.$varprapasca->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     </td>
                 </tr>
 
-                <div class="modal fade" id="modalPengaduanTeknis<?php echo $varprapasca->id ?>" tabindex="-1" aria-labelledby="modalPengaduanTeknis" aria-hidden="true">
+                <div class="modal fade" id="modalEditdata<?php echo $varprapasca->id ?>" tabindex="-1" aria-labelledby="modalEditdata" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Edit Pengaduan Teknis </h5>
+                                <h5 class="modal-title"> Edit <?php echo $title ?> </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -135,76 +142,67 @@
                             <div class="modal-body">
                                 <!--Modal update data-->
                                 <form action="" accept-charset="utf-8">
-                                    <input type="hidden" name="id" value="{{ $varprapasca->id }}">
+                                    <input type="hidden" name="id" id="id" value=<?php echo $varprapasca->id ?>>
                                     {{ csrf_field() }}
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="edDaya" name="edDaya" <?php echo $varprapasca->daya ?>>
+                                            <input type="number" class="form-control" id="daya" name="daya" value=<?php echo $varprapasca->daya ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="edSLO" name="edSLO" value=<?php echo $varprapasca->slo ?>>
+                                            <input type="number" class="form-control" id="slo" name="slo" value=<?php echo $varprapasca->slo ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="gil" name="fil" value=<?php echo $varprapasca->gil ?>>
+                                            <input type="number" class="form-control" id="gil" name="gil" value=<?php echo $varprapasca->gil ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ujl" name="ujl" value=<?php echo $varprapasca->ujl ?>>
+                                            <input type="number" class="form-control" id="ujl" name="ujl" value=<?php echo $varprapasca->ujl ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ujl" name="ujl" value=<?php echo $varprapasca->materai ?>>
+                                            <input type="number" class="form-control" id="materai" name="materai" value=<?php echo $varprapasca->materai ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">biaya : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="biaya" name="biaya" value=<?php echo $varprapasca->biaya ?>>
+                                            <input type="number" class="form-control" id="biaya" name="biaya" value=<?php echo $varprapasca->biaya ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ujl" name="ujl" value=<?php echo $varprapasca->ujl ?>>
+                                            <input type="number" class="form-control" id="ujl" name="ujl" value=<?php echo $varprapasca->ujl ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ppn" name="ppn" value=<?php echo $varprapasca->ppn ?>>
+                                            <input type="number" class="form-control" id="ppn" name="ppn" value=<?php echo $varprapasca->PPN ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ppj" name="ppj" value=<?php echo $varprapasca->ppj ?>>
+                                            <input type="number" class="form-control" id="ppj" name="ppj" value=<?php echo $varprapasca->PPJ ?>>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 control-label text-right" for="">Status : </label>
-                                        <div class="col-sm-8">
-                                            <?php if ($varprapasca->status == 0) {
-                                                echo "Belum Diselesaikan ";
-                                            } else if ($varprapasca->status == 1) {
-                                                echo "Sudah diselesaikan ";
-                                            } ?>
-                                        </div>
-                                    </div>
+
                                     <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Simpan Data</button>
 
                                 </form>
@@ -224,6 +222,13 @@
 <div class="modal fade" id="modalNewdata" tabindex="-1" aria-labelledby="modalNewdata" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Tambah <?php echo $title ?> </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
             <div class="modal-body">
                 <!--Modal update data-->
                 <form action="" accept-charset="utf-8">
@@ -232,33 +237,33 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbdaya" name="tbdaya" value="">
+                            <input type="number" class="form-control" id="tbdaya" name="tbdaya" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbslo" name="tbslo" value="">
+                            <input type="number" class="form-control" id="tbslo" name="tbslo" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbgil" name="tbgil" value="">
+                            <input type="number" class="form-control" id="tbgil" name="tbgil" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbujl" name="tbujl" value="">
+                            <input type="number" class="form-control" id="tbujl" name="tbujl" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbmaterai" name="tbmaterai" value="">
+                            <input type="number" class="form-control" id="tbmaterai" name="tbmaterai" value="">
                         </div>
                     </div>
 
@@ -266,20 +271,20 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Biaya : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbbiaya" name="tbbiaya" value="">
+                            <input type="number" class="form-control" id="tbbiaya" name="tbbiaya" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbppn" name="tbppn" value="">
+                            <input type="number" class="form-control" id="tbppn" name="tbppn" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="tbppj" name="tbppj" value="">
+                            <input type="number" class="form-control" id="tbppj" name="tbppj" value="">
                         </div>
                     </div>
 
@@ -291,6 +296,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="showModal" name="showModal" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -305,7 +311,26 @@
                 <p>Data Anda sudah berhasil terupdate</p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" href="http://spln.co.id/admin/varprapasca/" onclick="javascript:window.location.reload()" data-dismiss="modal">Oke</button>
+                <button class="btn btn-primary" href="http://spln.co.id/admin/varpasangbarupra/" onclick="javascript:window.location.reload()" data-dismiss="modal">Oke</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="showModalTambah" name="showModalTambah" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Berhasil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="areaValue">
+                <p>Data Anda sudah berhasil ditambahkan</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" href="http://spln.co.id/admin/varpasangbarupra/" onclick="javascript:window.location.reload()" data-dismiss="modal">Oke</button>
             </div>
         </div>
     </div>

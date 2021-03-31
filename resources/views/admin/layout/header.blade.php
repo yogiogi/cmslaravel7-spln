@@ -177,6 +177,7 @@ $site                 = DB::table('konfigurasi')->first();
             <a class="collapse-item" href="{{ asset('admin/varubahprapra') }}">Ubah Daya Pra-Pra</a>
             <a class="collapse-item" href="{{ asset('admin/varmcbbox') }}">MCB Box</a>
             <a class="collapse-item" href="{{ asset('admin/varinstalasi') }}">Instalasi</a>
+            <a class="collapse-item" href="{{ asset('admin/varpengaduanteknis') }}">Pengaduan Teknis</a>
           </div>
         </div>
       </li>

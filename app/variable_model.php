@@ -41,7 +41,7 @@ class variable_model extends Model
     {
         $query = DB::table($table)
             ->select('*')
-            ->orderBy('daya', 'DESC')
+            ->orderBy('daya', 'ASC')
             ->get();
         return $query;
     }

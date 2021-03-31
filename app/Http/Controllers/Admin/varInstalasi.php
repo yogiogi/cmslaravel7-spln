@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Image;
 use App\variable_model;
 
-class VarInstalasi extends Controller
+class varinstalasi extends Controller
 {
     // Main page
     public function index()
@@ -20,7 +20,7 @@ class VarInstalasi extends Controller
         $varmodel       = $varmodeldata->semua('var_instalasi');
 
         $data = array(
-            'title'           => 'Pengaduan Teknis',
+            'title'           => 'Instalasi',
             'varinstalasi'   => $varmodel,
             'content'         => 'admin/varlayanan/instalasi'
         );

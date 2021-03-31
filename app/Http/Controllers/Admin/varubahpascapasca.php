@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Image;
 use App\variable_model;
 
-class VarUbahPascaPasca extends Controller
+class varubahpascapasca extends Controller
 {
     // Main page
     public function index()

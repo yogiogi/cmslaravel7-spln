@@ -20,7 +20,7 @@ class varpasangpra extends Controller
         $varmodel       = $varmodeldata->semua('var_pasang_baru_prabayar');
 
         $data = array(
-            'title'           => 'Pasang Baru Pasca Bayar',
+            'title'           => 'Pasang Baru Prabayar',
             'varpasangbarupra'   => $varmodel,
             'content'         => 'admin/varlayanan/pasangpra'
         );

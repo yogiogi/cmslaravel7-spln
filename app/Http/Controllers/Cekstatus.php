@@ -23,6 +23,7 @@ class cekstatus extends Controller
         $districts = $resource->getdistrict($produk->kecamatan);
         $provinces = $resource->getprovinsi($produk->provinsi);
         $regencies = $resource->getcity($produk->kabupaten);
+        
         $data = [
             'id_layanan' => $produk->id_layanan,
             'id_transaksi' => $produk->id_transaksi,

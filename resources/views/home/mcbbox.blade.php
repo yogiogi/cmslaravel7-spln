@@ -10,7 +10,8 @@ use App\resource_model;
 $site = DB::table('konfigurasi')->first();
 $resource = new resource_model();
 $instalasi = $resource->sifat_instalasi();
-$daya      = $resource->daya();
+// $daya      = $resource->daya();
+
 $provinces = $resource->provinsi();
 $token     = $resource->token();
 $jenisBox =  $resource->jenisMCB();
@@ -466,14 +467,14 @@ $jenisBox =  $resource->jenisMCB();
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Nomer KTP </label>
                   <div class="col-sm-10">
-                    <input type="number" min="0"id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
+                    <input type="number" min="0" id="nomer_ktp" name="nomer_ktp" class="form-control" placeholder="Isi dengan nomer ktp" value="{{ old('nomer_ktp') }}" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">No. Telepon </label>
                   <div class="col-sm-4">
-                    <input type="number" min="0"id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon pemohon" value="{{ old('nomer_ktp') }}" required>
+                    <input type="number" min="0" id="telepon_pemohon" name="telepon_pemohon" class="form-control" placeholder="Isi nomer telepon pemohon" value="{{ old('nomer_ktp') }}" required>
                   </div>
                   <label class="col-sm-2 control-label text-right">No. Whatsapp </label>
                   <div class="col-sm-4">

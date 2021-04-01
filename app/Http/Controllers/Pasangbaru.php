@@ -89,9 +89,13 @@ class Pasangbaru extends Controller
 
     $tokennilai = $request->token;
     $dayanilai = $request->daya;
-    $layanan = $request->layanan;
+    // $layanan = $request->layanan;
 
-    $produk = $model->variablePerhitungan($layanan);
+    // $produk = $model->variablePerhitungan($layanan);
+    $produk = $model->getNilaiPasangPra($dayanilai);
+    if ($request->layanan == 2) {
+      $produk = $model->getNilaiPasangPasca($dayanilai);
+    }
 
     $slo = $produk->slo;
     $gil = $produk->gil;
@@ -101,13 +105,13 @@ class Pasangbaru extends Controller
     $biaya = $produk->biaya;
     $materai = $produk->materai;
 
-    $jumlah_biaya = $dayanilai * $biaya;
-    $ppn = $ppn * $jumlah_biaya;
-    $ppj = $ppj * $jumlah_biaya;
-    $total = $jumlah_biaya + $slo + $gil + $ujl + $ppn + $ppj + $tokennilai + $materai;
+    // $jumlah_biaya = $biaya + $slo + $gil + $ujl + $tokennilai + $materai;
+    // $ppn = $ppn * $jumlah_biaya;
+    // $ppj = $ppj * $jumlah_biaya;
+    $total = $biaya + $slo + $gil + $ujl + $tokennilai + $materai + $ppn + $ppj;
 
     $data = [
-      'biaya' => $jumlah_biaya,
+      'biaya' => $biaya,
       'slo' => $slo,
       'gil' => $gil,
       'ujl' => $ujl,

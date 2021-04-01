@@ -6,10 +6,13 @@
 
 use Illuminate\Support\Facades\DB;
 use App\resource_model;
+use Hamcrest\Core\HasToString;
+use SebastianBergmann\Environment\Console;
 
 $site = DB::table('konfigurasi')->first();
 $resource = new resource_model();
-$layanan = $resource->layanan();
+$getNilaiVar = $resource->nilaiSLO();
+print('message here');
 $instalasi = $resource->sifat_instalasi();
 $daya      = $resource->daya();
 $provinces = $resource->provinsi();
@@ -172,6 +175,7 @@ $provinces = $resource->provinsi();
           dayabaru: dayabaru,
         },
         success: function(data) {
+          id = $('#dayabaru').val();
           nama = document.getElementsByName("nama_konsumen")[0];
           ktp = document.getElementsByName("nomer_ktp")[0];
           alamat = document.getElementsByName("alamat")[0];
@@ -182,7 +186,7 @@ $provinces = $resource->provinsi();
           email = document.getElementsByName("email_konsumen")[0];
           instalasi = $('#sifat_instalasi').find(":selected").text();
 
-          biaya = data.biaya;
+          // biaya = data.biaya;
           slo = data.slo;
           gil = data.gil;
 
@@ -450,7 +454,7 @@ $provinces = $resource->provinsi();
                   <div class="col-md-4">
                     <select name="dayalama" id="dayalama" class="form-control select2">
                       <option value="0">--Pilih Daya--</option>
-                      @foreach($daya as $dayalama)
+                      @foreach($getNilaiVar as $dayalama)
                       <option value="{{ $dayalama->id }}"> {{ $dayalama->daya }}</option>
                       @endforeach
                     </select>
@@ -469,7 +473,7 @@ $provinces = $resource->provinsi();
                   <div class="col-md-4">
                     <select id="dayabaru" name="dayabaru" class="form-control select2">
                       <option value="0">--Pilih Daya--</option>
-                      @foreach($daya as $daya)
+                      @foreach($getNilaiVar as $daya)
                       <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
                       @endforeach
                     </select>

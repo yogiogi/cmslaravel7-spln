@@ -87,7 +87,9 @@ class Penyambungansementara extends Controller
   public function perhitungan(Request $request)
   {
     $model = new resource_model();
-    $produk = $model->variablePerhitungan(6);
+    // $produk = $model->variablePerhitungan(6);
+    $produk = $model->nilaiSambungSementara();
+
     $durasi = $request->durasi;
 
     $biaya = $produk->biaya;

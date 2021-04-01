@@ -10,20 +10,31 @@ use App\resource_model;
 $site = DB::table('konfigurasi')->first();
 $resource = new resource_model();
 $layanan = $resource->layanan();
-$daya      = $resource->daya();
+$nilaipascavar = $resource->nilaiPasangPasca();
+$nilaipravar = $resource->nilaiPasangPra();
+
+// $daya      = $resource->daya();
 $provinces = $resource->provinsi();
 $token = $resource->token();
 ?>
 
 <script>
   $(document).ready(function() {
-    $("#tokenjml").removeAttr('required');
+    $("#token").removeAttr('required');
+    $("#dayapra").show();
+    $("#dayapasca").hide().prop('required', false);
     $('#layanan').on('change', function() {
       if (this.value == '1') {
         $("#tokenjml").show();
+        $("#token").show();
+        $("#dayapra").show();
+        $("#dayapasca").hide().prop('required', false);
         $("#token").prop('required', true);
       } else {
         $("#tokenjml").hide().prop('required', false);
+        $("#token").hide().prop('required', false);
+        $("#dayapra").hide().prop('required', false);
+        $("#dayapasca").show();
         $("#token").removeAttr('required');
       }
     });
@@ -142,21 +153,23 @@ $token = $resource->token();
 
     $('#submithitung').on('click', function() {
       today = mm + '/' + dd + '/' + yyyy;
-      daya = $('#daya').find(":selected").text();
+
+      daya = $('#dayapra').find(":selected").text();
       tokennya = $('#token').find(":selected").text();
       layanan = $("#layanan").val();
-
       if (layanan == "2") {
+        daya = $('#dayapasca').find(":selected").text();
         tokennya = 0;
         ujl = 0;
       }
+      console.log(daya);
 
       $.ajax({
         type: "GET",
         url: "{{url('/pasangbaru/perhitungan')}}",
         data: {
           layanan: layanan,
-          daya: $('#daya').find(":selected").text(),
+          daya: daya,
           token: tokennya,
         },
         success: function(data) {
@@ -274,6 +287,14 @@ $token = $resource->token();
     });
 
     $('#saveButton').on('click', function() {
+      daya = $("#dayapra").val();
+      layanan = $("#layanan").val();
+      tokennya = $("#token").val();
+      if (layanan == "2") {
+        daya = $("#dayapasca").val();
+        tokennya = 0;
+      }
+
       $.ajax({
         url: '{{ url("/pasangbaru/save") }}',
         type: "POST",
@@ -294,8 +315,8 @@ $token = $resource->token();
 
           layanan: $("#layanan").val(),
           biaya: biaya,
-          daya: $("#daya").val(),
-          token: $("#token").val(),
+          daya: daya,
+          token: tokennya,
           slo: slo,
           gil: gil,
           ujl: ujl,
@@ -438,14 +459,22 @@ $token = $resource->token();
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Daya (Va)</label>
                   <div class="col-sm-4">
-                    <select id="daya" name="daya" class="form-control select2">
+                    <select id="dayapra" name="dayapra" class="form-control select2">
                       <option>--Pilih Daya--</option>
-                      @foreach($daya as $daya)
+                      @foreach($nilaipravar as $daya)
+                      <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
+                      @endforeach
+                    </select>
+
+                    <select id="dayapasca" name="dayapasca" class="form-control select2">
+                      <option>--Pilih Daya--</option>
+                      @foreach($nilaipascavar as $daya)
                       <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
                       @endforeach
                     </select>
                   </div>
-                  <label class="col-sm-2 control-label text-right">token </label>
+
+                  <label id="tokenjml" name="tokenjml" class="col-sm-2 control-label text-right">token </label>
                   <div class="col-sm-4">
                     <select id="token" name="token" class="form-control select2">
                       <option value="0">--Pilih Token--</option>

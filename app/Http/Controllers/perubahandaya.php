@@ -109,6 +109,14 @@ class Perubahandaya extends Controller
     $model = new resource_model();
     $produk = $model->variablePerhitungan($layanan);
 
+    if ($layanan == 1) {
+      $produk = $model->getNilaiUbahPascaPasca($dayabaru);
+    } else if ($layanan == 2) {
+      $produk = $model->getNilaiUbahPraPasca($dayabaru);
+    } else if ($layanan == 3) {
+      $produk = $model->getNilaiUbahPraPra($dayabaru);
+    }
+
     $slo = $produk->slo;
     $gil = $produk->gil;
     $ujl = $produk->ujl;
@@ -117,14 +125,14 @@ class Perubahandaya extends Controller
     $biaya = $produk->biaya;
     $materai = $produk->materai;
 
-    $dayaubah = $dayabaru - $dayalama;
-    $jumlah_biaya = $dayaubah * $biaya;
-    $ppn = $ppn * $jumlah_biaya;
-    $ppj = $ppj * $jumlah_biaya;
-    $total = $jumlah_biaya + $slo + $gil + $ujl + $ppn + $ppj + $materai;
+    // $dayaubah = $dayabaru - $dayalama;
+    // $jumlah_biaya = $dayaubah * $biaya;
+    // $ppn = $ppn * $jumlah_biaya;
+    // $ppj = $ppj * $jumlah_biaya;
+    $total = $biaya + $slo + $gil + $ujl + $ppn + $ppj + $materai;
 
     $data = [
-      'biaya' => $jumlah_biaya,
+      'biaya' => $biaya,
       'slo' => $slo,
       'gil' => $gil,
       'ujl' => $ujl,

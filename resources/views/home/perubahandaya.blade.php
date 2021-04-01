@@ -4,15 +4,57 @@
 
 <?php
 
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 use App\resource_model;
 
 $resource = new resource_model();
-$layanan = $resource->pilihLayanan();
-$daya      = $resource->daya();
+$layanan = $resource->layananUbah();
+// $getNilaiVar = $resource->nilaiVar('var_pendaftaran_slo');
+$nilaipascapascavar = $resource->nilaiUbahPascaPasca();
+$nilaiprapascavar = $resource->nilaiUbahPraPasca();
+$nilaiprapravar = $resource->nilaiUbahPraPra();
+
+// $daya      = $resource->daya();
 $provinsi = $resource->provinsi();
 ?>
+
+<script>
+  $(document).ready(function() {
+    $("#dayapascapascalama").show();
+    $("#dayaprapascalama").hide().prop('required', false);
+    $("#dayaprapralama").hide().prop('required', false);
+
+    $("#dayapascapascabaru").show();
+    $("#dayaprapascabaru").hide().prop('required', false);
+    $("#dayapraprabaru").hide().prop('required', false);
+    $('#layanan').on('change', function() {
+      if (this.value == '1') {
+        $("#dayapascapascalama").show();
+        $("#dayaprapascalama").hide().prop('required', false);
+        $("#dayaprapralama").hide().prop('required', false);
+
+        $("#dayapascapascabaru").show();
+        $("#dayaprapascabaru").hide().prop('required', false);
+        $("#dayapraprabaru").hide().prop('required', false);
+      } else if (this.value == '2') {
+        $("#dayapascapascalama").hide().prop('required', false);
+        $("#dayaprapascalama").show();
+        $("#dayaprapralama").hide().prop('required', false);
+
+        $("#dayapascapascabaru").hide().prop('required', false);
+        $("#dayaprapascabaru").show();
+        $("#dayapraprabaru").hide().prop('required', false);
+      } else {
+        $("#dayapascapascaa").hide().prop('required', false);
+        $("#dayaprapascalama").hide().prop('required', false);
+        $("#dayaprapralama").show();
+
+        $("#dayapascapascabaru").hide().prop('required', false);
+        $("#dayaprapascabaru").hide().prop('required', false);
+        $("#dayapraprabaru").show();
+      }
+    });
+  });
+</script>
 
 <script>
   $(document).ready(function() {
@@ -127,10 +169,20 @@ $provinsi = $resource->provinsi();
     $('#submithitung').on('click', function() {
       today = mm + '/' + dd + '/' + yyyy;
 
-      layanan = $("#layanan").val(),
-        dayalama = $('#dayalama').find(":selected").text(),
-        dayabaru = $('#dayabaru').find(":selected").text(),
-        console.log("layanan" + layanan);
+      layanan = $("#layanan").val();
+
+      if (layanan == 1) {
+        dayalama = $('#dayapascapascalama').val();
+        dayabaru = $('#dayapascapascabaru').val();
+      } else if (layanan == 2) {
+        dayalama = $('#dayaprapascalama').val();
+        dayabaru = $('#dayaprapascabaru').val();
+      } else if (layanan == 3) {
+        dayalama = $('#dayaprapralama').val();
+        dayabaru = $('#dayapraprabaru').val();
+      }
+
+      console.log("layanan" + layanan);
       console.log("dayalama" + dayalama);
       console.log("dayabaru" + dayabaru);
 
@@ -139,8 +191,8 @@ $provinsi = $resource->provinsi();
         url: "{{url('/perubahandaya/perhitungan')}}",
         data: {
           layanan: $("#layanan").val(),
-          dayalama: $('#dayalama').find(":selected").text(),
-          dayabaru: $('#dayabaru').find(":selected").text(),
+          dayalama: dayalama,
+          dayabaru: dayabaru,
         },
         success: function(data) {
           nama = document.getElementsByName("nama_pemohon")[0];
@@ -153,8 +205,8 @@ $provinsi = $resource->provinsi();
 
           layanan = $('#layanan').find(":selected").text();
           console.log("layanan" + layanan);
-          dayabaru = $('#dayabaru').find(":selected").text();
-          dayalama = $('#dayalama').find(":selected").text();
+          dayabaru = dayabaru;
+          dayalama = dayalama;
           no_meter = document.getElementsByName("no_meter")[0];
           id_pelanggan = document.getElementsByName("id_pelanggan")[0];
           peruntukan = document.getElementsByName("peruntukan")[0];
@@ -274,6 +326,18 @@ $provinsi = $resource->provinsi();
     });
 
     $('#saveButton').on('click', function() {
+      layanan = $("#layanan").val();
+      if (layanan == '1') {
+        dayalama = $('#dayapascapascalama').val();
+        dayabaru = $('#dayapascapascabaru').val();
+      } else if (layanan == '2') {
+        dayalama = $('#dayaprapascalama').val();
+        dayabaru = $('#dayaprapascabaru').val();
+      } else {
+        dayalama = $('#dayaprapralama').val();
+        dayabaru = $('#dayapraprabaru').val();
+      }
+
       $.ajax({
         url: '{{ url("/perubahandaya/save") }}',
         type: "POST",
@@ -296,8 +360,8 @@ $provinsi = $resource->provinsi();
           peruntukan: $("#peruntukan").val(),
 
           layanan: $("#layanan").val(),
-          dayabaru: $("#dayabaru").val(),
-          dayalama: $("#dayalama").val(),
+          dayabaru: dayabaru,
+          dayalama: dayalama,
           slo: slo,
           gil: gil,
           ujl: ujl,
@@ -432,7 +496,7 @@ $provinsi = $resource->provinsi();
                   <div class="col-md-10">
                     <select id="layanan" name="layanan" class="form-control select2">
                       @foreach($layanan as $layanan)
-                      <option value="{{ $layanan->id }}"> {{ $layanan->layanan }}</option>
+                      <option value="{{ $layanan->id }}"> {{ $layanan->jenis }}</option>
                       @endforeach
                     </select>
                   </div>
@@ -452,18 +516,46 @@ $provinsi = $resource->provinsi();
                 <div class="form-group row">
                   <label class="col-sm-2 control-label text-right">Daya Lama (Va)</label>
                   <div class="col-sm-4">
-                    <select name="dayalama" id="dayalama" class="form-control select2">
+                    <select name="dayapascapascalama" id="dayapascapascalama" class="form-control select2">
                       <option>--Pilih Daya--</option>
-                      @foreach($daya as $dayalama)
+                      @foreach($nilaipascapascavar as $dayalama)
+                      <option value="{{ $dayalama->id }}"> {{ $dayalama->daya }}</option>
+                      @endforeach
+                    </select>
+
+                    <select name="dayaprapascalama" id="dayaprapascalama" class="form-control select2">
+                      <option>--Pilih Daya--</option>
+                      @foreach($nilaiprapascavar as $dayalama)
+                      <option value="{{ $dayalama->id }}"> {{ $dayalama->daya }}</option>
+                      @endforeach
+                    </select>
+
+                    <select name="dayaprapralama" id="dayaprapralama" class="form-control select2">
+                      <option>--Pilih Daya--</option>
+                      @foreach($nilaiprapravar as $dayalama)
                       <option value="{{ $dayalama->id }}"> {{ $dayalama->daya }}</option>
                       @endforeach
                     </select>
                   </div>
                   <label class="col-sm-2 control-label text-right">Daya Baru (Va)</label>
                   <div class="col-sm-4">
-                    <select id="dayabaru" name="dayabaru" class="form-control select2">
+                    <select id="dayapascapascabaru" name="dayabaru" class="form-control select2">
                       <option>--Pilih Daya--</option>
-                      @foreach($daya as $daya)
+                      @foreach($nilaipascapascavar as $daya)
+                      <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
+                      @endforeach
+                    </select>
+
+                    <select id="dayaprapascabaru" name="dayabaru" class="form-control select2">
+                      <option>--Pilih Daya--</option>
+                      @foreach($nilaiprapascavar as $daya)
+                      <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
+                      @endforeach
+                    </select>
+
+                    <select id="dayapraprabaru" name="dayabaru" class="form-control select2">
+                      <option>--Pilih Daya--</option>
+                      @foreach($nilaiprapravar as $daya)
                       <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
                       @endforeach
                     </select>

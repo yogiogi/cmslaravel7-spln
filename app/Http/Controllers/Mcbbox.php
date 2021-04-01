@@ -104,7 +104,8 @@ class Mcbbox extends Controller
     $trafo = $request->grup_trafo;
 
     $model = new resource_model();
-    $produk = $model->variablePerhitungan(8);
+    // $produk = $model->variablePerhitungan(8);
+    $produk = $model->nilaiMcbBox();
 
     $harga_mcb =  $produk->harga_mcb;
     $harga_lnb =  $produk->harga_lnb;

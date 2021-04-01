@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Session;
 use App\Instalasi_model;
 use App\resource_model;
 
-class Instalasi extends Controller
+class instalasi extends Controller
 {
   public function save(Request $request)
   {
@@ -94,13 +94,15 @@ class Instalasi extends Controller
   public function perhitungan(Request $request)
   {
     $model = new resource_model();
+    $produk = $model->nilaiInstalasi();
 
     $titik_lampu = $request->lampu;
     $titik_saklar = $request->saklar;
     $titik_stop = $request->stopkontak;
     $meter_kabel = $request->input('meterkabel');
 
-    $produk = $model->variablePerhitungan(7);
+    // $produk = $model->variablePerhitungan(7);
+    
     $ppn = $produk->PPN;
     $ppj = $produk->PPJ;
     $biaya = $produk->biaya;

@@ -131,6 +131,13 @@ class resource_model extends Model
         return $query;
     }
 
+    public function layananUbah()
+    {
+        $query = DB::table('layanan_ubah')
+            ->get();
+        return $query;
+    }
+
     public function jenisMCB()
     {
         $query = DB::table('jenis_box')
@@ -207,6 +214,167 @@ class resource_model extends Model
         $query = DB::table('villages')
             ->select('villages.*')
             ->where('villages.id', $kodeDesa)
+            ->first();
+        return $query;
+    }
+
+
+    // function getNilaiVar($table)
+    // {
+    //     $query = DB::table('var_pendaftaran_slo')
+    //         ->select('var_pendaftaran_slo.*')
+    //         ->first();
+    //     return $query;
+    // }
+
+    // public function nilaiVar($table)
+    // {
+    //     $query = DB::table('var_pendaftaran_slo')
+    //         ->select('id', 'daya')
+    //         ->first();
+    //     return $query;
+    // }
+
+
+    public function nilaiSLO()
+    {
+        $query = DB::table('var_pendaftaran_slo')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->get();
+        return $query;
+    }
+
+    public function getNilaiSLO($daya)
+    {
+        $query = DB::table('var_pendaftaran_slo')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->where('daya', $daya)
+            ->first();
+        return $query;
+    }
+
+    public function nilaiPasangPasca()
+    {
+        $query = DB::table('var_pasang_baru_pascabayar')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->get();
+        return $query;
+    }
+
+    public function getNilaiPasangPasca($daya)
+    {
+        $query = DB::table('var_pasang_baru_pascabayar')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->where('daya', $daya)
+            ->first();
+        return $query;
+    }
+
+    public function nilaiPasangPra()
+    {
+        $query = DB::table('var_pasang_baru_prabayar')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->get();
+        return $query;
+    }
+
+    public function getNilaiPasangPra($daya)
+    {
+        $query = DB::table('var_pasang_baru_prabayar')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->where('daya', $daya)
+            ->first();
+        return $query;
+    }
+
+    public function nilaiUbahPraPra()
+    {
+        $query = DB::table('var_perubahan_daya_pra_pra')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->get();
+        return $query;
+    }
+
+    public function getNilaiUbahPraPra($daya)
+    {
+        $query = DB::table('var_perubahan_daya_pra_pra')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->where('id', $daya)
+            ->first();
+        return $query;
+    }
+    public function nilaiUbahPascaPasca()
+    {
+        $query = DB::table('var_perubahan_daya_pasca_pasca')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->get();
+        return $query;
+    }
+
+    public function getNilaiUbahPascaPasca($daya)
+    {
+        $query = DB::table('var_perubahan_daya_pasca_pasca')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->where('id', $daya)
+            ->first();
+        return $query;
+    }
+
+    public function nilaiUbahPraPasca()
+    {
+        $query = DB::table('var_perubahan_daya_pra_pasca')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->get();
+        return $query;
+    }
+
+    public function getNilaiUbahPraPasca($daya)
+    {
+        $query = DB::table('var_perubahan_daya_pra_pasca')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->where('id', $daya)
+            ->first();
+        return $query;
+    }
+
+    public function nilaiInstalasi()
+    {
+        $query = DB::table('var_instalasi')
+            ->select('id', 'daya', 'lampu', 'saklar', 'stopkontak', 'hargameter', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->first();
+        return $query;
+    }
+
+    public function getNilaiInstalasi()
+    {
+        $query = DB::table('var_instalasi')
+            ->select('id', 'daya', 'lampu', 'saklar', 'stopkontak', 'hargameter', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->first();
+        return $query;
+    }
+
+
+    public function nilaiSambungSementara()
+    {
+        $query = DB::table('var_penyambungan_sementara')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->first();
+        return $query;
+    }
+
+    public function getNilaiSambungSementara($daya)
+    {
+        $query = DB::table('var_penyambungan_sementara')
+            ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->where('id', $daya)
+            ->first();
+        return $query;
+    }
+
+    public function nilaiMcbBox()
+    {
+        $query = DB::table('var_mcb_box')
+            ->select('id', 'daya', 'harga_mcb', 'harga_lnb', 'harga_mccb', 'harga_trafo', 'mdp', 'sdp', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
             ->first();
         return $query;
     }

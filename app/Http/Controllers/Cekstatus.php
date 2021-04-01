@@ -23,7 +23,7 @@ class cekstatus extends Controller
         $districts = $resource->getdistrict($produk->kecamatan);
         $provinces = $resource->getprovinsi($produk->provinsi);
         $regencies = $resource->getcity($produk->kabupaten);
-        
+
         $data = [
             'id_layanan' => $produk->id_layanan,
             'id_transaksi' => $produk->id_transaksi,
@@ -88,7 +88,7 @@ class cekstatus extends Controller
         }
         // download PDF file with download method
         // return $pdf->download('pdf_file');
-        $pdf_file = 'download.pdf';
+        $pdf_file = 'permohonan_' . $layanan . '_' . $date . '.pdf';
         $pdf_path = $pdf_file;
         $pdf->save($pdf_path);
         return asset($pdf_path);

@@ -136,7 +136,7 @@ class Pendaftaranslo extends Controller
     // $dayabaru = $request->dayabaru;
 
     // $produk = $model->variablePerhitungan(10);
-    $produk = $model->getNilaiSLO($request->daya);
+    $produk = $model->getNilaiSLO($request->dayabaru);
     // print($produk);
     $slo = $produk->slo;
     $gil = $produk->gil;

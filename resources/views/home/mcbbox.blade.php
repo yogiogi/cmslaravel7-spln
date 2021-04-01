@@ -161,166 +161,190 @@ $jenisBox =  $resource->jenisMCB();
       console.log("mdp " + mdp);
       console.log("sdp " + sdp);
 
-      $.ajax({
-        type: "GET",
-        url: "{{url('/mcbbox/perhitungan')}}",
-        data: {
-          grup_mcb: grup_mcb,
-          grup_lnb: grup_lnb,
-          grup_mccb: grup_mccb,
-          grup_trafo: grup_trafo,
-          mdp: mdp,
-          sdp: sdp,
-        },
-        success: function(data) {
-          nama = document.getElementsByName("nama_pemohon")[0];
-          alamat = document.getElementsByName("alamat")[0];
-          provinsi = document.getElementsByName("provinsi")[0];
-          kabupaten = document.getElementsByName("city")[0];
-          ktp = document.getElementsByName("nomer_ktp")[0];
-          telepon_pemohon = document.getElementsByName("telepon_pemohon")[0];
-          email = document.getElementsByName("email_konsumen")[0];
-          grup_mcb = document.getElementsByName("grup_mcb")[0];
-          grup_lnb = document.getElementsByName("grup_lnb")[0];
-          grup_mccb = document.getElementsByName("grup_mccb")[0];
-          grup_trafo = document.getElementsByName("trafo")[0];
 
-          jenisbox = document.getElementsByName("jenisbox")[0];
+      nama = document.getElementsByName("nama_pemohon")[0];
+      ktp = document.getElementsByName("nomer_ktp")[0];
+      alamat = document.getElementsByName("alamat")[0];
+      provinsi = document.getElementsByName("provinsi")[0];
+      kabupaten = document.getElementsByName("city")[0];
+      kecamatan = document.getElementsByName("district")[0];
+      desa = document.getElementsByName("village")[0];
+      telepon_pemohon = document.getElementsByName("telepon_pemohon")[0];
+      whatsapp = document.getElementsByName("whatsapp")[0];
+      email = document.getElementsByName("email_konsumen")[0];
 
-          biayamcb = data.harga_mcb;
-          console.log('biayamcb');
-          console.log(biayamcb);
-          biayalnb = data.harga_lnb;
-          console.log('biayalnb');
-          console.log(biayalnb);
-          biayamccb = data.harga_mccb;
-          console.log('biayamccb');
-          console.log(biayamccb);
-          biayatrafo = data.harga_trafo;
-          console.log('biayatrafo');
-          console.log(biayatrafo);
-          biayamdp = data.harga_mdp;
-          console.log('biayamdp');
-          console.log(biayamdp);
-          biayasdp = data.harga_sdp;
-          console.log('biayasdp');
-          console.log(biayasdp);
+      jenisbox = document.getElementsByName("jenisbox")[0];
 
-          biaya = data.biaya;
-          ppn = data.ppn;
-          ppj = data.ppj;
-          materai = data.materai;
-          total = data.total;
+      if (nama.value != '' && ktp.value != '' && alamat.value != '' && provinsi.value != 0 && kabupaten.value != 0 && kecamatan.value != 0 &&
+        desa.value != 0 && email.value != '' && grup_mcb != '' && grup_lnb != '' && grup_mccb != '' &&
+        grup_trafo != '' && jenisbox.value != '') {
 
-          if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '') {
-            $('.cloundcontainer').show();
-            $('.cloundcontainer').empty();
-            var elements =
-              "<h2 align='center'> Pemasangan MCB Box </h2>" +
-              "<table>" +
-              "<tr align='left'>";
-            elements += "<th align='left' width='75%'> Jenis box : " + $("#jenisbox option:selected").text();
+        $.ajax({
+          type: "GET",
+          url: "{{url('/mcbbox/perhitungan')}}",
+          data: {
+            grup_mcb: grup_mcb,
+            grup_lnb: grup_lnb,
+            grup_mccb: grup_mccb,
+            grup_trafo: grup_trafo,
+            mdp: mdp,
+            sdp: sdp,
+          },
+          success: function(data) {
+            nama = document.getElementsByName("nama_pemohon")[0];
+            alamat = document.getElementsByName("alamat")[0];
+            provinsi = document.getElementsByName("provinsi")[0];
+            kabupaten = document.getElementsByName("city")[0];
+            ktp = document.getElementsByName("nomer_ktp")[0];
+            telepon_pemohon = document.getElementsByName("telepon_pemohon")[0];
+            email = document.getElementsByName("email_konsumen")[0];
+            grup_mcb = document.getElementsByName("grup_mcb")[0];
+            grup_lnb = document.getElementsByName("grup_lnb")[0];
+            grup_mccb = document.getElementsByName("grup_mccb")[0];
+            grup_trafo = document.getElementsByName("trafo")[0];
 
-            if (mdp != 0) {
-              elements += "<br> dengan MDP ";
+            jenisbox = document.getElementsByName("jenisbox")[0];
+
+            biayamcb = data.harga_mcb;
+            console.log('biayamcb');
+            console.log(biayamcb);
+            biayalnb = data.harga_lnb;
+            console.log('biayalnb');
+            console.log(biayalnb);
+            biayamccb = data.harga_mccb;
+            console.log('biayamccb');
+            console.log(biayamccb);
+            biayatrafo = data.harga_trafo;
+            console.log('biayatrafo');
+            console.log(biayatrafo);
+            biayamdp = data.harga_mdp;
+            console.log('biayamdp');
+            console.log(biayamdp);
+            biayasdp = data.harga_sdp;
+            console.log('biayasdp');
+            console.log(biayasdp);
+
+            biaya = data.biaya;
+            ppn = data.ppn;
+            ppj = data.ppj;
+            materai = data.materai;
+            total = data.total;
+
+            if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '') {
+              $('.cloundcontainer').show();
+              $('.cloundcontainer').empty();
+              var elements =
+                "<h2 align='center'> Pemasangan MCB Box </h2>" +
+                "<table>" +
+                "<tr align='left'>";
+              elements += "<th align='left' width='75%'> Jenis box : " + $("#jenisbox option:selected").text();
+
+              if (mdp != 0) {
+                elements += "<br> dengan MDP ";
+              }
+
+              if (sdp != 0) {
+                elements += ", dengan SDP ";
+              }
+
+              elements += " </th>";
+
+              elements += "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> Grup MCB : " + grup_mcb.value + " titik</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> Grup LNB : " + grup_lnb.value + " titik</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> Grup MCCB : " + grup_mccb.value + " titik</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> Grup Trafo : " + grup_trafo.value + " kV</th>" +
+                "</tr>" +
+                "</table>" +
+                "<br>" +
+                "<table>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> Detail Biaya </th>" +
+                "<th align='left' width='25%'></th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - Harga total MCB </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(biayamcb) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - Harga total LNB </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(biayalnb) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - Harga total MCCB </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(biayamccb) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - Harga total trafo </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(biayatrafo) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - Biaya MDP</th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(biayamdp) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - Biaya SDP</th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(biayasdp) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - Biaya Instalasi</th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(biaya) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - PPN (10%*a) </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - PPJ (5%*a) </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - Materai </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(materai) + "</th>" +
+                "</tr>" +
+                "</table>" +
+                "<br>" +
+                "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp " + formatRupiah(total) + "</b></p>" +
+                "<p align='left'> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini (" + today + ")</p>" +
+                "<br>" +
+                "<p>Perhatian :</p>" +
+                "<ul>" +
+                "<li>Pastikan semua data yang Anda isi di atas adalah benar</li>" +
+                "<li>Setelah Anda tekan tombol Simpan Permohonan, maka data-data akan diproses oleh PT SPLN (Persero) dan akan dipertanggung jawabkan apabila di kemudian hari ditemukan kesalahan</li>" +
+                "</ul>" +
+                "<table>" +
+                "<tr>" +
+                "<td><input type='checkbox' id='checkKetentuan' name='checkKetentuan' value='ketentuan' disabled readonly></td>" +
+                "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
+                "</tr>" +
+                "</table>" +
+                "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
+
+              $('.cloundcontainer').append(elements);
+            } else {
+              alert('Data tidak bisa kosong');
+              $('div.cloundcontainer').hide();
+              $('.cloundcontainer').empty();
             }
-
-            if (sdp != 0) {
-              elements += ", dengan SDP ";
-            }
-
-            elements += " </th>";
-
-            elements += "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> Grup MCB : " + grup_mcb.value + " titik</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> Grup LNB : " + grup_lnb.value + " titik</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> Grup MCCB : " + grup_mccb.value + " titik</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> Grup Trafo : " + grup_trafo.value + " kV</th>" +
-              "</tr>" +
-              "</table>" +
-              "<br>" +
-              "<table>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> Detail Biaya </th>" +
-              "<th align='left' width='25%'></th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - Harga total MCB </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(biayamcb) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - Harga total LNB </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(biayalnb) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - Harga total MCCB </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(biayamccb) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - Harga total trafo </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(biayatrafo) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - Biaya MDP</th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(biayamdp) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - Biaya SDP</th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(biayasdp) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - Biaya Instalasi</th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(biaya) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - PPN (10%*a) </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - PPJ (5%*a) </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - Materai </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(materai) + "</th>" +
-              "</tr>" +
-              "</table>" +
-              "<br>" +
-              "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp " + formatRupiah(total) + "</b></p>" +
-              "<p align='left'> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini (" + today + ")</p>" +
-              "<br>" +
-              "<p>Perhatian :</p>" +
-              "<ul>" +
-              "<li>Pastikan semua data yang Anda isi di atas adalah benar</li>" +
-              "<li>Setelah Anda tekan tombol Simpan Permohonan, maka data-data akan diproses oleh PT SPLN (Persero) dan akan dipertanggung jawabkan apabila di kemudian hari ditemukan kesalahan</li>" +
-              "</ul>" +
-              "<table>" +
-              "<tr>" +
-              "<td><input type='checkbox' id='checkKetentuan' name='checkKetentuan' value='ketentuan' disabled readonly></td>" +
-              "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
-              "</tr>" +
-              "</table>" +
-              "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
-
-            $('.cloundcontainer').append(elements);
-          } else {
-            alert('Data tidak bisa kosong');
-            $('div.cloundcontainer').hide();
-            $('.cloundcontainer').empty();
+          },
+          error: function(errorThrown) {
+            console.log("error " + errorThrown);
+            alert('Ada masalah di server');
           }
-        },
-        error: function(errorThrown) {
-          console.log("error " + errorThrown);
-          alert('Ada masalah di server');
-        }
-      });
+        });
+
+      } else {
+        alert('Data tidak bisa kosong');
+        $('.cloundcontainer').hide();
+        $('.cloundcontainer').empty();
+      }
     });
 
     $('#SetujuButton').on("click", function() {

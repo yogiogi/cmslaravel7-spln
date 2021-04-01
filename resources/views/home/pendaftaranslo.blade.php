@@ -167,117 +167,137 @@ $provinces = $resource->provinsi();
         dayabaru = $('#dayabaru').find(":selected").text();
       }
 
-      $.ajax({
-        type: "GET",
-        url: "{{url('/pendaftaranslo/perhitungan')}}",
-        data: {
-          dayalama: dayalama,
-          dayabaru: dayabaru,
-        },
-        success: function(data) {
-          id = $('#dayabaru').val();
-          nama = document.getElementsByName("nama_konsumen")[0];
-          ktp = document.getElementsByName("nomer_ktp")[0];
-          alamat = document.getElementsByName("alamat")[0];
-          provinsi = document.getElementsByName("provinsi")[0];
-          kabupaten = document.getElementsByName("city")[0];
-          telepon_pemohon = document.getElementsByName("telepon_pemohon")[0];
-          whatsapp = document.getElementsByName("whatsapp")[0];
-          email = document.getElementsByName("email_konsumen")[0];
-          instalasi = $('#sifat_instalasi').find(":selected").text();
+      nama = document.getElementsByName("nama_konsumen")[0];
+      ktp = document.getElementsByName("nomer_ktp")[0];
+      alamat = document.getElementsByName("alamat")[0];
+      provinsi = document.getElementsByName("provinsi")[0];
+      kabupaten = document.getElementsByName("city")[0];
+      kecamatan = document.getElementsByName("district")[0];
+      desa = document.getElementsByName("village")[0];
+      telepon_pemohon = document.getElementsByName("telepon_pemohon")[0];
+      whatsapp = document.getElementsByName("whatsapp")[0];
+      email = document.getElementsByName("email_konsumen")[0];
 
-          // biaya = data.biaya;
-          slo = data.slo;
-          gil = data.gil;
+      if (nama.value != '' && ktp.value != '' && alamat.value != '' && provinsi.value != 0 && kabupaten.value != 0 && kecamatan.value != 0 && desa.value != 0 && email.value != '' && telepon_pemohon.value != '' && whatsapp.value != '' &&
+        email != '') {
+        $.ajax({
+          type: "GET",
+          url: "{{url('/pendaftaranslo/perhitungan')}}",
+          data: {
+            dayalama: dayalama,
+            dayabaru: dayabaru,
+          },
+          success: function(data) {
+            id = $('#dayabaru').val();
+            nama = document.getElementsByName("nama_konsumen")[0];
+            ktp = document.getElementsByName("nomer_ktp")[0];
+            alamat = document.getElementsByName("alamat")[0];
+            provinsi = document.getElementsByName("provinsi")[0];
+            kabupaten = document.getElementsByName("city")[0];
+            telepon_pemohon = document.getElementsByName("telepon_pemohon")[0];
+            whatsapp = document.getElementsByName("whatsapp")[0];
+            email = document.getElementsByName("email_konsumen")[0];
+            instalasi = $('#sifat_instalasi').find(":selected").text();
 
-          ppn = data.ppn;
-          ppj = data.ppj;
+            // biaya = data.biaya;
+            slo = data.slo;
+            gil = data.gil;
 
-          materai = data.materai;
-          total = data.total;
+            ppn = data.ppn;
+            ppj = data.ppj;
 
-          if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '' &&
-            dayabaru != '') {
-            $('.cloundcontainer').show();
-            $('.cloundcontainer').empty();
+            materai = data.materai;
+            total = data.total;
 
-            var elements = "<h2 align='center'> <?php echo $subtitle ?> </h2>" +
-              "<table>" +
-              "<tr align='left'>" +
-              "<th align='left' width='50%'> Sifat Instalasi : " + instalasi + " </th>" +
-              "</tr>";
+            if (nama.value != '' && ktp.value != '' && alamat.value != '' && email.value != '' && telepon_pemohon.value != '' && whatsapp.value != '' &&
+              email != '') {
+              $('.cloundcontainer').show();
+              $('.cloundcontainer').empty();
 
-            if (dayalama != 0) {
-              elements += "<tr align='left'>" +
-                "<th align='left' width='50%'> Daya Lama </th>" +
-                "<th align='left' width='50%'> : " + dayalama + " Watt </th>" +
-                "</tr>"
-              "<tr align='left'>" +
-              "<th align='left' width='50%'> Daya Baru </th>";
+              var elements = "<h2 align='center'> <?php echo $subtitle ?> </h2>" +
+                "<table>" +
+                "<tr align='left'>" +
+                "<th align='left' width='50%'> Sifat Instalasi : " + instalasi + " </th>" +
+                "</tr>";
+
+              if (dayalama != 0) {
+                elements += "<tr align='left'>" +
+                  "<th align='left' width='50%'> Daya Lama </th>" +
+                  "<th align='left' width='50%'> : " + dayalama + " Watt </th>" +
+                  "</tr>"
+                "<tr align='left'>" +
+                "<th align='left' width='50%'> Daya Baru </th>";
+              } else {
+                elements += "<tr align='left'>" +
+                  "<th align='left' width='50%'> Daya</th>";
+              }
+
+              elements += "<th align='left' width='50%'> : " + dayabaru + " Watt </th>" +
+                "</tr>" +
+                "</table>" +
+                "<br>" +
+                "<table>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> Detail Biaya </th>" +
+                "<th align='left' width='25%'></th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - SLO </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(slo) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - GIL </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(gil) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - PPN (10% * (SLO + GIL)) </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - PPJ (5% * (SLO + GIL)) </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - Materai </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(materai) + "</th>" +
+                "</tr>" +
+                "</table>" +
+                "<br>" +
+                "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp " + formatRupiah(total) + "</b></p>" +
+                "<p align='left'> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini (" + today + ")</p>" +
+                "<br>" +
+                "<p>Perhatian :</p>" +
+                "<ul>" +
+                "<li>Pastikan semua data yang Anda isi di atas adalah benar</li>" +
+                "<li>Setelah Anda tekan tombol Simpan Permohonan, maka data-data akan diproses oleh PT SPLN (Persero) dan akan dipertanggung jawabkan apabila di kemudian hari ditemukan kesalahan</li>" +
+                "</ul>" +
+                "<table>" +
+                "<tr>" +
+                "<td><input type='checkbox' id='checkKetentuan' name='checkKetentuan' value='ketentuan' disabled readonly></td>" +
+                "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
+                "</tr>" +
+                "</table>" +
+                "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
+              $('.cloundcontainer').append(elements);
             } else {
-              elements += "<tr align='left'>" +
-                "<th align='left' width='50%'> Daya</th>";
+              alert('Data tidak bisa kosong');
+              $('.cloundcontainer').hide();
+              $('.cloundcontainer').empty();
             }
-
-            elements += "<th align='left' width='50%'> : " + dayabaru + " Watt </th>" +
-              "</tr>" +
-              "</table>" +
-              "<br>" +
-              "<table>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> Detail Biaya </th>" +
-              "<th align='left' width='25%'></th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - SLO </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(slo) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - GIL </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(gil) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - PPN (10% * (SLO + GIL)) </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - PPJ (5% * (SLO + GIL)) </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='75%'> - Materai </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(materai) + "</th>" +
-              "</tr>" +
-              "</table>" +
-              "<br>" +
-              "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp " + formatRupiah(total) + "</b></p>" +
-              "<p align='left'> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini (" + today + ")</p>" +
-              "<br>" +
-              "<p>Perhatian :</p>" +
-              "<ul>" +
-              "<li>Pastikan semua data yang Anda isi di atas adalah benar</li>" +
-              "<li>Setelah Anda tekan tombol Simpan Permohonan, maka data-data akan diproses oleh PT SPLN (Persero) dan akan dipertanggung jawabkan apabila di kemudian hari ditemukan kesalahan</li>" +
-              "</ul>" +
-              "<table>" +
-              "<tr>" +
-              "<td><input type='checkbox' id='checkKetentuan' name='checkKetentuan' value='ketentuan' disabled readonly></td>" +
-              "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
-              "</tr>" +
-              "</table>" +
-              "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
-            $('.cloundcontainer').append(elements);
-          } else {
-            alert('Data tidak bisa kosong');
-            $('.cloundcontainer').hide();
-            $('.cloundcontainer').empty();
+          },
+          error: function(errorThrown) {
+            console.log("error " + errorThrown);
+            alert('Ada masalah di server');
           }
-        },
-        error: function(errorThrown) {
-          console.log("error " + errorThrown);
-          alert('Ada masalah di server');
-        }
-      });
+        });
+
+      } else {
+        alert('Data tidak bisa kosong');
+        $('.cloundcontainer').hide();
+        $('.cloundcontainer').empty();
+      }
     });
+
 
     $('#SetujuButton').on("click", function() {
       jQuery("#checkKetentuan").attr('checked', true);
@@ -583,9 +603,6 @@ $provinces = $resource->provinsi();
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Permohonan Data Berhasil</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
       <div class="modal-body" id="areaValue">
       </div>

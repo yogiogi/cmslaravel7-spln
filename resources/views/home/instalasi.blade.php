@@ -112,6 +112,7 @@ $token     = $resource->token();
     var harga_titiklampu = null;
     var harga_titiksaklar = null;
     var harga_titikstopkontak = null;
+    var ukurankabel = null;
 
     var biaya = null;
     var ppn = null;
@@ -131,10 +132,26 @@ $token     = $resource->token();
     $('#submithitung').on('click', function() {
       today = mm + '/' + dd + '/' + yyyy;
 
-      lampu = $("#titik_lampu").val(),
-        saklar = $("#titik_saklar").val(),
-        stopkontak = $("#titik_stop").val(),
-        meterkabel = $("#meter_kabel").val(),
+      lampu = $("#titik_lampu").val();
+      saklar = $("#titik_saklar").val();
+      stopkontak = $("#titik_stop").val();
+      meterkabel = $("#meter_kabel").val();
+
+      nama = document.getElementsByName("nama_pemohon")[0];
+      ktp = document.getElementsByName("nomer_ktp")[0];
+      alamat = document.getElementsByName("alamat")[0];
+      provinsi = document.getElementsByName("provinsi")[0];
+      kabupaten = document.getElementsByName("city")[0];
+      kecamatan = document.getElementsByName("district")[0];
+      desa = document.getElementsByName("village")[0];
+      telepon_pemohon = document.getElementsByName("telepon_pemohon")[0];
+      whatsapp = document.getElementsByName("whatsapp")[0];
+      email = document.getElementsByName("email_konsumen")[0];
+      ukurankabel = document.getElementsByName("ukuran_kabel")[0];
+
+      if (nama.value != '' && ktp.value != '' && alamat.value != '' && provinsi.value != 0 && kabupaten.value != 0 && kecamatan.value != 0 &&
+        desa.value != 0 && email.value != '' && lampu != '' && saklar != '' && stopkontak != '' &&
+        meterkabel != '' && ukurankabel.value != '') {
 
         $.ajax({
           type: "GET",
@@ -207,7 +224,7 @@ $token     = $resource->token();
                 "</tr>" +
                 "<tr align='left'>" +
                 "<th align='left' width='75%'> - Biaya Titik Lampu </th>" +
-                "<th align='left' width='25%'> : Rp " + formatRupiah(harga_titiklampu ) + "</th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(harga_titiklampu) + "</th>" +
                 "</tr>" +
                 "<tr align='left'>" +
                 "<th align='left' width='75%'> - Biaya Titik Saklar </th>" +
@@ -263,6 +280,12 @@ $token     = $resource->token();
             alert('Ada masalah di server');
           }
         });
+
+      } else {
+        alert('Data tidak bisa kosong');
+        $('.cloundcontainer').hide();
+        $('.cloundcontainer').empty();
+      }
     });
 
     $('#SetujuButton').on("click", function() {

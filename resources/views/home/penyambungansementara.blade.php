@@ -117,6 +117,10 @@ $provinces = $resource->provinsi();
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //  January is 0!
     var yyyy = today.getFullYear();
     var jammulai = null;
+    var no_meter = null;
+    var id_pelanggan = null;
+    var tgl_penyambungan = null;
+    var durasi = null;
 
     function formatRupiah(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -124,101 +128,127 @@ $provinces = $resource->provinsi();
     $('#submithitung').on('click', function() {
       today = mm + '/' + dd + '/' + yyyy;
 
-      $.ajax({
-        type: "GET",
-        url: "{{url('/penyambungansementara/perhitungan')}}",
-        data: {
-          durasi: $("#durasi").val(),
-        },
-        success: function(data) {
-          nama = document.getElementsByName("nama_pemohon")[0];
-          ktp = document.getElementsByName("nomer_ktp")[0];
-          alamat = document.getElementsByName("alamat")[0];
-          provinsi = document.getElementsByName("provinsi")[0];
-          kabupaten = document.getElementsByName("city")[0];
-          email = document.getElementsByName("email_konsumen")[0];
-          biaya = data.biaya;
-          console.log('biaya');
-          console.log(biaya);
-          ppn = data.ppn;
-          console.log('ppn');
-          console.log(ppn);
-          ppj = data.ppj;
-          console.log('ppj');
-          console.log(ppj);
-          materai = data.materai;
-          console.log('materai');
-          console.log(materai);
-          total = data.total;
-          if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '') {
-            $('div.cloundcontainer').show();
-            $('.cloundcontainer').show();
-            $('.cloundcontainer').empty();
+      nama = document.getElementsByName("nama_pemohon")[0];
+      ktp = document.getElementsByName("nomer_ktp")[0];
+      alamat = document.getElementsByName("alamat")[0];
+      provinsi = document.getElementsByName("provincy")[0];
+      kabupaten = document.getElementsByName("city")[0];
+      kecamatan = document.getElementsByName("district")[0];
+      desa = document.getElementsByName("village")[0];
+      telepon_pemohon = document.getElementsByName("telepon_pemohon")[0];
+      whatsapp = document.getElementsByName("whatsapp")[0];
+      email = document.getElementsByName("email_konsumen")[0];
+      no_meter = document.getElementsByName("no_meter")[0];
+      id_pelanggan = document.getElementsByName("id_pelanggan")[0];
+      tgl_penyambungan = document.getElementsByName("id_pelanggan")[0];
+      durasi = document.getElementsByName("durasi")[0];
 
-            var elements = "<h2 align='center'> Perhitungan biaya <?php echo $subtitle ?> </h2>" +
-              "<table>" +
-              "<tr align='left'>" +
-              "<th align='left' width='25%'> Detail Biaya </th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left'> tanggal layanan " + document.getElementsByName("datenyala")[0].value + ",  jam mulai " + $("#jammulai").val() + ", durasi " + $("#durasi").val() + " jam </th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='25%'> ID Pelanggan</th>" +
-              "<th align='left' width='25%'> : " + document.getElementsByName("id_pelanggan")[0].value + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='25%'> Nomer Meter</th>" +
-              "<th align='left' width='25%'> : " + document.getElementsByName("no_meter")[0].value + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='25%'> Detail Pengguna </th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='25%'> a. Biaya Penyambungan</th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(biaya) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='25%'> b. PPN (10%*a) </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='25%'> c. PPJ (5%*a) </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
-              "</tr>" +
-              "<tr align='left'>" +
-              "<th align='left' width='25%'> d. Materai </th>" +
-              "<th align='left' width='25%'> : Rp " + formatRupiah(materai) + "</th>" +
-              "</tr>" +
-              "</table>" +
-              "<br>" +
-              "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp " + formatRupiah(total) + "</b></p>" +
-              "<p align='left'> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini (" + today + ")</p>" +
-              "<br>" +
-              "<p>Perhatian :</p>" +
-              "<ul>" +
-              "<li>Pastikan semua data yang Anda isi di atas adalah benar</li>" +
-              "<li>Setelah Anda tekan tombol Simpan Permohonan, maka data-data akan diproses oleh PT SPLN (Persero) dan akan dipertanggung jawabkan apabila di kemudian hari ditemukan kesalahan</li>" +
-              "</ul>" +
-              "<table>" +
-              "<tr>" +
-              "<td><input type='checkbox' id='checkKetentuan' name='checkKetentuan' value='ketentuan' disabled readonly></td>" +
-              "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
-              "</tr>" +
-              "</table>" +
-              "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
-            $('.cloundcontainer').append(elements);
-          } else {
-            alert('Data tidak bisa kosong');
-            $('.cloundcontainer').hide();
-            $('.cloundcontainer').empty();
+      if (nama.value != '' && ktp.value != '' && alamat.value != '' && provinsi.value != 0 && kabupaten.value != 0 && kecamatan.value != 0 &&
+        desa.value != 0 && email.value != '' && telepon_pemohon.value != '' && whatsapp.value != '' && id_pelanggan.value != '' &&
+        no_meter.value != '' && tgl_penyambungan.value != '' && durasi.value != 0 
+      ) {
+
+        $.ajax({
+          type: "GET",
+          url: "{{url('/penyambungansementara/perhitungan')}}",
+          data: {
+            durasi: $("#durasi").val(),
+          },
+          success: function(data) {
+            nama = document.getElementsByName("nama_pemohon")[0];
+            ktp = document.getElementsByName("nomer_ktp")[0];
+            alamat = document.getElementsByName("alamat")[0];
+            provinsi = document.getElementsByName("provinsi")[0];
+            kabupaten = document.getElementsByName("city")[0];
+            email = document.getElementsByName("email_konsumen")[0];
+            biaya = data.biaya;
+            console.log('biaya');
+            console.log(biaya);
+            ppn = data.ppn;
+            console.log('ppn');
+            console.log(ppn);
+            ppj = data.ppj;
+            console.log('ppj');
+            console.log(ppj);
+            materai = data.materai;
+            console.log('materai');
+            console.log(materai);
+            total = data.total;
+            if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '') {
+              $('div.cloundcontainer').show();
+              $('.cloundcontainer').show();
+              $('.cloundcontainer').empty();
+
+              var elements = "<h2 align='center'> Perhitungan biaya <?php echo $subtitle ?> </h2>" +
+                "<table>" +
+                "<tr align='left'>" +
+                "<th align='left' width='25%'> Detail Biaya </th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left'> tanggal layanan " + document.getElementsByName("datenyala")[0].value + ",  jam mulai " + $("#jammulai").val() + ", durasi " + $("#durasi").val() + " jam </th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='25%'> ID Pelanggan</th>" +
+                "<th align='left' width='25%'> : " + document.getElementsByName("id_pelanggan")[0].value + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='25%'> Nomer Meter</th>" +
+                "<th align='left' width='25%'> : " + document.getElementsByName("no_meter")[0].value + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='25%'> Detail Pengguna </th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='25%'> a. Biaya Penyambungan</th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(biaya) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='25%'> b. PPN (10%*a) </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='25%'> c. PPJ (5%*a) </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='25%'> d. Materai </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(materai) + "</th>" +
+                "</tr>" +
+                "</table>" +
+                "<br>" +
+                "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp " + formatRupiah(total) + "</b></p>" +
+                "<p align='left'> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini (" + today + ")</p>" +
+                "<br>" +
+                "<p>Perhatian :</p>" +
+                "<ul>" +
+                "<li>Pastikan semua data yang Anda isi di atas adalah benar</li>" +
+                "<li>Setelah Anda tekan tombol Simpan Permohonan, maka data-data akan diproses oleh PT SPLN (Persero) dan akan dipertanggung jawabkan apabila di kemudian hari ditemukan kesalahan</li>" +
+                "</ul>" +
+                "<table>" +
+                "<tr>" +
+                "<td><input type='checkbox' id='checkKetentuan' name='checkKetentuan' value='ketentuan' disabled readonly></td>" +
+                "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
+                "</tr>" +
+                "</table>" +
+                "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
+              $('.cloundcontainer').append(elements);
+            } else {
+              alert('Data tidak bisa kosong');
+              $('.cloundcontainer').hide();
+              $('.cloundcontainer').empty();
+            }
+          },
+          error: function(errorThrown) {
+            console.log("error " + errorThrown);
+            alert('Ada masalah di server');
           }
-        },
-        error: function(errorThrown) {
-          console.log("error " + errorThrown);
-          alert('Ada masalah di server');
-        }
-      });
+        });
+
+      } else {
+        alert('Data tidak bisa kosong');
+        $('.cloundcontainer').hide();
+        $('.cloundcontainer').empty();
+      }
     });
 
     $('#SetujuButton').on("click", function() {
@@ -503,9 +533,7 @@ $provinces = $resource->provinsi();
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Permohonan Data Berhasil</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+
       </div>
       <div class="modal-body" id="areaValue">
       </div>

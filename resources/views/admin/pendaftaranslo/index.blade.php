@@ -22,7 +22,6 @@
           <th width="15%" class="text-center">BIAYA TOTAL</th>
           <th width="15%" class="text-center">BUKTI PEMBAYARAN</th>
           <th width="5%" class="text-center">STATUS</th>
-          <th width="5%" class="text-center"></th>
         </tr>
       </thead>
       <tbody>

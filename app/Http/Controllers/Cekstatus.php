@@ -88,7 +88,7 @@ class cekstatus extends Controller
         }
         // download PDF file with download method
         // return $pdf->download('pdf_file');
-        $pdf_file = 'permohonan_' . $layanan . '_' . $date . '.pdf';
+        $pdf_file = 'public/pdf/permohonan_' . $layanan . '_' . $date . '.pdf';
         $pdf_path = $pdf_file;
         $pdf->save($pdf_path);
         return asset($pdf_path);

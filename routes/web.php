@@ -105,7 +105,7 @@ Route::get('produk/cetak/{par1}', 'Produk@cetak');
 Route::get('getCityList', 'DropdownController@getCityList');
 Route::get('getDistrictList', 'DropdownController@getDistrictList');
 Route::get('getVillageList', 'DropdownController@getVillageList');
-Route::get('kirimemail', 'kirimEmail@index');
+Route::post('kirimemail', 'kirimemail@index');
 
 /* END FRONT END */
 /* BACK END */

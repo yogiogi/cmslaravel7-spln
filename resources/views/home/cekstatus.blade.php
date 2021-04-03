@@ -10,6 +10,73 @@ $resource = new resource_model();
 $layanan = $resource->layanan();
 ?>
 
+<script type='text/javascript'>
+  function cetak() {
+    $.ajax({
+      url: '{{ url("/cekstatus/cetak_pdf/") }}',
+      type: "GET",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: {
+        id_layanan: $('#statusid').val(),
+        layanan: $("#pilihLayanan").val(),
+        status: 'cetak',
+      },
+      dataType: 'text',
+      beforeSend: function() {
+        $('#loader').addClass('display-none')
+      },
+      success: function(data) {
+        console.log("data");
+        console.log(data);
+        window.location.href = data;
+      },
+      error: function(xhr, status, error) {
+        alert('Ada masalah di server');
+      },
+      complete: function() {
+        $('#loader').removeClass('display-none')
+      },
+    });
+  };
+
+  function kirim() {
+    $.ajax({
+      url: '{{ url("kirimemail") }}',
+      type: "POST",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: {
+        id_layanan: $('#statusid').val(),
+        layanan: $("#pilihLayanan").val(),
+        email_hidden: $("#email_hidden").val(),
+        status: 'kirim',
+      },
+      dataType: 'text',
+      // beforeSend: function() {
+      //   $('#loader').addClass('display-none')
+      // },
+      success: function(data) {
+        console.log("data");
+        console.log(data);
+        // window.location.href = data;
+
+        var item = "Bukti registrasi anda berhasil di kirim ke email " + data;
+        $("#areaValue").html(item);
+        $("#successModal").modal("toggle");
+      },
+      error: function(xhr, status, error) {
+        alert('Terjadi kesalahan server');
+      },
+      // complete: function() {
+      //   $('#loader').removeClass('display-none')
+      // },
+    });
+  };
+</script>
+
 <script>
   $(document).ready(function() {
     var idstatus = null;
@@ -121,6 +188,16 @@ $layanan = $resource->layanan();
                 "</div>" +
 
                 "<div class='row'>" +
+                "<label class='col-sm-4'>Email </label>" +
+                "<label> :  </label>" +
+                "<div class='col-sm-4 text-left' >" +
+                "<label> " + data.email + " </label>" +
+                "<label type='hidden' id='email_hidden' value=" + data.email + ">" +
+
+                "</div>" +
+                "</div>" +
+
+                "<div class='row'>" +
                 "<label class='col-sm-4'>Jenis Layanan SPLN  </label>" +
                 "<label> :  </label>" +
                 "<div class='col-sm-4 text-left' >" +
@@ -153,8 +230,9 @@ $layanan = $resource->layanan();
                 "</b></p>";
 
               if (data.status == 1 && data.status_bayar == 0 && data.status_layanan == 0) {
-                elements += "<button type='submit' id='cetakReg' name='cetakReg' class='button' value='Send'>Cetak Registrasi</button>";
-                elements += "<br><small><a>Permohonan Anda sudah disetujui, Mohon lakukan pembayaran dengan nomer layanan yang tersedia kami akan tunggu sampai 2x24 jam </a></small>";
+                elements += "<p> <button type='submit' id='cetakReg' name='cetakReg' class='button' value='Send'  href='#' onclick='return cetak();'>Cetak Registrasi</button> " +
+                  " <button type='submit' id='kirimReg' name='kirimReg' class='button' value='Send' href='#' onclick='return kirim();'>Kirim Bukti Registrasi</button></p>"
+                elements += "<small><a>Permohonan Anda sudah disetujui, Mohon lakukan pembayaran dengan nomer layanan yang tersedia kami akan tunggu sampai 2x24 jam </a></small>";
               } else if (data.status == 1 && data.status_bayar == 1 && data.status_layanan == 0) {
                 elements += "<br><small><a>Sudah dibayarkan, silahkan menunggu untuk layanan lebih lanjut </a></small>";
               } else if (data.status == 1 && data.status_bayar == 1 && data.status_layanan == 0) {
@@ -177,34 +255,34 @@ $layanan = $resource->layanan();
       }
     });
 
-    $('.cloundcontainer').on('click', 'button', function() {
-      $.ajax({
-        url: '{{ url("/cekstatus/cetak_pdf/") }}',
-        type: "GET",
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-          id_layanan: $('#statusid').val(),
-          layanan: $("#pilihLayanan").val(),
-        },
-        dataType: 'text',
-        beforeSend: function() {
-          $('#loader').addClass('display-none')
-        },
-        success: function(data) {
-          console.log("data");
-          console.log(data);
-          window.location.href = data;
-        },
-        error: function(xhr, status, error) {
-          alert('Ada masalah di server');
-        },
-        complete: function() {
-          $('#loader').removeClass('display-none')
-        },
-      });
-    });
+    // $('.cloundcontainer').on('click', 'button', function() {
+    //   $.ajax({
+    //     url: '{{ url("/cekstatus/cetak_pdf/") }}',
+    //     type: "GET",
+    //     headers: {
+    //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     },
+    //     data: {
+    //       id_layanan: $('#statusid').val(),
+    //       layanan: $("#pilihLayanan").val(),
+    //     },
+    //     dataType: 'text',
+    //     beforeSend: function() {
+    //       $('#loader').addClass('display-none')
+    //     },
+    //     success: function(data) {
+    //       console.log("data");
+    //       console.log(data);
+    //       window.location.href = data;
+    //     },
+    //     error: function(xhr, status, error) {
+    //       alert('Ada masalah di server');
+    //     },
+    //     complete: function() {
+    //       $('#loader').removeClass('display-none')
+    //     },
+    //   });
+    // });
   });
 </script>
 
@@ -271,6 +349,21 @@ $layanan = $resource->layanan();
         <div class="md-form">
           <p>Anda belum memilih status layanan</p>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="successModal" name="successModal" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Pengiriman data berahasil</h5>
+      </div>
+      <div class="modal-body" id="areaValue">
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" href="http://spln.co.id/" role="button">Home</a>
       </div>
     </div>
   </div>

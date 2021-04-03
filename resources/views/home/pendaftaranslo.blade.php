@@ -12,7 +12,6 @@ use SebastianBergmann\Environment\Console;
 $site = DB::table('konfigurasi')->first();
 $resource = new resource_model();
 $getNilaiVar = $resource->nilaiSLO();
-print('message here');
 $instalasi = $resource->sifat_instalasi();
 $daya      = $resource->daya();
 $provinces = $resource->provinsi();

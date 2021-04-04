@@ -1,11 +1,43 @@
-<form action="{{ asset('Pasangbaru/proses') }}" method="post" accept-charset="utf-8">
+<form action="{{ asset('admin/pasangbaru/proses') }}" method="post" accept-charset="utf-8">
   {{ csrf_field() }}
 
-  <div> Keterangan : Status Disetujui <a class="btn btn-primary btn-sm approval-link"></a>, Status Pembayaran <a class="btn btn-warning btn-sm approval-link"></a>, Status Selesai <a class="btn btn-success btn-sm approval-link"></a> </a> </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button class="btn btn-danger btn-sm" type="submit" name="hapus" onClick="check();">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </span>
+        <div>&nbsp&nbsp</div>
+        <div class="btn btn-secondary btn-sm"> Keterangan : Status Disetujui <a class="btn btn-primary btn-sm approval-link"></a>&nbsp|&nbsp Status Pembayaran <a class="btn btn-warning btn-sm approval-link"></a>&nbsp|&nbsp Status Selesai <a class="btn btn-success btn-sm approval-link"></a> </a> </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <hr>
+  </div>
+
+  <div class="col-md-8">
+    <div class="btn-group">
+      <?php if (isset($pagin)) {
+        echo $pagin;
+      } ?>
+    </div>
+  </div>
+
   <div class="table-responsive mailbox-messages">
     <table id="example1" class="display table table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr class="bg-dark">
+          <th width="5%">
+            <div class="mailbox-controls">
+              <!-- Check all button -->
+              <button type="button" class="btn btn-info btn-sm checkbox-toggle"><i class="far fa-square"></i>
+              </button>
+            </div>
+          </th>
           <th width="25%" class="text-center">NAMA PEMOHON</th>
           <th width="15%" class="text-center">INSTALASI</th>
           <th width="15%" class="text-center">BIAYA TOTAL</th>
@@ -19,6 +51,12 @@
         foreach ($pasangbaru as $pasangbaru) { ?>
 
           <tr class="odd gradeX">
+            <td class="text-center">
+              <div class="icheck-primary">
+                <input type="checkbox" class="icheckbox_flat-blue " name="idpasangbarunya[]" value="<?php echo $pasangbaru->id ?>">
+                <label for="check<?php echo $i ?>"></label>
+              </div>
+            </td>
             <td>
               <a>
                 <?php echo $pasangbaru->nama_konsumen ?> <sup><i class="fa fa-pencil"></i></sup>
@@ -252,3 +290,10 @@
     </table>
   </div>
 </form>
+
+<div class="clearfix">
+  <hr>
+</div>
+<div class="pull-right"><?php if (isset($pagin)) {
+                          echo $pagin;
+                        } ?></div>

@@ -86,19 +86,12 @@ class Pasangbaru extends Controller
         $site   = DB::table('konfigurasi')->first();
         // PROSES HAPUS MULTIPLE
         if (isset($_POST['hapus'])) {
-            $id_pasang       = $request->id;
+            $id_pasang = $request->input('idpasangbarunya');
+
             for ($i = 0; $i < sizeof($id_pasang); $i++) {
                 DB::table('pasang_baru')->where('id', $id_pasang[$i])->delete();
             }
             return redirect('admin/pasangbaru')->with(['sukses' => 'Data telah dihapus']);
-        } elseif (isset($_POST['update'])) {
-            $id_pasang       = $request->id;
-            for ($i = 0; $i < sizeof($id_pasang); $i++) {
-                DB::table('pasang_baru')->where('id', $id_pasang[$i])->update([
-                    'id'    => $request->id
-                ]);
-            }
-            return redirect('admin/pasangbaru')->with(['sukses' => 'Data di update']);
         }
     }
 }

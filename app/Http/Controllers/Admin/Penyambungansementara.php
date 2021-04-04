@@ -86,7 +86,8 @@ class Penyambungansementara extends Controller
         $site   = DB::table('konfigurasi')->first();
         // PROSES HAPUS MULTIPLE
         if (isset($_POST['hapus'])) {
-            $id_perbuahan       = $request->id;
+            $id_perbuahan  = $request->input('idpenyambungansementaranya');
+
             for ($i = 0; $i < sizeof($id_perbuahan); $i++) {
                 DB::table('penyambungan_sementara')->where('id', $id_perbuahan[$i])->delete();
             }

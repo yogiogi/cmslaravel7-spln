@@ -235,12 +235,17 @@ Route::group(
         Route::get('admin/pendaftaranslo/update/{par1}', 'Pendaftaranslo@update');
         Route::get('admin/pendaftaranslo/update_bayar/{par1}', 'Pendaftaranslo@update_bayar');
         Route::get('admin/pendaftaranslo/update_selesai/{par1}', 'Pendaftaranslo@update_selesai');
+        Route::post('admin/pendaftaranslo/proses', 'Pendaftaranslo@proses');
+        Route::post('admin/pendaftaranslo/deleteAll', 'Pendaftaranslo@deleteAll');
+        // Route::post('admin/berita/proses', 'Berita@proses');
+
         //Pasang baru
         Route::get('admin/pasangbaru', 'Pasangbaru@index');
         Route::get('admin/pasangbaru/delete/{par1}', 'Pasangbaru@delete');
         Route::get('admin/pasangbaru/update/{par1}', 'Pasangbaru@update');
         Route::get('admin/pasangbaru/update_bayar/{par1}', 'Pasangbaru@update_bayar');
         Route::get('admin/pasangbaru/update_selesai/{par1}', 'Pasangbaru@update_selesai');
+        Route::post('admin/pasangbaru/proses', 'Pasangbaru@proses');
 
         //Perubahan daya
         Route::get('admin/perubahandaya', 'Perubahandaya@index');

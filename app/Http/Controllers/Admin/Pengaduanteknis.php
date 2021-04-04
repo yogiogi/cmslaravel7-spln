@@ -100,16 +100,16 @@ class Pengaduanteknis extends Controller
         $site   = DB::table('konfigurasi')->first();
         // PROSES HAPUS MULTIPLE
         if (isset($_POST['hapus'])) {
-            $id_ngadu       = $request->id;
+            $id_ngadu       = $request->idpengaduannya;
             for ($i = 0; $i < sizeof($id_ngadu); $i++) {
                 DB::table('pengaduan_teknis')->where('id', $id_ngadu[$i])->delete();
             }
             return redirect('admin/pengaduanteknis')->with(['sukses' => 'Data telah dihapus']);
         } elseif (isset($_POST['update'])) {
-            $id_ngadu       = $request->id;
+            $id_ngadu       = $request->idpengaduannya;
             for ($i = 0; $i < sizeof($id_ngadu); $i++) {
                 DB::table('pengaduan_teknis')->where('id', $id_ngadu[$i])->update([
-                    'id'    => $request->id
+                    'id'    => $request->idpengaduannya
                 ]);
             }
             return redirect('admin/pengaduanteknis')->with(['sukses' => 'Data di update']);

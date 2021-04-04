@@ -87,13 +87,13 @@ class Mcbbox extends Controller
         $site   = DB::table('konfigurasi')->first();
         // PROSES HAPUS MULTIPLE
         if (isset($_POST['hapus'])) {
-            $id_mcb       = $request->id;
+            $id_mcb       = $request->idmcbboxnya;
             for ($i = 0; $i < sizeof($id_mcb); $i++) {
                 DB::table('mcb_box')->where('id', $id_mcb[$i])->delete();
             }
             return redirect('admin/mcbbox')->with(['sukses' => 'Data telah dihapus']);
         } elseif (isset($_POST['update'])) {
-            $id_mcb       = $request->id;
+            $id_mcb       = $request->idmcbboxnya;
             for ($i = 0; $i < sizeof($id_mcb); $i++) {
                 DB::table('mcb_box')->where('id', $id_mcb[$i])->update([
                     'id'    => $request->id

@@ -65,20 +65,20 @@ class Perubahandaya extends Controller
         return redirect('admin/perubahandaya')->with(['sukses' => 'Data berhasil di update']);
     }
 
-      // Update
-      public function update_selesai($id_pasang)
-      {
-          date_default_timezone_set('Asia/Jakarta');
-          if (Session()->get('username') == "") {
-              return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
-          }
-  
-          DB::table('perubahan_daya')->where('id', $id_pasang)->update([
-              'status_selesai'      => '1',
-              'tanggal_selesai' => now(),
-          ]);
-          return redirect('admin/pasangbaru')->with(['sukses' => 'Data berhasil di update']);
-      }
+    // Update
+    public function update_selesai($id_pasang)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        if (Session()->get('username') == "") {
+            return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
+        }
+
+        DB::table('perubahan_daya')->where('id', $id_pasang)->update([
+            'status_selesai'      => '1',
+            'tanggal_selesai' => now(),
+        ]);
+        return redirect('admin/pasangbaru')->with(['sukses' => 'Data berhasil di update']);
+    }
 
     // Proses
     public function proses(Request $request)
@@ -86,13 +86,14 @@ class Perubahandaya extends Controller
         $site   = DB::table('konfigurasi')->first();
         // PROSES HAPUS MULTIPLE
         if (isset($_POST['hapus'])) {
-            $id_perbuahan       = $request->id;
+            $id_perbuahan = $request->input('idperubahandayanya');
+
             for ($i = 0; $i < sizeof($id_perbuahan); $i++) {
                 DB::table('perubahan_daya')->where('id', $id_perbuahan[$i])->delete();
             }
             return redirect('admin/perubahandaya')->with(['sukses' => 'Data telah dihapus']);
         } elseif (isset($_POST['update'])) {
-            $id_perbuahan       = $request->id;
+            $id_perbuahan       = $request->input('idperubahandayanya');
             for ($i = 0; $i < sizeof($id_perbuahan); $i++) {
                 DB::table('perubahan_daya')->where('id', $id_perbuahan[$i])->update([
                     'id'    => $request->id

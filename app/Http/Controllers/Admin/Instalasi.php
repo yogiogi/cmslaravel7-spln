@@ -86,13 +86,13 @@ class Instalasi extends Controller
         $site   = DB::table('konfigurasi')->first();
         // PROSES HAPUS MULTIPLE
         if (isset($_POST['hapus'])) {
-            $id_perbuahan       = $request->id;
+            $id_perbuahan       = $request->idinstalasinya;
             for ($i = 0; $i < sizeof($id_perbuahan); $i++) {
                 DB::table('instalasi')->where('id', $id_perbuahan[$i])->delete();
             }
             return redirect('admin/instalasi')->with(['sukses' => 'Data telah dihapus']);
         } elseif (isset($_POST['update'])) {
-            $id_perbuahan       = $request->id;
+            $id_perbuahan       = $request->idinstalasinya;
             for ($i = 0; $i < sizeof($id_perbuahan); $i++) {
                 DB::table('instalasi')->where('id', $id_perbuahan[$i])->update([
                     'id'    => $request->id

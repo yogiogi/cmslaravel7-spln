@@ -86,19 +86,14 @@ class pendaftaranslo extends Controller
         $site   = DB::table('konfigurasi')->first();
         // PROSES HAPUS MULTIPLE
         if (isset($_POST['hapus'])) {
-            $id_slo       = $request->id;
-            for ($i = 0; $i < sizeof($id_slo); $i++) {
+            $id_slo = $request->input('idslonya');
+            // error_log('Some message here.');
+            // error_log(dd($id_slo));
+
+            for ($i = 0; $i < count($id_slo); $i++) {
                 DB::table('pendaftaran_slo')->where('id', $id_slo[$i])->delete();
             }
             return redirect('admin/pendaftaranslo')->with(['sukses' => 'Data telah dihapus']);
-        } elseif (isset($_POST['update'])) {
-            $id_slo       = $request->id;
-            for ($i = 0; $i < sizeof($id_slo); $i++) {
-                DB::table('pendaftaran_slo')->where('id', $id_slo[$i])->update([
-                    'id'    => $request->id
-                ]);
-            }
-            return redirect('admin/pendaftaranslo')->with(['sukses' => 'Data kategori telah diubah']);
         }
     }
 }

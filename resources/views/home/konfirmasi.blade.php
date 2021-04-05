@@ -1,3 +1,41 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<script>
+  $(document).ready(function() {
+    $('#submitGO').on('click', function() {
+      $.ajax({
+        url: '{{ url("/konfirmasi_proses") }}',
+        type: "POST",
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+          kode_transaksi: $("#kode_transaksi").val(),
+          id_rekening: $("#id_rekening").val(),
+          cara_bayar: $("#cara_bayar").val(),
+          tanggal_bayar: $("#tanggal_bayar").val(),
+          bukti: $("#bukti").val(),
+          jumlah: $("#jumlah").val(),
+          pengirim: $("#pengirim").val(),
+          nama_bank_pengirim: $("#nama_bank_pengirim").val(),
+          nomor_rekening_pengirim: $("#nomor_rekening_pengirim").val(),
+          keterangan: $("#keterangan").val(),
+        },
+        dataType: 'text',
+        success: function(data) {
+          console.log("oke coy");
+          var item = "Bukti pembayaran Anda sudah berhasil di upload, layanan Anda akan segera kami proses";
+          $("#areaValue").html(item);
+          $("#showModal").modal("toggle");
+        },
+        error: function(xhr, status, error) {
+          alert('Terjadi kesalahan server');
+        }
+      });
+    });
+  });
+</script>
+
 <!-- ======= Hero Section ======= -->
 <section id="hero">
   <div class="container">
@@ -179,7 +217,7 @@
                   <label class="col-sm-3 control-label"></label>
                   <div class="col-sm-9">
                     <div class="btn-group">
-                      <button type="submit" name="submit" class="btn btn-primary btn-lg" value="login">
+                      <button id="submitGO" name="submitGO" type="button" class="btn btn-primary">
                         <i class="fa fa-save"></i> Simpan Data
                       </button>
                       <button type="reset" name="submit" class="btn btn-info btn-lg" value="reset">
@@ -196,4 +234,19 @@
       </div>
     </div>
   </div>
-</section><!-- End Hero -->
+</section>
+
+<div class="modal fade" id="showModal" name="showModal" tabindex="-1" role="dialog" aria-labelledby="showmodalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Permohonan Data Berhasil</h5>
+      </div>
+      <div class="modal-body" id="areaValue">
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" href="http://spln.co.id/" role="button">OK, kembali</a>
+      </div>
+    </div>
+  </div>
+</div>

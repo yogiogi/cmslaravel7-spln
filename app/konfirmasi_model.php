@@ -84,6 +84,10 @@ class konfirmasi_model extends Model
             ->union($enam)
             ->get();
 
+        if (isEmpty($query)) {
+            return "0";
+        }
+
         return $query;
     }
 }

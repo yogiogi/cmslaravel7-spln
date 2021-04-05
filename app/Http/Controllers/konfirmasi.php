@@ -29,7 +29,7 @@ class konfirmasi extends Controller
         $keterangan = $request->input('keterangan');
         $getId = konfirmasi_model::getValue($kode_transaksi);
 
-        if (!$getId) {
+        if ($getId == "0") {
             return response("id layanan tidak terdaftar");
         }
 
@@ -38,7 +38,7 @@ class konfirmasi extends Controller
             $filenamewithextension  = $request->file('bukti')->getClientOriginalName();
             $filename               = pathinfo($filenamewithextension, PATHINFO_FILENAME);
             $input['nama_file']     = str_slug($filename, '-') . '-' . time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath        = public_path('upload/image/thumbs/');
+            $destinationPath        = public_path('upload/transaksi/thumbs/');
             $img = Image::make($image->getRealPath(), array(
                 'width'     => 150,
                 'height'    => 150,

@@ -79,6 +79,13 @@
                 <br>
                 <br>
                 <a href="#modalDetailID" data-toggle="modal" data-target="#modalDetailID<?php echo $slo->id ?>">Detail</a>
+                <br><b><a><?php if ($slo->status == 0) {
+                            echo "Belum Disetujui ";
+                          } else if ($slo->status == 1 && $slo->status_bayar == 0) {
+                            echo "Disetujui ";
+                          } else if ($slo->status == 1 && $slo->status_bayar == 1) {
+                            echo "Dibayar ";
+                          } ?><sup></sup></a></b>
 
                 <br>tanggal daftar : <?php if ($slo->tgl_permohonan != 0) {
                                         echo date("d/m/Y", strtotime($slo->tgl_permohonan));
@@ -90,8 +97,8 @@
                                         } else {
                                           echo "-";
                                         } ?>
-                <br>tanggal bayar : <?php if ($slo->tanggal_bayar != 0) {
-                                      echo date("d/m/Y", strtotime($slo->tanggal_bayar));
+                <br>tanggal bayar : <?php if ($slo->tgld != 0) {
+                                      echo date("d/m/Y", strtotime($slo->tgld));
                                     } else {
                                       echo "-";
                                     } ?>
@@ -125,13 +132,7 @@
               <a href="#modaldetailBiaya" data-toggle="modal" data-target="#modaldetailBiaya<?php echo $slo->id ?>">Rp <?php echo number_format($slo->total, 0) ?><sup></sup></a>
             </td>
             <td>
-              <a><?php if ($slo->status == 0) {
-                    echo "Belum Disetujui ";
-                  } else if ($slo->status == 1 && $slo->status_bayar == 0) {
-                    echo "Disetujui ";
-                  } else if ($slo->status == 1 && $slo->status_bayar == 1) {
-                    echo "Dibayar ";
-                  } ?><sup></sup></a>
+              <img src="{{ asset('upload/transaksi/'.$slo->buktid) }}" height="30px" width="30px" />
             </td>
             <td>
               <div class="btn-group">
@@ -185,6 +186,7 @@
                 @endif
 
                 <a href="{{ asset('admin/pendaftaranslo/delete/'.$slo->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
+
               </div>
             </td>
           </tr>

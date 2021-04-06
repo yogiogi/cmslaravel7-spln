@@ -47,6 +47,8 @@ class pendaftaranslo_model extends Model
             ->join('list_daya as a', 'a.id', '=', 'pendaftaran_slo.daya', 'LEFT')
             ->join('list_daya as b', 'b.id', '=', 'pendaftaran_slo.dayalama', 'LEFT')
             ->join('variabel_perhitungan as c', 'c.kode_layanan', '=', 'pendaftaran_slo.kode_layanan', 'LEFT')
+            ->join('konfirmasi as d', 'd.id_transaksi', '=', 'pendaftaran_slo.id_transaksi', 'LEFT')
+            ->join('rekening as e', 'e.id_rekening', '=', 'd.id_rekening', 'LEFT')
             ->select(
                 'pendaftaran_slo.*',
                 'provinces.name as prov',
@@ -59,7 +61,17 @@ class pendaftaranslo_model extends Model
                 'c.ppj as ppjc',
                 'c.biaya as biayac',
                 'c.slo as sloc',
-                'c.gil as gilc'
+                'c.gil as gilc',
+                'e.nomor_rekening as noreksplnd',
+                'e.nama_bank as namabanksplnd',
+                'e.atas_nama as atasnamasplnd',
+                'd.cara_bayar as carabayard',
+                'd.tgl_bayar as tgld',
+                'd.bukti_bayar as buktid',
+                'd.jumlah_pembayaran as jumlahd',
+                'd.nama_pemilik_rek as namapemilikd',
+                'd.nama_bank as namabankd',
+                'd.nomor_rekening as norekd'
             )
             ->orderBy('id', 'DESC')
             ->get();

@@ -28,13 +28,13 @@ class varinstalasi extends Controller
     }
 
     // Update
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         date_default_timezone_set('Asia/Jakarta');
         if (Session()->get('username') == "") {
             return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
         }
-        DB::table('var_instalasi')->where('id', $request->id)->update([
+        DB::table('var_instalasi')->where('id', $id)->update([
             'daya' => $request->daya,
             'lampu' => $request->lampu,
             'saklar' => $request->saklar,

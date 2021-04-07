@@ -1,35 +1,35 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
-    $(document).ready(function() {
-        $('#saveButton').on('click', function() {
-            $.ajax({
-                url: '{{ url("admin/varpenyambungansementara/update") }}',
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id: $('#id').val(),
-                    daya: $('#daya').val(),
-                    slo: $('#slo').val(),
-                    gil: $('#gil').val(),
-                    ujl: $('#ujl').val(),
-                    materai: $('#materai').val(),
-                    biaya: $('#biaya').val(),
-                    ppn: $('#ppn').val(),
-                    ppj: $('#ppj').val(),
-                },
-                dataType: 'text',
-                success: function(data) {
-                    $("#showModal").modal("toggle");
-                },
-                error: function(xhr, status, error) {
-                    alert('Terjadi kesalahan server');
-                }
-            });
-        });
-    });
+    // $(document).ready(function() {
+    //     $('#saveButton').on('click', function() {
+    //         $.ajax({
+    //             url: '{{ url("admin/varpenyambungansementara/update") }}',
+    //             type: "POST",
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             },
+    //             data: {
+    //                 id: $('#id').val(),
+    //                 daya: $('#daya').val(),
+    //                 slo: $('#slo').val(),
+    //                 gil: $('#gil').val(),
+    //                 ujl: $('#ujl').val(),
+    //                 materai: $('#materai').val(),
+    //                 biaya: $('#biaya').val(),
+    //                 ppn: $('#ppn').val(),
+    //                 ppj: $('#ppj').val(),
+    //             },
+    //             dataType: 'text',
+    //             success: function(data) {
+    //                 $("#showModal").modal("toggle");
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 alert('Terjadi kesalahan server');
+    //             }
+    //         });
+    //     });
+    // });
 
     $(document).ready(function() {
         $('#tambahButton').on('click', function() {
@@ -134,25 +134,26 @@
 
                             <div class="modal-body">
                                 <!--Modal update data-->
-                                <form action="" accept-charset="utf-8">
+                                <!-- <form action="" accept-charset="utf-8"> -->
+                                <form action="varpenyambungansementara/update/{{ $varpenyambungan->id }}" method="POST">
                                     <input type="hidden" name="id" value=<?php echo $varpenyambungan->id ?>>
                                     {{ csrf_field() }}
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="edDaya" name="edDaya" value=<?php echo $varpenyambungan->daya ?>>
+                                            <input type="number" class="form-control" id="daya" name="daya" value=<?php echo $varpenyambungan->daya ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="edSLO" name="edSLO" value=<?php echo $varpenyambungan->slo ?>>
+                                            <input type="number" class="form-control" id="slo" name="slo" value=<?php echo $varpenyambungan->slo ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="gil" name="fil" value=<?php echo $varpenyambungan->gil ?>>
+                                            <input type="number" class="form-control" id="gil" name="gil" value=<?php echo $varpenyambungan->gil ?>>
                                         </div>
                                     </div>
 
@@ -166,7 +167,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ujl" name="ujl" value=<?php echo $varpenyambungan->materai ?>>
+                                            <input type="number" class="form-control" id="materai" name="materai" value=<?php echo $varpenyambungan->materai ?>>
                                         </div>
                                     </div>
 
@@ -197,7 +198,8 @@
                                         </div>
                                     </div>
 
-                                    <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Simpan Data</button>
+                                    <!-- <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Simpan Data</button> -->
+                                    <button type="submit" class="btn btn-primary">Perbarui Data</button>
 
                                 </form>
                                 <!--Modal update data-->

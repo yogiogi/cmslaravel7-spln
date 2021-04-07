@@ -28,18 +28,18 @@ class varmcbbox extends Controller
     }
 
     // Update
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         date_default_timezone_set('Asia/Jakarta');
         if (Session()->get('username') == "") {
             return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
         }
-        DB::table('var_mcb_box')->where('id', $request->id)->update([
+        DB::table('var_mcb_box')->where('id', $id)->update([
             'daya' => $request->daya,
-            'harga_mcb' => $request->harga_mcb,
-            'harga_lnb' => $request->harga_lnb,
-            'harga_mccb' => $request->harga_mccb,
-            'harga_trafo' => $request->harga_trafo,
+            'harga_mcb' => $request->mcb,
+            'harga_lnb' => $request->lnb,
+            'harga_mccb' => $request->mccb,
+            'harga_trafo' => $request->trafo,
             'mdp' => $request->mdp,
             'sdp' => $request->sdp,
             'slo' => $request->slo,

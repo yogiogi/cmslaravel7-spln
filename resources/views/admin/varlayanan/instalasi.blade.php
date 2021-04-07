@@ -1,39 +1,39 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
-    $(document).ready(function() {
-        $('#saveButton').on('click', function() {
-            $.ajax({
-                url: '{{ url("admin/varinstalasi/update") }}',
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id: $('#id').val(),
-                    daya: $('#daya').val(),
-                    lampu: $('#lampu').val(),
-                    saklar: $('#saklar').val(),
-                    stopkontak: $('#stopkontak').val(),
-                    hargameter: $('#kabel').val(),
-                    slo: $('#slo').val(),
-                    gil: $('#gil').val(),
-                    ujl: $('#ujl').val(),
-                    materai: $('#materai').val(),
-                    biaya: $('#biaya').val(),
-                    ppn: $('#ppn').val(),
-                    ppj: $('#ppj').val(),
-                },
-                dataType: 'text',
-                success: function(data) {
-                    $("#showModal").modal("toggle");
-                },
-                error: function(xhr, status, error) {
-                    alert('Terjadi kesalahan server');
-                }
-            });
-        });
-    });
+    // $(document).ready(function() {
+    //     $('#saveButton').on('click', function() {
+    //         $.ajax({
+    //             url: '{{ url("admin/varinstalasi/update") }}',
+    //             type: "POST",
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             },
+    //             data: {
+    //                 id: $('#id').val(),
+    //                 daya: $('#daya').val(),
+    //                 lampu: $('#lampu').val(),
+    //                 saklar: $('#saklar').val(),
+    //                 stopkontak: $('#stopkontak').val(),
+    //                 hargameter: $('#kabel').val(),
+    //                 slo: $('#slo').val(),
+    //                 gil: $('#gil').val(),
+    //                 ujl: $('#ujl').val(),
+    //                 materai: $('#materai').val(),
+    //                 biaya: $('#biaya').val(),
+    //                 ppn: $('#ppn').val(),
+    //                 ppj: $('#ppj').val(),
+    //             },
+    //             dataType: 'text',
+    //             success: function(data) {
+    //                 $("#showModal").modal("toggle");
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 alert('Terjadi kesalahan server');
+    //             }
+    //         });
+    //     });
+    // });
 
     $(document).ready(function() {
         $('#tambahButton').on('click', function() {
@@ -74,7 +74,6 @@
             });
         });
     });
-    
 </script>
 
 <span class="input-group-btn btn-flat">
@@ -164,7 +163,8 @@
 
                             <div class="modal-body">
                                 <!--Modal update data-->
-                                <form action="" accept-charset="utf-8">
+                                <!-- <form action="" accept-charset="utf-8"> -->
+                                <form action="varinstalasi/update/{{ $varinstalasi->id }}" method="POST">
                                     <input type="hidden" name="id" id="id" value=<?php echo $varinstalasi->id ?>>
                                     {{ csrf_field() }}
                                     <div class="form-group row">
@@ -196,7 +196,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Kabel Penghantar : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="kabel" name="kabel" value=<?php echo $varinstalasi->hargameter ?> meter>
+                                            <input type="number" class="form-control" id="hargameter" name="hargameter" value=<?php echo $varinstalasi->hargameter ?> meter>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -208,7 +208,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="gil" name="fil" value=<?php echo $varinstalasi->gil ?>>
+                                            <input type="number" class="form-control" id="gil" name="gil" value=<?php echo $varinstalasi->gil ?>>
                                         </div>
                                     </div>
 
@@ -253,7 +253,8 @@
                                         </div>
                                     </div>
 
-                                    <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Simpan Data</button>
+                                    <!-- <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Simpan Data</button> -->
+                                    <button type="submit" class="btn btn-primary">Perbarui Data</button>
 
                                 </form>
                                 <!--Modal update data-->

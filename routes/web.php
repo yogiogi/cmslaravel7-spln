@@ -291,52 +291,52 @@ Route::group(
         Route::get('varLayanan/update', 'Variable@update');
 
         Route::get('admin/varinstalasi', 'varinstalasi@index');
-        Route::post('admin/varinstalasi/update', 'varinstalasi@update');
+        Route::post('admin/varinstalasi/update/{par1}', 'varinstalasi@update');
         Route::post('admin/varinstalasi/tambah', 'varinstalasi@tambah');
         Route::get('admin/varinstalasi/delete/{par1}', 'varinstalasi@delete');
 
         Route::get('admin/varmcbbox', 'varmcbbox@index');
-        Route::post('admin/varmcbbox/update', 'varmcbbox@update');
+        Route::post('admin/varmcbbox/update/{par1}', 'varmcbbox@update');
         Route::post('admin/varmcbbox/tambah', 'varmcbbox@tambah');
         Route::get('admin/varmcbbox/delete/{par1}', 'varmcbbox@delete');
 
         Route::get('admin/varpasangpasca', 'varpasangpasca@index');
-        Route::post('admin/varpasangpasca/update', 'varpasangpasca@update');
+        Route::post('admin/varpasangpasca/update/{par1}', 'varpasangpasca@update');
         Route::post('admin/varpasangpasca/tambah', 'varpasangpasca@tambah');
         Route::get('admin/varpasangpasca/delete/{par1}', 'varpasangpasca@delete');
 
         Route::get('admin/varpasangpra', 'varpasangpra@index');
-        Route::post('admin/varpasangpra/update', 'varpasangpra@update');
+        Route::post('admin/varpasangpra/update/{par1}', 'varpasangpra@update');
         Route::post('admin/varpasangpra/tambah', 'varpasangpra@tambah');
         Route::get('admin/varpasangpra/delete/{par1}', 'varpasangpra@delete');
 
         Route::get('admin/varpendaftaranslo', 'varpendaftaranslo@index');
-        Route::post('admin/varpendaftaranslo/update', 'varpendaftaranslo@update');
+        Route::post('admin/varpendaftaranslo/update/{par1}', 'varpendaftaranslo@update');
         Route::post('admin/varpendaftaranslo/tambah', 'varpendaftaranslo@tambah');
         Route::get('admin/varpendaftaranslo/delete/{par1}', 'varpendaftaranslo@delete');
 
         Route::get('admin/varpengaduanteknis', 'varpengaduanteknis@index');
-        Route::post('admin/varpengaduanteknis/update', 'varpengaduanteknis@update');
+        Route::post('admin/varpengaduanteknis/update/{par1}', 'varpengaduanteknis@update');
         Route::post('admin/varpengaduanteknis/tambah', 'varpengaduanteknis@tambah');
         Route::get('admin/varpengaduanteknis/delete/{par1}', 'varpengaduanteknis@delete');
 
         Route::get('admin/varpenyambungansementara', 'varpenyambungansementara@index');
-        Route::post('admin/varpenyambungansementara/update', 'varpenyambungansementara@update');
+        Route::post('admin/varpenyambungansementara/update/{par1}', 'varpenyambungansementara@update');
         Route::post('admin/varpenyambungansementara/tambah', 'varpenyambungansementara@tambah');
         Route::get('admin/varpenyambungansementara/delete/{par1}', 'varpenyambungansementara@delete');
 
         Route::get('admin/varubahpascapasca', 'varubahpascapasca@index');
-        Route::post('admin/varubahpascapasca/update', 'varubahpascapasca@update');
+        Route::post('admin/varubahpascapasca/update/{par1}', 'varubahpascapasca@update');
         Route::post('admin/varubahpascapasca/tambah', 'varubahpascapasca@tambah');
         Route::get('admin/varubahpascapasca/delete/{par1}', 'varubahpascapasca@delete');
 
         Route::get('admin/varubahprapasca', 'varubahprapasca@index');
-        Route::post('admin/varubahprapasca/update', 'varubahprapasca@update');
+        Route::post('admin/varubahprapasca/update/{par1}', 'varubahprapasca@update');
         Route::post('admin/varubahprapasca/tambah', 'varubahprapasca@tambah');
         Route::get('admin/varubahprapasca/delete/{par1}', 'varubahprapasca@delete');
 
         Route::get('admin/varubahprapra', 'varubahprapra@index');
-        Route::post('admin/varubahprapra/update', 'varubahprapra@update');
+        Route::post('admin/varubahprapra/update/{par1}', 'varubahprapra@update');
         Route::post('admin/varubahprapra/tambah', 'varubahprapra@tambah');
         Route::get('admin/varubahprapra/delete/{par1}', 'varubahprapra@delete');
     }

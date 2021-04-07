@@ -1,35 +1,35 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
-    $(document).ready(function() {
-        $('#saveButton').on('click', function() {
-            $.ajax({
-                url: '{{ url("admin/varpasangpra/update") }}',
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id: $('#id').val(),
-                    daya: $('#daya').val(),
-                    slo: $('#slo').val(),
-                    gil: $('#gil').val(),
-                    ujl: $('#ujl').val(),
-                    materai: $('#materai').val(),
-                    biaya: $('#biaya').val(),
-                    ppn: $('#ppn').val(),
-                    ppj: $('#ppj').val(),
-                },
-                dataType: 'text',
-                success: function(data) {
-                    $("#showModal").modal("toggle");
-                },
-                error: function(xhr, status, error) {
-                    alert('Terjadi kesalahan server');
-                }
-            });
-        });
-    });
+    // $(document).ready(function() {
+    //     $('#saveButton').on('click', function() {
+    //         $.ajax({
+    //             url: '{{ url("admin/varpasangpra/update") }}',
+    //             type: "POST",
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             },
+    //             data: {
+    //                 id: $('#id').val(),
+    //                 daya: $('#daya').val(),
+    //                 slo: $('#slo').val(),
+    //                 gil: $('#gil').val(),
+    //                 ujl: $('#ujl').val(),
+    //                 materai: $('#materai').val(),
+    //                 biaya: $('#biaya').val(),
+    //                 ppn: $('#ppn').val(),
+    //                 ppj: $('#ppj').val(),
+    //             },
+    //             dataType: 'text',
+    //             success: function(data) {
+    //                 $("#showModal").modal("toggle");
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 alert('Terjadi kesalahan server');
+    //             }
+    //         });
+    //     });
+    // });
 
     $(document).ready(function() {
         $('#tambahButton').on('click', function() {
@@ -133,7 +133,8 @@
 
                             <div class="modal-body">
                                 <!--Modal update data-->
-                                <form action="" accept-charset="utf-8">
+                                <form action="varpasangpra/update/{{ $varpasangbarupra->id }}" method="POST">
+
                                     <input type="hidden" name="id" id="id" value=<?php echo $varpasangbarupra->id ?>>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
@@ -150,7 +151,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="gil" name="fil" value=<?php echo $varpasangbarupra->gil ?>>
+                                            <input type="number" class="form-control" id="gil" name="gil" value=<?php echo $varpasangbarupra->gil ?>>
                                         </div>
                                     </div>
 
@@ -189,7 +190,8 @@
                                         </div>
                                     </div>
 
-                                    <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Simpan Data</button>
+                                    <!-- <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Simpan Data</button> -->
+                                    <button type="submit" class="btn btn-primary">Perbarui Data</button>
 
                                 </form>
                                 <!--Modal update data-->

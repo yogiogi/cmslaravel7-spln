@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\variable_model;
+use App\pendaftaranslo_model;
 
 class varpendaftaranslo extends Controller
 {
@@ -26,14 +27,14 @@ class varpendaftaranslo extends Controller
         return view('admin/layout/wrapper', $data);
     }
 
-    // Update
-    public function update(Request $request)
+    // // Update
+    public function update(Request $request, $id)
     {
         date_default_timezone_set('Asia/Jakarta');
         if (Session()->get('username') == "") {
             return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);
         }
-        DB::table('var_pendaftaran_slo')->where('id', $request->id)->update([
+        DB::table('var_pendaftaran_slo')->where('id', $id)->update([
             'daya' => $request->daya,
             'slo' => $request->slo,
             'gil' => $request->gil,

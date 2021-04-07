@@ -38,6 +38,9 @@ class Penyambungansementara extends Controller
     $id_pelanggan = $request->input('id_pelanggan');
     $no_meter = $request->input('nomer_meter');
     $durasi = $request->input('durasi');
+    $layanan = $request->input('layanan');
+    $daya = $request->input('daya');
+    $token = $request->input('token');
     $biaya = $request->input('biaya');
 
     $ppn = $request->input('ppn');
@@ -66,6 +69,9 @@ class Penyambungansementara extends Controller
       'id_pelanggan' => $id_pelanggan,
       'no_meter' => $no_meter,
       'durasi' => $durasi,
+      'sifat_instalasi' => $layanan,
+      'daya' => $daya,
+      'token' => $token,
       'tanggal_nyala' => $tanggal_nyala,
       'jammulai' => $jammulai,
       'biaya' => $biaya,
@@ -88,10 +94,10 @@ class Penyambungansementara extends Controller
   {
     $model = new resource_model();
     // $produk = $model->variablePerhitungan(6);
-    $produk = $model->nilaiSambungSementara();
+    $produk = $model->getNilaiSambungSementara($request->daya);
 
     $durasi = $request->durasi;
-
+    $token = $request->token;
     $biaya = $produk->biaya;
     $ppn = $produk->PPN;
     $ppj = $produk->PPJ;
@@ -100,7 +106,7 @@ class Penyambungansementara extends Controller
     $jumlah_biaya = $durasi * $biaya;
     $ppn = $ppn * $jumlah_biaya;
     $ppj = $ppj * $jumlah_biaya;
-    $total = $jumlah_biaya + $ppn + $ppj + $materai;
+    $total = $jumlah_biaya + $token + $ppn + $ppj + $materai;
 
     $data = [
       'biaya' => $jumlah_biaya,

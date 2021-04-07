@@ -40,7 +40,7 @@
           </th>
           <th width="15%" class="text-center">NAMA PEMOHON</th>
           <th width="10%" class="text-left">ID PELANGGAN</th>
-          <th width="10%" class="text-left">WAKTU PENYAMBUNGAN</th>
+          <th width="10%" class="text-left">LAYANAN PENYAMBUNGAN</th>
           <th width="15%" class="text-center">BIAYA TOTAL</th>
           <th width="5%" class="text-center">STATUS</th>
           <th width="5%" class="text-center"></th>
@@ -99,7 +99,10 @@
             <td>
               <small>
                 <a><?php echo $penyambungansementara->tanggal_nyala ?> </a><br>
-                <a><?php echo $penyambungansementara->jammulai ?>, durasi <?php echo $penyambungansementara->durasi ?> jam </a>
+                <a><?php echo $penyambungansementara->jammulai ?>, durasi <?php echo $penyambungansementara->durasi ?> jam </a><br>
+                <a><?php echo $penyambungansementara->jenislayanan ?> </a><br>
+                <a>daya : <?php echo $penyambungansementara->daya ?> Watt </a><br> 
+                <a>token :<?php echo $penyambungansementara->token ?> </a>
               </small>
             </td>
             <td>

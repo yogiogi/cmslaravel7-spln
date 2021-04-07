@@ -358,7 +358,7 @@ class resource_model extends Model
     {
         $query = DB::table('var_penyambungan_sementara')
             ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
-            ->first();
+            ->get();
         return $query;
     }
 

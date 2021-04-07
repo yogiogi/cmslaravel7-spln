@@ -88,6 +88,21 @@ use Carbon\Carbon;
 			<th align='left' width='40%'> <?php echo $data->durasi ?> Jam</th>
 		</tr>
 		<tr align='left'>
+			<th align='left' width='20%'> Layanan </th>
+			<th align='left' width='2%'> : </th>
+			<th align='left' width='40%'> <?php echo $data->jenislayanan ?> </th>
+		</tr>
+		<tr align='left'>
+			<th align='left' width='20%'> Daya </th>
+			<th align='left' width='2%'> : </th>
+			<th align='left' width='40%'> <?php echo $data->daya ?> Watt</th>
+		</tr>
+		<tr align='left'>
+			<th align='left' width='20%'> Token </th>
+			<th align='left' width='2%'> : </th>
+			<th align='left' width='40%'> <?php echo $data->token ?> Jam</th>
+		</tr>
+		<tr align='left'>
 			<th align='left' width='20%'> Tanggal Nyala Sementara</th>
 			<th align='left' width='2%'> : </th>
 			<th align='left' width='40%'> <?php echo $data->tanggal_nyala ?> </th>

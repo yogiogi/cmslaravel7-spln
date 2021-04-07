@@ -14,6 +14,9 @@ use App\resource_model;
 $site = DB::table('konfigurasi')->first();
 $resource = new resource_model();
 $provinces = $resource->provinsi();
+$layanan = $resource->layanan();
+$nilaisambung = $resource->nilaiSambungSementara();
+$token = $resource->token();
 ?>
 
 <script>
@@ -23,6 +26,21 @@ $provinces = $resource->provinsi();
       todayHighlight: 'TRUE',
       minDate: 0,
       autoclose: true
+    });
+  });
+
+  $(document).ready(function() {
+    $("#token").removeAttr('required');
+    $('#layanan').on('change', function() {
+      if (this.value == '1') {
+        $("#tokenjml").show();
+        $("#token").show();
+        $("#token").prop('required', true);
+      } else {
+        $("#tokenjml").hide().prop('required', false);
+        $("#token").hide().prop('required', false);
+        $("#token").removeAttr('required');
+      }
     });
   });
 </script>
@@ -121,6 +139,10 @@ $provinces = $resource->provinsi();
     var id_pelanggan = null;
     var tgl_penyambungan = null;
     var durasi = null;
+    var layanan = null;
+    var daya = null;
+    var token = null;
+    var ujl = 0;
 
     function formatRupiah(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -142,10 +164,18 @@ $provinces = $resource->provinsi();
       id_pelanggan = document.getElementsByName("id_pelanggan")[0];
       tgl_penyambungan = document.getElementsByName("id_pelanggan")[0];
       durasi = document.getElementsByName("durasi")[0];
+      layanan = $("#layanan").val();
+      daya = $('#daya').find(":selected").text();
+      token = $('#token').find(":selected").text();
+      if (layanan == "2") {
+        daya = $('#dayapasca').find(":selected").text();
+        token = 0;
+        ujl = 0;
+      }
 
       if (nama.value != '' && ktp.value != '' && alamat.value != '' && provinsi.value != 0 && kabupaten.value != 0 && kecamatan.value != 0 &&
         desa.value != 0 && email.value != '' && telepon_pemohon.value != '' && whatsapp.value != '' && id_pelanggan.value != '' &&
-        no_meter.value != '' && tgl_penyambungan.value != '' && durasi.value != 0 
+        no_meter.value != '' && tgl_penyambungan.value != '' && durasi.value != 0 && daya.value != 0 && token.value != 0
       ) {
 
         $.ajax({
@@ -153,6 +183,8 @@ $provinces = $resource->provinsi();
           url: "{{url('/penyambungansementara/perhitungan')}}",
           data: {
             durasi: $("#durasi").val(),
+            daya: $("#daya").val(),
+            token: $("#token").val(),
           },
           success: function(data) {
             nama = document.getElementsByName("nama_pemohon")[0];
@@ -188,6 +220,17 @@ $provinces = $resource->provinsi();
                 "<th align='left'> tanggal layanan " + document.getElementsByName("datenyala")[0].value + ",  jam mulai " + $("#jammulai").val() + ", durasi " + $("#durasi").val() + " jam </th>" +
                 "</tr>" +
                 "<tr align='left'>" +
+                "<th align='left' width='50%'> Layanan " + layanan + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='50%'> Daya </th>" +
+                "<th align='left' width='50%'> : " + daya + " Watt </th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='50%'> Token </th>" +
+                "<th align='left' width='50%'> : Rp " + formatRupiah(token) + " </th>" +
+                "</tr>" +
+                "<tr align='left'>" +
                 "<th align='left' width='25%'> ID Pelanggan</th>" +
                 "<th align='left' width='25%'> : " + document.getElementsByName("id_pelanggan")[0].value + "</th>" +
                 "</tr>" +
@@ -209,6 +252,10 @@ $provinces = $resource->provinsi();
                 "<tr align='left'>" +
                 "<th align='left' width='25%'> c. PPJ (5%*a) </th>" +
                 "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='25%'> d. UJL </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(ujl) + "</th>" +
                 "</tr>" +
                 "<tr align='left'>" +
                 "<th align='left' width='25%'> d. Materai </th>" +
@@ -277,6 +324,9 @@ $provinces = $resource->provinsi();
           id_pelanggan: $("#id_pelanggan").val(),
           nomer_meter: $("#no_meter").val(),
           durasi: $("#durasi").val(),
+          layanan: $("#layanan").val(),
+          daya: $('#daya').find(":selected").text(),
+          token: $('#token').find(":selected").text(),
           biaya: biaya,
           ppn: ppn,
           ppj: ppj,
@@ -413,6 +463,39 @@ $provinces = $resource->provinsi();
                   <label class="col-sm-2 control-label text-right">Nomer Meter</label>
                   <div class="col-sm-4">
                     <input type="text" id="no_meter" name="no_meter" class="form-control" value="{{ old('no_meter') }}" placeholder="Isi nomer Nomer Meter pelanggan" required>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 control-label text-right">Layanan</label>
+                  <div class="col-md-4">
+                    <select id="layanan" name="layanan" class="form-control select2">
+                      @foreach($layanan as $layanan)
+                      <option value="{{ $layanan->id }}"> {{ $layanan->layanan }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 control-label text-right">daya</label>
+                  <div class="col-sm-4">
+                    <select id="daya" name="daya" class="form-control select2">
+                      <option>--Pilih Daya--</option>
+                      @foreach($nilaisambung as $daya)
+                      <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+
+                  <label id="tokenjml" name="tokenjml" class="col-sm-2 control-label text-right">token </label>
+                  <div class="col-sm-4">
+                    <select id="token" name="token" class="form-control select2">
+                      <option value="0">--Pilih Token--</option>
+                      @foreach($token as $token)
+                      <option value="{{ $token->id }}"> {{ $token->token }}</option>
+                      @endforeach
+                    </select>
                   </div>
                 </div>
 

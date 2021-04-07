@@ -27,6 +27,7 @@ class Penyambungansementara_model extends Model
             ->join('regencies', 'regencies.id', '=', 'penyambungan_sementara.kabupaten', 'LEFT')
             ->join('districts', 'districts.id', '=', 'penyambungan_sementara.kecamatan', 'LEFT')
             ->join('villages', 'villages.id', '=', 'penyambungan_sementara.desa', 'LEFT')
+            ->join('produk_layanan', 'produk_layanan.id', '=', 'penyambungan_sementara.sifat_instalasi', 'LEFT')
             ->join('variabel_perhitungan as c', 'c.kode_layanan', '=', 'penyambungan_sementara.kode_layanan', 'LEFT')
             ->select(
                 'penyambungan_sementara.*',
@@ -34,6 +35,7 @@ class Penyambungansementara_model extends Model
                 'regencies.name as kab',
                 'districts.name as kec',
                 'villages.name as desa',
+                'produk_layanan.layanan as jenislayanan',
                 'c.ppn as ppnc',
                 'c.ppj as ppjc',
                 'c.biaya as biayac'

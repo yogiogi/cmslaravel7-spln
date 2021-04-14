@@ -171,7 +171,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Harga Box MCB : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" step="any" class="form-control" id="box" name="box" value="">
+                                            <input type="number" step="any" class="form-control" id="box" name="box" value=<?php echo $varmcbbox->harga_box ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -265,7 +265,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!--Modal update data-->
+                <!--Modal new data-->
                 <form action="" accept-charset="utf-8">
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>

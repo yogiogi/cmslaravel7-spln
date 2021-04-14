@@ -106,6 +106,8 @@
                                 <form action="varpasangpra/update/{{ $varpasangbarupra->id }}" method="POST">
 
                                     <input type="hidden" name="id" id="id" value=<?php echo $varpasangbarupra->id ?>>
+                                    {{ csrf_field() }}
+
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                                         <div class="col-sm-8">

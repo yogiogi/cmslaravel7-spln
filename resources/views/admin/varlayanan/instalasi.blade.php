@@ -1,40 +1,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
-    // $(document).ready(function() {
-    //     $('#saveButton').on('click', function() {
-    //         $.ajax({
-    //             url: '{{ url("admin/varinstalasi/update") }}',
-    //             type: "POST",
-    //             headers: {
-    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //             },
-    //             data: {
-    //                 id: $('#id').val(),
-    //                 daya: $('#daya').val(),
-    //                 lampu: $('#lampu').val(),
-    //                 saklar: $('#saklar').val(),
-    //                 stopkontak: $('#stopkontak').val(),
-    //                 hargameter: $('#kabel').val(),
-    //                 slo: $('#slo').val(),
-    //                 gil: $('#gil').val(),
-    //                 ujl: $('#ujl').val(),
-    //                 materai: $('#materai').val(),
-    //                 biaya: $('#biaya').val(),
-    //                 ppn: $('#ppn').val(),
-    //                 ppj: $('#ppj').val(),
-    //             },
-    //             dataType: 'text',
-    //             success: function(data) {
-    //                 $("#showModal").modal("toggle");
-    //             },
-    //             error: function(xhr, status, error) {
-    //                 alert('Terjadi kesalahan server');
-    //             }
-    //         });
-    //     });
-    // });
-
     $(document).ready(function() {
         $('#tambahButton').on('click', function() {
             console.log($('#id').val());
@@ -170,86 +136,79 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="daya" name="daya" value=<?php echo $varinstalasi->daya ?>>
+                                            <input type="number" step="any" class="form-control" id="daya" name="daya" value=<?php echo $varinstalasi->daya ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Lampu : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="lampu" name="lampu" value=<?php echo $varinstalasi->lampu ?>>
+                                            <input type="number" step="any" class="form-control" id="lampu" name="lampu" value=<?php echo $varinstalasi->lampu ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Saklar : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="saklar" name="saklar" value=<?php echo $varinstalasi->saklar ?>>
+                                            <input type="number" step="any" class="form-control" id="saklar" name="saklar" value=<?php echo $varinstalasi->saklar ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Stop Kontak : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="stopkontak" name="stopkontak" value=<?php echo $varinstalasi->stopkontak ?>>
+                                            <input type="number" step="any" class="form-control" id="stopkontak" name="stopkontak" value=<?php echo $varinstalasi->stopkontak ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Kabel Penghantar : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="hargameter" name="hargameter" value=<?php echo $varinstalasi->hargameter ?> meter>
+                                            <input type="number" step="any" class="form-control" id="hargameter" name="hargameter" value=<?php echo $varinstalasi->hargameter ?> meter>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="slo" name="slo" value=<?php echo $varinstalasi->slo ?>>
+                                            <input type="number" step="any" class="form-control" id="slo" name="slo" value=<?php echo $varinstalasi->slo ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="gil" name="gil" value=<?php echo $varinstalasi->gil ?>>
+                                            <input type="number" step="any" class="form-control" id="gil" name="gil" value=<?php echo $varinstalasi->gil ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ujl" name="ujl" value=<?php echo $varinstalasi->ujl ?>>
+                                            <input type="number" step="any" class="form-control" id="ujl" name="ujl" value=<?php echo $varinstalasi->ujl ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="materai" name="materai" value=<?php echo $varinstalasi->materai ?>>
+                                            <input type="number" step="any" class="form-control" id="materai" name="materai" value=<?php echo $varinstalasi->materai ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Biaya : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="biaya" name="biaya" value=<?php echo $varinstalasi->biaya ?>>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 control-label text-right" for="">UJL : </label>
-                                        <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ujl" name="ujl" value=<?php echo $varinstalasi->ujl ?>>
+                                            <input type="number" step="any" class="form-control" id="biaya" name="biaya" value=<?php echo $varinstalasi->biaya ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ppn" name="ppn" value=<?php echo $varinstalasi->PPN ?>>
+                                            <input type="number" step="any" class="form-control" id="ppn" name="ppn" value=<?php echo $varinstalasi->PPN ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ppj" name="ppj" value=<?php echo $varinstalasi->PPJ ?>>
+                                            <input type="number" step="any" class="form-control" id="ppj" name="ppj" value=<?php echo $varinstalasi->PPJ ?>>
                                         </div>
                                     </div>
 
@@ -284,35 +243,35 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbdaya" name="tbdaya" value="">
+                            <input type="number" step="any" class="form-control" id="tbdaya" name="tbdaya" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Lampu : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tblampu" name="tblampu" value="">
+                            <input type="number" step="any" class="form-control" id="tblampu" name="tblampu" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Saklar : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbsaklar" name="tbsaklar" value="">
+                            <input type="number" step="any" class="form-control" id="tbsaklar" name="tbsaklar" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Stop Kontak : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbstopkontak" name="tbstopkontak" value="">
+                            <input type="number" step="any" class="form-control" id="tbstopkontak" name="tbstopkontak" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Kabel Penghantar : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbkabel" name="tbkabel" value="">
+                            <input type="number" step="any" class="form-control" id="tbkabel" name="tbkabel" value="">
                         </div>
                     </div>
 
@@ -325,21 +284,21 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbgil" name="tbgil" value="">
+                            <input type="number" step="any" class="form-control" id="tbgil" name="tbgil" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbujl" name="tbujl" value="">
+                            <input type="number" step="any" class="form-control" id="tbujl" name="tbujl" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbmaterai" name="tbmaterai" value="">
+                            <input type="number" step="any" class="form-control" id="tbmaterai" name="tbmaterai" value="">
                         </div>
                     </div>
 
@@ -347,20 +306,20 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Biaya : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbbiaya" name="tbbiaya" value="">
+                            <input type="number" step="any" class="form-control" id="tbbiaya" name="tbbiaya" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbppn" name="tbppn" value="">
+                            <input type="number" step="any" class="form-control" id="tbppn" name="tbppn" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbppj" name="tbppj" value="">
+                            <input type="number" step="any" class="form-control" id="tbppj" name="tbppj" value="">
                         </div>
                     </div>
 

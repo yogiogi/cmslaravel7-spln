@@ -131,6 +131,7 @@ $token = $resource->token();
     var email = null;
 
     var layanan = null;
+    var layananName = null;
     var token = 0;
     var hari = 0;
     var biaya = 0;
@@ -163,6 +164,7 @@ $token = $resource->token();
         ujl = 0;
       }
       console.log(daya);
+      layananName = $('#layanan').find(":selected").text();
 
       nama = document.getElementsByName("nama_pemohon")[0];
       ktp = document.getElementsByName("nomer_ktp")[0];
@@ -197,9 +199,6 @@ $token = $resource->token();
             whatsapp = document.getElementsByName("whatsapp")[0];
             email = document.getElementsByName("email_konsumen")[0];
 
-            layanan = $('#layanan').find(":selected").text();
-            daya = $('#daya').find(":selected").text();
-
             biaya = data.biaya;
             slo = data.slo;
             gil = data.gil;
@@ -211,81 +210,78 @@ $token = $resource->token();
             materai = data.materai;
             total = data.total;
 
-            if (nama.value != '' && alamat.value != '' && ktp.value != '' && email.value != '' &&
-              daya.value != '') {
-              $('.cloundcontainer').show();
-              $('.cloundcontainer').empty();
-              var elements = "<h2 align='center'> <?php echo $subtitle ?> </h2>" +
-                "<table>" +
-                "<tr align='left'>" +
-                "<th align='left' width='50%'> Layanan " + layanan + "</th>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<th align='left' width='50%'> Daya </th>" +
-                "<th align='left' width='50%'> : " + daya + " Watt </th>" +
-                "</tr>" +
-                "<tr align='left'>" +
+            $('.cloundcontainer').show();
+            $('.cloundcontainer').empty();
+            var elements = "<h2 align='center'> <?php echo $subtitle ?> </h2>" +
+              "<table>" +
+              "<tr align='left'>" +
+              "<th align='left' width='50%'> Layanan " + layananName + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='50%'> Daya </th>" +
+              "<th align='left' width='50%'> : " + daya + " Watt </th>" +
+              "</tr>";
+
+            if (layanan == "1") {
+              elements += "<tr align='left'>" +
                 "<th align='left' width='50%'> Token </th>" +
                 "<th align='left' width='50%'> : Rp " + formatRupiah(tokennya) + " </th>" +
-                "</tr>" +
-                "</table>" +
-                "<br>" +
-                "<table>" +
-                "<tr align='left'>" +
-                "<th align='left' width='75%'> Detail Biaya </th>" +
-                "<th align='left' width='25%'></th>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<th align='left' width='75%'> - Rupiah Biaya Pasang Baru </th>" +
-                "<th align='left' width='25%'> : Rp " + formatRupiah(biaya) + "</th>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<th align='left' width='75%'> - SLO </th>" +
-                "<th align='left' width='25%'> : Rp " + formatRupiah(slo) + "</th>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<th align='left' width='75%'> - GIL </th>" +
-                "<th align='left' width='25%'> : Rp " + formatRupiah(gil) + "</th>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<th align='left' width='75%'> - PPN (10%*a) </th>" +
-                "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<th align='left' width='75%'> - PPJ (5%*a) </th>" +
-                "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<th align='left' width='75%'> - UJL </th>" +
-                "<th align='left' width='25%'> : Rp " + formatRupiah(ujl) + "</th>" +
-                "</tr>" +
-                "<tr align='left'>" +
-                "<th align='left' width='75%'> - Materai </th>" +
-                "<th align='left' width='25%'> : Rp " + formatRupiah(materai) + "</th>" +
-                "</tr>" +
-                "</table>" +
-                "<br>" +
-                "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp " + formatRupiah(total) + "</b></p>" +
-                "<p align='left'> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini (" + today + ")</p>" +
-                "<br>" +
-                "<p>Perhatian :</p>" +
-                "<ul>" +
-                "<li>Pastikan semua data yang Anda isi di atas adalah benar</li>" +
-                "<li>Setelah Anda tekan tombol Simpan Permohonan, maka data-data akan diproses oleh PT SPLN (Persero) dan akan dipertanggung jawabkan apabila di kemudian hari ditemukan kesalahan</li>" +
-                "</ul>" +
-                "<table>" +
-                "<tr>" +
-                "<td><input type='checkbox' id='checkKetentuan' name='checkKetentuan' value='ketentuan' disabled readonly></td>" +
-                "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
-                "</tr>" +
-                "</table>" +
-                "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
-              $('.cloundcontainer').append(elements);
-            } else {
-              alert('Data tidak bisa kosong');
-              $('.cloundcontainer').hide();
-              $('.cloundcontainer').empty();
+                "</tr>";
             }
+
+            elements += "</table>" +
+              "<br>" +
+              "<table>" +
+              "<tr align='left'>" +
+              "<th align='left' width='75%'> Detail Biaya </th>" +
+              "<th align='left' width='25%'></th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='75%'> - Rupiah Biaya Pasang Baru </th>" +
+              "<th align='left' width='25%'> : Rp " + formatRupiah(biaya) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='75%'> - SLO </th>" +
+              "<th align='left' width='25%'> : Rp " + formatRupiah(slo) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='75%'> - GIL </th>" +
+              "<th align='left' width='25%'> : Rp " + formatRupiah(gil) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='75%'> - PPN (10%*a) </th>" +
+              "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='75%'> - PPJ (5%*a) </th>" +
+              "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='75%'> - UJL </th>" +
+              "<th align='left' width='25%'> : Rp " + formatRupiah(ujl) + "</th>" +
+              "</tr>" +
+              "<tr align='left'>" +
+              "<th align='left' width='75%'> - Materai </th>" +
+              "<th align='left' width='25%'> : Rp " + formatRupiah(materai) + "</th>" +
+              "</tr>" +
+              "</table>" +
+              "<br>" +
+              "<p align='left'><b> Estimasi total biaya yang harus dibayar : Rp " + formatRupiah(total) + "</b></p>" +
+              "<p align='left'> Hasil perhitungan mengacu pada ketentuan tarif tenaga listrik dan peraturan perpajakan yang berlaku hari ini (" + today + ")</p>" +
+              "<br>" +
+              "<p>Perhatian :</p>" +
+              "<ul>" +
+              "<li>Pastikan semua data yang Anda isi di atas adalah benar</li>" +
+              "<li>Setelah Anda tekan tombol Simpan Permohonan, maka data-data akan diproses oleh PT SPLN (Persero) dan akan dipertanggung jawabkan apabila di kemudian hari ditemukan kesalahan</li>" +
+              "</ul>" +
+              "<table>" +
+              "<tr>" +
+              "<td><input type='checkbox' id='checkKetentuan' name='checkKetentuan' value='ketentuan' disabled readonly></td>" +
+              "<td><label style='font-size:11px;'> Saya bersedia mengikuti ketentuan yang berlaku di PT SPLN </label><label data-toggle='modal' data-target='#ketentuanModal' style='font-size:11px; padding-left:5px '><b> <u>Ketentuan & Persyaratan </u></b></label></td>" +
+              "</tr>" +
+              "</table>" +
+              "<button type='button' name='submit_btn' class='btn btn-info' id='submit_btn' value='Send' data-toggle='modal' data-target='#attentionModal' disabled>Simpan Permohonan</button>";
+            $('.cloundcontainer').append(elements);
           },
           error: function(errorThrown) {
             console.log("error " + errorThrown);

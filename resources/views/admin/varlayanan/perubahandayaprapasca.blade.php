@@ -1,43 +1,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
-    // $(document).ready(function() {
-    //     $('#saveButton').on('click', function() {
-
-    //         console.log("id");
-    //         console.log($('#id').val());
-    //         console.log($('#daya').val());
-    //         console.log($('#slo').val(), );
-    //         console.log($('#gil').val(), );
-
-    //         $.ajax({
-    //             url: '{{ url("/admin/varubahprapasca/update") }}',
-    //             type: "POST",
-    //             headers: {
-    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //             },
-    //             data: {
-    //                 id: $('#id').val(),
-    //                 daya: $('#daya').val(),
-    //                 slo: $('#slo').val(),
-    //                 gil: $('#gil').val(),
-    //                 ujl: $('#ujl').val(),
-    //                 materai: $('#materai').val(),
-    //                 biaya: $('#biaya').val(),
-    //                 ppn: $('#ppn').val(),
-    //                 ppj: $('#ppj').val(),
-    //             },
-    //             dataType: 'text',
-    //             success: function(data) {
-    //                 $("#showModal").modal("toggle");
-    //             },
-    //             error: function(xhr, status, error) {
-    //                 alert('Terjadi kesalahan server');
-    //             }
-    //         });
-    //     });
-    // });
-
     $(document).ready(function() {
         $('#tambahButton').on('click', function() {
             console.log($('#id').val());
@@ -141,66 +104,59 @@
 
                             <div class="modal-body">
                                 <!--Modal update data-->
-                                <!-- <form action="" accept-charset="utf-8"> -->
                                 <form action="varubahprapasca/update/{{ $varprapasca->id }}" method="POST">
                                     <input type="hidden" name="id" id="id" value=<?php echo $varprapasca->id ?>>
                                     {{ csrf_field() }}
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="daya" name="daya" value=<?php echo $varprapasca->daya ?>>
+                                            <input type="number" step="any" class="form-control" id="daya" name="daya" value=<?php echo $varprapasca->daya ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="slo" name="slo" value=<?php echo $varprapasca->slo ?>>
+                                            <input type="number" step="any" class="form-control" id="slo" name="slo" value=<?php echo $varprapasca->slo ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="gil" name="gil" value=<?php echo $varprapasca->gil ?>>
+                                            <input type="number" step="any" class="form-control" id="gil" name="gil" value=<?php echo $varprapasca->gil ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ujl" name="ujl" value=<?php echo $varprapasca->ujl ?>>
+                                            <input type="number" step="any" class="form-control" id="ujl" name="ujl" value=<?php echo $varprapasca->ujl ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="materai" name="materai" value=<?php echo $varprapasca->materai ?>>
+                                            <input type="number" step="any" class="form-control" id="materai" name="materai" value=<?php echo $varprapasca->materai ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">biaya : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="biaya" name="biaya" value=<?php echo $varprapasca->biaya ?>>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 control-label text-right" for="">UJL : </label>
-                                        <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ujl" name="ujl" value=<?php echo $varprapasca->ujl ?>>
+                                            <input type="number" step="any" class="form-control" id="biaya" name="biaya" value=<?php echo $varprapasca->biaya ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ppn" name="ppn" value=<?php echo $varprapasca->PPN ?>>
+                                            <input type="number" step="any" class="form-control" id="ppn" name="ppn" value=<?php echo $varprapasca->PPN ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ppj" name="ppj" value=<?php echo $varprapasca->PPJ ?>>
+                                            <input type="number" step="any" class="form-control" id="ppj" name="ppj" value=<?php echo $varprapasca->PPJ ?>>
                                         </div>
                                     </div>
 
@@ -239,33 +195,33 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbdaya" name="tbdaya" value="">
+                            <input type="number" step="any" class="form-control" id="tbdaya" name="tbdaya" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbslo" name="tbslo" value="">
+                            <input type="number" step="any" class="form-control" id="tbslo" name="tbslo" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbgil" name="tbgil" value="">
+                            <input type="number" step="any" class="form-control" id="tbgil" name="tbgil" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbujl" name="tbujl" value="">
+                            <input type="number" step="any" class="form-control" id="tbujl" name="tbujl" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbmaterai" name="tbmaterai" value="">
+                            <input type="number" step="any" class="form-control" id="tbmaterai" name="tbmaterai" value="">
                         </div>
                     </div>
 
@@ -273,20 +229,20 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Biaya : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbbiaya" name="tbbiaya" value="">
+                            <input type="number" step="any" class="form-control" id="tbbiaya" name="tbbiaya" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbppn" name="tbppn" value="">
+                            <input type="number" step="any" class="form-control" id="tbppn" name="tbppn" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbppj" name="tbppj" value="">
+                            <input type="number" step="any" class="form-control" id="tbppj" name="tbppj" value="">
                         </div>
                     </div>
 

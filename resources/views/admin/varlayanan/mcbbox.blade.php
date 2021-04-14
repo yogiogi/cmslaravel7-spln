@@ -1,46 +1,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
-    // $(document).ready(function() {
-    //     $('#saveButton').on('click', function() {
-
-    //         console.log($('#id').val());
-    //         console.log("id");
-
-    //         $.ajax({
-    //             url: '{{ url("admin/varmcbbox/update") }}',
-    //             type: "POST",
-    //             headers: {
-    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //             },
-    //             data: {
-    //                 id: $('#id').val(),
-    //                 harga_mcb: $('#mcb').val(),
-    //                 harga_lnb: $('#lnb').val(),
-    //                 harga_mccb: $('#mccb').val(),
-    //                 harga_trafo: $('#trafo').val(),
-    //                 mdp: $('#mdp').val(),
-    //                 sdp: $('#sdp').val(),
-    //                 daya: $('#daya').val(),
-    //                 slo: $('#slo').val(),
-    //                 gil: $('#gil').val(),
-    //                 ujl: $('#ujl').val(),
-    //                 materai: $('#materai').val(),
-    //                 biaya: $('#biaya').val(),
-    //                 ppn: $('#ppn').val(),
-    //                 ppj: $('#ppj').val(),
-    //             },
-    //             dataType: 'text',
-    //             success: function(data) {
-    //                 $("#showModal").modal("toggle");
-    //             },
-    //             error: function(xhr, status, error) {
-    //                 alert('Terjadi kesalahan server');
-    //             }
-    //         });
-    //     });
-    // });
-
     $(document).ready(function() {
         $('#tambahButton').on('click', function() {
             $.ajax({
@@ -54,6 +14,7 @@
                     harga_lnb: $('#tblnb').val(),
                     harga_mccb: $('#tbmccb').val(),
                     harga_trafo: $('#tbtrafo').val(),
+                    harga_box: $('#tbbox').val(),
                     mdp: $('#tbmdp').val(),
                     sdp: $('#tbsdp').val(),
                     daya: $('#tbdaya').val(),
@@ -91,6 +52,7 @@
                 <th width="5%" class="text-center">Harga LNB</th>
                 <th width="5%" class="text-center">Harga MCCB</th>
                 <th width="5%" class="text-center">Harga Trafo</th>
+                <th width="5%" class="text-center">Harga Box</th>
                 <th width="5%" class="text-center">MDP</th>
                 <th width="5%" class="text-center">SDP</th>
                 <th width="5%" class="text-left">SLO</th>
@@ -122,6 +84,9 @@
                     </td>
                     <td>
                         <?php echo $varmcbbox->harga_trafo ?>
+                    </td>
+                    <td>
+                        <?php echo $varmcbbox->harga_box ?>
                     </td>
                     <td>
                         <?php echo $varmcbbox->mdp ?>
@@ -176,100 +141,105 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="daya" name="daya" value=<?php echo $varmcbbox->daya ?>>
+                                            <input type="number" step="any" class="form-control" id="daya" name="daya" value=<?php echo $varmcbbox->daya ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Harga MCB : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="mcb" name="mcb" value=<?php echo $varmcbbox->harga_mcb ?>>
+                                            <input type="number" step="any" class="form-control" id="mcb" name="mcb" value=<?php echo $varmcbbox->harga_mcb ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Harga MCCB : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="mccb" name="mccb" value=<?php echo $varmcbbox->harga_mccb ?>>
+                                            <input type="number" step="any" class="form-control" id="mccb" name="mccb" value=<?php echo $varmcbbox->harga_mccb ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Harga LNB : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="lnb" name="lnb" value=<?php echo $varmcbbox->harga_lnb ?>>
+                                            <input type="number" step="any" class="form-control" id="lnb" name="lnb" value=<?php echo $varmcbbox->harga_lnb ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Harga Trafo : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="trafo" name="trafo" value=<?php echo $varmcbbox->harga_trafo ?>>
+                                            <input type="number" step="any" class="form-control" id="trafo" name="trafo" value=<?php echo $varmcbbox->harga_trafo ?>>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 control-label text-right" for="">Harga Box MCB : </label>
+                                        <div class="col-sm-8">
+                                            <input type="number" step="any" class="form-control" id="box" name="box" value="">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">MDP : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="mdp" name="mdp" value=<?php echo $varmcbbox->mdp ?>>
+                                            <input type="number" step="any" class="form-control" id="mdp" name="mdp" value=<?php echo $varmcbbox->mdp ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">SDP : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="sdp" name="sdp" value=<?php echo $varmcbbox->sdp ?>>
+                                            <input type="number" step="any" class="form-control" id="sdp" name="sdp" value=<?php echo $varmcbbox->sdp ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="slo" name="slo" value=<?php echo $varmcbbox->slo ?>>
+                                            <input type="number" step="any" class="form-control" id="slo" name="slo" value=<?php echo $varmcbbox->slo ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="gil" name="gil" value=<?php echo $varmcbbox->gil ?>>
+                                            <input type="number" step="any" class="form-control" id="gil" name="gil" value=<?php echo $varmcbbox->gil ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ujl" name="ujl" value=<?php echo $varmcbbox->ujl ?>>
+                                            <input type="number" step="any" class="form-control" id="ujl" name="ujl" value=<?php echo $varmcbbox->ujl ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="materai" name="materai" value=<?php echo $varmcbbox->materai ?>>
+                                            <input type="number" step="any" class="form-control" id="materai" name="materai" value=<?php echo $varmcbbox->materai ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Biaya : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="biaya" name="biaya" value=<?php echo $varmcbbox->biaya ?>>
+                                            <input type="number" step="any" class="form-control" id="biaya" name="biaya" value=<?php echo $varmcbbox->biaya ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ujl" name="ujl" value=<?php echo $varmcbbox->ujl ?>>
+                                            <input type="number" step="any" class="form-control" id="ujl" name="ujl" value=<?php echo $varmcbbox->ujl ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ppn" name="ppn" value=<?php echo $varmcbbox->PPN ?>>
+                                            <input type="number" step="any" class="form-control" id="ppn" name="ppn" value=<?php echo $varmcbbox->PPN ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="ppj" name="ppj" value=<?php echo $varmcbbox->PPJ ?>>
+                                            <input type="number" step="any" class="form-control" id="ppj" name="ppj" value=<?php echo $varmcbbox->PPJ ?>>
                                         </div>
                                     </div>
 
-                                    <!-- <button id="saveButton" name="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Simpan Data</button> -->
                                     <button type="submit" class="btn btn-primary">Perbarui Data</button>
 
                                 </form>
@@ -300,70 +270,78 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbdaya" name="tbdaya" value="">
+                            <input type="number" step="any" class="form-control" id="tbdaya" name="tbdaya" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Harga MCB : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbmcb" name="tbmcb" value="">
+                            <input type="number" step="any" class="form-control" id="tbmcb" name="tbmcb" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Harga MCCB : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbmccb" name="tbmccb" value="">
+                            <input type="number" step="any" class="form-control" id="tbmccb" name="tbmccb" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Harga LNB : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tblnb" name="tb" valnblue="">
+                            <input type="number" step="any" class="form-control" id="tblnb" name="tb" valnblue="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Harga Trafo : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbtrafo" name="tbtrafo" value="">
+                            <input type="number" step="any" class="form-control" id="tbtrafo" name="tbtrafo" value="">
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 control-label text-right" for="">Harga Box MCB : </label>
+                        <div class="col-sm-8">
+                            <input type="number" step="any" class="form-control" id="tbbox" name="tbbox" value="">
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">MDP : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbmdp" name="tbmdp" value="">
+                            <input type="number" step="any" class="form-control" id="tbmdp" name="tbmdp" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">SDP : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbsdp" name="tbsdp" value="">
+                            <input type="number" step="any" class="form-control" id="tbsdp" name="tbsdp" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbslo" name="tbslo" value="">
+                            <input type="number" step="any" class="form-control" id="tbslo" name="tbslo" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbgil" name="tbgil" value="">
+                            <input type="number" step="any" class="form-control" id="tbgil" name="tbgil" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbujl" name="tbujl" value="">
+                            <input type="number" step="any" class="form-control" id="tbujl" name="tbujl" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbmaterai" name="tbmaterai" value="">
+                            <input type="number" step="any" class="form-control" id="tbmaterai" name="tbmaterai" value="">
                         </div>
                     </div>
 
@@ -371,20 +349,20 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Biaya : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbbiaya" name="tbbiaya" value="">
+                            <input type="number" step="any" class="form-control" id="tbbiaya" name="tbbiaya" value="">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbppn" name="tbppn" value="">
+                            <input type="number" step="any" class="form-control" id="tbppn" name="tbppn" value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbppj" name="tbppj" value="">
+                            <input type="number" step="any" class="form-control" id="tbppj" name="tbppj" value="">
                         </div>
                     </div>
 

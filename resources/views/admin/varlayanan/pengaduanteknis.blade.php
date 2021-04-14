@@ -1,40 +1,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
-    // $(document).ready(function() {
-    //     $('#saveButton').on('click', function() {
-    //         console.log("pengaduan");
-    //         console.log($('#id').val());
-    //         console.log($('#daya').val());
-
-    //         $.ajax({
-    //             url: '{{ url("admin/varpengaduanteknis/update") }}',
-    //             type: "POST",
-    //             headers: {
-    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //             },
-    //             data: {
-    //                 id: $('#id').val(),
-    //                 daya: $('#daya').val(),
-    //                 slo: $('#slo').val(),
-    //                 gil: $('#gil').val(),
-    //                 ujl: $('#ujl').val(),
-    //                 materai: $('#materai').val(),
-    //                 biaya: $('#biaya').val(),
-    //                 ppn: $('#ppn').val(),
-    //                 ppj: $('#ppj').val(),
-    //             },
-    //             dataType: 'text',
-    //             success: function(data) {
-    //                 $("#showModal").modal("toggle");
-    //             },
-    //             error: function(xhr, status, error) {
-    //                 alert('Terjadi kesalahan server');
-    //             }
-    //         });
-    //     });
-    // });
-
     $(document).ready(function() {
         $('#tambahButton').on('click', function() {
             $.ajax({
@@ -138,62 +104,57 @@
                                 <form action="varpengaduanteknis/update/{{ $varpengaduan->id }}" method="POST">
                                     <input type="hidden" name="id" id="id" value=<?php echo $varpengaduan->id ?>>
                                     {{ csrf_field() }}
+                                    
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="daya" name="daya" value=<?php echo $varpengaduan->daya ?>>
+                                            <input type="number" step="any" class="form-control" id="daya" name="daya" value=<?php echo $varpengaduan->daya ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="slo" name="slo" value=<?php echo $varpengaduan->slo ?>>
+                                            <input type="number" step="any" class="form-control" id="slo" name="slo" value=<?php echo $varpengaduan->slo ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="gil" name="gil" value=<?php echo $varpengaduan->gil ?>>
+                                            <input type="number" step="any" class="form-control" id="gil" name="gil" value=<?php echo $varpengaduan->gil ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ujl" name="ujl" value=<?php echo $varpengaduan->ujl ?>>
+                                            <input type="number" step="any" class="form-control" id="ujl" name="ujl" value=<?php echo $varpengaduan->ujl ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="materai" name="materai" value=<?php echo $varpengaduan->materai ?>>
+                                            <input type="number" step="any" class="form-control" id="materai" name="materai" value=<?php echo $varpengaduan->materai ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">biaya : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="biaya" name="biaya" value=<?php echo $varpengaduan->biaya ?>>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 control-label text-right" for="">UJL : </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ujl" name="ujl" value=<?php echo $varpengaduan->ujl ?>>
+                                            <input type="number" step="any" class="form-control" id="biaya" name="biaya" value=<?php echo $varpengaduan->biaya ?>>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ppn" name="ppn" value=<?php echo $varpengaduan->PPN ?>>
+                                            <input type="number" step="any" class="form-control" id="ppn" name="ppn" value=<?php echo $varpengaduan->PPN ?>>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ppj" name="ppj" value=<?php echo $varpengaduan->PPJ ?>>
+                                            <input type="number" step="any" class="form-control" id="ppj" name="ppj" value=<?php echo $varpengaduan->PPJ ?>>
                                         </div>
                                     </div>
 

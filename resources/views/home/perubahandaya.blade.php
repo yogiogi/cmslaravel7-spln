@@ -536,7 +536,7 @@ $provinsi = $resource->provinsi();
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-2 control-label text-right">Daya Lama (Va)</label>
+                  <label class="col-sm-2 control-label text-right">Daya Awal (Va)</label>
                   <div class="col-sm-4">
                     <select name="dayapascapascalama" id="dayapascapascalama" class="form-control select2">
                       <option>--Pilih Daya--</option>
@@ -559,7 +559,7 @@ $provinsi = $resource->provinsi();
                       @endforeach
                     </select>
                   </div>
-                  <label class="col-sm-2 control-label text-right">Daya Baru (Va)</label>
+                  <label class="col-sm-2 control-label text-right">Daya Akhir (Va)</label>
                   <div class="col-sm-4">
                     <select id="dayapascapascabaru" name="dayabaru" class="form-control select2">
                       <option>--Pilih Daya--</option>

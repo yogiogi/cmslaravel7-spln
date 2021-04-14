@@ -475,10 +475,20 @@ $token = $resource->token();
                       @endforeach
                     </select>
                   </div>
+
+                  <label id="tokenjml" name="tokenjml" class="col-sm-2 control-label text-right">token </label>
+                  <div class="col-sm-4">
+                    <select id="token" name="token" class="form-control select2">
+                      <option value="0">--Pilih Token--</option>
+                      @foreach($token as $token)
+                      <option value="{{ $token->id }}"> {{ $token->token }}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-2 control-label text-right">daya</label>
+                  <label class="col-sm-2 control-label text-right">Daya awal</label>
                   <div class="col-sm-4">
                     <select id="daya" name="daya" class="form-control select2">
                       <option>--Pilih Daya--</option>
@@ -488,12 +498,12 @@ $token = $resource->token();
                     </select>
                   </div>
 
-                  <label id="tokenjml" name="tokenjml" class="col-sm-2 control-label text-right">token </label>
+                  <label class="col-sm-2 control-label text-right">Daya akhir</label>
                   <div class="col-sm-4">
-                    <select id="token" name="token" class="form-control select2">
-                      <option value="0">--Pilih Token--</option>
-                      @foreach($token as $token)
-                      <option value="{{ $token->id }}"> {{ $token->token }}</option>
+                    <select id="daya" name="daya" class="form-control select2">
+                      <option>--Pilih Daya--</option>
+                      @foreach($nilaisambung as $daya)
+                      <option value="{{ $daya->id }}"> {{ $daya->daya }}</option>
                       @endforeach
                     </select>
                   </div>

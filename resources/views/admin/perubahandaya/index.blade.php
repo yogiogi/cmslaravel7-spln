@@ -43,7 +43,7 @@
           <th width="15%" class="text-left">PERUBAHAN DAYA</th>
           <th width="15%" class="text-center">INSTALASI</th>
           <th width="15%" class="text-center">BIAYA TOTAL</th>
-          <th width="5%" class="text-center">STATUS</th>
+          <th width="5%" class="text-center">BUKTI PEMBAYARAN</th>
           <th class="text-center"></th>
         </tr>
       </thead>
@@ -67,6 +67,11 @@
                 <br>
                 <br>
                 <a href="#modalDetailID" data-toggle="modal" data-target="#modalDetailID<?php echo $perubahandaya->id ?>">Detail</a>
+                <br><b> <a><?php if ($perubahandaya->status == 0) {
+                              echo "Belum Disetujui ";
+                            } else if ($perubahandaya->status == 1) {
+                              echo "Disetujui ";
+                            } ?><sup></sup></a></b>
                 <br>tanggal daftar : <?php if ($perubahandaya->tgl_permohonan != 0) {
                                         echo date("d/m/Y", strtotime($perubahandaya->tgl_permohonan));
                                       } else {
@@ -120,11 +125,14 @@
               <a href="#modaldetailBiaya" data-toggle="modal" data-target="#modaldetailBiaya<?php echo $perubahandaya->id ?>">Rp <?php echo number_format($perubahandaya->total, 0) ?><sup></sup></a>
             </td>
             <td>
-              <a><?php if ($perubahandaya->status == 0) {
-                    echo "Belum Disetujui ";
-                  } else if ($perubahandaya->status == 1) {
-                    echo "Disetujui ";
-                  } ?><sup></sup></a>
+              @if($perubahandaya->buktid!=null)
+              <img src="{{ asset('public/upload/transaksi/'.$perubahandaya->buktid) }}" alt="test" class="img-fluid img-thumbnail">
+              <br>
+              <small>
+                tanggal : <?php echo $perubahandaya->tgld ?> <br>
+                <a href="#modalDetailBayar" data-toggle="modal" data-target="#modalDetailBayar<?php echo $perubahandaya->id ?>">Detail</a>
+              </small>
+              @endif
             </td>
             <td>
               <div class="btn-group">
@@ -181,6 +189,38 @@
               </div>
             </td>
           </tr>
+
+          <div class="modal fade" id="modalDetailBayar<?php echo $perubahandaya->id ?>" tabindex="-1" aria-labelledby="modalDetailBayar" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Data Pembayaran </h5>
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form accept-charset="utf-8">
+                    <input type="hidden" name="id" value="{{ $perubahandaya->id }}">
+                    {{ csrf_field() }}
+                    <div class="column">
+                      <label name="konsumen">Rekening Tujuan : </label>
+                      <br><label> <?php echo $perubahandaya->noreksplnd ?></label>
+                      <br><label> <?php echo $perubahandaya->atasnamasplnd ?></label>
+                      <br><label> Cara bayar : <?php echo $perubahandaya->carabayard ?></label>
+                      <br><label> Tanggal Bayar : <?php echo $perubahandaya->tglbayard ?></label>
+                      <br><br><label> Pengirim : </label>
+                      <br><label> Nomer Rekening: <?php echo $perubahandaya->norekd ?></label>
+                      <br><label> a.n : <?php echo $perubahandaya->namapemilikd ?></label>
+                      <br><label> Bank : <?php echo $perubahandaya->namabankd ?></label>
+                      <br><label> Keterangan : <?php echo $perubahandaya->keterangand ?></label>
+                      <br><label> Jumlah yang dibayar : Rp <?php echo number_format($perubahandaya->jmlpembayarand) ?></label>
+                    </div>
+                  </form>
+                  <!--Modal update data-->
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="modal fade" id="modalDetailID<?php echo $perubahandaya->id ?>" tabindex="-1" aria-labelledby="modalDetailID" aria-hidden="true">
             <div class="modal-dialog">

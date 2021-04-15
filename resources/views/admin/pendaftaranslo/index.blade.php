@@ -97,11 +97,11 @@
                                         } else {
                                           echo "-";
                                         } ?>
-                <br>tanggal bayar : <?php if ($slo->tgld != 0) {
-                                      echo date("d/m/Y", strtotime($slo->tgld));
-                                    } else {
-                                      echo "-";
-                                    } ?>
+                <br>tanggal approve bayar : <?php if ($slo->tanggal_bayar != 0) {
+                                              echo date("d/m/Y", strtotime($slo->tanggal_bayar));
+                                            } else {
+                                              echo "-";
+                                            } ?>
                 <br>tanggal selesai: <?php if ($slo->tanggal_selesai != 0) {
                                         echo date("d/m/Y", strtotime($slo->tanggal_selesai));
                                       } else {
@@ -132,12 +132,19 @@
               <a href="#modaldetailBiaya" data-toggle="modal" data-target="#modaldetailBiaya<?php echo $slo->id ?>">Rp <?php echo number_format($slo->total, 0) ?><sup></sup></a>
             </td>
             <td>
-              <img src="{{ asset('upload/transaksi/'.$slo->buktid) }}" height="30px" width="30px" />
+              @if($slo->buktid!=null)
+              <img src="{{ asset('public/upload/transaksi/'.$slo->buktid) }}" alt="test" class="img-fluid img-thumbnail">
+              <br>
+              <small>
+                tanggal : <?php echo $slo->tgld ?> <br>
+                <a href="#modalDetailBayar" data-toggle="modal" data-target="#modalDetailBayar<?php echo $slo->id ?>">Detail</a>
+              </small>
+              @endif
             </td>
             <td>
               <div class="btn-group">
                 @if($slo->status==0)
-                <a href="{{ asset('admin/pendaftaranslo/update/'.$slo->id) }}" class="btn btn-primary btn-sm approval-link">
+                <a href="{{ asset('admin/pendaftaranslo/update/'.$slo->id) }}" alt="approval" class="btn btn-primary btn-sm approval-link">
                   <i class="fa fa-circle"></i>
                 </a>
                 @else
@@ -148,7 +155,7 @@
 
                 @if($slo->status==1)
                 @if($slo->status_bayar==0)
-                <a href="{{ asset('admin/pendaftaranslo/update_bayar/'.$slo->id) }}" class="btn btn-warning btn-sm approval-link">
+                <a href="{{ asset('admin/pendaftaranslo/update_bayar/'.$slo->id) }}" alt="approve bayar" class="btn btn-warning btn-sm approval-link">
                   <i class="fa fa-circle"></i>
                 </a>
                 @else
@@ -166,7 +173,7 @@
                 @if($slo->status_bayar==1)
                 @if($slo->status_selesai==0)
 
-                <a href="{{ asset('admin/pendaftaranslo/update_selesai/'.$slo->id) }}" class="btn btn-success btn-sm approval-link">
+                <a href="{{ asset('admin/pendaftaranslo/update_selesai/'.$slo->id) }}" alt="approve selesai" class="btn btn-success btn-sm approval-link">
                   <i class="fa fa-circle"></i>
                 </a>
                 @else
@@ -185,11 +192,43 @@
                 </a>
                 @endif
 
-                <a href="{{ asset('admin/pendaftaranslo/delete/'.$slo->id) }}" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
+                <a href="{{ asset('admin/pendaftaranslo/delete/'.$slo->id) }}" alt="hapus" class="btn btn-danger btn-sm delete-link"><i class="fas fa-trash-alt"></i></a>
 
               </div>
             </td>
           </tr>
+
+          <div class="modal fade" id="modalDetailBayar<?php echo $slo->id ?>" tabindex="-1" aria-labelledby="modalDetailBayar" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Data Pembayaran </h5>
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form accept-charset="utf-8">
+                    <input type="hidden" name="id" value="{{ $slo->id }}">
+                    {{ csrf_field() }}
+                    <div class="column">
+                      <label name="konsumen">Rekening Tujuan : </label>
+                      <br><label> <?php echo $slo->noreksplnd ?></label>
+                      <br><label> <?php echo $slo->atasnamasplnd ?></label>
+                      <br><label> Cara bayar : <?php echo $slo->carabayard ?></label>
+                      <br><label> Tanggal Bayar : <?php echo $slo->tglbayard ?></label>
+                      <br><br><label> Pengirim : </label>
+                      <br><label> Nomer Rekening: <?php echo $slo->norekd ?></label>
+                      <br><label> a.n : <?php echo $slo->namapemilikd ?></label>
+                      <br><label> Bank : <?php echo $slo->namabankd ?></label>
+                      <br><label> Keterangan : <?php echo $slo->keterangand ?></label>
+                      <br><label> Jumlah yang dibayar : Rp <?php echo number_format($slo->jmlpembayarand) ?></label>
+                    </div>
+                  </form>
+                  <!--Modal update data-->
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="modal fade" id="modalDetailID<?php echo $slo->id ?>" tabindex="-1" aria-labelledby="modalDetailID" aria-hidden="true">
             <div class="modal-dialog">

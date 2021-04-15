@@ -42,7 +42,7 @@
           <th width="10%" class="text-left">ID PELANGGAN</th>
           <th width="10%" class="text-left">LAYANAN PENYAMBUNGAN</th>
           <th width="15%" class="text-center">BIAYA TOTAL</th>
-          <th width="5%" class="text-center">STATUS</th>
+          <th width="5%" class="text-center">BUKTI PEMBAYARAN</th>
           <th width="5%" class="text-center"></th>
         </tr>
       </thead>
@@ -68,6 +68,11 @@
                 <br>
                 <br>
                 <a href="#modalDetailID" data-toggle="modal" data-target="#modalDetailID<?php echo $penyambungansementara->id ?>">Detail</a>
+                <br><b> <a><?php if ($penyambungansementara->status == 0) {
+                              echo "Belum Disetujui ";
+                            } else if ($penyambungansementara->status == 1) {
+                              echo "Disetujui ";
+                            } ?><sup></sup></a></b>
                 <br>tanggal daftar : <?php if ($penyambungansementara->tgl_permohonan != 0) {
                                         echo date("d/m/Y", strtotime($penyambungansementara->tgl_permohonan));
                                       } else {
@@ -101,20 +106,22 @@
                 <a><?php echo $penyambungansementara->tanggal_nyala ?> </a><br>
                 <a><?php echo $penyambungansementara->jammulai ?>, durasi <?php echo $penyambungansementara->durasi ?> jam </a><br>
                 <a><?php echo $penyambungansementara->jenislayanan ?> </a><br>
-                <a>daya : <?php echo $penyambungansementara->daya ?> Watt </a><br> 
+                <a>daya : <?php echo $penyambungansementara->daya ?> Watt </a><br>
                 <a>token :<?php echo $penyambungansementara->token ?> </a>
               </small>
             </td>
             <td>
               <a href="#modaldetailBiaya" data-toggle="modal" data-target="#modaldetailBiaya<?php echo $penyambungansementara->id ?>">Rp <?php echo number_format($penyambungansementara->total, 0) ?><sup></sup></a>
             </td>
-
             <td>
-              <a><?php if ($penyambungansementara->status == 0) {
-                    echo "Belum Disetujui ";
-                  } else if ($penyambungansementara->status == 1) {
-                    echo "Disetujui ";
-                  } ?><sup></sup></a>
+              @if($penyambungansementara->buktid!=null)
+              <img src="{{ asset('public/upload/transaksi/'.$penyambungansementara->buktid) }}" alt="test" class="img-fluid img-thumbnail">
+              <br>
+              <small>
+                tanggal : <?php echo $penyambungansementara->tgld ?> <br>
+                <a href="#modalDetailBayar" data-toggle="modal" data-target="#modalDetailBayar<?php echo $penyambungansementara->id ?>">Detail</a>
+              </small>
+              @endif
             </td>
             <td>
               <div class="btn-group">
@@ -170,6 +177,38 @@
               </div>
             </td>
           </tr>
+
+          <div class="modal fade" id="modalDetailBayar<?php echo $penyambungansementara->id ?>" tabindex="-1" aria-labelledby="modalDetailBayar" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Data Pembayaran </h5>
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form accept-charset="utf-8">
+                    <input type="hidden" name="id" value="{{ $penyambungansementara->id }}">
+                    {{ csrf_field() }}
+                    <div class="column">
+                      <label name="konsumen">Rekening Tujuan : </label>
+                      <br><label> <?php echo $penyambungansementara->noreksplnd ?></label>
+                      <br><label> <?php echo $penyambungansementara->atasnamasplnd ?></label>
+                      <br><label> Cara bayar : <?php echo $penyambungansementara->carabayard ?></label>
+                      <br><label> Tanggal Bayar : <?php echo $penyambungansementara->tglbayard ?></label>
+                      <br><br><label> Pengirim : </label>
+                      <br><label> Nomer Rekening: <?php echo $penyambungansementara->norekd ?></label>
+                      <br><label> a.n : <?php echo $penyambungansementara->namapemilikd ?></label>
+                      <br><label> Bank : <?php echo $penyambungansementara->namabankd ?></label>
+                      <br><label> Keterangan : <?php echo $penyambungansementara->keterangand ?></label>
+                      <br><label> Jumlah yang dibayar : Rp <?php echo number_format($penyambungansementara->jmlpembayarand) ?></label>
+                    </div>
+                  </form>
+                  <!--Modal update data-->
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="modal fade" id="modalDetailID<?php echo $penyambungansementara->id ?>" tabindex="-1" aria-labelledby="modalDetailID" aria-hidden="true">
             <div class="modal-dialog">

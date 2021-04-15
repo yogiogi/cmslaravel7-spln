@@ -6,8 +6,6 @@
 
 use Illuminate\Support\Facades\DB;
 use App\resource_model;
-use Hamcrest\Core\HasToString;
-use SebastianBergmann\Environment\Console;
 
 $site = DB::table('konfigurasi')->first();
 $resource = new resource_model();
@@ -28,11 +26,13 @@ $provinces = $resource->provinsi();
         $("#djknumber").show();
         $("#dayalama").prop('required', true);
         $("#nomer_djk").prop('required', true);
+        document.getElementById('dayalabel').innerHTML = 'Daya Baru (Va)';
       } else {
         $("#lamadaya").hide().prop('required', false);
         $("#djknumber").hide().prop('required', false);
         $("#dayalama").removeAttr('required');
         $("#nomer_djk").removeAttr('required');
+        document.getElementById('dayalabel').innerHTML = 'Daya (Va)';
       }
     });
   });
@@ -198,7 +198,7 @@ $provinces = $resource->provinsi();
             email = document.getElementsByName("email_konsumen")[0];
             instalasi = $('#sifat_instalasi').find(":selected").text();
 
-            // biaya = data.biaya;
+            biaya = data.biaya;
             slo = data.slo;
             gil = data.gil;
 
@@ -221,7 +221,7 @@ $provinces = $resource->provinsi();
 
               if (dayalama != 0) {
                 elements += "<tr align='left'>" +
-                  "<th align='left' width='50%'> Daya Lama </th>" +
+                  "<th align='left' width='50%'> Daya Lama (Va)</th>" +
                   "<th align='left' width='50%'> : " + dayalama + " Watt </th>" +
                   "</tr>"
                 "<tr align='left'>" +
@@ -249,11 +249,15 @@ $provinces = $resource->provinsi();
                 "<th align='left' width='25%'> : Rp " + formatRupiah(gil) + "</th>" +
                 "</tr>" +
                 "<tr align='left'>" +
-                "<th align='left' width='75%'> - PPN (10% * (SLO + GIL)) </th>" +
+                "<th align='left' width='75%'> - Biaya </th>" +
+                "<th align='left' width='25%'> : Rp " + formatRupiah(biaya) + "</th>" +
+                "</tr>" +
+                "<tr align='left'>" +
+                "<th align='left' width='75%'> - PPN (10%) </th>" +
                 "<th align='left' width='25%'> : Rp " + formatRupiah(ppn) + "</th>" +
                 "</tr>" +
                 "<tr align='left'>" +
-                "<th align='left' width='75%'> - PPJ (5% * (SLO + GIL)) </th>" +
+                "<th align='left' width='75%'> - PPJ (5%) </th>" +
                 "<th align='left' width='25%'> : Rp " + formatRupiah(ppj) + "</th>" +
                 "</tr>" +
                 "<tr align='left'>" +
@@ -469,7 +473,7 @@ $provinces = $resource->provinsi();
 
                 <div id="lamadaya" name="lamadaya" class="form-group row" style="display:none">
 
-                  <label class="col-sm-2 control-label text-right">Daya Lama</label>
+                  <label class="col-sm-2 control-label text-right">Daya Lama (Va)</label>
                   <div class="col-md-4">
                     <select name="dayalama" id="dayalama" class="form-control select2">
                       <option value="0">--Pilih Daya--</option>
@@ -488,7 +492,7 @@ $provinces = $resource->provinsi();
 
 
                 <div class="form-group row">
-                  <label class="col-sm-2 control-label text-right">Daya (Va)</label>
+                  <label id="dayalabel" name="dayalabel" class="col-sm-2 control-label text-right">Daya (Va)</label>
                   <div class="col-md-4">
                     <select id="dayabaru" name="dayabaru" class="form-control select2">
                       <option value="0">--Pilih Daya--</option>

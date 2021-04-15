@@ -28,6 +28,8 @@ class instalasi_model extends Model
             ->join('districts', 'districts.id', '=', 'instalasi.kecamatan', 'LEFT')
             ->join('villages', 'villages.id', '=', 'instalasi.desa', 'LEFT')
             ->join('variabel_perhitungan as c', 'c.kode_layanan', '=', 'instalasi.kode_layanan', 'LEFT')
+            ->join('konfirmasi as d', 'd.id_transaksi', '=', 'instalasi.id_transaksi', 'LEFT')
+            ->join('rekening as e', 'e.id_rekening', '=', 'd.id_rekening', 'LEFT')
             ->select(
                 'instalasi.*',
                 'provinces.name as prov',
@@ -43,7 +45,21 @@ class instalasi_model extends Model
                 'c.materai as materaic',
                 'c.ppn as ppnc',
                 'c.ppj as ppjc',
-                'c.biaya as biayac'
+                'c.biaya as biayac',
+
+
+                'e.nomor_rekening as noreksplnd',
+                'e.nama_bank as namabanksplnd',
+                'e.atas_nama as atasnamasplnd',
+                'd.cara_bayar as carabayard',
+                'd.tgl_bayar as tgld',
+                'd.bukti_bayar as buktid',
+                'd.tgl_bayar as tglbayard',
+                'd.jumlah_pembayaran as jmlpembayarand',
+                'd.nama_pemilik_rek as namapemilikd',
+                'd.nama_bank as namabankd',
+                'd.nomor_rekening as norekd',
+                'd.keterangan as keterangand'
             )
             ->orderBy('id', 'DESC')
             ->get();

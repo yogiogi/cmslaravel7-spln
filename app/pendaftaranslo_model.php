@@ -62,16 +62,19 @@ class pendaftaranslo_model extends Model
                 'c.biaya as biayac',
                 'c.slo as sloc',
                 'c.gil as gilc',
+
                 'e.nomor_rekening as noreksplnd',
                 'e.nama_bank as namabanksplnd',
                 'e.atas_nama as atasnamasplnd',
                 'd.cara_bayar as carabayard',
                 'd.tgl_bayar as tgld',
                 'd.bukti_bayar as buktid',
-                'd.jumlah_pembayaran as jumlahd',
+                'd.tgl_bayar as tglbayard',
+                'd.jumlah_pembayaran as jmlpembayarand',
                 'd.nama_pemilik_rek as namapemilikd',
                 'd.nama_bank as namabankd',
-                'd.nomor_rekening as norekd'
+                'd.nomor_rekening as norekd',
+                'd.keterangan as keterangand'
             )
             ->orderBy('id', 'DESC')
             ->get();

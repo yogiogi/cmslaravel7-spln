@@ -47,47 +47,18 @@ class konfirmasi_model extends Model
         return $query;
     }
 
-    public static function getValue($idTransaksi)
+    public static function getValue($idTransaksi, $layanan)
     {
-        $satu = DB::table('pasang_baru')
-            ->select("id_transaksi")
-            ->where('id_transaksi', '=', $idTransaksi);
+        $result = DB::table($layanan)
+            ->select('*')
+            ->where('id_transaksi', $idTransaksi)
+            ->where('status_bayar', 0)
+            ->orderBy('id_transaksi', 'DESC')
+            ->first();
 
-        $dua = DB::table('perubahan_daya')
-            ->select("id_transaksi")
-            ->where('id_transaksi', '=', $idTransaksi);
-
-        $tiga = DB::table('penyambungan_sementara')
-            ->select("id_transaksi")
-            ->where('id_transaksi', '=', $idTransaksi);
-
-        $empat = DB::table('instalasi')
-            ->select("id_transaksi")
-            ->where('id_transaksi', '=', $idTransaksi);
-
-        $lima = DB::table('mcb_box')
-            ->select("id_transaksi")
-            ->where('id_transaksi', '=', $idTransaksi);
-
-        $enam = DB::table('pengaduan_teknis')
-            ->select("id_transaksi")
-            ->where('id_transaksi', '=', $idTransaksi);
-
-        $query = DB::table('pendaftaran_slo')
-            ->select('id_transaksi')
-            ->where('id_transaksi', '=', $idTransaksi)
-            ->union($satu)
-            ->union($dua)
-            ->union($tiga)
-            ->union($empat)
-            ->union($lima)
-            ->union($enam)
-            ->get();
-
-        if (count($query)) {
-            return $query;
-        } else {
-            return "0";
-        }
+        // if ($result == null) {
+        //     $result = "Data tidak ditemukan";
+        // }
+        return $result;
     }
 }

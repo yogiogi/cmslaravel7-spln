@@ -29,6 +29,8 @@ class Penyambungansementara_model extends Model
             ->join('villages', 'villages.id', '=', 'penyambungan_sementara.desa', 'LEFT')
             ->join('produk_layanan', 'produk_layanan.id', '=', 'penyambungan_sementara.sifat_instalasi', 'LEFT')
             ->join('variabel_perhitungan as c', 'c.kode_layanan', '=', 'penyambungan_sementara.kode_layanan', 'LEFT')
+            ->join('konfirmasi as d', 'd.id_transaksi', '=', 'penyambungan_sementara.id_transaksi', 'LEFT')
+            ->join('rekening as e', 'e.id_rekening', '=', 'd.id_rekening', 'LEFT')
             ->select(
                 'penyambungan_sementara.*',
                 'provinces.name as prov',
@@ -38,7 +40,20 @@ class Penyambungansementara_model extends Model
                 'produk_layanan.layanan as jenislayanan',
                 'c.ppn as ppnc',
                 'c.ppj as ppjc',
-                'c.biaya as biayac'
+                'c.biaya as biayac',
+
+                'e.nomor_rekening as noreksplnd',
+                'e.nama_bank as namabanksplnd',
+                'e.atas_nama as atasnamasplnd',
+                'd.cara_bayar as carabayard',
+                'd.tgl_bayar as tgld',
+                'd.bukti_bayar as buktid',
+                'd.tgl_bayar as tglbayard',
+                'd.jumlah_pembayaran as jmlpembayarand',
+                'd.nama_pemilik_rek as namapemilikd',
+                'd.nama_bank as namabankd',
+                'd.nomor_rekening as norekd',
+                'd.keterangan as keterangand'
             )
             ->orderBy('id', 'DESC')
             ->get();

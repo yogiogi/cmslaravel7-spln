@@ -77,7 +77,7 @@ Route::post('/mcbbox/save', 'Mcbbox@save');
 Route::get('pengaduanteknis', 'Home@pengaduanteknis');
 Route::post('/pengaduanteknis/save', 'Pengaduanteknis@save');
 
-Route::post('/konfirmasi_proses', 'konfirmasi@save');
+Route::post('/konfirmasi_proses/save', 'konfirmasi@save');
 // Login
 Route::get('login', 'Login@index');
 Route::post('login/cek', 'Login@cek');

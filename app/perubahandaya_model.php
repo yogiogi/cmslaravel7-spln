@@ -31,7 +31,8 @@ class perubahandaya_model extends Model
             ->join('list_daya as a', 'a.id', '=', 'perubahan_daya.daya_baru', 'LEFT')
             ->join('list_daya as b', 'b.id', '=', 'perubahan_daya.daya_lama', 'LEFT')
             ->join('variabel_perhitungan as c', 'c.kode_layanan', '=', 'perubahan_daya.kode_layanan', 'LEFT')
-            ->select(
+            ->join('konfirmasi as d', 'd.id_transaksi', '=', 'perubahan_daya.id_transaksi', 'LEFT')
+            ->join('rekening as e', 'e.id_rekening', '=', 'd.id_rekening', 'LEFT')->select(
                 'perubahan_daya.*',
                 'provinces.name as prov',
                 'regencies.name as kab',
@@ -44,7 +45,20 @@ class perubahandaya_model extends Model
                 'c.biaya as biayac',
                 'c.slo as sloc',
                 'c.gil as gilc',
-                'c.ujl as ujlc'
+                'c.ujl as ujlc',
+
+                'e.nomor_rekening as noreksplnd',
+                'e.nama_bank as namabanksplnd',
+                'e.atas_nama as atasnamasplnd',
+                'd.cara_bayar as carabayard',
+                'd.tgl_bayar as tgld',
+                'd.bukti_bayar as buktid',
+                'd.tgl_bayar as tglbayard',
+                'd.jumlah_pembayaran as jmlpembayarand',
+                'd.nama_pemilik_rek as namapemilikd',
+                'd.nama_bank as namabankd',
+                'd.nomor_rekening as norekd',
+                'd.keterangan as keterangand'
             )
             ->orderBy('id', 'DESC')
             ->get();

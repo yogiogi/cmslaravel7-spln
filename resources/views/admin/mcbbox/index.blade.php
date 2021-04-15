@@ -42,7 +42,7 @@
           <th width="15%" class="text-center">KONSUMEN</th>
           <th width="10%" class="text-center">MCB BOX</th>
           <th width="5%" class="text-center">TOTAL BIAYA</th>
-          <th width="5%" class="text-center">STATUS</th>
+          <th width="5%" class="text-center">BUKTI PEMBAYARAN</th>
           <th width="5%" class="text-center"></th>
         </tr>
       </thead>
@@ -68,6 +68,11 @@
                 <br>
                 <br>
                 <a href="#modalDetailID" data-toggle="modal" data-target="#modalDetailID<?php echo $mcbbox->id ?>">Detail</a>
+                <br><b><a><?php if ($mcbbox->status == 0) {
+                            echo "Belum Disetujui ";
+                          } else if ($mcbbox->status == 1) {
+                            echo "Disetujui ";
+                          } ?><sup></sup></a></b>
                 <br>tanggal daftar : <?php if ($mcbbox->tgl_permohonan != 0) {
                                         echo date("d/m/Y", strtotime($mcbbox->tgl_permohonan));
                                       } else {
@@ -110,11 +115,14 @@
               <a href="#modaldetailBiaya" data-toggle="modal" data-target="#modaldetailBiaya<?php echo $mcbbox->id ?>">Rp <?php echo number_format($mcbbox->total, 0) ?><sup></sup></a>
             </td>
             <td>
-              <a><?php if ($mcbbox->status == 0) {
-                    echo "Belum Disetujui ";
-                  } else if ($mcbbox->status == 1) {
-                    echo "Disetujui ";
-                  } ?><sup></sup></a>
+              @if($mcbbox->buktid!=null)
+              <img src="{{ asset('public/upload/transaksi/'.$mcbbox->buktid) }}" alt="test" class="img-fluid img-thumbnail">
+              <br>
+              <small>
+                tanggal : <?php echo $mcbbox->tgld ?> <br>
+                <a href="#modalDetailBayar" data-toggle="modal" data-target="#modalDetailBayar<?php echo $mcbbox->id ?>">Detail</a>
+              </small>
+              @endif
             </td>
             <td>
               <div class="btn-group">
@@ -171,6 +179,38 @@
               </div>
             </td>
           </tr>
+
+          <div class="modal fade" id="modalDetailBayar<?php echo $mcbbox->id ?>" tabindex="-1" aria-labelledby="modalDetailBayar" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Data Pembayaran </h5>
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form accept-charset="utf-8">
+                    <input type="hidden" name="id" value="{{ $mcbbox->id }}">
+                    {{ csrf_field() }}
+                    <div class="column">
+                      <label name="konsumen">Rekening Tujuan : </label>
+                      <br><label> <?php echo $mcbbox->noreksplnd ?></label>
+                      <br><label> <?php echo $mcbbox->atasnamasplnd ?></label>
+                      <br><label> Cara bayar : <?php echo $mcbbox->carabayard ?></label>
+                      <br><label> Tanggal Bayar : <?php echo $mcbbox->tglbayard ?></label>
+                      <br><br><label> Pengirim : </label>
+                      <br><label> Nomer Rekening: <?php echo $mcbbox->norekd ?></label>
+                      <br><label> a.n : <?php echo $mcbbox->namapemilikd ?></label>
+                      <br><label> Bank : <?php echo $mcbbox->namabankd ?></label>
+                      <br><label> Keterangan : <?php echo $mcbbox->keterangand ?></label>
+                      <br><label> Jumlah yang dibayar : Rp <?php echo number_format($mcbbox->jmlpembayarand) ?></label>
+                    </div>
+                  </form>
+                  <!--Modal update data-->
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="modal fade" id="modalDetailID<?php echo $mcbbox->id ?>" tabindex="-1" aria-labelledby="modalDetailID" aria-hidden="true">
             <div class="modal-dialog">

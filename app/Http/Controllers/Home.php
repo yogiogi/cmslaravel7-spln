@@ -401,13 +401,13 @@ class Home extends Controller
         $model      = new Rekening_model();
         $rekening   = $model->listing();
 
-        if (isset($_GET['token_transaksi'])) {
-            $token_transaksi = $_GET['token_transaksi'];
-            $model          = new Pemesanan_model();
-            $pemesanan      = $model->token_transaksi($token_transaksi);
-        } else {
-            $pemesanan = '';
-        }
+        // if (isset($_GET['token_transaksi'])) {
+        //     $token_transaksi = $_GET['token_transaksi'];
+        //     $model          = new Pemesanan_model();
+        //     $pemesanan      = $model->token_transaksi($token_transaksi);
+        // } else {
+        //     $pemesanan = '';
+        // }
 
         $data = array(
             'title'     => 'Konfirmasi Pembayaran',
@@ -415,7 +415,7 @@ class Home extends Controller
             'keywords'  => 'Konfirmasi Pembayaran',
             'site'      => $site,
             'rekening'  => $rekening,
-            'pemesanan' => $pemesanan,
+            // 'pemesanan' => $pemesanan,
             'content'   => 'home/konfirmasi'
         );
         return view('layout/wrapper', $data);

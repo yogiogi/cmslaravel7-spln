@@ -148,10 +148,10 @@ class Pendaftaranslo extends Controller
     // $dayanilai = abs($dayalama - $dayabaru);
     // $slo = $slo * $dayanilai;
     // $gil = $gil * $dayanilai;
-    // $jumlah_biaya = $slo + $gil;
-    // $ppn = $ppn * $jumlah_biaya;
-    // $ppj = $ppj * $jumlah_biaya;
-    $total = $biaya + $slo + $gil + $ppn + $ppj + $materai;
+    $jumlah_biaya = $slo + $gil + $biaya;
+    $ppn = $ppn * $jumlah_biaya;
+    $ppj = $ppj * $jumlah_biaya;
+    $total = $ppn + $ppj + $materai;
 
     $data = [
       'biaya' => $biaya,

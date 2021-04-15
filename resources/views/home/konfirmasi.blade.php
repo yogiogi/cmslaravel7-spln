@@ -1,32 +1,43 @@
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
+
+<?php
+
+use Illuminate\Support\Facades\DB;
+
+$site = DB::table('konfigurasi')->first();
+?>
 
 <script>
   $(document).ready(function() {
-    $('#submitGO').on('click', function() {
+    $('#laravel-ajax-file-upload').submit(function(e) {
+      e.preventDefault();
+      var formData = new FormData(this);
       $.ajax({
-        url: '{{ url("/konfirmasi_proses") }}',
+        url: '{{ url("/konfirmasi_proses/save") }}',
         type: "POST",
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: {
-          kode_transaksi: $("#kode_transaksi").val(),
-          id_rekening: $("#id_rekening").val(),
-          cara_bayar: $("#cara_bayar").val(),
-          tanggal_bayar: $("#tanggal_bayar").val(),
-          bukti: $("#bukti").val(),
-          jumlah: $("#jumlah").val(),
-          pengirim: $("#pengirim").val(),
-          nama_bank_pengirim: $("#nama_bank_pengirim").val(),
-          nomor_rekening_pengirim: $("#nomor_rekening_pengirim").val(),
-          keterangan: $("#keterangan").val(),
-        },
-        dataType: 'text',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
         success: function(data) {
           console.log("oke coy");
-          var item = "Bukti pembayaran Anda sudah berhasil di upload, layanan Anda akan segera kami proses";
-          $("#areaValue").html(item);
-          $("#showModal").modal("toggle");
+          console.log(data);
+          if (data == "") {
+            alert('data tidak bisa kosong');
+          } else if (data == "error") {
+            alert('id layanan tidak terdaftar');
+          } else if (data == "sukses") {
+            var item = "Bukti pembayaran Anda sudah berhasil di upload, layanan Anda akan segera kami proses";
+            $("#areaValue").html(item);
+            $("#showModal").modal("toggle");
+          } else {
+            alert('Terjadi kesalahan server');
+          }
         },
         error: function(xhr, status, error) {
           alert('Terjadi kesalahan server');
@@ -61,81 +72,38 @@
               </div>
               @endif
 
-              <form action="{{ asset('konfirmasi_proses') }}" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+              <form method="POST" enctype="multipart/form-data" id="laravel-ajax-file-upload" action="javascript:void(0)">
                 {{ csrf_field() }}
+                <input type="hidden" id="token_rahasia" value="72827582Uduagd86275gbdahgahgfa">
 
-                <?php if ($pemesanan == "") {
-                } else { ?>
-                  <p class="alert alert-info">Berikut adalah detail pemesanan Anda</p>
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th width="25%">Kode Order</th>
-                        <th width="1%">:</th>
-                        <th width="74%"><?php echo $pemesanan->kode_transaksi ?></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Nama Produk</td>
-                        <td>:</td>
-                        <td><?php echo $pemesanan->nama_produk ?></td>
-                      </tr>
-                      <tr>
-                        <td>Quantity</td>
-                        <td>:</td>
-                        <td><?php echo $pemesanan->jumlah_produk ?> Pcs</td>
-                      </tr>
-                      <tr>
-                        <td>Harga Produk</td>
-                        <td>:</td>
-                        <td>Rp <?php echo number_format($pemesanan->harga_produk) ?></td>
-                      </tr>
-                      <tr>
-                        <td>Total</td>
-                        <td>:</td>
-                        <td>Rp <?php echo number_format($pemesanan->total_harga) ?></td>
-                      </tr>
-                      <tr>
-                        <td>Nama Penerima</td>
-                        <td>:</td>
-                        <td><?php echo $pemesanan->nama_pemesan ?></td>
-                      </tr>
-                      <tr>
-                        <td>Telepon/Whatapps</td>
-                        <td>:</td>
-                        <td><?php echo $pemesanan->telepon_pemesan ?></td>
-                      </tr>
-                      <tr>
-                        <td>Email</td>
-                        <td>:</td>
-                        <td><?php echo $pemesanan->email_pemesan ?></td>
-                      </tr>
-                      <tr>
-                        <td>Alamat</td>
-                        <td>:</td>
-                        <td><?php echo nl2br($pemesanan->alamat) ?></td>
-                      </tr>
-
-                    </tbody>
-                  </table>
-
-                <?php } ?>
                 <p class="alert alert-info">
-                  Isi data pembayaran Anda dengan lengkap dan benar.
+                  Isi <?php echo $title ?> Anda dengan lengkap dan benar.
                 </p>
-                <hr>
-
+                <div class="form-group row">
+                  <label class="col-sm-3 control-label">Pilh Layanan</label>
+                  <div class="col-sm-9">
+                    <select name="pilihLayanan" id="pilihLayanan" class="form-control select2" required>
+                      <option value="null"> -- Pilih layanan yang ingin dicek -- </option>
+                      <option value="pendaftaran_slo"> Pendaftaran SLO </option>
+                      <option value="pasang_baru"> Pasang Baru</option>
+                      <option value="perubahan_daya"> Perubahan Daya </option>
+                      <option value="penyambungan_sementara"> Penyambungan Sementara </option>
+                      <option value="instalasi"> Instalasi </option>
+                      <option value="mcb_box"> MCB BOX </option>
+                      <option value="pengaduan_teknis"> Pengaduan Teknis </option>
+                    </select>
+                  </div>
+                </div>
                 <div class="form-group row">
                   <label class="col-sm-3 control-label">ID Transaksi</label>
                   <div class="col-sm-9">
-                    <input type="text" name="kode_transaksi" class="form-control" placeholder="ID transaksi">
+                    <input type="text" name="kode_transaksi" id="kode_transaksi" class="form-control" placeholder="ID transaksi">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-3 control-label">Pilih rekening pembayaran</label>
                   <div class="col-md-9">
-                    <select name="id_rekening" class="form-control select2">
+                    <select name="id_rekening" id="id_rekening" class="form-control select2">
                       <?php foreach ($rekening as $rekening) { ?>
                         <option value="<?php echo $rekening->id_rekening ?>" <?php if (isset($_POST['id_rekening']) && $_POST['id_rekening'] == $rekening->id_rekening) {
                                                                                 echo "selected";
@@ -162,44 +130,44 @@
                 <div class="form-group row">
                   <label class="col-sm-3 control-label">Tanggal bayar</label>
                   <div class="col-sm-9">
-                    <input type="text" name="tanggal_bayar" class="form-control tanggal" placeholder="dd-mm-yyyy" value="">
+                    <input type="text" name="tanggal_bayar" id="tanggal_bayar" class="form-control tanggal" placeholder="dd-mm-yyyy" value="">
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-3 control-label">Upload bukti bayar
+                  <label class="col-sm-3 control-label">Upload buktis bayar
                     <br><small class="text-gray">Format JPG, PNG, GIF. Maksimal 2 MB</small>
                   </label>
                   <div class="col-sm-9">
-                    <input type="file" name="bukti" placeholder="Upload bukti bayar" class="form-control">
+                    <input type="file" name="bukti" id="bukti" placeholder="Upload bukti bayar" class="form-control">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-3 control-label">Jumlah Pembayaran</label>
                   <div class="col-sm-9">
-                    <input type="number" name="jumlah" class="form-control" placeholder="Jumlah" value="">
+                    <input type="number" name="jumlah" id="jumlah" class="form-control" placeholder="Jumlah" value="">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-3 control-label">Nama Pemilik Rekening</label>
                   <div class="col-sm-9">
-                    <input type="text" name="pengirim" class="form-control" placeholder="Nama Pemilik Rekening" value="" required>
+                    <input type="text" name="pengirim" id="pengirim" class="form-control" placeholder="Nama Pemilik Rekening" value="" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-3 control-label">Nama Bank</label>
                   <div class="col-sm-9">
-                    <input type="text" name="nama_bank_pengirim" class="form-control" value="" placeholder="Nama Bank" required>
+                    <input type="text" name="nama_bank_pengirim" id="nama_bank_pengirim" class="form-control" value="" placeholder="Nama Bank" required>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-3 control-label">Nomor Rekening Pembayaran</label>
                   <div class="col-sm-9">
-                    <input type="text" name="nomor_rekening_pengirim" class="form-control" value="" placeholder="Nomor rekening pembayaran" required>
+                    <input type="text" name="nomor_rekening_pengirim" id="nomor_rekening_pengirim" class="form-control" value="" placeholder="Nomor rekening pembayaran" required>
                     <small class="text-gray">Nomor rekening yang digunakan untuk membayar</small>
                   </div>
                 </div>
@@ -207,17 +175,15 @@
                 <div class="form-group row">
                   <label class="col-sm-3 control-label">Keterangan lain</label>
                   <div class="col-sm-9">
-                    <textarea name="keterangan" class="form-control" placeholder="Keterangan"></textarea>
+                    <textarea name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan"></textarea>
                   </div>
                 </div>
-
-
 
                 <div class="form-group row">
                   <label class="col-sm-3 control-label"></label>
                   <div class="col-sm-9">
                     <div class="btn-group">
-                      <button id="submitGO" name="submitGO" type="button" class="btn btn-primary">
+                      <button id="submitGO" name="submitGO" type="submit" class="btn btn-primary">
                         <i class="fa fa-save"></i> Simpan Data
                       </button>
                       <button type="reset" name="submit" class="btn btn-info btn-lg" value="reset">

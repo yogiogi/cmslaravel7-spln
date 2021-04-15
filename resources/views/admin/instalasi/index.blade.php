@@ -68,6 +68,11 @@
                 <br>
                 <br>
                 <a href="#modalDetailID" data-toggle="modal" data-target="#modalDetailID<?php echo $instalasi->id ?>">Detail</a>
+                <br><b> <a><?php if ($instalasi->status == 0) {
+                              echo "Belum Disetujui ";
+                            } else if ($instalasi->status == 1) {
+                              echo "Disetujui ";
+                            } ?><sup></sup></a></b>
                 <br>tanggal daftar : <?php if ($instalasi->tgl_permohonan != 0) {
                                         echo date("d/m/Y", strtotime($instalasi->tgl_permohonan));
                                       } else {
@@ -104,11 +109,14 @@
               <a href="#modaldetailBiaya" data-toggle="modal" data-target="#modaldetailBiaya<?php echo $instalasi->id ?>">Rp <?php echo number_format($instalasi->total, 0) ?><sup></sup></a>
             </td>
             <td>
-              <a><?php if ($instalasi->status == 0) {
-                    echo "Belum Disetujui ";
-                  } else if ($instalasi->status == 1) {
-                    echo "Disetujui ";
-                  } ?><sup></sup></a>
+              @if($instalasi->buktid!=null)
+              <img src="{{ asset('public/upload/transaksi/'.$instalasi->buktid) }}" alt="test" class="img-fluid img-thumbnail">
+              <br>
+              <small>
+                tanggal : <?php echo $instalasi->tgld ?> <br>
+                <a href="#modalDetailBayar" data-toggle="modal" data-target="#modalDetailBayar<?php echo $instalasi->id ?>">Detail</a>
+              </small>
+              @endif
             </td>
             <td>
               <div class="btn-group">
@@ -166,6 +174,37 @@
             </td>
           </tr>
 
+          <div class="modal fade" id="modalDetailBayar<?php echo $instalasi->id ?>" tabindex="-1" aria-labelledby="modalDetailBayar" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Data Pembayaran </h5>
+                </div>
+
+                <div class="modal-body">
+                  <!--Modal update data-->
+                  <form accept-charset="utf-8">
+                    <input type="hidden" name="id" value="{{ $instalasi->id }}">
+                    {{ csrf_field() }}
+                    <div class="column">
+                      <label name="konsumen">Rekening Tujuan : </label>
+                      <br><label> <?php echo $instalasi->noreksplnd ?></label>
+                      <br><label> <?php echo $instalasi->atasnamasplnd ?></label>
+                      <br><label> Cara bayar : <?php echo $instalasi->carabayard ?></label>
+                      <br><label> Tanggal Bayar : <?php echo $instalasi->tglbayard ?></label>
+                      <br><br><label> Pengirim : </label>
+                      <br><label> Nomer Rekening: <?php echo $instalasi->norekd ?></label>
+                      <br><label> a.n : <?php echo $instalasi->namapemilikd ?></label>
+                      <br><label> Bank : <?php echo $instalasi->namabankd ?></label>
+                      <br><label> Keterangan : <?php echo $instalasi->keterangand ?></label>
+                      <br><label> Jumlah yang dibayar : Rp <?php echo number_format($instalasi->jmlpembayarand) ?></label>
+                    </div>
+                  </form>
+                  <!--Modal update data-->
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="modal fade" id="modalDetailID<?php echo $instalasi->id ?>" tabindex="-1" aria-labelledby="modalDetailID" aria-hidden="true">
             <div class="modal-dialog">

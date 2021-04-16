@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Session;
 
 use App\pendaftaranslo_model;
 use App\resource_model;
-use SebastianBergmann\Environment\Console;
 
 class Pendaftaranslo extends Controller
 {

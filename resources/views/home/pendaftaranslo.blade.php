@@ -11,7 +11,6 @@ $site = DB::table('konfigurasi')->first();
 $resource = new resource_model();
 $getNilaiVar = $resource->nilaiSLO();
 $instalasi = $resource->sifat_instalasi();
-$daya      = $resource->daya();
 $provinces = $resource->provinsi();
 ?>
 

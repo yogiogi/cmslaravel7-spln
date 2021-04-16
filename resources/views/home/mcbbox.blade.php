@@ -10,7 +10,6 @@ use App\resource_model;
 $site = DB::table('konfigurasi')->first();
 $resource = new resource_model();
 $instalasi = $resource->sifat_instalasi();
-// $daya      = $resource->daya();
 
 $provinces = $resource->provinsi();
 $token     = $resource->token();

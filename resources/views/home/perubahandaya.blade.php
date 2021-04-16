@@ -8,7 +8,6 @@ use App\resource_model;
 
 $resource = new resource_model();
 $layanan = $resource->layananUbah();
-// $getNilaiVar = $resource->nilaiVar('var_pendaftaran_slo');
 $nilaipascapascavar = $resource->nilaiUbahPascaPasca();
 $nilaiprapascavar = $resource->nilaiUbahPraPasca();
 $nilaiprapravar = $resource->nilaiUbahPraPra();

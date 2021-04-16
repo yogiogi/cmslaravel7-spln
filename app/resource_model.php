@@ -218,28 +218,11 @@ class resource_model extends Model
         return $query;
     }
 
-
-    // function getNilaiVar($table)
-    // {
-    //     $query = DB::table('var_pendaftaran_slo')
-    //         ->select('var_pendaftaran_slo.*')
-    //         ->first();
-    //     return $query;
-    // }
-
-    // public function nilaiVar($table)
-    // {
-    //     $query = DB::table('var_pendaftaran_slo')
-    //         ->select('id', 'daya')
-    //         ->first();
-    //     return $query;
-    // }
-
-
     public function nilaiSLO()
     {
         $query = DB::table('var_pendaftaran_slo')
             ->select('id', 'daya', 'slo', 'gil', 'ujl', 'materai', 'biaya', 'PPN', 'PPJ')
+            ->orderBy('daya', 'ASC')
             ->get();
         return $query;
     }

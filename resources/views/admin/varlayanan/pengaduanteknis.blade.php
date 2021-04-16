@@ -189,33 +189,33 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Daya : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbdaya" name="tbdaya" value="">
+                            <input type="number" class="form-control" id="tbdaya" name="tbdaya" value="0">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">SLO : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbslo" name="tbslo" value="">
+                            <input type="number" class="form-control" id="tbslo" name="tbslo" value="0">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">GIL : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbgil" name="tbgil" value="">
+                            <input type="number" class="form-control" id="tbgil" name="tbgil" value="0">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">UJL : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbujl" name="tbujl" value="">
+                            <input type="number" class="form-control" id="tbujl" name="tbujl" value="0">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Materai : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbmaterai" name="tbmaterai" value="">
+                            <input type="number" class="form-control" id="tbmaterai" name="tbmaterai" value="0">
                         </div>
                     </div>
 
@@ -223,20 +223,20 @@
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">Biaya : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbbiaya" name="tbbiaya" value="">
+                            <input type="number" class="form-control" id="tbbiaya" name="tbbiaya" value="0">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPN : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbppn" name="tbppn" value="">
+                            <input type="number" class="form-control" id="tbppn" name="tbppn" value="0">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 control-label text-right" for="">PPJ : </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="tbppj" name="tbppj" value="">
+                            <input type="number" class="form-control" id="tbppj" name="tbppj" value="0">
                         </div>
                     </div>
 
